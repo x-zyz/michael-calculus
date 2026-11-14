@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tsbuildinfo
+playwright-report/
+test-results/
+.env*
+!.env.example
+*.jks
+*.keystore
+*.apk
+*.aab
+signing.properties
