@@ -123,6 +123,63 @@ export const lessons: Lesson[] = [
     takeaway:
       "导数是差商的极限：先在 h ≠ 0 下化简割线斜率，再取 h → 0 的极限得到切线斜率。",
   },
+  {
+    id: "rules",
+    chapter: 2,
+    title: "基本求导法则与初等函数导数",
+    intuition:
+      "每次都回到差商定义求极限会很繁琐。先对幂函数、三角函数、指数与对数函数建立基本导数公式，再配合和、差、积、商求导法则，就能像搭积木一样求常见初等函数的导数。注意乘积求导不是导数直接相乘，而是两项变化率的叠加。",
+    definition: String.raw`\begin{gathered}(x^\alpha)'=\alpha x^{\alpha-1},\;(e^x)'=e^x\\[4pt](\ln x)'=\tfrac1x,\;(\sin x)'=\cos x\\[4pt](\cos x)'=-\sin x\\[4pt](uv)'=u'v+uv'\\[4pt]\left(\frac uv\right)'=\frac{u'v-uv'}{v^2}\end{gathered}`,
+    condition:
+      "参与运算的函数 u(x)、v(x) 在该点均可导，商的求导法则还要求分母 v(x) ≠ 0。线性组合 (au + bv)' = au' + bv' 可直接逐项求导，但乘积与商必须使用对应法则，不能把因子各自求导后直接相乘或相除。",
+    example: String.raw`\begin{gathered}f(x)=x\ln x\\[4pt]f'(1)=1\end{gathered}`,
+    steps: [
+      "识别结构：f(x) = x ln x 是两个可导函数 u = x 与 v = ln x（x > 0）的乘积。",
+      "应用乘积求导法则：f'(x) = u'v + uv' = (x)' · ln x + x · (ln x)'。",
+      "代入基本导数公式：(x)' = 1，(ln x)' = 1/x，故 f'(x) = ln x + x · (1/x) = ln x + 1。",
+      "代入 x = 1，由 ln 1 = 0 得 f'(1) = 0 + 1 = 1。",
+    ],
+    takeaway:
+      "乘积求导口诀是「前导后不导 + 前不导后导」，切勿误写成 (uv)' = u'v'。",
+  },
+  {
+    id: "chain",
+    chapter: 2,
+    title: "复合函数求导（链式法则）",
+    intuition:
+      "若因变量 y 随中间变量 u 的变化率是 2 倍，而 u 随自变量 x 的变化率是 3 倍，那么 x 每变化一点点，y 的变化率就会通过链条放大为 2 × 3 = 6 倍。复合函数求导就是由外层向内层逐层求导，再把各层变化率相乘。",
+    definition: String.raw`\begin{gathered}y=f(g(x)),\;u=g(x)\\[4pt]\frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}=f'(g(x))g'(x)\end{gathered}`,
+    condition:
+      "若内层函数 u = g(x) 在点 x 可导，且外层函数 y = f(u) 在对应点 u = g(x) 可导，则复合函数 y = f(g(x)) 在点 x 可导。对外层求导时要保持内层表达式 g(x) 整体不变，最后再乘以内层导数 g'(x)。",
+    example: String.raw`\begin{gathered}f(x)=(2x+1)^3\\[4pt]f'(0)=6\end{gathered}`,
+    steps: [
+      "拆解复合层次：令内层 u = g(x) = 2x + 1，外层为幂函数 y = u³。",
+      "先对外层关于 u 求导：dy/du = 3u² = 3(2x + 1)²。",
+      "再求内层关于 x 的导数：du/dx = (2x + 1)' = 2，相乘得 f'(x) = 6(2x + 1)²。",
+      "代入 x = 0，得 f'(0) = 6 × 1² = 6。",
+    ],
+    takeaway:
+      "链式法则由外向内逐层剥开，最常见的失误是只对外层求导而漏乘内层导数 g'(x)。",
+  },
+  {
+    id: "differential",
+    chapter: 2,
+    title: "微分的概念与线性近似",
+    intuition:
+      "光滑曲线在切点附近局部放大看几乎是一条直线（切线）。当自变量发生微小改变 Δx 时，曲线的真实高度增量 Δy 可能不易直接计算，但沿着切线走出的高度增量 dy = f'(x₀)Δx 只是一次函数。当 |Δx| → 0 时，切线近似与真实增量的误差比 Δx 更快地趋近于 0。",
+    definition: String.raw`\begin{gathered}dy=f'(x_0)\Delta x=f'(x_0)dx\\[4pt]\Delta y=f(x_0+\Delta x)-f(x_0)\\[4pt]\Delta y=dy+o(\Delta x)\end{gathered}`,
+    condition:
+      "一元函数在点 x₀ 可微与可导等价。微分 dy 是真实增量 Δy 的线性主部；线性近似公式 f(x₀ + Δx) ≈ f(x₀) + f'(x₀)Δx 仅在 |Δx| 很小时精度较高，步长较大时高阶项不可忽略。",
+    example: String.raw`\begin{gathered}f(x)=x^2,\;x_0=2,\;\Delta x=0.1\\[4pt]dy=f'(2)\Delta x=0.4\end{gathered}`,
+    steps: [
+      "求基准点导数：由 f(x) = x² 得 f'(x) = 2x，在 x₀ = 2 处切线斜率 f'(2) = 4。",
+      "计算微分（切线增量）：dy = f'(2)Δx = 4 × 0.1 = 0.4。",
+      "对比真实增量：Δy = 2.1² − 2² = 4.41 − 4 = 0.41。",
+      "观察误差：|Δy − dy| = 0.01 = (Δx)²，当 Δx → 0 时是比 Δx 更高阶的无穷小。",
+    ],
+    takeaway:
+      "微分 dy 是切线高度增量，真实增量 Δy 是曲线高度增量；两者的差是 Δx 的高阶无穷小 o(Δx)。",
+  },
 ];
 export interface Problem {
   id: string;
@@ -335,7 +392,159 @@ export const problems: Problem[] = [
     errorTag: "derivative_definition",
     errorLabel: "导数定义与差商化简",
   },
+  {
+    id: "p13",
+    lessonId: "rules",
+    title: "多项式与幂函数求导",
+    formula: String.raw`\begin{gathered}f(x)=x^3-4x+2\\[4pt]f'(2)=\,?\end{gathered}`,
+    answer: 8,
+    unit: "请输入导数值的数值或分数",
+    hints: [
+      "利用和差求导法则逐项求导，常数项 2 的导数为 0。",
+      "由幂函数求导公式得 (x³)' = 3x²，(−4x)' = −4。",
+      "f'(x) = 3x² − 4，代入 x = 2 得 3 × 4 − 4 = 8。",
+    ],
+    explanation: "逐项求导得 f'(x) = 3x² − 4，代入 x = 2 得 f'(2) = 12 − 4 = 8。",
+    errorTag: "derivative_rules",
+    errorLabel: "基本求导法则与乘积商法则",
+  },
+  {
+    id: "p14",
+    lessonId: "rules",
+    title: "乘积求导法则应用",
+    formula: String.raw`\begin{gathered}f(x)=x\ln x\\[4pt]f'(1)=\,?\end{gathered}`,
+    answer: 1,
+    unit: "请输入导数值的数值或分数",
+    hints: [
+      "f(x) 是 u = x 与 v = ln x 的乘积，使用 (uv)' = u'v + uv'。",
+      "(x)' = 1，(ln x)' = 1/x，故 f'(x) = ln x + x · (1/x) = ln x + 1。",
+      "代入 x = 1，由 ln 1 = 0 得 f'(1) = 0 + 1 = 1。",
+    ],
+    explanation:
+      "由乘积求导法则得 f'(x) = ln x + 1，代入 x = 1 得 f'(1) = 1。切勿误算为 (x)' · (ln x)'。",
+    errorTag: "derivative_rules",
+    errorLabel: "基本求导法则与乘积商法则",
+  },
+  {
+    id: "p15",
+    lessonId: "chain",
+    title: "复合幂函数的链式求导",
+    formula: String.raw`\begin{gathered}f(x)=(2x+1)^3\\[4pt]f'(0)=\,?\end{gathered}`,
+    answer: 6,
+    unit: "请输入导数值的数值或分数",
+    hints: [
+      "设内层函数 u = 2x + 1，外层函数为 u³。",
+      "外层对 u 求导得 3u² = 3(2x + 1)²，再乘以内层导数 u' = 2。",
+      "f'(x) = 6(2x + 1)²，代入 x = 0 得 6 × 1² = 6。",
+    ],
+    explanation:
+      "由链式法则 f'(x) = 3(2x + 1)² · 2 = 6(2x + 1)²，在 x = 0 处导数为 6（漏乘内层导数 2 会误得 3）。",
+    errorTag: "chain_rule",
+    errorLabel: "复合函数链式法则",
+  },
+  {
+    id: "p16",
+    lessonId: "chain",
+    title: "复合对数函数的导数",
+    formula: String.raw`\begin{gathered}f(x)=\ln(3x+1)\\[4pt]f'(1)=\,?\end{gathered}`,
+    answer: 3 / 4,
+    unit: "请输入数值或分数",
+    hints: [
+      "令内层 u = 3x + 1，外层为 ln u，外层导数为 1/u。",
+      "乘以内层导数 u' = 3，得 f'(x) = 3 / (3x + 1)。",
+      "代入 x = 1，得 f'(1) = 3 / (3 + 1) = 3/4。",
+    ],
+    explanation:
+      "由链式法则得 f'(x) = 3 / (3x + 1)，代入 x = 1 得 3/4（即 0.75）。",
+    errorTag: "chain_rule",
+    errorLabel: "复合函数链式法则",
+  },
+  {
+    id: "p17",
+    lessonId: "differential",
+    title: "计算函数的微分 dy",
+    formula: String.raw`\begin{gathered}f(x)=x^2,\;x_0=2,\;\Delta x=0.1\\[4pt]\left.dy\right|_{x=2}=\,?\end{gathered}`,
+    answer: 0.4,
+    unit: "请输入微分 dy 的数值或分数",
+    hints: [
+      "微分定义为 dy = f'(x₀)Δx，表示切线高度增量。",
+      "由 f(x) = x² 得 f'(x) = 2x，在 x₀ = 2 处 f'(2) = 4。",
+      "代入 Δx = 0.1，得 dy = 4 × 0.1 = 0.4（即 2/5）。",
+    ],
+    explanation:
+      "f'(2) = 4，故微分 dy = f'(2)Δx = 4 × 0.1 = 0.4（真实增量 Δy = 0.41，仅相差 0.01）。",
+    errorTag: "linear_approximation",
+    errorLabel: "微分与线性近似",
+  },
+  {
+    id: "p18",
+    lessonId: "differential",
+    title: "用微分作根式线性近似",
+    formula: String.raw`\begin{gathered}f(x)=\sqrt{x},\;x_0=4,\;\Delta x=0.04\\[4pt]f(4)+f'(4)\Delta x=\,?\end{gathered}`,
+    answer: 2.01,
+    unit: "请输入线性近似值的数值或分数",
+    hints: [
+      "线性近似公式为 f(x₀ + Δx) ≈ f(x₀) + f'(x₀)Δx。",
+      "f(4) = 2，且 f'(x) = 1 / (2√x)，故 f'(4) = 1/4 = 0.25。",
+      "切线增量 dy = 0.25 × 0.04 = 0.01，近似值为 2 + 0.01 = 2.01。",
+    ],
+    explanation:
+      "f(4) = 2，f'(4) = 1/4，线性近似值为 2 + (1/4) × 0.04 = 2.01（即 201/100）。",
+    errorTag: "linear_approximation",
+    errorLabel: "微分与线性近似",
+  },
 ];
+export const chapters = [
+  {
+    id: 1 as const,
+    title: "第一章 · 函数、极限与连续",
+    short: "第一章：极限与连续",
+  },
+  {
+    id: 2 as const,
+    title: "第二章 · 导数与微分",
+    short: "第二章：导数与微分",
+  },
+];
+export const errorTags = Array.from(
+  new Map(
+    problems.map((p) => {
+      const chapter = lessons.find((l) => l.id === p.lessonId)?.chapter ?? 1;
+      return [p.errorTag, { tag: p.errorTag, label: p.errorLabel, chapter }];
+    }),
+  ).values(),
+);
+export function computeMastery(
+  attempts: { problemId: string; correct: boolean }[],
+) {
+  const latest = new Map<string, boolean>();
+  for (const a of attempts) latest.set(a.problemId, a.correct);
+  const summarize = (list: Problem[]) => {
+    const mastered = list.filter((p) => latest.get(p.id) === true).length;
+    const pending = list.filter((p) => latest.get(p.id) === false).length;
+    return {
+      total: list.length,
+      mastered,
+      pending,
+      rate: list.length ? Math.round((mastered / list.length) * 100) : 0,
+    };
+  };
+  return {
+    chapters: chapters.map((c) => {
+      const lessonIds = new Set(
+        lessons.filter((l) => l.chapter === c.id).map((l) => l.id),
+      );
+      return {
+        ...c,
+        ...summarize(problems.filter((p) => lessonIds.has(p.lessonId))),
+      };
+    }),
+    tags: errorTags.map((t) => ({
+      ...t,
+      ...summarize(problems.filter((p) => p.errorTag === t.tag)),
+    })),
+  };
+}
 export function parseAnswer(raw: string): number | null {
   const s = raw.trim().replaceAll("−", "-").replaceAll("／", "/");
   const n = "[+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+)";
@@ -389,7 +598,13 @@ export function experimentValue(
   }
   return x < 0 ? 0 : 1;
 }
-export type SecantKind = "square" | "cubic" | "sqrt";
+export type SecantKind = "square" | "cubic" | "sqrt" | "chain";
+export const lessonSecant: Record<string, SecantKind> = {
+  derivative: "square",
+  rules: "cubic",
+  chain: "chain",
+  differential: "sqrt",
+};
 export const secantModels: Record<
   SecantKind,
   {
@@ -425,11 +640,42 @@ export const secantModels: Record<
     range: [0, 2.4, 0, 1.8],
     fn: (x) => Math.sqrt(x),
   },
+  chain: {
+    label: "复合函数：f(x) = (2x − 1)²（在 x₀ = 1 处）",
+    x0: 1,
+    y0: 1,
+    derivative: 4,
+    range: [0.2, 1.9, -0.2, 5.2],
+    fn: (x) => (2 * x - 1) * (2 * x - 1),
+  },
 };
 /** Difference quotient [f(x0 + h) - f(x0)] / h; undefined (null) at h = 0. */
 export function secantSlope(kind: SecantKind, h: number): number | null {
   if (h === 0) return null;
   const m = secantModels[kind];
-  if (m.x0 + h < 0 && kind === "sqrt") return null;
+  if (!m || (m.x0 + h < 0 && kind === "sqrt")) return null;
   return (m.fn(m.x0 + h) - m.y0) / h;
+}
+export interface LinearApproxResult {
+  dy: number;
+  deltaY: number;
+  error: number;
+  errorRatio: number | null;
+}
+/** Differential linear approximation dy = f'(x0)h vs true increment deltaY. */
+export function linearApprox(
+  kind: SecantKind,
+  h: number,
+): LinearApproxResult | null {
+  const m = secantModels[kind];
+  if (!m || (m.x0 + h < 0 && kind === "sqrt")) return null;
+  const dy = m.derivative * h;
+  const deltaY = m.fn(m.x0 + h) - m.y0;
+  const error = Math.abs(deltaY - dy);
+  return {
+    dy,
+    deltaY,
+    error,
+    errorRatio: h === 0 ? null : error / Math.abs(h),
+  };
 }

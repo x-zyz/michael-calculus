@@ -3,12 +3,17 @@ import { Link, useSearchParams } from "react-router-dom";
 import {
   lessons,
   problems,
+  chapters,
+  errorTags,
+  computeMastery,
   checkAnswer,
   experimentValue,
   experimentLimits,
   lessonExperiment,
+  lessonSecant,
   secantModels,
   secantSlope,
+  linearApprox,
   type ExperimentKind,
   type SecantKind,
 } from "../../data/learning";
@@ -216,8 +221,12 @@ export function Experiment({
   );
 }
 
-export function SecantExperiment() {
-  const [kind, setKind] = useState<SecantKind>("square");
+export function SecantExperiment({
+  initialKind = "square",
+}: {
+  initialKind?: SecantKind;
+}) {
+  const [kind, setKind] = useState<SecantKind>(initialKind);
   const [side, setSide] = useState<"right" | "left">("right");
   const [distance, setDistance] = useState(8);
   const model = secantModels[kind];
@@ -226,6 +235,7 @@ export function SecantExperiment() {
   const x1 = model.x0 + h;
   const y1 = model.fn(x1);
   const slope = secantSlope(kind, h)!;
+  const approx = linearApprox(kind, h)!;
   const [xmin, xmax, ymin, ymax] = model.range;
   const px = (x: number) => 45 + ((x - xmin) / (xmax - xmin)) * 430,
     py = (y: number) => 225 - ((y - ymin) / (ymax - ymin)) * 200;
@@ -305,6 +315,14 @@ export function SecantExperiment() {
           strokeDasharray="3 3"
         />
         <circle cx={px(model.x0)} cy={py(model.y0)} r="5.5" fill="#839fba" />
+        <circle
+          cx={px(x1)}
+          cy={py(tangentY(x1))}
+          r="5"
+          fill="var(--surface)"
+          stroke="currentColor"
+          strokeWidth="2"
+        />
         <circle cx={px(x1)} cy={py(y1)} r="6" fill="#d08b57" />
         <text
           x={px(model.x0)}
@@ -355,10 +373,21 @@ export function SecantExperiment() {
             {fmt(Math.abs(slope - model.derivative))}
           </small>
         </div>
+        <div data-testid="linear-approx">
+          微分线性近似 dy = f&apos;(x₀)h = {fmt(approx.dy)}
+          <strong>
+            真实增量 Δy = {fmt(approx.deltaY)}（误差 |Δy − dy| ={" "}
+            {fmt(approx.error)}）
+          </strong>
+          <small>
+            高阶误差比 |Δy − dy| / |h| = {fmt(approx.errorRatio!)}（随 |h| → 0
+            趋近 0）
+          </small>
+        </div>
       </div>
       <p>
         当 h 从{side === "right" ? "右侧" : "左侧"}趋近 0 时，割线斜率逐渐逼近切线斜率{" "}
-        {model.derivative}。在 h = 0 处差商为 0/0 型未定义。
+        {model.derivative}，同时切线线性近似 dy 与真实增量 Δy 的误差比 |h| 更快地趋近 0。在 h = 0 处差商为 0/0 型未定义。
       </p>
       <p className="learning-note">
         图形和有限次采样用于观察，不代替数学证明。
@@ -379,7 +408,7 @@ export function CoursePage() {
     <div className="page learning-page">
       <h1>课程中心</h1>
       <p>
-        第一章 · 函数、极限与连续（5 节）｜第二章 · 导数与微分（1 节） · 已学{" "}
+        第一章 · 函数、极限与连续（5 节）｜第二章 · 导数与微分（4 节） · 已学{" "}
         {state.completed.length} / {lessons.length}
       </p>
       <div className="lesson-picker">
@@ -484,8 +513,11 @@ export function CoursePage() {
       </section>
       {tab === "实验" && (
         <>
-          {lesson.id === "derivative" ? (
-            <SecantExperiment />
+          {lesson.chapter === 2 ? (
+            <SecantExperiment
+              key={lesson.id}
+              initialKind={lessonSecant[lesson.id] ?? "square"}
+            />
           ) : (
             <Experiment
               key={lesson.id}
@@ -516,10 +548,21 @@ export function ExperimentsPage() {
   );
 }
 export function PracticePage() {
+  const { state } = useLearning();
   const [query] = useSearchParams();
-  const filtered = problems.filter(
-    (p) => !query.get("lesson") || p.lessonId === query.get("lesson"),
-  );
+  const [chapter, setChapter] = useState<0 | 1 | 2>(() => {
+    const c = Number(query.get("chapter"));
+    return c === 1 || c === 2 ? c : 0;
+  });
+  const [tag, setTag] = useState(() => query.get("tag") || "");
+  const mastery = computeMastery(state.attempts);
+  const filtered = problems.filter((p) => {
+    if (query.get("lesson") && p.lessonId !== query.get("lesson")) return false;
+    const l = lessons.find((x) => x.id === p.lessonId);
+    if (chapter && l?.chapter !== chapter) return false;
+    if (tag && p.errorTag !== tag) return false;
+    return true;
+  });
   const list = filtered.length ? filtered : problems;
   const initial = Math.max(
     0,
@@ -532,7 +575,59 @@ export function PracticePage() {
         目前开放 {list.length}{" "}
         道预设基础题。只检查最终数值答案，不判断任意推导过程。
       </p>
-      <PracticeSet key={query.toString()} list={list} initial={initial} />
+      <section className="learning-card" data-testid="chapter-mastery">
+        <h2>章节与考点筛选</h2>
+        <div className="experiment-values">
+          {mastery.chapters.map((c) => (
+            <div key={c.id}>
+              {c.title}
+              <strong>
+                已掌握 {c.mastered} / {c.total} 题（{c.rate}%）
+              </strong>
+              <small>待复习错题 {c.pending} 题</small>
+            </div>
+          ))}
+        </div>
+        <div className="lesson-picker" role="group" aria-label="按章节筛选">
+          <button
+            type="button"
+            aria-pressed={chapter === 0}
+            onClick={() => setChapter(0)}
+          >
+            全部章节
+          </button>
+          {chapters.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              aria-pressed={chapter === c.id}
+              onClick={() => setChapter(c.id)}
+            >
+              {c.short}
+            </button>
+          ))}
+        </div>
+        <label>
+          错因考点专项
+          <select
+            aria-label="按错因标签筛选"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+          >
+            <option value="">全部错因考点</option>
+            {errorTags.map((t) => (
+              <option key={t.tag} value={t.tag}>
+                {t.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </section>
+      <PracticeSet
+        key={`${query.toString()}-${chapter}-${tag}`}
+        list={list}
+        initial={initial}
+      />
     </div>
   );
 }
@@ -661,9 +756,18 @@ function Question({ problem: p }: { problem: (typeof problems)[number] }) {
 }
 export function ReviewPage() {
   const { state } = useLearning();
+  const [chapter, setChapter] = useState<0 | 1 | 2>(0);
+  const [tag, setTag] = useState("");
+  const mastery = computeMastery(state.attempts);
   const wrong = problems.filter((p) => {
     const a = state.attempts.filter((a) => a.problemId === p.id);
     return a.length && !a[a.length - 1].correct;
+  });
+  const filteredWrong = wrong.filter((p) => {
+    const l = lessons.find((x) => x.id === p.lessonId);
+    if (chapter && l?.chapter !== chapter) return false;
+    if (tag && p.errorTag !== tag) return false;
+    return true;
   });
   const correct = state.attempts.filter((a) => a.correct).length;
   return (
@@ -673,17 +777,65 @@ export function ReviewPage() {
         累计作答 {state.attempts.length} 次 · 答对 {correct} 次 · 待复习{" "}
         {wrong.length} 题
       </p>
+      <section className="learning-card" data-testid="review-mastery">
+        <h2>章节与考点掌握度诊断</h2>
+        <div className="experiment-values">
+          {mastery.chapters.map((c) => (
+            <div key={c.id}>
+              {c.title}
+              <strong>
+                已掌握 {c.mastered} / {c.total} 题（{c.rate}%）
+              </strong>
+              <small>待复习错题 {c.pending} 题</small>
+            </div>
+          ))}
+        </div>
+        <div className="lesson-picker" role="group" aria-label="错题章节筛选">
+          <button
+            type="button"
+            aria-pressed={chapter === 0}
+            onClick={() => setChapter(0)}
+          >
+            全部章节
+          </button>
+          {chapters.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              aria-pressed={chapter === c.id}
+              onClick={() => setChapter(c.id)}
+            >
+              {c.short}
+            </button>
+          ))}
+        </div>
+        <label>
+          错因分类筛选
+          <select
+            aria-label="筛选错因分类"
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
+          >
+            <option value="">全部错因分类</option>
+            {mastery.tags.map((t) => (
+              <option key={t.tag} value={t.tag}>
+                {t.label}（已掌握 {t.mastered}/{t.total} · 待复习 {t.pending}）
+              </option>
+            ))}
+          </select>
+        </label>
+      </section>
       <section className="learning-card">
         <h2>待复习错题</h2>
         <p>
           按每道题最近一次作答整理；重新答对后会从待复习中移出，历史记录保留。
         </p>
-        {wrong.length === 0 ? (
+        {filteredWrong.length === 0 ? (
           <p>
             目前没有待复习错题。<Link to="/practice">去做几道题 →</Link>
           </p>
         ) : (
-          wrong.map((p) => (
+          filteredWrong.map((p) => (
             <article key={p.id} className="review-row">
               <h3>{p.title}</h3>
               <p>{p.errorLabel}</p>

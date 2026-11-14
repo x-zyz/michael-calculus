@@ -4,7 +4,11 @@ import { MemoryRouter } from "react-router-dom";
 import App from "../app/App";
 import {
   checkAnswer,
+  computeMastery,
   experimentValue,
+  lessons,
+  linearApprox,
+  problems,
   secantSlope,
 } from "../data/learning";
 import { learningKey } from "../db/learning";
@@ -47,8 +51,32 @@ describe("limit and derivative learning", () => {
     expect(secantSlope("square", -0.001)).toBeCloseTo(1.999, 6);
     expect(secantSlope("cubic", 0.0001)).toBeCloseTo(2, 3);
     expect(secantSlope("sqrt", 0.0001)).toBeCloseTo(0.5, 4);
+    expect(secantSlope("chain", 0)).toBe(null);
+    expect(secantSlope("chain", 0.0001)).toBeCloseTo(4, 3);
   });
-  it("links each lesson to its matching experiment including secant/tangent for derivative", () => {
+  it("computes differential linear approximation dy and higher-order error o(h)", () => {
+    expect(linearApprox("square", 0)?.errorRatio).toBe(null);
+    expect(linearApprox("sqrt", -2)).toBe(null);
+    const coarse = linearApprox("square", 0.1)!;
+    const fine = linearApprox("square", 0.01)!;
+    expect(coarse.dy).toBeCloseTo(0.2, 6);
+    expect(coarse.deltaY).toBeCloseTo(0.21, 6);
+    expect(coarse.error).toBeCloseTo(0.01, 6);
+    expect(coarse.errorRatio).toBeCloseTo(0.1, 6);
+    expect(fine.errorRatio!).toBeLessThan(coarse.errorRatio! / 5);
+  });
+  it("provides all 9 lessons across chapters 1 and 2 and 18 practice problems", () => {
+    expect(lessons).toHaveLength(9);
+    expect(lessons.filter((l) => l.chapter === 1)).toHaveLength(5);
+    expect(lessons.filter((l) => l.chapter === 2).map((l) => l.id)).toEqual([
+      "derivative",
+      "rules",
+      "chain",
+      "differential",
+    ]);
+    expect(problems).toHaveLength(18);
+  });
+  it("links each lesson to its matching experiment including secant/tangent and linear approx for chapter 2", () => {
     const v = mount("/curriculum?lesson=euler");
     fireEvent.click(screen.getByRole("tab", { name: "实验" }));
     expect(screen.getByLabelText("选择实验函数")).toHaveValue("euler");
@@ -63,7 +91,77 @@ describe("limit and derivative learning", () => {
     expect(screen.getByTestId("secant-slope")).toHaveTextContent(
       "割线斜率 Δy / h =",
     );
+    expect(screen.getByTestId("linear-approx")).toHaveTextContent(
+      "微分线性近似 dy =",
+    );
     v2.unmount();
+
+    const v3 = mount("/curriculum?lesson=chain");
+    fireEvent.click(screen.getByRole("tab", { name: "实验" }));
+    expect(screen.getByLabelText("选择导数实验函数")).toHaveValue("chain");
+    v3.unmount();
+  });
+  it("grades new derivative rules, chain rule, and differential problems", () => {
+    const v = mount("/practice?problem=p14");
+    fireEvent.change(screen.getByLabelText("请输入导数值的数值或分数"), {
+      target: { value: "1" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    v.unmount();
+
+    const v2 = mount("/practice?problem=p16");
+    fireEvent.change(screen.getByLabelText("请输入数值或分数"), {
+      target: { value: "3/4" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    v2.unmount();
+
+    const v3 = mount("/practice?problem=p18");
+    fireEvent.change(screen.getByLabelText("请输入线性近似值的数值或分数"), {
+      target: { value: "2.01" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    v3.unmount();
+  });
+  it("filters practice and review by chapter and errorTag and computes mastery stats", () => {
+    const stats = computeMastery([
+      { problemId: "p1", correct: true },
+      { problemId: "p15", correct: false },
+    ]);
+    expect(stats.chapters[0].mastered).toBe(1);
+    expect(stats.chapters[1].pending).toBe(1);
+
+    const v = mount("/practice");
+    fireEvent.click(screen.getByRole("button", { name: "第二章：导数与微分" }));
+    expect(
+      screen.getByRole("heading", { level: 2, name: "用导数定义求切线斜率" }),
+    ).toBeVisible();
+    fireEvent.change(screen.getByLabelText("按错因标签筛选"), {
+      target: { value: "chain_rule" },
+    });
+    expect(
+      screen.getByRole("heading", { level: 2, name: "复合幂函数的链式求导" }),
+    ).toBeVisible();
+    fireEvent.change(screen.getByLabelText("请输入导数值的数值或分数"), {
+      target: { value: "3" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    v.unmount();
+
+    const rev = mount("/review");
+    expect(screen.getByTestId("review-mastery")).toHaveTextContent(
+      "第二章 · 导数与微分",
+    );
+    fireEvent.change(screen.getByLabelText("筛选错因分类"), {
+      target: { value: "chain_rule" },
+    });
+    expect(
+      screen.getByRole("heading", { level: 3, name: "复合幂函数的链式求导" }),
+    ).toBeVisible();
+    rev.unmount();
   });
   it("grades new second-important-limit, infinitesimal, and derivative problems", () => {
     const v = mount("/practice?problem=p8");
