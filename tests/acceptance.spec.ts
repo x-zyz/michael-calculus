@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 
 // Browser acceptance for the limit & derivative learning loops (desktop + phone projects).
 
-const allLessons = ['limit', 'sine', 'euler', 'infinitesimal', 'continuity', 'derivative', 'rules', 'chain', 'differential'];
+const allLessons = ['limit', 'sine', 'euler', 'infinitesimal', 'continuity', 'derivative', 'rules', 'chain', 'differential', 'mvt', 'lhopital', 'extrema'];
 const tabs = ['直觉', '实验', '定义', '例题', '练习'];
 
 async function layoutProblems(page: Page) {
@@ -28,7 +28,7 @@ async function layoutProblems(page: Page) {
 test.describe('phone layout', () => {
   test.beforeEach(async ({ page }) => page.setViewportSize({ width: 360, height: 740 }));
 
-  test('pages, all 9 lessons and all 18 problems fit a 360px screen with readable text', async ({ page }) => {
+  test('pages, all 12 lessons and all 24 problems fit a 360px screen with readable text', async ({ page }) => {
     const issues: string[] = [];
     for (const url of ['/#/', '/#/experiments', '/#/practice', '/#/review', '/#/assistant']) {
       await page.goto(url);
@@ -42,7 +42,7 @@ test.describe('phone layout', () => {
       }
     }
     await page.goto('/#/practice');
-    for (let i = 1; i <= 18; i++) {
+    for (let i = 1; i <= 24; i++) {
       await page.getByRole('button', { name: `第 ${i} 题`, exact: true }).click();
       issues.push(...(await layoutProblems(page)).map(p => `problem ${i} ${p}`));
     }
@@ -106,7 +106,7 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await expect(page.getByText('目前没有待复习错题')).toBeVisible();
 
   await page.goto('/#/');
-  await expect(page.locator('.progress-ring strong')).toHaveText('11%');
+  await expect(page.locator('.progress-ring strong')).toHaveText('8%');
   await expect(page.getByRole('link', { name: /继续学习/ })).toBeVisible();
 });
 
@@ -123,7 +123,7 @@ test('data written by 0.2.0 is kept after an upgrade', async ({ page }) => {
   });
   await page.goto('/#/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await expect(page.locator('.progress-ring strong')).toHaveText('22%');
+  await expect(page.locator('.progress-ring strong')).toHaveText('17%');
   await page.getByRole('link', { name: /继续学习/ }).click();
   await expect(page.getByRole('heading', { level: 2, name: '第一个重要极限' })).toBeVisible();
   await page.goto('/#/review');
@@ -185,5 +185,15 @@ test('limit and secant experiments react to controls and match each lesson', asy
     await page.getByRole('tab', { name: '实验' }).click();
     await expect(page.getByTestId('secant-experiment')).toBeVisible();
     await expect(page.getByLabel('选择导数实验函数')).toHaveValue(kind);
+  }
+  for (const [lesson, kind] of [
+    ['mvt', 'mvt'],
+    ['lhopital', 'lhopital'],
+    ['extrema', 'extrema'],
+  ]) {
+    await page.goto(`/#/curriculum?lesson=${lesson}`);
+    await page.getByRole('tab', { name: '实验' }).click();
+    await expect(page.getByTestId('derivative-app-experiment')).toBeVisible();
+    await expect(page.getByLabel('选择导数应用实验')).toHaveValue(kind);
   }
 });

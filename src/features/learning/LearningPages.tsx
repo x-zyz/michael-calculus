@@ -14,8 +14,12 @@ import {
   secantModels,
   secantSlope,
   linearApprox,
+  lessonDerivativeApp,
+  derivativeAppModels,
+  derivativeAppState,
   type ExperimentKind,
   type SecantKind,
+  type DerivativeAppKind,
 } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
@@ -396,6 +400,214 @@ export function SecantExperiment({
   );
 }
 
+export function DerivativeAppExperiment({
+  initialKind = "mvt",
+}: {
+  initialKind?: DerivativeAppKind;
+}) {
+  const [kind, setKind] = useState<DerivativeAppKind>(initialKind);
+  const model = derivativeAppModels[kind];
+  const [x, setX] = useState<number>(model.defaultX);
+  const safeX = kind === "lhopital" && Math.abs(x) < 1e-6 ? 0.05 : x;
+  const current = derivativeAppState(kind, safeX)!;
+  const [xmin, xmax, ymin, ymax] = model.range;
+  const px = (v: number) => 45 + ((v - xmin) / (xmax - xmin)) * 430,
+    py = (v: number) => 225 - ((v - ymin) / (ymax - ymin)) * 200;
+  const curveSegments =
+    kind === "lhopital"
+      ? [
+          Array.from(
+            { length: 60 },
+            (_, i) => xmin + (-0.02 - xmin) * (i / 59),
+          ),
+          Array.from(
+            { length: 60 },
+            (_, i) => 0.02 + (xmax - 0.02) * (i / 59),
+          ),
+        ]
+      : [
+          Array.from(
+            { length: 120 },
+            (_, i) => xmin + ((xmax - xmin) * i) / 119,
+          ),
+        ];
+  const tangentY = (t: number) =>
+    current.fx + current.tangentSlope * (t - safeX);
+  return (
+    <section className="learning-card" data-testid="derivative-app-experiment">
+      <h2>中值定理与导数应用实验</h2>
+      <label>
+        选择导数应用主题
+        <select
+          aria-label="选择导数应用实验"
+          value={kind}
+          onChange={(e) => {
+            const next = e.target.value as DerivativeAppKind;
+            setKind(next);
+            setX(derivativeAppModels[next].defaultX);
+          }}
+        >
+          {Object.entries(derivativeAppModels).map(([k, v]) => (
+            <option key={k} value={k}>
+              {v.label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <svg
+        viewBox="0 0 520 260"
+        role="img"
+        aria-label="中值定理、未定式与极值曲线"
+        className="experiment-plot"
+      >
+        <path
+          d={`M45 ${py(Math.max(ymin, 0))}H485 M${px(0)} 15V235`}
+          stroke="currentColor"
+          opacity=".22"
+        />
+        {kind === "mvt" && (
+          <path
+            d={`M${px(0)},${py(0)} L${px(2)},${py(4)}`}
+            stroke="currentColor"
+            strokeDasharray="5 6"
+            opacity=".5"
+          />
+        )}
+        {kind === "lhopital" && (
+          <path
+            d={`M${px(xmin)},${py(0.5)} H${px(xmax)}`}
+            stroke="currentColor"
+            strokeDasharray="5 6"
+            opacity=".5"
+          />
+        )}
+        {curveSegments.map((xs, idx) => (
+          <path
+            key={idx}
+            d={xs
+              .map(
+                (t, j) =>
+                  `${j ? "L" : "M"}${px(t)},${py(derivativeAppState(kind, t)!.fx)}`,
+              )
+              .join(" ")}
+            fill="none"
+            stroke="#839fba"
+            strokeWidth="3"
+          />
+        ))}
+        {kind !== "lhopital" && (
+          <path
+            d={`M${px(xmin)},${py(tangentY(xmin))} L${px(xmax)},${py(tangentY(xmax))}`}
+            stroke="#879f53"
+            strokeWidth="2.2"
+          />
+        )}
+        {kind === "lhopital" && (
+          <circle
+            cx={px(0)}
+            cy={py(0.5)}
+            r="5"
+            fill="var(--surface)"
+            stroke="#839fba"
+            strokeWidth="2"
+          />
+        )}
+        {kind === "extrema" && (
+          <>
+            <circle cx={px(-1)} cy={py(2)} r="5" fill="#879f53" />
+            <circle cx={px(1)} cy={py(-2)} r="5" fill="#879f53" />
+          </>
+        )}
+        <circle cx={px(safeX)} cy={py(current.fx)} r="6" fill="#d08b57" />
+        <text
+          x={px(safeX)}
+          y="254"
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="16"
+        >
+          x = {fmt(safeX, 2)}
+        </text>
+      </svg>
+      <label htmlFor="derivative-app-x">
+        观察点 x = {fmt(safeX, 2)}（拖动滑块观察切线、导数比或极值变化）
+      </label>
+      <input
+        id="derivative-app-x"
+        type="range"
+        min={model.minX}
+        max={model.maxX}
+        step={model.stepX}
+        value={safeX}
+        onChange={(e) => setX(Number(e.target.value))}
+      />
+      <div className="experiment-values" aria-live="polite">
+        {kind === "mvt" ? (
+          <>
+            <div data-testid="mvt-secant">
+              区间 [0, 2] 端点连线
+              <strong>平均变化率 Δy / Δx = {fmt(current.secantSlope)}</strong>
+              <small>理论中值点 ξ = {current.c}</small>
+            </div>
+            <div data-testid="mvt-tangent">
+              当前点 x = {fmt(safeX, 2)}，f(x) = {fmt(current.fx)}
+              <strong>瞬时变化率 f&apos;(x) = {fmt(current.tangentSlope)}</strong>
+              <small>
+                与弦斜率差 |f&apos;(x) − Δy/Δx| = {fmt(current.slopeDiff)}
+              </small>
+            </div>
+          </>
+        ) : kind === "lhopital" ? (
+          <>
+            <div data-testid="lhopital-ratio">
+              原未定式比值（x = {fmt(safeX, 2)} ≠ 0）
+              <strong>(eˣ − 1 − x) / x² = {fmt(current.ratio)}</strong>
+              <small>
+                与极限 0.5 相差 {fmt(Math.abs(current.ratio - current.limit))}
+              </small>
+            </div>
+            <div data-testid="lhopital-derivative">
+              一次洛必达导数比
+              <strong>
+                f&apos;(x) / g&apos;(x) = (eˣ − 1) / (2x) ={" "}
+                {fmt(current.derivativeRatio)}
+              </strong>
+              <small>
+                x = 0 处原式与一次导数比均为 0/0 未定义，极限同为 0.5
+              </small>
+            </div>
+          </>
+        ) : (
+          <>
+            <div data-testid="extrema-first">
+              当前点 x = {fmt(safeX, 2)}，f(x) = {fmt(current.fx)}
+              <strong>一阶导数 f&apos;(x) = {fmt(current.dfx)}</strong>
+              <small>单调与极值状态：{current.monotone}</small>
+            </div>
+            <div data-testid="extrema-second">
+              凹凸性与二阶导数判别
+              <strong>二阶导数 f&apos;&apos;(x) = {fmt(current.d2fx)}</strong>
+              <small>
+                驻点 x = −1 极大值 2（f&apos;&apos; &lt; 0），x = 1 极小值 −2（f&apos;&apos; &gt; 0）
+              </small>
+            </div>
+          </>
+        )}
+      </div>
+      <p>
+        {kind === "mvt"
+          ? "当 x = 1 时 f'(1) = 2 恰好等于区间 [0, 2] 端点弦的斜率 2，直观展示了拉格朗日中值定理。"
+          : kind === "lhopital"
+            ? "当 x 趋近 0 时，原分式 (eˣ − 1 − x)/x² 与导数比 (eˣ − 1)/(2x) 同步趋近 0.5；在 x = 0 处为 0/0 未定义（空心点）。"
+            : "f'(x) > 0 时函数单调递增，f'(x) < 0 时单调递减；在驻点 x = ±1 处 f'(x) = 0，由二阶导数正负判别极小与极大。"}
+      </p>
+      <p className="learning-note">
+        图形和有限次采样用于观察，不代替数学证明。
+      </p>
+    </section>
+  );
+}
+
 export function CoursePage() {
   const { state, save } = useLearning();
   const [query, setQuery] = useSearchParams();
@@ -408,8 +620,9 @@ export function CoursePage() {
     <div className="page learning-page">
       <h1>课程中心</h1>
       <p>
-        第一章 · 函数、极限与连续（5 节）｜第二章 · 导数与微分（4 节） · 已学{" "}
-        {state.completed.length} / {lessons.length}
+        第一章 · 函数、极限与连续（5 节）｜第二章 · 导数与微分（4 节）｜第三章 ·
+        中值定理与导数的应用（3 节） · 已学 {state.completed.length} /{" "}
+        {lessons.length}
       </p>
       <div className="lesson-picker">
         {lessons.map((l) => (
@@ -429,9 +642,7 @@ export function CoursePage() {
       </div>
       <section className="learning-card">
         <span className="eyebrow">
-          {lesson.chapter === 1
-            ? "第一章 · 函数、极限与连续"
-            : "第二章 · 导数与微分"}
+          {chapters.find((c) => c.id === lesson.chapter)?.title}
         </span>
         <h2>{lesson.title}</h2>
         <div className="lesson-tabs" role="tablist" aria-label="学习环节">
@@ -513,7 +724,12 @@ export function CoursePage() {
       </section>
       {tab === "实验" && (
         <>
-          {lesson.chapter === 2 ? (
+          {lesson.chapter === 3 ? (
+            <DerivativeAppExperiment
+              key={lesson.id}
+              initialKind={lessonDerivativeApp[lesson.id] ?? "mvt"}
+            />
+          ) : lesson.chapter === 2 ? (
             <SecantExperiment
               key={lesson.id}
               initialKind={lessonSecant[lesson.id] ?? "square"}
@@ -541,6 +757,7 @@ export function ExperimentsPage() {
       <p>改变逼近距离或步长，同时观察函数图形、割线切线与数值变化。</p>
       <Experiment />
       <SecantExperiment />
+      <DerivativeAppExperiment />
       <Link className="primary-button" to="/practice">
         观察完了，去练习 →
       </Link>
@@ -550,9 +767,9 @@ export function ExperimentsPage() {
 export function PracticePage() {
   const { state } = useLearning();
   const [query] = useSearchParams();
-  const [chapter, setChapter] = useState<0 | 1 | 2>(() => {
+  const [chapter, setChapter] = useState<0 | 1 | 2 | 3>(() => {
     const c = Number(query.get("chapter"));
-    return c === 1 || c === 2 ? c : 0;
+    return c === 1 || c === 2 || c === 3 ? c : 0;
   });
   const [tag, setTag] = useState(() => query.get("tag") || "");
   const mastery = computeMastery(state.attempts);
@@ -584,7 +801,10 @@ export function PracticePage() {
               <strong>
                 已掌握 {c.mastered} / {c.total} 题（{c.rate}%）
               </strong>
-              <small>待复习错题 {c.pending} 题</small>
+              <small>
+                待复习错题 {c.pending} 题 · 薄弱考点：
+                {c.weakTags.length ? c.weakTags.join("、") : "暂无"}
+              </small>
             </div>
           ))}
         </div>
@@ -756,7 +976,7 @@ function Question({ problem: p }: { problem: (typeof problems)[number] }) {
 }
 export function ReviewPage() {
   const { state } = useLearning();
-  const [chapter, setChapter] = useState<0 | 1 | 2>(0);
+  const [chapter, setChapter] = useState<0 | 1 | 2 | 3>(0);
   const [tag, setTag] = useState("");
   const mastery = computeMastery(state.attempts);
   const wrong = problems.filter((p) => {
@@ -786,7 +1006,10 @@ export function ReviewPage() {
               <strong>
                 已掌握 {c.mastered} / {c.total} 题（{c.rate}%）
               </strong>
-              <small>待复习错题 {c.pending} 题</small>
+              <small>
+                待复习错题 {c.pending} 题 · 薄弱考点：
+                {c.weakTags.length ? c.weakTags.join("、") : "暂无"}
+              </small>
             </div>
           ))}
         </div>

@@ -26,7 +26,7 @@ for (const [width, height, label] of [[360, 740, 'phone360'], [1280, 860, 'deskt
         await page.waitForTimeout(250);
         await page.screenshot({ path: out(name), fullPage: true });
       }
-      for (const lesson of ['limit', 'sine', 'euler', 'infinitesimal', 'continuity', 'derivative', 'rules', 'chain', 'differential']) {
+      for (const lesson of ['limit', 'sine', 'euler', 'infinitesimal', 'continuity', 'derivative', 'rules', 'chain', 'differential', 'mvt', 'lhopital', 'extrema']) {
         await page.goto(`/#/curriculum?lesson=${lesson}`);
         for (const tab of tabs) {
           await page.getByRole('tab', { name: tab }).click();
@@ -35,7 +35,7 @@ for (const [width, height, label] of [[360, 740, 'phone360'], [1280, 860, 'deskt
         }
       }
       await page.goto('/#/practice');
-      for (let i = 1; i <= 18; i++) {
+      for (let i = 1; i <= 24; i++) {
         await page.getByRole('button', { name: `第 ${i} 题`, exact: true }).click();
         await page.screenshot({ path: out(`problem-${i}`), fullPage: true });
       }

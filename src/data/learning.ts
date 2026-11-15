@@ -1,6 +1,6 @@
 export interface Lesson {
   id: string;
-  chapter: 1 | 2;
+  chapter: 1 | 2 | 3;
   title: string;
   intuition: string;
   definition: string;
@@ -179,6 +179,63 @@ export const lessons: Lesson[] = [
     ],
     takeaway:
       "微分 dy 是切线高度增量，真实增量 Δy 是曲线高度增量；两者的差是 Δx 的高阶无穷小 o(Δx)。",
+  },
+  {
+    id: "mvt",
+    chapter: 3,
+    title: "罗尔定理与拉格朗日中值定理",
+    intuition:
+      "在一段光滑起伏的山路上，如果起点与终点海拔相同（罗尔定理），途中至少有一处山顶或谷底的切线是水平的；如果把整段路倾斜过来（拉格朗日中值定理），途中至少有一点 ξ 的瞬时坡度 f'(ξ) 恰好等于整段路的平均坡度 [f(b) − f(a)] / (b − a)。",
+    definition: String.raw`\begin{gathered}f(a)=f(b)\implies f'(\xi)=0\\[4pt]f'(\xi)=\frac{f(b)-f(a)}{b-a}\\[4pt]\xi\in(a,b)\end{gathered}`,
+    condition:
+      "函数 f(x) 必须同时满足两条假设：在闭区间 [a, b] 上连续，且在开区间 (a, b) 内可导。若区间内存在间断点或不可导的尖点（如 |x| 在 x = 0 处），定理结论可能不成立。",
+    example: String.raw`\begin{gathered}f(x)=x^2,\;x\in[1,5]\\[4pt]f'(\xi)=\frac{25-1}{5-1}=6\\[4pt]\xi=3\end{gathered}`,
+    steps: [
+      "检验条件：多项式 f(x) = x² 在 [1, 5] 上连续，在 (1, 5) 内可导，满足拉格朗日中值定理。",
+      "计算端点连线（弦）的平均变化率：[f(5) − f(1)] / (5 − 1) = (25 − 1) / 4 = 6。",
+      "写出中值点的导数方程：f'(ξ) = 2ξ = 6。",
+      "解得 ξ = 3 ∈ (1, 5)，在该点切线与端点弦平行。",
+    ],
+    takeaway:
+      "拉格朗日中值定理建立了「区间整体增量 Δy」与「内部某点导数 f'(ξ)」之间的桥梁。",
+  },
+  {
+    id: "lhopital",
+    chapter: 3,
+    title: "洛必达法则与未定式极限",
+    intuition:
+      "当分子 f(x) 与分母 g(x) 在 x → a 时同时趋近于 0，直接代入得到 0/0。此时两者都从 0 出发，它们比值的极限取决于谁变化得更快——即分子导数 f'(x) 与分母导数 g'(x) 在附近的比值极限。",
+    definition: String.raw`\begin{gathered}\lim_{x\to a}f(x)=0,\;\lim_{x\to a}g(x)=0\\[4pt]\lim_{x\to a}\frac{f(x)}{g(x)}=\lim_{x\to a}\frac{f'(x)}{g'(x)}\end{gathered}`,
+    condition:
+      "仅适用于 0/0 型或 ∞/∞ 型未定式；要求在 a 的去心邻域内 f'(x)、g'(x) 存在且 g'(x) ≠ 0，并且求导后的比值极限存在（或为无穷大）。注意：对分子和分母分别求导，不是对分式整体用商的求导法则！",
+    example: String.raw`\begin{gathered}\lim_{x\to0}\frac{e^x-1-x}{x^2}\\[4pt]=\lim_{x\to0}\frac{e^x-1}{2x}=\frac12\end{gathered}`,
+    steps: [
+      "先判别未定式类型：x → 0 时分子 eˣ − 1 − x → 0，分母 x² → 0，属于 0/0 型。",
+      "第一次应用洛必达法则：分子分母分别求导，化为 lim (eˣ − 1) / (2x)。",
+      "此时仍为 0/0 型，可继续求导得 lim eˣ / 2（或用等价无穷小 eˣ − 1 ~ x）。",
+      "代入 x → 0 得 e⁰ / 2 = 1/2。",
+    ],
+    takeaway:
+      "每次使用洛必达法则前都必须先确认仍是 0/0 或 ∞/∞ 型；非未定式盲目求导会算出错误结果。",
+  },
+  {
+    id: "extrema",
+    chapter: 3,
+    title: "函数的单调性与极值判别",
+    intuition:
+      "导数 f'(x) 的正负决定了曲线的走向：f'(x) > 0 时曲线向上爬升（单调递增），f'(x) < 0 时曲线向下滑落（单调递减）。当导数在驻点 x₀ 处由正变负（或二阶导数 f''(x₀) < 0，曲线向下弯）时，就形成了局部极大值。",
+    definition: String.raw`\begin{gathered}f'(x)>0\Rightarrow\text{单调递增}\\[4pt]f'(x)<0\Rightarrow\text{单调递减}\\[4pt]f'(x_0)=0,\;f''(x_0)<0\Rightarrow\text{极大}\\[4pt]f'(x_0)=0,\;f''(x_0)>0\Rightarrow\text{极小}\end{gathered}`,
+    condition:
+      "f'(x₀) = 0 的点称为驻点。可导函数的极值点必为驻点，但驻点不一定是极值点（例如 f(x) = x³ 在 x = 0 处 f'(0) = 0，但左右导数同为正，不是极值点）。",
+    example: String.raw`\begin{gathered}f(x)=x^3-3x\\[4pt]f'(x)=3(x^2-1)\\[4pt]f(-1)=2,\;f(1)=-2\end{gathered}`,
+    steps: [
+      "求一阶导数并找驻点：f'(x) = 3x² − 3 = 3(x + 1)(x − 1)，令 f'(x) = 0 得驻点 x = −1 和 x = 1。",
+      "分析单调区间：x < −1 或 x > 1 时 f'(x) > 0（递增）；−1 < x < 1 时 f'(x) < 0（递减）。",
+      "判别极值：在 x = −1 处导数由正变负（且 f''(−1) = −6 < 0），取极大值 f(−1) = 2。",
+      "在 x = 1 处导数由负变正（且 f''(1) = 6 > 0），取极小值 f(1) = −2。",
+    ],
+    takeaway:
+      "求极值先找驻点 f'(x) = 0 与不可导点，再用一阶导数变号或二阶导数正负来严格判别。",
   },
 ];
 export interface Problem {
@@ -493,6 +550,108 @@ export const problems: Problem[] = [
     errorTag: "linear_approximation",
     errorLabel: "微分与线性近似",
   },
+  {
+    id: "p19",
+    lessonId: "mvt",
+    title: "拉格朗日中值定理求中值点",
+    formula: String.raw`\begin{gathered}f(x)=x^2,\;x\in[1,5]\\[4pt]f'(\xi)=\frac{f(5)-f(1)}{5-1},\;\xi=\,?\end{gathered}`,
+    answer: 3,
+    unit: "请输入中值点 ξ 的数值或分数",
+    hints: [
+      "先算区间 [1, 5] 上的平均变化率：[f(5) − f(1)] / (5 − 1) = (25 − 1) / 4 = 6。",
+      "由 f(x) = x² 得导数 f'(ξ) = 2ξ。",
+      "令 2ξ = 6，解得 ξ = 3 ∈ (1, 5)。",
+    ],
+    explanation:
+      "端点连线斜率为 (25 − 1)/(5 − 1) = 6，令 f'(ξ) = 2ξ = 6 得中值点 ξ = 3。",
+    errorTag: "mean_value_theorem",
+    errorLabel: "中值定理条件与中值点",
+  },
+  {
+    id: "p20",
+    lessonId: "mvt",
+    title: "罗尔定理求驻点",
+    formula: String.raw`\begin{gathered}f(x)=x^2-4x+3,\;x\in[1,3]\\[4pt]f'(\xi)=0,\;\xi=\,?\end{gathered}`,
+    answer: 2,
+    unit: "请输入驻点 ξ 的数值或分数",
+    hints: [
+      "先验证端点值：f(1) = 0，f(3) = 0，满足罗尔定理条件 f(1) = f(3)。",
+      "求导得 f'(x) = 2x − 4。",
+      "令 f'(ξ) = 2ξ − 4 = 0，解得 ξ = 2 ∈ (1, 3)。",
+    ],
+    explanation:
+      "f(1) = f(3) = 0 且多项式连续可导，由 f'(ξ) = 2ξ − 4 = 0 得 ξ = 2。",
+    errorTag: "mean_value_theorem",
+    errorLabel: "中值定理条件与中值点",
+  },
+  {
+    id: "p21",
+    lessonId: "lhopital",
+    title: "洛必达法则求指数型 0/0 极限",
+    formula: String.raw`\lim_{x\to0}\frac{e^x-1-x}{x^2}=\,?`,
+    answer: 1 / 2,
+    unit: "请输入极限值的数值或分数",
+    hints: [
+      "x → 0 时分子 eˣ − 1 − x → 0，分母 x² → 0，属于 0/0 型未定式。",
+      "分子分母分别对 x 求导，化为 lim (eˣ − 1) / (2x)。",
+      "再求导一次（或用 eˣ − 1 ~ x）得 lim eˣ / 2 = 1/2。",
+    ],
+    explanation:
+      "连续使用两次洛必达法则：原极限 = lim (eˣ − 1)/(2x) = lim eˣ/2 = 1/2（即 0.5）。",
+    errorTag: "lhopital_rule",
+    errorLabel: "洛必达法则与未定式",
+  },
+  {
+    id: "p22",
+    lessonId: "lhopital",
+    title: "三角与幂函数差商的未定式极限",
+    formula: String.raw`\lim_{x\to0}\frac{x-\sin x}{x^3}=\,?`,
+    answer: 1 / 6,
+    unit: "角度使用弧度；请输入极限值的数值或分数",
+    hints: [
+      "x − sin x 是加减抵消项，一阶主部 x 与 x 抵消，不能直接把 sin x 替换为 x！",
+      "使用洛必达法则：分子分母分别求导得 lim (1 − cos x) / (3x²)。",
+      "由 1 − cos x ~ x²/2（或继续洛必达求导），得 (x²/2) / (3x²) = 1/6。",
+    ],
+    explanation:
+      "应用洛必达法则化为 lim (1 − cos x)/(3x²)，再结合 1 − cos x ~ x²/2 得极限为 1/6。",
+    errorTag: "lhopital_rule",
+    errorLabel: "洛必达法则与未定式",
+  },
+  {
+    id: "p23",
+    lessonId: "extrema",
+    title: "三次函数的局部极大值",
+    formula: String.raw`\begin{gathered}f(x)=x^3-3x\\[4pt]x=-1\;\text{处的极大值}\;f(-1)=\,?\end{gathered}`,
+    answer: 2,
+    unit: "请输入极大值的数值或分数",
+    hints: [
+      "求导得 f'(x) = 3x² − 3 = 3(x + 1)(x − 1)，驻点为 x = −1 和 x = 1。",
+      "在 x = −1 处二阶导数 f''(−1) = −6 < 0（左侧递增、右侧递减），确为极大值点。",
+      "将 x = −1 代入原函数：f(−1) = (−1)³ − 3(−1) = −1 + 3 = 2。",
+    ],
+    explanation:
+      "x = −1 是极大值点，极大值是原函数高度 f(−1) = (−1)³ − 3×(−1) = 2（注意区分极值点 x = −1 与极值 f(−1) = 2）。",
+    errorTag: "monotonicity_extrema",
+    errorLabel: "单调性与极值判别",
+  },
+  {
+    id: "p24",
+    lessonId: "extrema",
+    title: "用二阶导数判别极小值",
+    formula: String.raw`\begin{gathered}f(x)=x^2-6x+8\\[4pt]\text{极小值}\;\min f(x)=\,?\end{gathered}`,
+    answer: -1,
+    unit: "请输入极小值的数值或分数",
+    hints: [
+      "求一阶导数 f'(x) = 2x − 6，令 f'(x) = 0 得唯一驻点 x = 3。",
+      "二阶导数 f''(3) = 2 > 0，故 x = 3 为极小值点。",
+      "代入原函数计算极小值：f(3) = 3² − 6×3 + 8 = 9 − 18 + 8 = −1。",
+    ],
+    explanation:
+      "由 f'(x) = 2x − 6 = 0 得驻点 x = 3，f''(3) = 2 > 0，极小值为 f(3) = −1。",
+    errorTag: "monotonicity_extrema",
+    errorLabel: "单调性与极值判别",
+  },
 ];
 export const chapters = [
   {
@@ -504,6 +663,11 @@ export const chapters = [
     id: 2 as const,
     title: "第二章 · 导数与微分",
     short: "第二章：导数与微分",
+  },
+  {
+    id: 3 as const,
+    title: "第三章 · 中值定理与导数的应用",
+    short: "第三章：中值定理与导数应用",
   },
 ];
 export const errorTags = Array.from(
@@ -520,12 +684,22 @@ export function computeMastery(
   const latest = new Map<string, boolean>();
   for (const a of attempts) latest.set(a.problemId, a.correct);
   const summarize = (list: Problem[]) => {
+    const attempted = list.filter((p) => latest.has(p.id)).length;
     const mastered = list.filter((p) => latest.get(p.id) === true).length;
     const pending = list.filter((p) => latest.get(p.id) === false).length;
+    const weakTags = Array.from(
+      new Set(
+        list
+          .filter((p) => latest.get(p.id) === false)
+          .map((p) => p.errorLabel),
+      ),
+    );
     return {
       total: list.length,
+      attempted,
       mastered,
       pending,
+      weakTags,
       rate: list.length ? Math.round((mastered / list.length) * 100) : 0,
     };
   };
@@ -677,5 +851,139 @@ export function linearApprox(
     deltaY,
     error,
     errorRatio: h === 0 ? null : error / Math.abs(h),
+  };
+}
+export type DerivativeAppKind = "mvt" | "lhopital" | "extrema";
+export const lessonDerivativeApp: Record<string, DerivativeAppKind> = {
+  mvt: "mvt",
+  lhopital: "lhopital",
+  extrema: "extrema",
+};
+export const derivativeAppModels: Record<
+  DerivativeAppKind,
+  {
+    label: string;
+    range: [number, number, number, number];
+    minX: number;
+    maxX: number;
+    stepX: number;
+    defaultX: number;
+  }
+> = {
+  mvt: {
+    label: "拉格朗日中值定理：f(x) = x² 在 [0, 2] 上寻找平行切线点 ξ",
+    range: [-0.2, 2.2, -0.4, 4.4],
+    minX: 0.1,
+    maxX: 1.9,
+    stepX: 0.05,
+    defaultX: 1,
+  },
+  lhopital: {
+    label: "洛必达法则未定式：(eˣ − 1 − x) / x² 与导数比 (eˣ − 1) / (2x)",
+    range: [-1.5, 1.5, 0.2, 1.0],
+    minX: -1.2,
+    maxX: 1.2,
+    stepX: 0.05,
+    defaultX: 0.4,
+  },
+  extrema: {
+    label: "单调性与极值判别：f(x) = x³ − 3x 的一阶导数符号与驻点凹凸性",
+    range: [-2.1, 2.1, -3.5, 3.5],
+    minX: -1.8,
+    maxX: 1.8,
+    stepX: 0.05,
+    defaultX: -1,
+  },
+};
+export interface DerivativeAppState {
+  x: number;
+  fx: number;
+  dfx: number;
+  d2fx: number;
+  secantSlope: number;
+  tangentSlope: number;
+  slopeDiff: number;
+  c: number;
+  ratio: number;
+  derivativeRatio: number;
+  limit: number;
+  monotone: "单调递增" | "单调递减" | "极大值驻点" | "极小值驻点";
+}
+/**
+ * Evaluates Chapter 3 derivative application models.
+ * Returns null at undefined points (such as x = 0 for L'Hopital 0/0 ratio).
+ */
+export function derivativeAppState(
+  kind: DerivativeAppKind,
+  x: number,
+): DerivativeAppState | null {
+  if (kind === "lhopital") {
+    if (x === 0) return null;
+    const ratio =
+      Math.abs(x) < 1e-3
+        ? 0.5 + x / 6 + (x * x) / 24 + (x * x * x) / 120
+        : (Math.exp(x) - 1 - x) / (x * x);
+    const derivativeRatio =
+      Math.abs(x) < 1e-4
+        ? 0.5 + x / 4 + (x * x) / 12
+        : (Math.exp(x) - 1) / (2 * x);
+    return {
+      x,
+      fx: ratio,
+      dfx: derivativeRatio,
+      d2fx: 0.5,
+      secantSlope: 0.5,
+      tangentSlope: derivativeRatio,
+      slopeDiff: Math.abs(ratio - 0.5),
+      c: 0,
+      ratio,
+      derivativeRatio,
+      limit: 0.5,
+      monotone: x > 0 ? "单调递增" : "单调递增",
+    };
+  }
+  if (kind === "mvt") {
+    const fx = x * x;
+    const dfx = 2 * x;
+    const secantSlope = (2 * 2 - 0) / (2 - 0);
+    return {
+      x,
+      fx,
+      dfx,
+      d2fx: 2,
+      secantSlope,
+      tangentSlope: dfx,
+      slopeDiff: Math.abs(dfx - secantSlope),
+      c: 1,
+      ratio: dfx,
+      derivativeRatio: secantSlope,
+      limit: secantSlope,
+      monotone: "单调递增",
+    };
+  }
+  const fx = x * x * x - 3 * x;
+  const dfx = 3 * x * x - 3;
+  const d2fx = 6 * x;
+  const monotone =
+    Math.abs(dfx) < 1e-6
+      ? d2fx < 0
+        ? "极大值驻点"
+        : "极小值驻点"
+      : dfx > 0
+        ? "单调递增"
+        : "单调递减";
+  return {
+    x,
+    fx,
+    dfx,
+    d2fx,
+    secantSlope: 0,
+    tangentSlope: dfx,
+    slopeDiff: Math.abs(dfx),
+    c: -1,
+    ratio: fx,
+    derivativeRatio: dfx,
+    limit: 0,
+    monotone,
   };
 }

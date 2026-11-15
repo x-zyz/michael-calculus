@@ -5,6 +5,7 @@ import App from "../app/App";
 import {
   checkAnswer,
   computeMastery,
+  derivativeAppState,
   experimentValue,
   lessons,
   linearApprox,
@@ -65,8 +66,37 @@ describe("limit and derivative learning", () => {
     expect(coarse.errorRatio).toBeCloseTo(0.1, 6);
     expect(fine.errorRatio!).toBeLessThan(coarse.errorRatio! / 5);
   });
-  it("provides all 9 lessons across chapters 1 and 2 and 18 practice problems", () => {
-    expect(lessons).toHaveLength(9);
+  it("computes MVT, L'Hopital (undefined at x = 0), and extrema derivative application states", () => {
+    const mvtAtC = derivativeAppState("mvt", 1)!;
+    const mvtOff = derivativeAppState("mvt", 0.5)!;
+    expect(mvtAtC.secantSlope).toBeCloseTo(2, 6);
+    expect(mvtAtC.tangentSlope).toBeCloseTo(2, 6);
+    expect(mvtAtC.slopeDiff).toBeCloseTo(0, 6);
+    expect(mvtOff.tangentSlope).toBeCloseTo(1, 6);
+    expect(mvtOff.slopeDiff).toBeCloseTo(1, 6);
+
+    expect(derivativeAppState("lhopital", 0)).toBe(null);
+    const lhop = derivativeAppState("lhopital", 0.001)!;
+    expect(lhop.ratio).toBeCloseTo(0.5, 3);
+    expect(lhop.derivativeRatio).toBeCloseTo(0.5, 3);
+    expect(lhop.limit).toBe(0.5);
+
+    const maxPt = derivativeAppState("extrema", -1)!;
+    const minPt = derivativeAppState("extrema", 1)!;
+    const decPt = derivativeAppState("extrema", 0)!;
+    expect(maxPt.fx).toBeCloseTo(2, 6);
+    expect(maxPt.dfx).toBeCloseTo(0, 6);
+    expect(maxPt.d2fx).toBeCloseTo(-6, 6);
+    expect(maxPt.monotone).toBe("极大值驻点");
+    expect(minPt.fx).toBeCloseTo(-2, 6);
+    expect(minPt.dfx).toBeCloseTo(0, 6);
+    expect(minPt.d2fx).toBeCloseTo(6, 6);
+    expect(minPt.monotone).toBe("极小值驻点");
+    expect(decPt.dfx).toBeCloseTo(-3, 6);
+    expect(decPt.monotone).toBe("单调递减");
+  });
+  it("provides all 12 lessons across chapters 1, 2, and 3 and 24 practice problems", () => {
+    expect(lessons).toHaveLength(12);
     expect(lessons.filter((l) => l.chapter === 1)).toHaveLength(5);
     expect(lessons.filter((l) => l.chapter === 2).map((l) => l.id)).toEqual([
       "derivative",
@@ -74,9 +104,14 @@ describe("limit and derivative learning", () => {
       "chain",
       "differential",
     ]);
-    expect(problems).toHaveLength(18);
+    expect(lessons.filter((l) => l.chapter === 3).map((l) => l.id)).toEqual([
+      "mvt",
+      "lhopital",
+      "extrema",
+    ]);
+    expect(problems).toHaveLength(24);
   });
-  it("links each lesson to its matching experiment including secant/tangent and linear approx for chapter 2", () => {
+  it("links each lesson to its matching experiment across chapters 1, 2, and 3", () => {
     const v = mount("/curriculum?lesson=euler");
     fireEvent.click(screen.getByRole("tab", { name: "实验" }));
     expect(screen.getByLabelText("选择实验函数")).toHaveValue("euler");
@@ -100,8 +135,14 @@ describe("limit and derivative learning", () => {
     fireEvent.click(screen.getByRole("tab", { name: "实验" }));
     expect(screen.getByLabelText("选择导数实验函数")).toHaveValue("chain");
     v3.unmount();
+
+    const v4 = mount("/curriculum?lesson=lhopital");
+    fireEvent.click(screen.getByRole("tab", { name: "实验" }));
+    expect(screen.getByTestId("derivative-app-experiment")).toBeVisible();
+    expect(screen.getByLabelText("选择导数应用实验")).toHaveValue("lhopital");
+    v4.unmount();
   });
-  it("grades new derivative rules, chain rule, and differential problems", () => {
+  it("grades derivative rules, chain rule, differential, MVT, L'Hopital, and extrema problems", () => {
     const v = mount("/practice?problem=p14");
     fireEvent.change(screen.getByLabelText("请输入导数值的数值或分数"), {
       target: { value: "1" },
@@ -110,56 +151,84 @@ describe("limit and derivative learning", () => {
     expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
     v.unmount();
 
-    const v2 = mount("/practice?problem=p16");
-    fireEvent.change(screen.getByLabelText("请输入数值或分数"), {
-      target: { value: "3/4" },
+    const v2 = mount("/practice?problem=p19");
+    fireEvent.change(screen.getByLabelText("请输入中值点 ξ 的数值或分数"), {
+      target: { value: "3" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
     expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
     v2.unmount();
 
-    const v3 = mount("/practice?problem=p18");
-    fireEvent.change(screen.getByLabelText("请输入线性近似值的数值或分数"), {
-      target: { value: "2.01" },
+    const v3 = mount("/practice?problem=p21");
+    fireEvent.change(screen.getByLabelText("请输入极限值的数值或分数"), {
+      target: { value: "1/2" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
     expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
     v3.unmount();
+
+    const v4 = mount("/practice?problem=p23");
+    fireEvent.change(screen.getByLabelText("请输入极大值的数值或分数"), {
+      target: { value: "2" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    v4.unmount();
   });
-  it("filters practice and review by chapter and errorTag and computes mastery stats", () => {
+  it("filters practice and review by chapter and errorTag and computes mastery stats with weakTags", () => {
     const stats = computeMastery([
       { problemId: "p1", correct: true },
       { problemId: "p15", correct: false },
+      { problemId: "p21", correct: false },
     ]);
+    expect(stats.chapters).toHaveLength(3);
     expect(stats.chapters[0].mastered).toBe(1);
+    expect(stats.chapters[0].attempted).toBe(1);
     expect(stats.chapters[1].pending).toBe(1);
+    expect(stats.chapters[1].weakTags).toContain("复合函数链式法则");
+    expect(stats.chapters[2].pending).toBe(1);
+    expect(stats.chapters[2].weakTags).toContain("洛必达法则与未定式");
 
     const v = mount("/practice");
-    fireEvent.click(screen.getByRole("button", { name: "第二章：导数与微分" }));
+    fireEvent.click(
+      screen.getByRole("button", { name: "第三章：中值定理与导数应用" }),
+    );
     expect(
-      screen.getByRole("heading", { level: 2, name: "用导数定义求切线斜率" }),
+      screen.getByRole("heading", {
+        level: 2,
+        name: "拉格朗日中值定理求中值点",
+      }),
     ).toBeVisible();
     fireEvent.change(screen.getByLabelText("按错因标签筛选"), {
-      target: { value: "chain_rule" },
+      target: { value: "lhopital_rule" },
     });
     expect(
-      screen.getByRole("heading", { level: 2, name: "复合幂函数的链式求导" }),
+      screen.getByRole("heading", {
+        level: 2,
+        name: "洛必达法则求指数型 0/0 极限",
+      }),
     ).toBeVisible();
-    fireEvent.change(screen.getByLabelText("请输入导数值的数值或分数"), {
-      target: { value: "3" },
+    fireEvent.change(screen.getByLabelText("请输入极限值的数值或分数"), {
+      target: { value: "99" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
     v.unmount();
 
     const rev = mount("/review");
     expect(screen.getByTestId("review-mastery")).toHaveTextContent(
-      "第二章 · 导数与微分",
+      "第三章 · 中值定理与导数的应用",
+    );
+    expect(screen.getByTestId("review-mastery")).toHaveTextContent(
+      "薄弱考点：洛必达法则与未定式",
     );
     fireEvent.change(screen.getByLabelText("筛选错因分类"), {
-      target: { value: "chain_rule" },
+      target: { value: "lhopital_rule" },
     });
     expect(
-      screen.getByRole("heading", { level: 3, name: "复合幂函数的链式求导" }),
+      screen.getByRole("heading", {
+        level: 3,
+        name: "洛必达法则求指数型 0/0 极限",
+      }),
     ).toBeVisible();
     rev.unmount();
   });
