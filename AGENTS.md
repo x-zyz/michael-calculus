@@ -9,7 +9,12 @@
 
 ---
 
-## 一、项目概览与当前基线（v0.5.0，versionCode 5）
+## 当前发布增量（v0.6.0，versionCode 6）
+
+新增公式记忆中心：42 个公式、填空/完整默写/条件判断/反向识别、独立 `mc-formula-v1`、间隔复习、跨日 L0–L5 证据与练习手动卡住联动。详见 `docs/formula-mastery-implementation.md`。保留原有 12 节课程、24 道题和六大导航。测试现为 28 项单元/组件、22 项浏览器回归。
+发布为调试 APK；当前 CI 每次生成的调试签名不保证与旧版相同，不能宣称可无损覆盖升级，不能为安装而擅自删除旧版数据。
+
+## 一、项目概览与既有课程基线（v0.5.0，versionCode 5）
 
 **Michael calculus** 是面向大学生的交互式高等数学学习平台（React 19 + TypeScript + Vite + Tailwind CSS + 本地离线 KaTeX + Capacitor 7 Android APK）。
 

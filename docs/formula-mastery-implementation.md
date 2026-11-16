@@ -43,3 +43,7 @@ Linux 可使用系统 Chromium：`PLAYWRIGHT_EXECUTABLE_PATH=/usr/bin/chromium n
 - 完整 Playwright 回归：22 项通过（原有 14 项 + 新增 8 项）；8 个可选批量截图脚本按原配置跳过。新公式的 360px 截图已人工查看。
 - Android `lintRelease` 通过。63 个构建资源与 Android 本地打包目录逐文件比对一致。
 - 无真机验收，无新 APK 分发；原有版本号保持不变。
+
+## 发布更新
+
+用户随后明确要求创建新 Release。版本已从 0.5.0 / versionCode 5 提升到 0.6.0 / versionCode 6。按仓库现有 GitHub Actions 构建、发布测试 APK 与源码；不把此前“保持版本不变”的开发阶段说明误当成当前发布状态。v0.5.0 APK 证书 SHA-256 为 `dfb02eeb6402595382462b53181420aafa0c4012be548bb33549dbe3999f1b29`，本环境没有该私钥。本次发布明确说明签名兼容限制，真机与无损覆盖升级仍未验收。

@@ -1,12 +1,12 @@
 # Michael calculus
 
-面向大学生的交互式高等数学学习平台。当前版本：**0.5.0，极限、导数微分与导数应用完整闭环**。
+面向大学生的交互式高等数学学习平台。当前版本：**0.6.0，公式记忆中心与间隔复习**。
 
-## 公式记忆中心（基于 v0.5.0，尚未另行发版）
+## 公式记忆中心（v0.6.0）
 
 新增 42 个公式、填空与完整默写、条件判断、反向识别、间隔复习与 L0–L5 跨日证据。入口在首页“今日公式”和“错题与复习 → 公式”，不增加第七个导航。练习中可手动报告“卡在公式上了”。数据独立保存在 `mc-formula-v1`，保留原课程进度与错题数据结构。
 
-详见 [设计文档](docs/superpowers/specs/2026-11-15-formula-mastery-design.md) 与 [实现、验证及发布边界](docs/formula-mastery-implementation.md)。版本号保持 0.5.0，本次没有发布新的 APK。
+详见 [设计文档](docs/superpowers/specs/2026-11-15-formula-mastery-design.md) 与 [实现、验证及发布边界](docs/formula-mastery-implementation.md)。v0.6.0 提供测试 APK 与源码。APK 的调试签名不保证与旧版本一致，覆盖安装前请核对签名，先保留旧版及其中的学习数据。
 
 ## 已实现
 
@@ -73,7 +73,7 @@ tests/                Playwright 端到端与移动端布局验收测试
 
 ## 安卓 APK
 
-安卓工程位于 `android/`，使用 Capacitor 7 封装本地 `dist/`，无需网站登录或联网加载首页。应用名为 **Michael calculus**，包名 `com.michael.calculus`，版本 `0.5.0`（versionCode 5）。支持 Android 8.0（API 26）及以上，Android System WebView / Chrome 需为 111 或以上。
+安卓工程位于 `android/`，使用 Capacitor 7 封装本地 `dist/`，无需网站登录或联网加载首页。应用名为 **Michael calculus**，包名 `com.michael.calculus`，版本 `0.6.0`（versionCode 6）。支持 Android 8.0（API 26）及以上，Android System WebView / Chrome 需为 111 或以上。
 
 已处理应用图标、启动画面、安卓返回键，以及 Android 15 系统栏边距。主题偏好与学习记录在应用自己的 WebView 本地存储中保存，与浏览器数据相互独立。
 
