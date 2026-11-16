@@ -1,6 +1,7 @@
 import {
   useId,
   useState,
+  useRef,
   Children,
   isValidElement,
   type ReactNode,
@@ -83,6 +84,7 @@ export function Select({
 }) {
   const [open, setOpen] = useState(false);
   const id = useId();
+  const trigger = useRef<HTMLButtonElement>(null);
   const options = Children.toArray(children)
     .filter(isValidElement)
     .map((el) => el.props as { value: string; children: ReactNode });
@@ -92,6 +94,7 @@ export function Select({
       <button
         type="button"
         className="select-trigger"
+        ref={trigger}
         role="combobox"
         aria-expanded={open}
         aria-controls={id}
@@ -114,11 +117,14 @@ export function Select({
               data-value={o.value}
               aria-selected={String(value) === String(o.value)}
               key={o.value}
-              onClick={() => {
+              onClick={(event) => {
+                // A removed option inside a label must not activate the trigger again.
+                event.preventDefault();
                 onChange({
                   target: { value: o.value },
                 } as ChangeEvent<HTMLSelectElement>);
                 setOpen(false);
+                trigger.current?.focus();
               }}
             >
               {o.children}

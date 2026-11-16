@@ -44,6 +44,8 @@
 
 截图测试中曾因同时进行 Android 编译导致 30 秒综合巡检超时；该测试遍历 60 个课时环节和 24 次抽屉选题，现设为 120 秒并通过，行为断言均保留。日常 CI 与正式发布 CI 均运行全套回归。
 
+首次 GitHub CI 使用 Chromium 145，发现 label 内移除选项按钮会触发 label 的默认激活，重新打开下拉框；本地系统 Chromium 156 没有表现出该差异。已用 145 复现默认激活计数为 1，修复后为 0；Select 阻止选项点击的默认 label 激活并归还焦点，选项辅助函数新增“选择后必须关闭”的断言。未发布失败流水线的 APK，修复后才重新建立 v0.7.0 的正式发布标签。
+
 ## 构建与发布
 
 正式包只走 `.github/workflows/release.yml`：固定证书、包名 `com.michael.calculus`、versionName 0.7.0、versionCode 9、不可调试。debug 构建是独立 `.dev` 应用，仅用于构建检查。

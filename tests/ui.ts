@@ -1,7 +1,10 @@
-import type { Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 export async function chooseSelect(page: Page, label: string, value: string) {
   await page.getByRole("combobox", { name: label, exact: true }).click();
   await page.locator(`[role="option"][data-value="${value}"]`).click();
+  await expect(
+    page.getByRole("combobox", { name: label, exact: true }),
+  ).toHaveAttribute("aria-expanded", "false");
 }
 export async function formulaMode(page: Page, value: string) {
   const names: Record<string, string> = {
