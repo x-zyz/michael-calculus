@@ -2,19 +2,19 @@ import { describe, expect, it } from 'vitest';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../app/App';
-import { modules } from '../app/modules';
+import { learningModules } from '../app/modules';
 
 function mount(path = '/') { return render(<MemoryRouter initialEntries={[path]}><App/></MemoryRouter>); }
 describe('learning workspace', () => {
-  it('keeps all six modules reachable and preserves navigation across changes', () => {
+  it('keeps the available learning tools in primary navigation', () => {
     mount();
     const navigation = screen.getByRole('navigation', { name: '主导航' });
-    for (const module of modules) {
+    for (const module of learningModules) {
       fireEvent.click(within(navigation).getByRole('link', { name: module.label }));
-      expect(within(navigation).getAllByRole('link')).toHaveLength(6);
+      expect(within(navigation).getAllByRole('link')).toHaveLength(5);
       expect(within(navigation).getByRole('link', { name: module.label })).toHaveAttribute('aria-current', 'page');
       if (module.path !== '/') expect(screen.getByRole('heading', { level: 1, name: module.label })).toBeVisible();
-      else expect(screen.getByRole('heading', { level: 1, name: /今天/ })).toBeVisible();
+      else expect(screen.getByRole('heading', { level: 1, name: '学习首页' })).toBeVisible();
     }
   });
   it('opens each module directly with its correct heading', () => {
@@ -44,6 +44,6 @@ describe('learning workspace', () => {
   it('recovers from an unknown route', () => {
     mount('/unknown');
     fireEvent.click(screen.getByRole('link', { name: /回到学习首页/ }));
-    expect(screen.getByRole('heading', { level: 1, name: /今天/ })).toBeVisible();
+    expect(screen.getByRole('heading', { level: 1, name: '学习首页' })).toBeVisible();
   });
 });

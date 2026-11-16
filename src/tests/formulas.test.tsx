@@ -207,14 +207,14 @@ describe("formula UI integration", () => {
     expect(screen.getByText(/今日到期/)).toBeVisible();
     expect(JSON.parse(localStorage.getItem(formulaKey)!).stuck).toHaveLength(1);
   });
-  it("grades recognition choices and preserves all six navigation links on nested route", () => {
+  it("grades recognition choices and keeps active learning links on the nested route", () => {
     let s = reviewedToL4();
     s.settings.newPerDay = 0;
     s = markStuck(s, "sin-limit", "p3");
     localStorage.setItem(formulaKey, JSON.stringify(s));
     mount();
     const nav = screen.getByRole("navigation", { name: "主导航" });
-    expect(within(nav).getAllByRole("link")).toHaveLength(6);
+    expect(within(nav).getAllByRole("link")).toHaveLength(5);
     expect(
       within(nav).getByRole("link", { name: "错题与复习" }),
     ).toHaveAttribute("aria-current", "page");

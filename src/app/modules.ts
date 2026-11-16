@@ -7,3 +7,5 @@ export const modules = [
   { path: '/review', label: '错题与复习', short: '复习', english: 'REVIEW', icon: GraduationCap },
   { path: '/assistant', label: 'AI 教师', short: '教师', english: 'ASSISTANT', icon: MessagesSquare },
 ] as const;
+
+export const learningModules = modules.filter(({ path }) => path !== '/assistant');

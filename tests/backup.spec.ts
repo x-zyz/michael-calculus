@@ -43,7 +43,8 @@ test("previews an old backup, requires confirmation, and restores records after 
   await page.getByRole("button", { name: "确认导入并重新载入" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.goto("/#/");
-  await expect(page.locator(".progress-ring strong")).toHaveText("8%");
+  await expect(page.getByText("已学 1 / 12 节", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "继续学习" })).toHaveAttribute("href", /lesson=sine$/);
   expect(
     await page.evaluate(
       () =>
