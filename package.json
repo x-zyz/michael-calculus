@@ -1,7 +1,7 @@
 {
   "name": "michael-calculus",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.6.1",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -14,7 +14,9 @@
     "android:sync": "npm run build && cap sync android",
     "android:debug": "npm run android:sync && cd android && ./gradlew assembleDebug",
     "android:release": "npm run android:sync && cd android && ./gradlew assembleRelease",
-    "android:open": "cap open android"
+    "android:open": "cap open android",
+    "test:signing": "node --test scripts/android-signing.test.mjs scripts/legacy-backup.test.mjs",
+    "verify:apk": "node scripts/verify-android-release.mjs"
   },
   "dependencies": {
     "@capacitor/android": "7.6.10",

@@ -1,3 +1,5 @@
+> **永久签名规则**：所有 agent 的正式更新必须使用 `android/signing-identity.json` 固定的同一证书，走 GitHub Actions 的签名 release 流程。禁止为每台机器或每个版本生成私钥、禁止分发普通 debug APK。调试包只能使用 `.dev` 包名。缺少密钥、指纹不同或权限不足就停止发布并说明原因，不能改指纹绕过。详见 `docs/android-signing.md`；用户只需一次配置仓库 Secrets。旧签名丢失时先做只读数据备份，不擅自卸载旧版。
+
 > 发布更新：用户已要求发布新 Release，本轮版本提升为 v0.6.0（versionCode 6），提供公式中心 APK 与源码。旧 v0.5.0 调试签名私钥不在当前环境，不宣称可无损覆盖升级；不要建议用户为安装新包而直接删除旧数据。下面“未发布”的内容是上一轮开发记录。
 
 > 最新增量：已在 GitHub v0.5.0 基线上实现公式记忆中心，版本号尚未变更、未发布新 APK。42 个公式，独立 mc-formula-v1、跨日掌握度、复习与练习联动。请先读 docs/formula-mastery-implementation.md；下面的 v0.5.0 基线记录继续适用。

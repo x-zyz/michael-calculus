@@ -24,8 +24,8 @@ jobs:
           set -euo pipefail
           [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
           gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" \
-            --pattern '*-debug.apk' --pattern '*-source.zip' --dir release-checksums
+            --pattern '*.apk' --pattern '*-source.zip' --dir release-checksums
           cd release-checksums
-          sha256sum -- *-debug.apk *-source.zip > SHA256SUMS.txt
+          sha256sum -- *.apk *-source.zip > SHA256SUMS.txt
           gh release upload "$RELEASE_TAG" SHA256SUMS.txt \
             --repo "$GITHUB_REPOSITORY" --clobber

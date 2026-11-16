@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+// Release identity is owned by the project, not by an agent or workstation.
+def signingEnv = ['MC_ANDROID_KEYSTORE_PATH', 'MC_ANDROID_KEYSTORE_PASSWORD',
+                  'MC_ANDROID_KEY_ALIAS', 'MC_ANDROID_KEY_PASSWORD']
+def hasReleaseSigning = signingEnv.every { System.getenv(it) }
+
+
 android {
     namespace "com.michael.calculus"
     compileSdk rootProject.ext.compileSdkVersion
@@ -7,8 +13,8 @@ android {
         applicationId "com.michael.calculus"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "0.6.0"
+        versionCode 7
+        versionName "0.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -20,8 +26,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_21
         targetCompatibility JavaVersion.VERSION_21
     }
+    signingConfigs {
+        if (hasReleaseSigning) {
+            canonicalRelease {
+                storeFile file(System.getenv('MC_ANDROID_KEYSTORE_PATH'))
+                storePassword System.getenv('MC_ANDROID_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('MC_ANDROID_KEY_ALIAS')
+                keyPassword System.getenv('MC_ANDROID_KEY_PASSWORD')
+            }
+        }
+    }
     buildTypes {
+        debug {
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-dev'
+        }
         release {
+            if (hasReleaseSigning) signingConfig signingConfigs.canonicalRelease
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -55,4 +77,14 @@ try {
     }
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}
+
+// Do not silently fall back to an unsigned or randomly debug-signed release.
+gradle.taskGraph.whenReady { graph ->
+    def publishing = graph.allTasks.any {
+        it.project == project && it.name in ['assembleRelease', 'bundleRelease', 'packageRelease', 'signReleaseBundle']
+    }
+    if (publishing && !hasReleaseSigning) {
+        throw new GradleException('Release signing is missing. Configure the canonical MC_ANDROID_* signing variables; never generate a replacement key.')
+    }
 }

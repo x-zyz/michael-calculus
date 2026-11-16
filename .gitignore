@@ -10,3 +10,10 @@ test-results/
 *.apk
 *.aab
 signing.properties
+
+# Owner-held signing/learning backup material must never enter this public repository.
+**/signing-config.json
+**/password.txt
+*signing*private*.zip
+*learning-backup*.json
+*private*signing*.zip

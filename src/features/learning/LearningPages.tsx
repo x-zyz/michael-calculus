@@ -1,3 +1,4 @@
+import DataImport from '../../components/DataImport';
 import { ReviewNavigation, StuckButton } from '../formulas/FormulaPages';
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -993,7 +994,7 @@ export function ReviewPage() {
   const correct = state.attempts.filter((a) => a.correct).length;
   return (
     <div className="page learning-page">
-      <h1>错题与复习</h1><ReviewNavigation/>
+      <h1>错题与复习</h1><ReviewNavigation/><details className="learning-card"><summary>学习数据恢复 / 导入旧版备份</summary><DataImport/></details>
       <p>
         累计作答 {state.attempts.length} 次 · 答对 {correct} 次 · 待复习{" "}
         {wrong.length} 题
