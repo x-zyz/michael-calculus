@@ -16,7 +16,7 @@ test('learning navigation shows available tools and keeps the AI status reachabl
     await nav.getByRole('link', { name: isMobile ? mobile : heading, exact: true }).click();
     await expect(page.getByRole('heading', { level: 1, name: heading, exact: true })).toBeVisible();
   }
-  await page.getByRole('navigation', { name: '开发计划' }).getByRole('link', { name: 'AI 教师 · 尚未开放' }).click();
+  await page.getByRole('link', { name: 'AI 教师 · 尚未开放 →' }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'AI 教师' })).toBeVisible();
   await expect(page.getByText('尚未开放。本版本尚未提供 AI 问答。')).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

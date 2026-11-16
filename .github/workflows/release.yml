@@ -63,6 +63,7 @@ jobs:
           npm test
           npm run test:signing
           npm run lint
+          npm run check:css
           npx playwright install --with-deps chromium
           npm run test:e2e
           npm run android:sync

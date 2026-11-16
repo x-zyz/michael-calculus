@@ -4,7 +4,7 @@ test("previews an old backup, requires confirmation, and restores records after 
   isMobile,
 }) => {
   if (isMobile) await page.setViewportSize({ width: 360, height: 740 });
-  await page.goto("/#/review");
+  await page.goto("/#/settings");
   await page.getByText("学习数据恢复 / 导入旧版备份", { exact: true }).click();
   const backup = {
     backupVersion: 1,
@@ -44,7 +44,7 @@ test("previews an old backup, requires confirmation, and restores records after 
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.goto("/#/");
   await expect(page.getByText("已学 1 / 12 节", { exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: "继续学习" })).toHaveAttribute("href", /lesson=sine$/);
+  await expect(page.getByRole("link", { name: /继续学习/ })).toHaveAttribute("href", /curriculum\/sine$/);
   expect(
     await page.evaluate(
       () =>

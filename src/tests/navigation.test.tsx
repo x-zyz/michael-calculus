@@ -20,6 +20,7 @@ describe('learning workspace', () => {
   it('opens each module directly with its correct heading', () => {
     mount('/experiments');
     expect(screen.getByRole('heading', { level: 1, name: '数学实验室' })).toBeVisible();
+    fireEvent.click(screen.getAllByRole('link',{name:'进入实验 →'})[0]);
     expect(screen.getByLabelText('选择实验函数')).toBeVisible();
   });
   it('persists theme preferences across remounting', () => {
@@ -33,7 +34,7 @@ describe('learning workspace', () => {
     expect(document.documentElement).toHaveAttribute('data-theme', 'light');
   });
   it('opens and closes the learning guide with keyboard and restores focus', () => {
-    mount();
+    mount('/settings');
     fireEvent.click(screen.getByRole('button', { name: '了解学习路径' }));
     const dialog = screen.getByRole('dialog');
     expect(within(dialog).getAllByRole('listitem')).toHaveLength(6);

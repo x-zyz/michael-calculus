@@ -1,5 +1,15 @@
 > **永久签名规则**：所有 agent 的正式更新必须使用 `android/signing-identity.json` 固定的同一证书，走 GitHub Actions 的签名 release 流程。禁止为每台机器或每个版本生成私钥、禁止分发普通 debug APK。调试包只能使用 `.dev` 包名。缺少密钥、指纹不同或权限不足就停止发布并说明原因，不能改指纹绕过。详见 `docs/android-signing.md`；用户只需一次配置仓库 Secrets。旧签名丢失时先做只读数据备份，不擅自卸载旧版。
 
+## v0.7.0 界面结构规则（优先于下方历史基线）
+
+- 当前版本 0.7.0 / versionCode 9。五项学习导航，AI 保留 `/assistant`，只从首页链接进入。永久签名规则继续生效。
+- 新功能必须放进已有结构（新路由 / Tabs / Sheet / Accordion），禁止往页面底部继续追加区块；禁止使用原生 select / details / number 控件和字面样式值；只能使用 `src/components/ui` 组件和 tokens。数学图形坐标、SVG 路径和动态百分比是几何数据。
+- 样式入口 `src/styles.css` 只导入 tokens / base / layout / components；组件/页面 TSX 不超过 300 行。字体最小 12px，触控目标至少 44px，每页最多一个可见 primary；手机主任务必须首屏可见。
+- 课程在 `features/curriculum`，答题在 `practice`，掌握度在 `review`，三个独立实验在 `experiments`；`LearningPages.tsx` 仅兼容导出。公式设置放 Sheet，数据备份放 `/settings`。
+- 必须跑 typecheck、lint、test、check:css、test:signing、Playwright 和 Android sync / lint。发布使用固定证书的 release APK；assembleDebug 仅验证 `.dev` 调试构建。
+- `src/data/*.ts`、公式 engine 和所有持久化/备份格式在此次 UI 重构中保持原样。后续不得以界面调整名义修改数学或调度行为。
+- 交接与前后图见 `HANDOFF.md`、`docs/ui-before`、`docs/ui-after`，本轮原始方案见 `docs/superpowers/specs/2026-11-16-ui-redesign.md`。
+
 # Michael calculus — Agent Harness Guide (Codex / DeepSeek / Claude / Gemini)
 
 ## Standing Delivery & Release Instructions
@@ -14,7 +24,7 @@
 ## 当前发布增量（v0.6.0，versionCode 6）
 
 新增公式记忆中心：42 个公式、填空/完整默写/条件判断/反向识别、独立 `mc-formula-v1`、间隔复习、跨日 L0–L5 证据与练习手动卡住联动。详见 `docs/formula-mastery-implementation.md`。保留原有 12 节课程、24 道题和六大导航。测试现为 28 项单元/组件、22 项浏览器回归。
-发布为调试 APK；当前 CI 每次生成的调试签名不保证与旧版相同，不能宣称可无损覆盖升级，不能为安装而擅自删除旧版数据。
+历史调试包不能用于当前发布；当前只发布固定签名 release APK。
 
 ## 一、项目概览与既有课程基线（v0.5.0，versionCode 5）
 
@@ -47,10 +57,10 @@
 - `src/features/dashboard/Dashboard.tsx`：首页真实阅读进度、累计作答与练习天数统计。
 
 ### 开发红线
-1. **保留全部六个导航入口**，不得退回空壳卡片或破坏已有学习闭环。
+1. **保留五个学习导航及独立 AI 状态路由**，不得退回空壳卡片或破坏已有学习闭环。
 2. **保持 `mc-learning-v1` 与 `mc-theme` 兼容性**，升级或迁移时不得丢失用户已有进度与错题记录。
 3. **数学严谨性**：不用随机代值宣称任意符号等价，不使用 `eval`；数值采样实验必须注明「仅用于观察，不代替数学证明」；未定义点（孔点、$h=0$ 差商）在模型函数中必须返回 `null`；不直接复制现代教材原文或插图。
-4. **移动端适配**：所有公式在 `360px` 宽度下不得横向裁切（多行或较长公式请使用 `\begin{gathered}...\end{gathered}` 分行），移动端可见文字字号不得小于 `11px`，底部固定导航栏不得遮挡交互控件。
+4. **移动端适配**：所有公式在 `360px` 宽度下不得横向裁切（多行或较长公式请使用 `\begin{gathered}...\end{gathered}` 分行），移动端可见文字字号不得小于 `12px`，底部固定导航栏不得遮挡交互控件。
 5. **离线 APK**：APK 必须打包本地 `dist/` 静态资源（`capacitor.config.ts` 中勿改为远程 `server.url`）。
 6. **诚实边界**：尚未实现的功能（积分课程、AI 教师真实问答、任意符号/过程评分、账号同步、OCR、完整限时诊断卷）在实现前不要宣称为已有功能。
 

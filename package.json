@@ -1,7 +1,7 @@
 {
   "name": "michael-calculus",
   "private": true,
-  "version": "0.6.2",
+  "version": "0.7.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -9,6 +9,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "typecheck": "tsc -b",
     "lint": "eslint .",
+    "check:css": "node scripts/check-css.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "android:sync": "npm run build && cap sync android",

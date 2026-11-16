@@ -1,3 +1,4 @@
+import {chooseSelect,chooseProblem} from './ui';
 import { test, expect, type Page } from '@playwright/test';
 
 // Browser acceptance for the limit & derivative learning loops (desktop + phone projects).
@@ -11,7 +12,7 @@ async function layoutProblems(page: Page) {
     const vw = document.documentElement.clientWidth;
     if (document.documentElement.scrollWidth > vw) out.push(`page overflow ${document.documentElement.scrollWidth}>${vw}`);
     document.querySelectorAll<HTMLElement>('.formula').forEach(f => {
-      if (f.scrollWidth > f.clientWidth + 1) out.push(`formula clipped: ${f.querySelector('annotation')?.textContent}`);
+      if (f.getClientRects().length && f.scrollWidth > f.clientWidth + 1) out.push(`formula clipped: ${f.querySelector('annotation')?.textContent}`);
     });
     if (vw <= 760) {
       document.querySelectorAll<HTMLElement>('body *').forEach(el => {
@@ -29,6 +30,8 @@ test.describe('phone layout', () => {
   test.beforeEach(async ({ page }) => page.setViewportSize({ width: 360, height: 740 }));
 
   test('pages, all 12 lessons and all 24 problems fit a 360px screen with readable text', async ({ page }) => {
+    // Covers 60 lesson steps and 24 drawer selections, including slow CI machines.
+    test.setTimeout(120000);
     const issues: string[] = [];
     for (const url of ['/#/', '/#/experiments', '/#/practice', '/#/review', '/#/assistant']) {
       await page.goto(url);
@@ -43,7 +46,7 @@ test.describe('phone layout', () => {
     }
     await page.goto('/#/practice');
     for (let i = 1; i <= 24; i++) {
-      await page.getByRole('button', { name: `第 ${i} 题`, exact: true }).click();
+      await chooseProblem(page,i);
       issues.push(...(await layoutProblems(page)).map(p => `problem ${i} ${p}`));
     }
     expect(issues).toEqual([]);
@@ -57,7 +60,8 @@ test.describe('phone layout', () => {
         await new Promise(r => requestAnimationFrame(r));
         const navTop = document.querySelector('.mobile-nav')!.getBoundingClientRect().top;
         const controls = [...document.querySelectorAll<HTMLElement>('main a, main button, main input')];
-        const last = controls[controls.length - 1];
+        const visible=controls.filter(el=>el.getClientRects().length);
+        const last = visible[visible.length - 1];
         return last.getBoundingClientRect().bottom > navTop ? last.textContent : null;
       });
       expect(covered, url).toBeNull();
@@ -72,11 +76,11 @@ test('full learning loop persists across reloads', async ({ page }) => {
     await page.getByRole('tab', { name: tab }).click();
     await expect(page.locator('.formula .katex').first()).toBeVisible();
   }
-  await page.getByRole('button', { name: '标记已完成阅读' }).click();
-  await expect(page.getByRole('button', { name: '✓ 已完成阅读' })).toBeVisible();
+  await page.getByRole('tab',{name:'练习',exact:true}).click();
+  await expect(page.getByText(/已完成阅读/)).toBeVisible();
 
   await page.getByRole('tab', { name: '练习' }).click();
-  await page.getByRole('link', { name: /开始本节练习/ }).click();
+  await page.getByRole('link', { name: /完成阅读，开始练习/ }).click();
   await expect(page.getByRole('heading', { level: 2, name: '约分后再求极限' })).toBeVisible();
 
   // Invalid input is rejected without recording an attempt.
@@ -93,6 +97,7 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await page.reload();
   await page.goto('/#/review');
   await expect(page.getByText('累计作答 1 次 · 答对 0 次 · 待复习 1 题')).toBeVisible();
+  await page.getByRole('button',{name:'最近 20 次作答',exact:true}).click();
   await expect(page.getByText('你的答案：0 · 使用提示 1 次', { exact: false })).toBeVisible();
 
   await page.getByRole('link', { name: '重新练习' }).click();
@@ -131,7 +136,7 @@ test('data written by 0.2.0 is kept after an upgrade', async ({ page }) => {
 });
 
 test('limit and secant experiments react to controls and match each lesson', async ({ page }) => {
-  await page.goto('/#/experiments');
+  await page.goto('/#/experiments/limits');
   const left = page.getByTestId('left-value');
   const right = page.getByTestId('right-value');
   await page.getByLabel(/逼近距离/).fill('10');
@@ -141,19 +146,21 @@ test('limit and secant experiments react to controls and match each lesson', asy
   await expect(left).toContainText('左侧 f(x) = 1.999900');
   await expect(right).toContainText('右侧 f(x) = 2.000100');
 
-  await page.getByLabel('选择实验函数').selectOption('euler');
+  await chooseSelect(page,'选择实验函数','euler');
   await expect(left).toContainText('左侧 f(x) = 2.718418');
   await expect(right).toContainText('右侧 f(x) = 2.718146');
 
-  await page.getByLabel('选择实验函数').selectOption('infinitesimal');
+  await chooseSelect(page,'选择实验函数','infinitesimal');
   await expect(left).toContainText('左侧 f(x) = 0.500000');
   await expect(right).toContainText('右侧 f(x) = 0.500000');
 
-  await page.getByLabel('选择实验函数').selectOption('jump');
+  await chooseSelect(page,'选择实验函数','jump');
   await expect(left).toContainText('左侧 f(x) = 0.000000');
   await expect(right).toContainText('右侧 f(x) = 1.000000');
   await expect(page.getByText('双侧极限不存在').first()).toBeVisible();
 
+  await page.goto('/#/experiments/secant');
+  await page.getByRole('button',{name:'详细数值',exact:true}).click();
   // Secant-to-tangent and differential linear approximation experiment
   const secant = page.getByTestId('secant-slope');
   const approx = page.getByTestId('linear-approx');
@@ -173,7 +180,7 @@ test('limit and secant experiments react to controls and match each lesson', asy
   ]) {
     await page.goto(`/#/curriculum?lesson=${lesson}`);
     await page.getByRole('tab', { name: '实验' }).click();
-    await expect(page.getByLabel('选择实验函数')).toHaveValue(kind);
+    await expect(page.getByLabel('选择实验函数')).toHaveAttribute('data-value',kind);
   }
   for (const [lesson, kind] of [
     ['derivative', 'square'],
@@ -184,7 +191,7 @@ test('limit and secant experiments react to controls and match each lesson', asy
     await page.goto(`/#/curriculum?lesson=${lesson}`);
     await page.getByRole('tab', { name: '实验' }).click();
     await expect(page.getByTestId('secant-experiment')).toBeVisible();
-    await expect(page.getByLabel('选择导数实验函数')).toHaveValue(kind);
+    await expect(page.getByLabel('选择导数实验函数')).toHaveAttribute('data-value',kind);
   }
   for (const [lesson, kind] of [
     ['mvt', 'mvt'],
@@ -194,6 +201,6 @@ test('limit and secant experiments react to controls and match each lesson', asy
     await page.goto(`/#/curriculum?lesson=${lesson}`);
     await page.getByRole('tab', { name: '实验' }).click();
     await expect(page.getByTestId('derivative-app-experiment')).toBeVisible();
-    await expect(page.getByLabel('选择导数应用实验')).toHaveValue(kind);
+    await expect(page.getByLabel('选择导数应用实验')).toHaveAttribute('data-value',kind);
   }
 });

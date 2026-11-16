@@ -1,3 +1,4 @@
+import {formulaMode} from './ui';
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
@@ -5,20 +6,7 @@ import katex from "katex";
 import App from "../app/App";
 import { formulas } from "../data/formulas";
 import { problems } from "../data/learning";
-import {
-  cards,
-  emptyStore,
-  recordReview,
-  addDays,
-  localDay,
-  validateStore,
-  level,
-  queue,
-  markStuck,
-  counters,
-  weak,
-  choices,
-} from "../features/formulas/engine";
+import { cards, emptyStore, recordReview, addDays, localDay, validateStore, level, queue, markStuck, counters, weak, choices } from "../features/formulas/engine";
 import { formulaKey } from "../db/formulas";
 const day = (n: number) => new Date(2026, 10, n, 12);
 function reviewedToL4() {
@@ -204,7 +192,7 @@ describe("formula UI integration", () => {
     expect(localStorage.getItem("mc-learning-v1")).toBe(before);
     v.unmount();
     mount();
-    expect(screen.getByText(/今日到期/)).toBeVisible();
+    expect(screen.getByText(/今天要复习/)).toBeVisible();
     expect(JSON.parse(localStorage.getItem(formulaKey)!).stuck).toHaveLength(1);
   });
   it("grades recognition choices and keeps active learning links on the nested route", () => {
@@ -218,9 +206,7 @@ describe("formula UI integration", () => {
     expect(
       within(nav).getByRole("link", { name: "错题与复习" }),
     ).toHaveAttribute("aria-current", "page");
-    fireEvent.change(screen.getByLabelText("复习模式"), {
-      target: { value: "recognize" },
-    });
+    formulaMode("反向识别");
     fireEvent.click(screen.getByRole("button", { name: "开始今日复习" }));
     fireEvent.click(screen.getByRole("button", { name: /第一个重要极限/ }));
     expect(screen.getByRole("heading", { name: "选择正确" })).toBeVisible();
@@ -236,7 +222,8 @@ describe("formula UI integration", () => {
       .mockImplementation(() => {
         throw Error("quota");
       });
-    fireEvent.change(screen.getByLabelText(/每天最多加入/), {
+    fireEvent.click(screen.getByRole("button",{name:"设置"}));
+    fireEvent.change(screen.getByRole("textbox",{name:/每天最多加入/}), {
       target: { value: "4" },
     });
     expect(

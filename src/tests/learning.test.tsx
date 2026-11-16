@@ -1,17 +1,9 @@
+import {chooseSelect,completeReading} from './ui';
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../app/App";
-import {
-  checkAnswer,
-  computeMastery,
-  derivativeAppState,
-  experimentValue,
-  lessons,
-  linearApprox,
-  problems,
-  secantSlope,
-} from "../data/learning";
+import { checkAnswer, computeMastery, derivativeAppState, experimentValue, lessons, linearApprox, problems, secantSlope } from "../data/learning";
 import { learningKey } from "../db/learning";
 function mount(path: string) {
   return render(
@@ -114,7 +106,7 @@ describe("limit and derivative learning", () => {
   it("links each lesson to its matching experiment across chapters 1, 2, and 3", () => {
     const v = mount("/curriculum?lesson=euler");
     fireEvent.click(screen.getByRole("tab", { name: "实验" }));
-    expect(screen.getByLabelText("选择实验函数")).toHaveValue("euler");
+    expect(screen.getByLabelText("选择实验函数")).toHaveAttribute("data-value","euler");
     v.unmount();
 
     const v2 = mount("/curriculum?lesson=derivative");
@@ -133,13 +125,13 @@ describe("limit and derivative learning", () => {
 
     const v3 = mount("/curriculum?lesson=chain");
     fireEvent.click(screen.getByRole("tab", { name: "实验" }));
-    expect(screen.getByLabelText("选择导数实验函数")).toHaveValue("chain");
+    expect(screen.getByLabelText("选择导数实验函数")).toHaveAttribute("data-value","chain");
     v3.unmount();
 
     const v4 = mount("/curriculum?lesson=lhopital");
     fireEvent.click(screen.getByRole("tab", { name: "实验" }));
     expect(screen.getByTestId("derivative-app-experiment")).toBeVisible();
-    expect(screen.getByLabelText("选择导数应用实验")).toHaveValue("lhopital");
+    expect(screen.getByLabelText("选择导数应用实验")).toHaveAttribute("data-value","lhopital");
     v4.unmount();
   });
   it("grades derivative rules, chain rule, differential, MVT, L'Hopital, and extrema problems", () => {
@@ -190,6 +182,7 @@ describe("limit and derivative learning", () => {
     expect(stats.chapters[2].weakTags).toContain("洛必达法则与未定式");
 
     const v = mount("/practice");
+    fireEvent.click(screen.getByRole("button",{name:"题目列表"}));
     fireEvent.click(
       screen.getByRole("button", { name: "第三章：中值定理与导数应用" }),
     );
@@ -199,9 +192,8 @@ describe("limit and derivative learning", () => {
         name: "拉格朗日中值定理求中值点",
       }),
     ).toBeVisible();
-    fireEvent.change(screen.getByLabelText("按错因标签筛选"), {
-      target: { value: "lhopital_rule" },
-    });
+    fireEvent.click(within(screen.getByRole("group",{name:"按错因标签筛选"})).getByRole("button",{name:"洛必达法则与未定式"}));
+    fireEvent.click(screen.getByRole("button",{name:"关闭题目列表"}));
     expect(
       screen.getByRole("heading", {
         level: 2,
@@ -221,9 +213,7 @@ describe("limit and derivative learning", () => {
     expect(screen.getByTestId("review-mastery")).toHaveTextContent(
       "薄弱考点：洛必达法则与未定式",
     );
-    fireEvent.change(screen.getByLabelText("筛选错因分类"), {
-      target: { value: "lhopital_rule" },
-    });
+    chooseSelect("筛选错因分类","lhopital_rule");
     expect(
       screen.getByRole("heading", {
         level: 3,
@@ -250,11 +240,11 @@ describe("limit and derivative learning", () => {
     v2.unmount();
   });
   it("persists a completed lesson across closing and reopening", () => {
-    const v = mount("/curriculum");
-    fireEvent.click(screen.getByRole("button", { name: "标记已完成阅读" }));
+    const v = mount("/curriculum/limit");
+    completeReading();
     v.unmount();
-    mount("/curriculum");
-    expect(screen.getByRole("button", { name: "✓ 已完成阅读" })).toBeVisible();
+    mount("/curriculum/limit");
+    expect(screen.getByText(/已完成阅读/)).toBeVisible();
     expect(JSON.parse(localStorage.getItem(learningKey)!).completed).toContain(
       "limit",
     );
@@ -313,8 +303,8 @@ describe("limit and derivative learning", () => {
       .mockImplementation(() => {
         throw new Error("quota");
       });
-    mount("/curriculum");
-    fireEvent.click(screen.getByRole("button", { name: "标记已完成阅读" }));
+    mount("/curriculum/limit");
+    completeReading();
     expect(screen.getByRole("alert")).toHaveTextContent("无法保存");
     spy.mockRestore();
   });

@@ -1,3 +1,4 @@
+import { Button, Card } from "./ui";
 import { useState } from "react";
 import {
   parseBackup,
@@ -16,7 +17,7 @@ export default function DataImport({
   const [reading, setReading] = useState(false);
   const summary = backup ? backupSummary(backup) : null;
   return (
-    <section className="learning-card">
+    <Card>
       <h2>导入旧版学习备份</h2>
       <p>
         仅用于一次换签名迁移或恢复备份。请先保留旧版；备份成功且确认新版本可用后，再处理旧安装。今后的正式版本使用固定签名，可正常覆盖更新。
@@ -55,17 +56,16 @@ export default function DataImport({
             已读课程 {summary.completed} 节 · 作答 {summary.attempts} 次 ·
             公式复习 {summary.reviews} 次
           </p>
-          <label style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <label className="backup-confirm">
             <input
-              style={{ width: 20, height: 20, flexShrink: 0 }}
               type="checkbox"
               checked={confirmed}
               onChange={(e) => setConfirmed(e.target.checked)}
             />
             我已保留原备份，并确认用它替换本机对应记录
           </label>
-          <button
-            className="primary-button"
+          <Button
+            variant="primary"
             disabled={!confirmed || reading}
             onClick={() => {
               try {
@@ -78,13 +78,13 @@ export default function DataImport({
             }}
           >
             确认导入并重新载入
-          </button>
+          </Button>
         </>
       )}
       {error && <p role="alert">{error}</p>}
       <p className="learning-note">
         导入只发生在本机，不上传文件。不会根据答错推断迁移，也不会自动卸载任何应用。
       </p>
-    </section>
+    </Card>
   );
 }

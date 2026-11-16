@@ -1,55 +1,53 @@
-> **永久签名规则**：所有 agent 的正式更新必须使用 `android/signing-identity.json` 固定的同一证书，走 GitHub Actions 的签名 release 流程。禁止为每台机器或每个版本生成私钥、禁止分发普通 debug APK。调试包只能使用 `.dev` 包名。缺少密钥、指纹不同或权限不足就停止发布并说明原因，不能改指纹绕过。详见 `docs/android-signing.md`；用户只需一次配置仓库 Secrets。旧签名丢失时先做只读数据备份，不擅自卸载旧版。
+# Michael calculus v0.7.0 交接
 
-> 发布更新：用户已要求发布新 Release，本轮版本提升为 v0.6.0（versionCode 6），提供公式中心 APK 与源码。旧 v0.5.0 调试签名私钥不在当前环境，不宣称可无损覆盖升级；不要建议用户为安装新包而直接删除旧数据。下面“未发布”的内容是上一轮开发记录。
+基线为 d2b6d41（v0.6.2），本轮只改 UI 和信息架构；Android versionCode 为 9。
 
-> 最新增量：已在 GitHub v0.5.0 基线上实现公式记忆中心，版本号尚未变更、未发布新 APK。42 个公式，独立 mc-formula-v1、跨日掌握度、复习与练习联动。请先读 docs/formula-mastery-implementation.md；下面的 v0.5.0 基线记录继续适用。
+## 按修改方案核对
 
-# Michael calculus — v0.5.0 工作交接与继续开发提示词
+| 项目 | 本轮实现 |
+|---|---|
+| 设计系统 | tokens / base / layout / components 四层；固定字号、间距、圆角、语义色与深色主题；移除旧补丁和未引用 class。共享 UI 组件覆盖 Button、Card、Tabs、Sheet 等全部清单。 |
+| 文件拆分 | LearningPages 仅兼容导出，课程、练习、复习、实验独立文件；公式详情、训练、标签拆分；feature TSX 均不超过 300 行。 |
+| 首页及导航 | navy emphasis 主视觉、真实进度和三项统计、章节紧凑进度；五项导航；AI 只保留首页状态链接；版本、备份放设置。 |
+| 课程 | 按章大纲，手机目录/详情独立路由，旧 ?lesson= 重定向；五步 Tabs + 进度条 + sticky 下一步，最后一步自动完成阅读。 |
+| 练习 | 输入框首屏可见；题目、章节、错因筛选收进 Sheet，网格带标题及对错状态；移除重复掌握度；判分说明收进 InfoTip。 |
+| 错题复习 | 共享 MasterySummary、薄弱考点 Chip、按错因分组重做；历史默认折叠；备份迁至设置。 |
+| 公式记忆 | 首屏强调复习任务；模式/新公式数用 Sheet + SegmentedControl + NumberStepper；按章公式库；答案翻面、自评语义色。 |
+| 数学实验 | 三张入口卡，三个独立实验路由；图表在前，手机 sticky；关键读数保留，微分详细数值默认折叠；证明边界由 InfoTip 说明。 |
+| 移动端 | 360px/1280px、深浅主题检查；字号 token、44px 触控、首屏任务、单 primary、无横向溢出和公式裁切护栏。 |
+| 防退化 | check:css 和 design-guard 纳入签名发布 CI；三个 agent 指令文件写入结构规则。 |
+| 数据兼容 | src/data/*.ts 与公式 engine 无变更；持久化键与备份格式无变更；旧数据恢复、作答保存与公式间隔复习继续回归。 |
 
-仓库地址：`https://github.com/x-zyz/michael-calculus`
-可直接让 **Codex**、**DeepSeek（Claude Code / cc-switch / OpenCode）** 或 **Gemini** 读取仓库根目录的 `AGENTS.md` / `CLAUDE.md` / `GEMINI.md`，或复制以下内容继续开发：
+## 前后截图
 
----
+`docs/ui-before/` 是 v0.6.2，`docs/ui-after/` 是 v0.7.0。均含 phone360（360×740）和 desktop（1280×860）的 light/dark 版本；文件名一一对应。课时正文可比较 `lesson-sine-定义`。后图额外包含课时详情、设置、三个单实验页。
 
-你将接手继续开发 **Michael calculus**（面向大学生的交互式高等数学学习平台，Web + Capacitor Android APK）。请在现有 `0.5.0`（`versionCode 5`）源码基础上继续迭代，**严格保留六大导航模块与真实可用的学习闭环，不要退回占位原型**。
+| 页面 | 前 | 后 | 可见变化 |
+|---|---|---|---|
+| 首页 | [前](docs/ui-before/phone360-light-home.png) | [后](docs/ui-after/phone360-light-home.png) | 恢复品牌主视觉、一个主动作、统计入口 |
+| 练习 | [前](docs/ui-before/phone360-light-practice.png) | [后](docs/ui-after/phone360-light-practice.png) | 从多屏题号与统计改成首屏答题 |
+| 课程 | [前](docs/ui-before/phone360-light-curriculum.png) | [后](docs/ui-after/phone360-light-lesson-limit.png) | 课时正文独立，五步阅读 |
+| 公式 | [前](docs/ui-before/phone360-light-formulas.png) | [后](docs/ui-after/phone360-light-formulas.png) | 设置让位于复习任务 |
+| 实验 | [前](docs/ui-before/phone360-light-experiments.png) | [后](docs/ui-after/phone360-light-experiments.png) | 三个实验从纵向堆叠改成入口卡 |
+| 桌面首页 | [前](docs/ui-before/desktop-light-home.png) | [后](docs/ui-after/desktop-light-home.png) | 侧栏、内容、控件使用同一主题 |
 
-## 一、当前已完成交付（v0.5.0，versionCode 5）
+完整截图助手仍覆盖全部 12 课五个环节、24 题、全部极限实验类型。运行：`SCREENSHOTS=1 npx playwright test tests/screens.spec.ts --project=desktop --timeout=240000`（加 `DOC_SCREENSHOTS=1` 可直接更新文档代表图）；开发用全量截图留在忽略的 test-results 中，仅代表性对照图入库。
 
-1. **移动端（360px）与桌面端浏览器体验验收及修复**：
-   - 全部 12 节课程与 24 道练习题的数学公式在窄屏（360px）下均无横向裁切（使用 `\begin{gathered}...\end{gathered}` 分行排版）。
-   - 移动端 `@media(max-width:760px)` 下全部可见文字 `>= 11px`，且底部固定六入口导航栏不遮挡任何交互控件。
+## 验证结果
 
-2. **十二节完整课程（每节均含「直觉 / 实验 / 定义 / 例题 / 练习」五种视图）**：
-   - **第一章 · 函数、极限与连续（5 节）**：`limit`（函数极限）、`sine`（第一个重要极限）、`euler`（第二个重要极限）、`infinitesimal`（等价无穷小替换）、`continuity`（连续性与左右极限）。
-   - **第二章 · 导数与微分（4 节）**：`derivative`（导数的定义与切线）、`rules`（基本求导法则与初等函数导数）、`chain`（复合函数求导/链式法则）、`differential`（微分的概念与线性近似）。
-   - **第三章 · 中值定理与导数的应用（3 节，v0.5.0 新增）**：
-     - `mvt`：罗尔定理与拉格朗日中值定理
-     - `lhopital`：洛必达法则与未定式极限
-     - `extrema`：函数的单调性与极值判别
-   - 每节课程的「实验」标签页均自动联动对应的极限、导数微分或导数应用交互实验模型。
+- typecheck、ESLint、check:css 通过；32 项单元/组件、5 项签名与备份脚本检查通过。
+- 桌面/手机浏览器回归共 28 项通过（默认跳过的 8 项为按需截图助手）；覆盖全部课程、题目、公式、三类实验、旧版数据恢复、主题、抽屉焦点与防误提交。
+- 全量截图 4 个尺寸/主题用例通过；另存 32 张前图、52 张后图用于文档对照。
+- android:sync、assembleRelease、assembleDebug、lintRelease 通过；app lint 0 error，保留 Android 依赖现有 30 条 warning。
+- 最终本地 release APK 已验证：包名 com.michael.calculus，0.7.0 / 9，固定证书，不可调试。
+- 课程/题库/数学模型/公式调度与存储源码无差异；原 16 个 data-testid 全部保留。
 
-3. **三类交互数学实验（课程内与「数学实验室」均可交互）**：
-   - **左右极限逼近实验（`Experiment`）**：支持可去间断 `(x² − 1)/(x − 1)`、第一个重要极限 `sin x / x`、第二个重要极限 `(1 + x)^(1/x)`、等价无穷小 `(1 − cos x)/x²`（半角公式消除浮点相消误差）、跳跃间断分段函数。孔点处 `experimentValue` 严格返回 `null`。
-   - **割线与切线逼近及微分线性近似实验（`SecantExperiment`）**：支持 `f(x) = x²`、`f(x) = x³ − x`、`f(x) = √x`、`f(x) = (2x − 1)²` 在 `x₀ = 1` 处的左/右步长 `h` 逼近，实时显示割线差商 `Δy/h`、微分线性近似 `dy = f'(x₀)h`、真实增量 `Δy` 与高阶误差比 `|Δy − dy| / |h|`。在 `h = 0` 时严格返回 `null`。
-   - **中值定理与导数应用实验（`DerivativeAppExperiment`，v0.5.0 新增）**：支持拉格朗日中值定理 `f(x) = x²` 在 `[0, 2]` 上寻找平行弦切点 `ξ = 1`、洛必达法则 `(eˣ − 1 − x)/x²` 与导数比 `(eˣ − 1)/(2x)` 同步趋近 `0.5`（在 `x = 0` 处 `derivativeAppState("lhopital", 0)` 严格返回 `null` 并以泰勒展式消除微小步长浮点误差）、以及三次函数 `f(x) = x³ − 3x` 的一阶导数单调判别与二阶导数驻点凹凸性判别。
+截图测试中曾因同时进行 Android 编译导致 30 秒综合巡检超时；该测试遍历 60 个课时环节和 24 次抽屉选题，现设为 120 秒并通过，行为断言均保留。日常 CI 与正式发布 CI 均运行全套回归。
 
-4. **二十四道受限数值题与章节/错因/薄弱考点诊断复习闭环**：
-   - `p1`–`p24` 覆盖全部 12 节课程（每节 2 题），包含三级提示、详细解析、错因标签（`errorTag` / `errorLabel`）。
-   - 练习中心与错题复习均支持按章节（第一章 / 第二章 / 第三章）与错因标签（`errorTag`）筛选，并实时计算各章节与考点的掌握度、作答题数（`attempted`）以及章节薄弱考点列表（`weakTags`）。
-   - 本地持久化使用 `localStorage`（`mc-learning-v1`、`mc-theme`），向后兼容 `0.2.0` / `0.3.0` / `0.4.0` 数据。
+## 构建与发布
 
-5. **自动化测试、多 Harness 环境与 Android 构建**：
-   - Vitest 单元与组件回归测试：2 个文件、**19 项测试全部通过**。
-   - Playwright E2E 端到端测试：桌面 + 移动（360px）双端 **14 项测试全部通过**（覆盖全部 12 节课程、24 道练习题与三类实验）。
-   - 仓库根目录已提供 `AGENTS.md`、`CLAUDE.md`、`GEMINI.md` 及 `.github/workflows/release.yml`，本机已配置持久化 `JAVA_HOME`（Temurin JDK 21）、`ANDROID_HOME`（Android SDK 35 + Build Tools 35.0.0）与 GitHub CLI `gh`。
+正式包只走 `.github/workflows/release.yml`：固定证书、包名 `com.michael.calculus`、versionName 0.7.0、versionCode 9、不可调试。debug 构建是独立 `.dev` 应用，仅用于构建检查。
 
----
+已下载 v0.6.2 正式 APK 比较证书，其 SHA-256 与仓库锁定值一致：`8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706`。不生成新私钥、不修改 pin、不把密钥放进源码包。
 
-## 二、下一阶段工作建议（v0.6.0，versionCode 6）
-
-1. **第四章 · 不定积分与定积分**：
-   - 新增课程：原函数与不定积分、定积分的概念与性质、微积分基本定理（牛顿—莱布尼茨公式）。
-   - 实验扩展：定积分黎曼和逼近实验（分割数 `n` 增加时左/右/中点矩形面积和逼近曲边梯形真值）与变上限积分导数实验。
-   - 补充配套受限数值/分数练习题（每节至少 2 题）。
-2. **章节阶段自测闭环**：
-   - 在练习中心支持按章节发起一轮阶段自测，完成后汇总得分与薄弱错因标签。
+尚未执行用户手机上的实际覆盖安装；签名和递增版本检查提供覆盖更新的必要条件，不能代替真机验收。积分课程、AI 问答、OCR、云同步、阶段自测未实现，本轮未新增这些功能。

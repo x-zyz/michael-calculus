@@ -1,3 +1,4 @@
+import {formulaMode} from './ui';
 import { test, expect } from "@playwright/test";
 import { formulas } from "../src/data/formulas";
 import {
@@ -21,7 +22,7 @@ test("formula round persists self ratings and summarizes on desktop and 360px", 
   );
   await page.goto("/#/");
   await page.reload();
-  await page.getByRole("link", { name: "开始公式复习 →" }).click();
+  await page.getByRole("link", { name: /今日到期公式/ }).click();
   await page.getByRole("button", { name: "开始今日复习" }).click();
   await expect(
     page.getByRole("button", { name: "记住了", exact: true }),
@@ -43,7 +44,7 @@ test("every formula and cloze fits a 360px phone without clipping or small visib
   test.setTimeout(180000);
   await page.setViewportSize({ width: 360, height: 740 });
   await page.goto("/#/review/formulas");
-  await page.locator("details summary").first().click();
+  await page.getByRole("button", { name: /第1章 ·/ }).click();
   const errors: string[] = [];
   for (const f of formulas) {
     await page.goto("/#/review/formulas?formula=" + f.id);
@@ -67,7 +68,7 @@ test("every formula and cloze fits a 360px phone without clipping or small visib
   );
   await page.goto("/#/review/formulas");
   await page.reload();
-  await page.getByLabel("复习模式").selectOption("cloze");
+  await formulaMode(page,"cloze");
   for (let round = 0; round < 3; round++) {
     await page.getByRole("button", { name: "开始今日复习" }).click();
     while (await page.getByRole("button", { name: "显示答案" }).count()) {
@@ -114,7 +115,7 @@ test("a reported formula struggle is due after reload and recognition is graded 
   await expect(page.getByText("已加入今日公式复习。")).toBeVisible();
   await page.goto("/#/review/formulas");
   await page.reload();
-  await page.getByLabel("复习模式").selectOption("recognize");
+  await formulaMode(page,"recognize");
   await page.getByRole("button", { name: "开始今日复习" }).click();
   await page
     .getByRole("button", { name: "选择公式：第一个重要极限", exact: true })
@@ -151,7 +152,7 @@ test("spot check requires L3 evidence and a forgotten card lowers its level", as
   );
   await page.goto("/#/review/formulas");
   await page.reload();
-  await page.getByLabel("复习模式").selectOption("spot");
+  await formulaMode(page,"spot");
   await page.getByRole("button", { name: "开始今日复习" }).click();
   await page.getByRole("button", { name: "显示答案" }).click();
   await page.getByRole("button", { name: "忘记了", exact: true }).click();
