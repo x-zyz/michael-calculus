@@ -88,8 +88,6 @@
 .fm-option { display: block; width: 100%; text-align: left; margin-block: var(--space-3); }
 .fm-tag { display: flex; align-items: center; gap: var(--space-3); min-height: var(--touch); }
 .fm-stuck { margin-block: var(--space-2); } .fm-stuck fieldset > button { margin: var(--space-1); }
-.fm-actions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-2); margin-block: var(--space-4); }
-.fm-rating-good { background: var(--success-soft); color: var(--success); } .fm-rating-fuzzy { background: var(--warning-soft); color: var(--warning); }
 .backup-confirm { display: flex; align-items: center; gap: var(--space-3); margin-block: var(--space-4); }
 @media(max-width:800px) {
  .card { padding: var(--space-4); } .home-focus { padding: var(--space-6); } .home-focus h2 { font-size: var(--text-xl); max-width: 100%; }
@@ -101,3 +99,12 @@
  .stat-tile { padding: var(--space-3); } .stat-tile strong { font-size: var(--text-xl); }
  .tabs { overflow-x: auto; } .tab { flex-shrink: 0; }
 }
+
+.fm-math-answer { display: grid; gap: var(--space-2); min-width: 0; margin-block: var(--space-3); }
+.fm-math-answer .text-input { width: 100%; }
+.fm-answer-preview { min-width: 0; overflow-x: auto; }
+.fm-keyboard-groups { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.fm-keyboard-groups [aria-pressed="true"] { background: var(--nav); color: var(--nav-text); }
+.fm-keyboard-keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--touch), 1fr)); gap: var(--space-1); }
+.fm-keyboard-keys .btn { padding-inline: var(--space-1); overflow-wrap: anywhere; }
+.fm-math-answer .learning-actions { margin-block: var(--space-1); }

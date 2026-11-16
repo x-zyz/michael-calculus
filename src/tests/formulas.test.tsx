@@ -1,3 +1,4 @@
+import { matchesFormula } from "../features/formulas/formulaAnswer";
 import {formulaMode} from './ui';
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
@@ -160,8 +161,24 @@ describe("formula content and spaced reviews", () => {
     expect(validateStore(null)).toEqual(emptyStore());
   });
 });
+describe("formula answer matching", () => {
+  it("handles notation and grouping without ignoring signs or scope", () => {
+    expect(matchesFormula(String.raw`\dfrac{x^{2}}{2}`, String.raw`=\frac{x^2}2`, true)).toBe(true);
+    expect(matchesFormula(String.raw`f′(x)⇒0`, String.raw`f'(x)\Rightarrow0`)).toBe(true);
+    expect(matchesFormula(String.raw`\frac{x^{2}}{-2}`, String.raw`\frac{x^2}{2}`)).toBe(false);
+    expect(matchesFormula(String.raw`x^{a-1}`, "x^a-1")).toBe(false);
+    expect(matchesFormula(String.raw`\frac{1}{□}`, String.raw`\frac12`)).toBe(false);
+    expect(matchesFormula("1", "~1", true)).toBe(false);
+  });
+  it("can match every formula and every cloze in the library", () => {
+    for (const formula of formulas) {
+      expect(matchesFormula(formula.latex, formula.latex), formula.id).toBe(true);
+      for (const { answer } of formula.cloze) expect(matchesFormula(answer, answer), formula.id).toBe(true);
+    }
+  });
+});
 describe("formula UI integration", () => {
-  it("reveals answers before rating, records optional error tags, repeats forgotten cards once and summarizes", () => {
+  it("grades keyboard input, records error tags, and repeats incorrect cards once", () => {
     const s = emptyStore();
     s.settings.newPerDay = 0;
     s.cards["sin-limit:cloze:0"] = { box: 1, due: "2000-01-01", lapses: 0 };
@@ -169,18 +186,22 @@ describe("formula UI integration", () => {
     mount();
     fireEvent.click(screen.getByRole("button", { name: "开始今日复习" }));
     expect(
-      screen.queryByRole("button", { name: "记住了" }),
+      screen.queryByRole("heading", { name: "答案未匹配" }),
     ).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "显示答案" }));
-    fireEvent.click(screen.getByRole("button", { name: "忘记了" }));
+    fireEvent.click(screen.getByRole("button", { name: "2" }));
+    fireEvent.click(screen.getByRole("button", { name: "提交答案" }));
+    expect(screen.getByRole("heading", { name: "答案未匹配" })).toBeVisible();
     fireEvent.click(screen.getByRole("checkbox", { name: "系数" }));
-    fireEvent.click(screen.getByRole("button", { name: /保存并继续/ }));
+    fireEvent.click(screen.getByRole("button", { name: "记录并继续" }));
     expect(screen.getByText(/第 2 \/ 2 张/)).toBeVisible();
-    fireEvent.click(screen.getByRole("button", { name: "显示答案" }));
-    fireEvent.click(screen.getByRole("button", { name: "记住了" }));
+    fireEvent.click(screen.getByRole("button", { name: "1" }));
+    fireEvent.click(screen.getByRole("button", { name: "提交答案" }));
+    expect(screen.getByRole("heading", { name: "公式正确" })).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "记录并继续" }));
     expect(screen.getByRole("heading", { name: "本轮小结" })).toBeVisible();
     const stored = JSON.parse(localStorage.getItem(formulaKey)!);
     expect(stored.reviews).toHaveLength(2);
+    expect(stored.reviews.map((review: { result: string }) => review.result)).toEqual(["forgot", "good"]);
     expect(stored.reviews[0].errorTags).toEqual(["coef"]);
   });
   it("reports stuck manually without rewriting learning data", () => {

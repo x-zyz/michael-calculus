@@ -7,7 +7,7 @@ import {
   recordReview,
 } from "../src/features/formulas/engine";
 
-test("formula round persists self ratings and summarizes on desktop and 360px", async ({
+test("formula round persists keyboard grades and summarizes on desktop and 360px", async ({
   page,
   isMobile,
 }) => {
@@ -24,18 +24,55 @@ test("formula round persists self ratings and summarizes on desktop and 360px", 
   await page.reload();
   await page.getByRole("link", { name: /今日到期公式/ }).click();
   await page.getByRole("button", { name: "开始今日复习" }).click();
-  await expect(
-    page.getByRole("button", { name: "记住了", exact: true }),
-  ).toHaveCount(0);
-  await page.getByRole("button", { name: "显示答案" }).click();
-  await page.getByRole("button", { name: "记住了", exact: true }).click();
+  const keyboard = page.getByRole("group", { name: "数学键盘", exact: true });
+  const submit = page.getByRole("button", { name: "提交答案" });
+  await expect(submit).toBeDisabled();
+  await keyboard.getByRole("button", { name: "1", exact: true }).click();
+  await submit.click();
+  await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
+  await page.getByRole("button", { name: "记录并继续" }).click();
   await expect(page.getByRole("heading", { name: "本轮小结" })).toBeVisible();
   await page.reload();
   expect(
     await page.evaluate(
-      () => JSON.parse(localStorage.getItem("mc-formula-v1")!).reviews.length,
+      () => JSON.parse(localStorage.getItem("mc-formula-v1")!).reviews[0].result,
     ),
-  ).toBe(1);
+  ).toBe("good");
+});
+
+test("builds a full derivative with the touch keyboard and advances recall evidence", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  const store = emptyStore();
+  store.settings.newPerDay = 0;
+  store.cards["diff-log:recall"] = { box: 1, lapses: 0, due: "2000-01-01" };
+  await page.addInitScript((value) => {
+    if (!localStorage.getItem("mc-formula-v1")) {
+      localStorage.setItem("mc-formula-v1", JSON.stringify(value));
+    }
+  }, store);
+  await page.goto("/#/review/formulas");
+  await formulaMode(page, "recall");
+  await page.getByRole("button", { name: "开始今日复习" }).click();
+
+  const keyboard = page.getByRole("group", { name: "数学键盘", exact: true });
+  const press = (name: string) => keyboard.getByRole("button", { name, exact: true }).click();
+  await press("(");
+  await page.getByRole("button", { name: "函数", exact: true }).click();
+  await press("ln");
+  await page.getByRole("button", { name: "常用", exact: true }).click();
+  for (const token of ["x", ")", "'", "=", "分数", "1"]) await press(token);
+  await expect(page.getByRole("button", { name: "提交答案" })).toBeDisabled();
+  await page.getByRole("button", { name: "下一空" }).click();
+  await press("x");
+  await expect(page.getByRole("textbox", { name: "公式答案" })).toHaveValue("(\\ln x)'=\\frac{1}{x}");
+  await expect(page.locator(".fm-answer-preview .katex-html")).toBeVisible();
+  await page.getByRole("button", { name: "提交答案" }).click();
+  await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
+  await page.getByRole("button", { name: "记录并继续" }).click();
+  const review = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("mc-formula-v1")!).reviews.at(-1),
+  );
+  expect(review).toMatchObject({ cardId: "diff-log:recall", result: "good" });
 });
 
 test("every formula and cloze fits a 360px phone without clipping or small visible text", async ({
@@ -69,10 +106,14 @@ test("every formula and cloze fits a 360px phone without clipping or small visib
   await page.goto("/#/review/formulas");
   await page.reload();
   await formulaMode(page,"cloze");
-  for (let round = 0; round < 3; round++) {
+  let index = 0;
+  const answers = cards.filter((c) => c.kind === "cloze").map((c) => formulas.find((f) => f.id === c.formulaId)!.cloze[c.index!].answer);
+  while (index < answers.length) {
     await page.getByRole("button", { name: "开始今日复习" }).click();
-    while (await page.getByRole("button", { name: "显示答案" }).count()) {
-      await page.getByRole("button", { name: "显示答案" }).click();
+    while (await page.getByRole("textbox", { name: "公式答案" }).count()) {
+      await page.getByRole("textbox", { name: "公式答案" }).fill(answers[index++]);
+      await page.getByRole("button", { name: "提交答案" }).click();
+      await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
       errors.push(
         ...(await page
           .locator(".fm .formula")
@@ -82,7 +123,7 @@ test("every formula and cloze fits a 360px phone without clipping or small visib
               .map((e) => "cloze overflow: " + e.textContent?.slice(0, 80)),
           )),
       );
-      await page.getByRole("button", { name: "记住了", exact: true }).click();
+      await page.getByRole("button", { name: "记录并继续", exact: true }).click();
     }
     await page.getByRole("button", { name: "返回公式中心 / 再来一轮" }).click();
   }
@@ -154,9 +195,8 @@ test("spot check requires L3 evidence and a forgotten card lowers its level", as
   await page.reload();
   await formulaMode(page,"spot");
   await page.getByRole("button", { name: "开始今日复习" }).click();
-  await page.getByRole("button", { name: "显示答案" }).click();
-  await page.getByRole("button", { name: "忘记了", exact: true }).click();
-  await page.getByRole("button", { name: "保存并继续（错因可跳过）" }).click();
+  await page.getByRole("button", { name: "跳过并看答案" }).click();
+  await page.getByRole("button", { name: "记录并继续" }).click();
   expect(
     await page.evaluate(
       () =>

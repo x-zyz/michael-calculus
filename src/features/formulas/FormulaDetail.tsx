@@ -44,7 +44,7 @@ export default function FormulaDetail({
           </p>
         ))}
         <p className="learning-note">
-          自评不是机器验证的默写结果，等级必须逐级满足。
+          新填空和默写由程序判分，旧复习记录仍计入等级。等级必须逐级满足。
         </p>
       </Accordion>
       <div className="learning-actions">

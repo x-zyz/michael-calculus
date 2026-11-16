@@ -19,6 +19,8 @@ import {
   type Result,
 } from "./engine";
 import TagPicker from "./TagPicker";
+import MathAnswer from "./MathAnswer";
+import { matchesFormula } from "./formulaAnswer";
 export default function Session({
   initial,
   baseline,
@@ -32,20 +34,14 @@ export default function Session({
   const { state } = useLearning();
   const [items, setItems] = useState(initial);
   const [index, setIndex] = useState(0);
-  const [revealed, setRevealed] = useState(false);
-  const [pending, setPending] = useState<Result | null>(null);
   const [tags, setTags] = useState<ErrorTag[]>([]);
   const [results, setResults] = useState<Result[]>([]);
   const [repeated, setRepeated] = useState<string[]>([]);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [autoResult, setAutoResult] = useState<Result | null>(null);
+  const [grade, setGrade] = useState<Result | null>(null);
   function next() {
     setIndex(index + 1);
-    setRevealed(false);
-    setPending(null);
     setTags([]);
-    setSelected(null);
-    setAutoResult(null);
+    setGrade(null);
   }
   function commit(result: Result) {
     const item = items[index];
@@ -73,12 +69,12 @@ export default function Session({
         <h2>本轮小结</h2>
         {results.length ? (
           <p>
-            已完成 {results.length} 次复习 · 记住/答对率{" "}
+            已完成 {results.length} 次复习 · 答对率{" "}
             {Math.round(
               (results.filter((r) => r === "good").length / results.length) *
                 100,
             )}
-            %（含自评）
+            %
           </p>
         ) : (
           <p>
@@ -115,12 +111,6 @@ export default function Session({
     f = formulaById.get(card.formulaId)!;
   const automatic = card.kind === "condition" || card.kind === "recognize";
   const problem = problems.find((p) => p.id === card.problemId);
-  function choose(id: string, correct: boolean) {
-    if (selected !== null) return;
-    setSelected(id);
-    setAutoResult(correct ? "good" : "forgot");
-    setRevealed(true);
-  }
   return (
     <Card className="fm-session">
       <p>
@@ -138,7 +128,7 @@ export default function Session({
       </h2>
       {card.kind === "cloze" && <Formula value={f.cloze[card.index!].latex} />}
       {card.kind === "recall" && (
-        <p>请写出“{f.name}”的完整标准式，并注明条件。</p>
+        <p>请写出“{f.name}”的完整公式。适用条件在讲解中查看。</p>
       )}
       {card.kind === "recognize" && (
         <>
@@ -147,13 +137,14 @@ export default function Session({
         </>
       )}
       {card.kind === "condition" && <p>{f.conditionQuiz!.question}</p>}
-      {!automatic && !revealed && (
-        <>
-          <p>先在纸上写完整，再看答案。</p>
-          <Button variant="primary" onClick={() => setRevealed(true)}>
-            显示答案
-          </Button>
-        </>
+      {!automatic && grade === null && (
+        <MathAnswer
+          onSubmit={(answer) => {
+            const expected = card.kind === "cloze" ? f.cloze[card.index!].answer : f.latex;
+            setGrade(matchesFormula(answer, expected, card.kind === "cloze") ? "good" : "forgot");
+          }}
+          onSkip={() => setGrade("forgot")}
+        />
       )}
       {card.kind === "recognize" &&
         choices(f.id).map((id) => (
@@ -161,8 +152,8 @@ export default function Session({
             className="fm-option"
             aria-label={`选择公式：${formulaById.get(id)!.name}`}
             key={id}
-            disabled={selected !== null}
-            onClick={() => choose(id, id === f.id)}
+            disabled={grade !== null}
+            onClick={() => setGrade(id === f.id ? "good" : "forgot")}
           >
             <span>{formulaById.get(id)!.name}</span>
             <Formula value={formulaById.get(id)!.latex} />
@@ -172,21 +163,21 @@ export default function Session({
         f.conditionQuiz!.options.map((text, i) => (
           <Button
             className="fm-option"
-            disabled={selected !== null}
+            disabled={grade !== null}
             key={text}
-            onClick={() => choose(String(i), i === f.conditionQuiz!.correct)}
+            onClick={() => setGrade(i === f.conditionQuiz!.correct ? "good" : "forgot")}
           >
             {text}
           </Button>
         ))}
-      {revealed && (
+      {grade !== null && (
         <div className="answer-feedback">
           <h3>
             {automatic
-              ? autoResult === "good"
+              ? grade === "good"
                 ? "选择正确"
                 : "这次选错了"
-              : "标准答案"}
+              : grade === "good" ? "公式正确" : "答案未匹配"}
           </h3>
           <Formula value={f.latex} />
           {card.kind === "cloze" && (
@@ -209,45 +200,10 @@ export default function Session({
               </Link>
             </>
           )}
-          {automatic ? (
-            <>
-              <p>选项由程序判分，不能手动把答错改为记住。</p>
-              {autoResult === "forgot" && (
-                <TagPicker tags={tags} setTags={setTags} />
-              )}
-              <Button variant="primary" onClick={() => commit(autoResult!)}>
-                记录并继续
-              </Button>
-            </>
-          ) : pending ? (
-            <>
-              <TagPicker tags={tags} setTags={setTags} />
-              <Button variant="primary" onClick={() => commit(pending)}>
-                保存并继续（错因可跳过）
-              </Button>
-            </>
-          ) : (
-            <div className="fm-actions">
-              {(
-                [
-                  ["forgot", "忘记了"],
-                  ["fuzzy", "模糊"],
-                  ["good", "记住了"],
-                ] as const
-              ).map(([result, label]) => (
-                <Button
-                  key={result}
-                  variant={result === "forgot" ? "danger" : "secondary"}
-                  className={`fm-rating-${result}`}
-                  onClick={() =>
-                    result === "good" ? commit(result) : setPending(result)
-                  }
-                >
-                  {label}
-                </Button>
-              ))}
-            </div>
-          )}
+          {grade === "forgot" && <TagPicker tags={tags} setTags={setTags} />}
+          <Button variant="primary" onClick={() => commit(grade)}>
+            记录并继续
+          </Button>
         </div>
       )}
       <div className="learning-actions">
