@@ -1,3 +1,4 @@
+import { ReviewNavigation, StuckButton } from '../formulas/FormulaPages';
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
@@ -661,7 +662,7 @@ export function CoursePage() {
         {tab === "定义" && (
           <>
             <Formula value={lesson.definition} />
-            <p>{lesson.condition}</p>
+            <p>{lesson.condition}</p><Link to={`/review/formulas?lesson=${lesson.id}`}>背这节的公式 →</Link>
           </>
         )}
         {tab === "例题" && (
@@ -886,7 +887,7 @@ function Question({ problem: p }: { problem: (typeof problems)[number] }) {
   return (
     <section className="learning-card">
       <h2>{p.title}</h2>
-      <Formula value={p.formula} />
+      <Formula value={p.formula} /><StuckButton key={p.id} problemId={p.id}/>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -992,7 +993,7 @@ export function ReviewPage() {
   const correct = state.attempts.filter((a) => a.correct).length;
   return (
     <div className="page learning-page">
-      <h1>错题与复习</h1>
+      <h1>错题与复习</h1><ReviewNavigation/>
       <p>
         累计作答 {state.attempts.length} 次 · 答对 {correct} 次 · 待复习{" "}
         {wrong.length} 题

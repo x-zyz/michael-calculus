@@ -1,3 +1,5 @@
+> 最新增量：已在 GitHub v0.5.0 基线上实现公式记忆中心，版本号尚未变更、未发布新 APK。42 个公式，独立 mc-formula-v1、跨日掌握度、复习与练习联动。请先读 docs/formula-mastery-implementation.md；下面的 v0.5.0 基线记录继续适用。
+
 # Michael calculus — v0.5.0 工作交接与继续开发提示词
 
 仓库地址：`https://github.com/x-zyz/michael-calculus`

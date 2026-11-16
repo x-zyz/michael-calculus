@@ -239,6 +239,7 @@ export const lessons: Lesson[] = [
   },
 ];
 export interface Problem {
+  formulaIds?: string[];
   id: string;
   lessonId: string;
   title: string;
@@ -285,6 +286,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p3",
+    formulaIds: ['sin-limit'],
     lessonId: "sine",
     title: "配齐自变量与分母",
     formula: String.raw`\lim_{x\to0}\frac{\sin3x}{5x}`,
@@ -301,6 +303,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p4",
+    formulaIds: ['sin-limit'],
     lessonId: "sine",
     title: "再练一次重要极限",
     formula: String.raw`\lim_{x\to0}\frac{\sin2x}{3x}`,
@@ -317,6 +320,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p5",
+    formulaIds: ['continuity'],
     lessonId: "continuity",
     title: "求连续时的函数值",
     formula: String.raw`f(x)=\begin{cases}x+1&x\ne1\\c&x=1\end{cases}`,
@@ -350,6 +354,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p7",
+    formulaIds: ['euler-zero'],
     lessonId: "euler",
     title: "第二个重要极限的指数配凑",
     formula: String.raw`\begin{gathered}\lim_{x\to0}(1+2x)^{\frac{3}{x}}=e^k\\[4pt]k=\,?\end{gathered}`,
@@ -367,6 +372,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p8",
+    formulaIds: ['euler-zero'],
     lessonId: "euler",
     title: "含负号的第二个重要极限",
     formula: String.raw`\begin{gathered}\lim_{x\to0}(1-3x)^{\frac{2}{x}}=e^k\\[4pt]k=\,?\end{gathered}`,
@@ -384,6 +390,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p9",
+    formulaIds: ['small-cos'],
     lessonId: "infinitesimal",
     title: "余弦型等价无穷小",
     formula: String.raw`\lim_{x\to0}\frac{1-\cos 2x}{x^2}`,
@@ -400,6 +407,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p10",
+    formulaIds: ['small-log', 'small-sin'],
     lessonId: "infinitesimal",
     title: "乘除因子的等价替换",
     formula: String.raw`\lim_{x\to0}\frac{\ln(1+3x)}{\sin 2x}`,
@@ -417,6 +425,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p11",
+    formulaIds: ['derivative'],
     lessonId: "derivative",
     title: "用导数定义求切线斜率",
     formula: String.raw`\begin{gathered}f(x)=x^2\\[4pt]f'(3)=\lim_{h\to0}\frac{(3+h)^2-9}{h}=\,?\end{gathered}`,
@@ -434,6 +443,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p12",
+    formulaIds: ['derivative'],
     lessonId: "derivative",
     title: "根式函数的瞬时变化率",
     formula: String.raw`\begin{gathered}f(x)=\sqrt{x}\\[4pt]f'(1)=\lim_{h\to0}\frac{\sqrt{1+h}-1}{h}=\,?\end{gathered}`,
@@ -451,6 +461,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p13",
+    formulaIds: ['diff-power', 'sum'],
     lessonId: "rules",
     title: "多项式与幂函数求导",
     formula: String.raw`\begin{gathered}f(x)=x^3-4x+2\\[4pt]f'(2)=\,?\end{gathered}`,
@@ -467,6 +478,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p14",
+    formulaIds: ['product'],
     lessonId: "rules",
     title: "乘积求导法则应用",
     formula: String.raw`\begin{gathered}f(x)=x\ln x\\[4pt]f'(1)=\,?\end{gathered}`,
@@ -484,6 +496,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p15",
+    formulaIds: ['chain'],
     lessonId: "chain",
     title: "复合幂函数的链式求导",
     formula: String.raw`\begin{gathered}f(x)=(2x+1)^3\\[4pt]f'(0)=\,?\end{gathered}`,
@@ -501,6 +514,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p16",
+    formulaIds: ['chain'],
     lessonId: "chain",
     title: "复合对数函数的导数",
     formula: String.raw`\begin{gathered}f(x)=\ln(3x+1)\\[4pt]f'(1)=\,?\end{gathered}`,
@@ -518,6 +532,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p17",
+    formulaIds: ['differential'],
     lessonId: "differential",
     title: "计算函数的微分 dy",
     formula: String.raw`\begin{gathered}f(x)=x^2,\;x_0=2,\;\Delta x=0.1\\[4pt]\left.dy\right|_{x=2}=\,?\end{gathered}`,
@@ -535,6 +550,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p18",
+    formulaIds: ['linear'],
     lessonId: "differential",
     title: "用微分作根式线性近似",
     formula: String.raw`\begin{gathered}f(x)=\sqrt{x},\;x_0=4,\;\Delta x=0.04\\[4pt]f(4)+f'(4)\Delta x=\,?\end{gathered}`,
@@ -552,6 +568,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p19",
+    formulaIds: ['lagrange'],
     lessonId: "mvt",
     title: "拉格朗日中值定理求中值点",
     formula: String.raw`\begin{gathered}f(x)=x^2,\;x\in[1,5]\\[4pt]f'(\xi)=\frac{f(5)-f(1)}{5-1},\;\xi=\,?\end{gathered}`,
@@ -569,6 +586,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p20",
+    formulaIds: ['rolle'],
     lessonId: "mvt",
     title: "罗尔定理求驻点",
     formula: String.raw`\begin{gathered}f(x)=x^2-4x+3,\;x\in[1,3]\\[4pt]f'(\xi)=0,\;\xi=\,?\end{gathered}`,
@@ -586,6 +604,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p21",
+    formulaIds: ['lhopital'],
     lessonId: "lhopital",
     title: "洛必达法则求指数型 0/0 极限",
     formula: String.raw`\lim_{x\to0}\frac{e^x-1-x}{x^2}=\,?`,
@@ -603,6 +622,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p22",
+    formulaIds: ['lhopital'],
     lessonId: "lhopital",
     title: "三角与幂函数差商的未定式极限",
     formula: String.raw`\lim_{x\to0}\frac{x-\sin x}{x^3}=\,?`,
@@ -620,6 +640,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p23",
+    formulaIds: ['first-extrema', 'second-extrema', 'monotone'],
     lessonId: "extrema",
     title: "三次函数的局部极大值",
     formula: String.raw`\begin{gathered}f(x)=x^3-3x\\[4pt]x=-1\;\text{处的极大值}\;f(-1)=\,?\end{gathered}`,
@@ -637,6 +658,7 @@ export const problems: Problem[] = [
   },
   {
     id: "p24",
+    formulaIds: ['second-extrema'],
     lessonId: "extrema",
     title: "用二阶导数判别极小值",
     formula: String.raw`\begin{gathered}f(x)=x^2-6x+8\\[4pt]\text{极小值}\;\min f(x)=\,?\end{gathered}`,
