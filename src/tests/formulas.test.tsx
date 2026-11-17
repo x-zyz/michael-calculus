@@ -169,6 +169,8 @@ describe("formula answer matching", () => {
     expect(matchesFormula(String.raw`x^{a-1}`, "x^a-1")).toBe(false);
     expect(matchesFormula(String.raw`\frac{1}{□}`, String.raw`\frac12`)).toBe(false);
     expect(matchesFormula("1", "~1", true)).toBe(false);
+    expect(matchesFormula(String.raw`f^{\doubleprime}(x)>0`, "f''(x)>0")).toBe(true);
+    expect(matchesFormula(String.raw`f^{\prime}(x)>0`, "f''(x)>0")).toBe(false);
   });
   it("can match every formula and every cloze in the library", () => {
     for (const formula of formulas) {
@@ -178,32 +180,6 @@ describe("formula answer matching", () => {
   });
 });
 describe("formula UI integration", () => {
-  it("grades keyboard input, records error tags, and repeats incorrect cards once", () => {
-    const s = emptyStore();
-    s.settings.newPerDay = 0;
-    s.cards["sin-limit:cloze:0"] = { box: 1, due: "2000-01-01", lapses: 0 };
-    localStorage.setItem(formulaKey, JSON.stringify(s));
-    mount();
-    fireEvent.click(screen.getByRole("button", { name: "开始今日复习" }));
-    expect(
-      screen.queryByRole("heading", { name: "答案未匹配" }),
-    ).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "2" }));
-    fireEvent.click(screen.getByRole("button", { name: "提交答案" }));
-    expect(screen.getByRole("heading", { name: "答案未匹配" })).toBeVisible();
-    fireEvent.click(screen.getByRole("checkbox", { name: "系数" }));
-    fireEvent.click(screen.getByRole("button", { name: "记录并继续" }));
-    expect(screen.getByText(/第 2 \/ 2 张/)).toBeVisible();
-    fireEvent.click(screen.getByRole("button", { name: "1" }));
-    fireEvent.click(screen.getByRole("button", { name: "提交答案" }));
-    expect(screen.getByRole("heading", { name: "公式正确" })).toBeVisible();
-    fireEvent.click(screen.getByRole("button", { name: "记录并继续" }));
-    expect(screen.getByRole("heading", { name: "本轮小结" })).toBeVisible();
-    const stored = JSON.parse(localStorage.getItem(formulaKey)!);
-    expect(stored.reviews).toHaveLength(2);
-    expect(stored.reviews.map((review: { result: string }) => review.result)).toEqual(["forgot", "good"]);
-    expect(stored.reviews[0].errorTags).toEqual(["coef"]);
-  });
   it("reports stuck manually without rewriting learning data", () => {
     const v = mount("/practice?problem=p3");
     const before = localStorage.getItem("mc-learning-v1");

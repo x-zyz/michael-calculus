@@ -13,9 +13,12 @@ export const formulaAnswerLimit = 300;
 function canonical(value: string): string | null {
   if (value.length > formulaAnswerLimit || value.includes("□")) return null;
 
-  const expression = value.trim().replace(/^\\begin\{gathered\}([\s\S]*)\\end\{gathered\}$/, "$1");
+  const expression = value.trim()
+    .replace(/\^\{((?:\s*\\(?:doubleprime|prime)\b)+)\s*\}|\^(\\(?:doubleprime|prime)\b)/g, (_, grouped: string | undefined, single: string | undefined) =>
+      (grouped ?? single ?? "").replace(/\s+/g, "").replaceAll("\\doubleprime", "''").replaceAll("\\prime", "'"))
+    .replace(/^\\begin\{gathered\}([\s\S]*)\\end\{gathered\}$/, "$1");
   const tokens = (expression.match(/\\[a-zA-Z]+|\\.|[^\s]/gu) ?? [])
-    .filter((token) => !["\\left", "\\right", "\\,", "\\ ", "\\;", "\\!", "\\quad", "\\qquad"].includes(token))
+    .filter((token, index, all) => !(token === "\\\\" && all[index + 1] === "\\Rightarrow") && !["\\left", "\\right", "\\,", "\\ ", "\\;", "\\!", "\\quad", "\\qquad"].includes(token))
     .map((token) => aliases[token] ?? token);
   let cursor = 0;
 

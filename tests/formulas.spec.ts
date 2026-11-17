@@ -27,6 +27,12 @@ test("formula round persists keyboard grades and summarizes on desktop and 360px
   const keyboard = page.getByRole("group", { name: "数学键盘", exact: true });
   const submit = page.getByRole("button", { name: "提交答案" });
   await expect(submit).toBeDisabled();
+  await keyboard.getByRole("button", { name: "2", exact: true }).click();
+  await submit.click();
+  await expect(page.getByRole("heading", { name: "答案未匹配" })).toBeVisible();
+  await page.getByRole("checkbox", { name: "系数" }).check();
+  await page.getByRole("button", { name: "记录并继续" }).click();
+  await expect(page.getByText(/第 2 \/ 2 张/)).toBeVisible();
   await keyboard.getByRole("button", { name: "1", exact: true }).click();
   await submit.click();
   await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
@@ -35,9 +41,9 @@ test("formula round persists keyboard grades and summarizes on desktop and 360px
   await page.reload();
   expect(
     await page.evaluate(
-      () => JSON.parse(localStorage.getItem("mc-formula-v1")!).reviews[0].result,
+      () => JSON.parse(localStorage.getItem("mc-formula-v1")!).reviews.map((review: { result: string; errorTags: string[] }) => [review.result, review.errorTags]),
     ),
-  ).toBe("good");
+  ).toEqual([["forgot", ["coef"]], ["good", []]]);
 });
 
 test("builds a full derivative with the touch keyboard and advances recall evidence", async ({ page }) => {
@@ -57,15 +63,12 @@ test("builds a full derivative with the touch keyboard and advances recall evide
   const keyboard = page.getByRole("group", { name: "数学键盘", exact: true });
   const press = (name: string) => keyboard.getByRole("button", { name, exact: true }).click();
   await press("(");
-  await page.getByRole("button", { name: "函数", exact: true }).click();
   await press("ln");
-  await page.getByRole("button", { name: "常用", exact: true }).click();
-  for (const token of ["x", ")", "'", "=", "分数", "1"]) await press(token);
+  for (const token of ["x", ")", "导数符号", "=", "分数", "1"]) await press(token);
   await expect(page.getByRole("button", { name: "提交答案" })).toBeDisabled();
-  await page.getByRole("button", { name: "下一空" }).click();
+  await page.getByRole("button", { name: "向下" }).click();
   await press("x");
-  await expect(page.getByRole("textbox", { name: "公式答案" })).toHaveValue("(\\ln x)'=\\frac{1}{x}");
-  await expect(page.locator(".fm-answer-preview .katex-html")).toBeVisible();
+  await expect(page.locator("math-field")).toBeVisible();
   await page.getByRole("button", { name: "提交答案" }).click();
   await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
   await page.getByRole("button", { name: "记录并继续" }).click();
@@ -110,8 +113,11 @@ test("every formula and cloze fits a 360px phone without clipping or small visib
   const answers = cards.filter((c) => c.kind === "cloze").map((c) => formulas.find((f) => f.id === c.formulaId)!.cloze[c.index!].answer);
   while (index < answers.length) {
     await page.getByRole("button", { name: "开始今日复习" }).click();
-    while (await page.getByRole("textbox", { name: "公式答案" }).count()) {
-      await page.getByRole("textbox", { name: "公式答案" }).fill(answers[index++]);
+    while (await page.getByRole("button", { name: "提交答案" }).count()) {
+      await page.locator("math-field").evaluate((node, value) => {
+        (node as HTMLElement & { value: string }).value = value;
+        node.dispatchEvent(new Event("input"));
+      }, answers[index++]);
       await page.getByRole("button", { name: "提交答案" }).click();
       await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
       errors.push(

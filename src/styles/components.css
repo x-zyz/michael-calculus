@@ -101,10 +101,16 @@
 }
 
 .fm-math-answer { display: grid; gap: var(--space-2); min-width: 0; margin-block: var(--space-3); }
-.fm-math-answer .text-input { width: 100%; }
-.fm-answer-preview { min-width: 0; overflow-x: auto; }
+.fm-mathfield {
+  display: block; width: 100%; min-height: var(--touch); border: 1px solid var(--line);
+  border-radius: var(--radius-md); padding: var(--space-3); font-size: var(--text-xl);
+  background: var(--surface); color: var(--text); --caret-color: var(--info);
+}
+.fm-mathfield:focus-within { border-color: var(--info); }
+.fm-mathfield::part(virtual-keyboard-toggle), .fm-mathfield::part(menu-toggle) { display: none; }
+.fm-keyboard-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-1); }
 .fm-keyboard-groups { display: flex; flex-wrap: wrap; gap: var(--space-1); }
 .fm-keyboard-groups [aria-pressed="true"] { background: var(--nav); color: var(--nav-text); }
-.fm-keyboard-keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(var(--touch), 1fr)); gap: var(--space-1); }
+.fm-keyboard-keys { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-1); }
 .fm-keyboard-keys .btn { padding-inline: var(--space-1); overflow-wrap: anywhere; }
 .fm-math-answer .learning-actions { margin-block: var(--space-1); }

@@ -70,7 +70,7 @@ export default function FormulaPages() {
           ) : undefined
         }
       />
-      <ReviewNavigation />
+      {!session && <ReviewNavigation />}
       {storageError && (
         <p role="alert" className="storage-alert">
           公式记录无法保存，退出后可能丢失。请检查设备存储空间。
