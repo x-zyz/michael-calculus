@@ -4,14 +4,17 @@ import { problems } from "../../data/learning";
 import { useFormulas } from "../../db/formulas";
 import { useLearning } from "../../db/learning";
 import { cardById, evidence, level, errorTags } from "./engine";
+import MasteryLights from "./MasteryLights";
 import Formula from "../../components/Formula";
 import { Card, Button, Accordion } from "../../components/ui";
 export default function FormulaDetail({
   formula: f,
   onBack,
+  onReview,
 }: {
   formula: (typeof formulas)[number];
   onBack: () => void;
+  onReview: () => void;
 }) {
   const { store } = useFormulas();
   const { state } = useLearning();
@@ -24,9 +27,11 @@ export default function FormulaDetail({
       <Button variant="ghost" onClick={onBack}>
         ← 返回公式列表
       </Button>
-      <h2>
-        {f.name} · L{level(f.id, store, state.attempts)}
-      </h2>
+      <div className="fm-detail-title">
+        <h2>{f.name}</h2>
+        <MasteryLights level={level(f.id, store, state.attempts)} />
+      </div>
+      <Button variant="primary" onClick={onReview}>复习这条公式</Button>
       <Formula value={f.latex} />
       <p>适用条件：{f.conditions}</p>
       <ul>

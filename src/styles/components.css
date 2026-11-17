@@ -82,7 +82,10 @@
 .chapter-progress { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--space-3); padding-block: var(--space-4); border-bottom: 1px solid var(--line); }
 .chapter-progress .progress { grid-column: 1/-1; } .chapter-progress strong { font-weight: var(--weight-medium); font-size: var(--text-sm); }
 .about-link { display: inline-flex; padding-block: var(--space-3); color: var(--muted); font-size: var(--text-sm); }
-.fm-distribution { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); font-size: var(--text-xs); }
+.fm-lights { display: inline-flex; flex: none; align-items: center; gap: var(--space-1); }
+.fm-lights > span { width: var(--space-2); height: var(--space-2); border-radius: 50%; border: 1px solid var(--line); background: var(--surface-2); }
+.fm-lights > span[data-lit="true"] { background: var(--success); border-color: var(--success); }
+.fm-detail-title { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); margin-block: var(--space-2); }
 .fm-session h2 { text-align: center; font-size: var(--text-xl); }
 .fm-session > .formula { text-align: center; padding-block: var(--space-8); font-size: var(--text-xl); }
 .fm-option { display: block; width: 100%; text-align: left; margin-block: var(--space-3); }

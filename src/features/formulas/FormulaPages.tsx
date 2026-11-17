@@ -6,6 +6,7 @@ import { useLearning } from "../../db/learning";
 import {
   counters,
   queue,
+  formulaReviewQueue,
   cardById,
   level,
   type QueueItem,
@@ -26,6 +27,7 @@ import {
 import { ReviewNavigation } from "./FormulaActions";
 import FormulaDetail from "./FormulaDetail";
 import Session from "./Session";
+import MasteryLights from "./MasteryLights";
 const modes = [
   { value: "due", label: "今日复习" },
   { value: "cloze", label: "填空" },
@@ -42,10 +44,12 @@ export default function FormulaPages() {
   const [session, setSession] = useState<{
     items: QueueItem[];
     baseline: FormulaStore;
+    formulaId?: string;
   } | null>(null);
   const counts = counters(store);
   const lesson = query.get("lesson");
   const selected = formulaById.get(query.get("formula") || "");
+  const activeSession = session?.formulaId === selected?.id ? session : null;
   const available = formulas.filter((f) => !lesson || f.lessonId === lesson);
   function start(nextMode: QueueMode = mode) {
     const items = queue(store, nextMode, state.attempts);
@@ -65,26 +69,32 @@ export default function FormulaPages() {
       <PageHeader
         title="公式记忆中心"
         action={
-          !session ? (
+          !activeSession ? (
             <Button onClick={() => setSettings(true)}>设置</Button>
           ) : undefined
         }
       />
-      {!session && <ReviewNavigation />}
+      {!activeSession && <ReviewNavigation />}
       {storageError && (
         <p role="alert" className="storage-alert">
           公式记录无法保存，退出后可能丢失。请检查设备存储空间。
         </p>
       )}
-      {session ? (
+      {activeSession ? (
         <Session
-          initial={session.items}
-          baseline={session.baseline}
+          initial={activeSession.items}
+          baseline={activeSession.baseline}
+          backLabel={activeSession.formulaId ? "返回公式详情" : undefined}
           onExit={() => setSession(null)}
         />
       ) : selected ? (
         <FormulaDetail
           formula={selected}
+          onReview={() => setSession({
+            items: formulaReviewQueue(selected.id, store),
+            baseline: store,
+            formulaId: selected.id,
+          })}
           onBack={() => setQuery(lesson ? { lesson } : {})}
         />
       ) : (
@@ -131,40 +141,18 @@ export default function FormulaPages() {
           {[1, 2, 3].map((chapter) => {
             const list = available.filter((f) => f.chapter === chapter);
             if (!list.length) return null;
-            const distribution = Array.from(
-              { length: 6 },
-              (_, i) =>
-                list.filter((f) => level(f.id, store, state.attempts) === i)
-                  .length,
-            );
             return (
               <Accordion
                 key={chapter}
                 title={`第${chapter}章 · ${list.length} 个公式`}
                 defaultOpen={Boolean(lesson)}
               >
-                <div
-                  className="fm-distribution"
-                  aria-label={`第${chapter}章等级分布`}
-                >
-                  {distribution.map((n, i) => (
-                    <span key={i}>
-                      L{i}: {n}
-                    </span>
-                  ))}
-                </div>
                 {list.map((f) => (
                   <ListItem
                     key={f.id}
                     title={f.name}
-                    description={`${f.group} · L${level(f.id, store, state.attempts)}`}
-                    status={
-                      level(f.id, store, state.attempts) >= 3
-                        ? "done"
-                        : level(f.id, store, state.attempts) > 0
-                          ? "active"
-                          : "new"
-                    }
+                    description={f.group}
+                    indicator={<MasteryLights level={level(f.id, store, state.attempts)} />}
                     onClick={() =>
                       setQuery({ ...(lesson ? { lesson } : {}), formula: f.id })
                     }

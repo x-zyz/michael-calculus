@@ -1,4 +1,5 @@
 import { useState } from "react";
+import UpdateCard from "./UpdateCard";
 import DataImport from "../../components/DataImport";
 import {
   Accordion,
@@ -11,7 +12,8 @@ export default function SettingsPage() {
   const [guide, setGuide] = useState(false);
   return (
     <div className="page read-page">
-      <PageHeader title="关于与数据备份" subtitle="Michael calculus · v0.7.0" />
+      <PageHeader title="关于与数据备份" subtitle="Michael calculus" />
+      <UpdateCard />
       <Card>
         <h2>你的数学学习空间</h2>
         <p>

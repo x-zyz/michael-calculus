@@ -317,6 +317,12 @@ export interface QueueItem {
   cardId: string;
   mode: ReviewMode;
 }
+export function formulaReviewQueue(formulaId: string, store: FormulaStore): QueueItem[] {
+  const matches = cards.filter((card) => card.formulaId === formulaId);
+  const mode = matches.some((card) => store.cards[card.id]?.lastResult) ? "due" : "learn";
+  return matches.map((card) => ({ cardId: card.id, mode }));
+}
+
 export function queue(
   store: FormulaStore,
   mode: QueueMode = "due",

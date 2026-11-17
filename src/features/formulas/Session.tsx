@@ -20,15 +20,18 @@ import {
 } from "./engine";
 import TagPicker from "./TagPicker";
 import MathAnswer from "./MathAnswer";
+import MasteryLights from "./MasteryLights";
 import { matchesFormula } from "./formulaAnswer";
 export default function Session({
   initial,
   baseline,
   onExit,
+  backLabel = "返回公式中心 / 再来一轮",
 }: {
   initial: QueueItem[];
   baseline: FormulaStore;
   onExit: () => void;
+  backLabel?: string;
 }) {
   const { store, save } = useFormulas();
   const { state } = useLearning();
@@ -93,15 +96,15 @@ export default function Session({
         </p>
         {changes.length ? (
           changes.map((c) => (
-            <p key={c.id}>
-              {formulaById.get(c.id)?.name}：L{c.before} → L{c.after}
+            <p className="fm-detail-title" key={c.id}>
+              {formulaById.get(c.id)?.name} <MasteryLights level={c.after} />
             </p>
           ))
         ) : (
           <p>本轮没有公式等级变化，等级需要逐级及跨日证据。</p>
         )}
         <Button variant="primary" onClick={onExit}>
-          返回公式中心 / 再来一轮
+          {backLabel}
         </Button>
       </Card>
     );

@@ -191,6 +191,7 @@ export function ListItem({
   title,
   description,
   status = "new",
+  indicator,
   to,
   onClick,
   action,
@@ -201,10 +202,11 @@ export function ListItem({
   to?: string;
   onClick?: () => void;
   action?: ReactNode;
+  indicator?: ReactNode;
 }) {
   const content = (
     <>
-      <span
+      {indicator ?? <span
         className={`list-status status-${status}`}
         aria-label={
           status === "done"
@@ -223,7 +225,7 @@ export function ListItem({
             : status === "active"
               ? "◐"
               : "○"}
-      </span>
+      </span>}
       <span className="list-copy">
         <h3>{title}</h3>
         {description && <small>{description}</small>}

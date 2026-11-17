@@ -212,3 +212,32 @@ test("spot check requires L3 evidence and a forgotten card lowers its level", as
     ),
   ).toBe("forgot");
 });
+
+test("can review a single formula before it is due and update its five lights", async ({ page }) => {
+  const store = emptyStore();
+  store.settings.newPerDay = 0;
+  store.cards["sin-limit:cloze:0"] = {
+    due: "2099-01-01", box: 1, lapses: 1, lastResult: "forgot",
+  };
+  store.cards["euler-zero:cloze:0"] = { due: "2000-01-01", box: 1, lapses: 0 };
+  await page.addInitScript((initial) => {
+    if (!localStorage.getItem("mc-formula-v1")) {
+      localStorage.setItem("mc-formula-v1", JSON.stringify(initial));
+    }
+  }, store);
+  await page.goto("/#/review/formulas");
+  await page.getByRole("button", { name: /第1章 ·/ }).click();
+  const row = page.getByRole("button", { name: "第一个重要极限", exact: true });
+  await expect(row.locator(".fm-lights > span")).toHaveCount(5);
+  await expect(row.locator('[data-lit="true"]')).toHaveCount(1);
+  await row.click();
+  await page.getByRole("button", { name: "复习这条公式" }).click();
+  await expect(page.getByRole("heading", { name: "第一个重要极限 · 填空" })).toBeVisible();
+  await page.getByRole("group", { name: "数学键盘", exact: true }).getByRole("button", { name: "1", exact: true }).click();
+  await page.getByRole("button", { name: "提交答案" }).click();
+  await page.getByRole("button", { name: "记录并继续" }).click();
+  await expect(page.getByRole("heading", { name: "第一个重要极限 · 完整默写" })).toBeVisible();
+  await page.getByRole("button", { name: /结束本轮/ }).click();
+  await expect(page.getByRole("heading", { name: "第一个重要极限", exact: true })).toBeVisible();
+  await expect(page.getByRole("img", { name: "掌握度 2 / 5" })).toBeVisible();
+});
