@@ -9,6 +9,7 @@ import {
 import { Experiment } from "./LimitLab";
 import { SecantExperiment } from "./SecantLab";
 import { DerivativeAppExperiment } from "./DerivativeLab";
+import { IntegralExperiment } from "./IntegralLab";
 const labs = [
   {
     id: "limits",
@@ -31,6 +32,7 @@ const labs = [
     symbol: "ξ",
     lesson: "mvt",
   },
+  { id: "integrals", title: "不定积分与定积分", description: "平移原函数、比较取样矩形，并观察变上限积分。", symbol: "∫", lesson: "riemann" },
 ];
 export default function ExperimentsPage() {
   const { labId } = useParams();
@@ -93,11 +95,13 @@ export default function ExperimentsPage() {
             <Experiment />
           ) : lab.id === "secant" ? (
             <SecantExperiment />
+          ) : lab.id === "integrals" ? (
+            <IntegralExperiment />
           ) : (
             <DerivativeAppExperiment />
           )}
           <div className="learning-actions">
-            <ActionLink variant="primary" to="/practice">
+            <ActionLink variant="primary" to={lab.id === "integrals" ? "/practice?chapter=4" : "/practice"}>
               观察完了，去练习 →
             </ActionLink>
           </div>

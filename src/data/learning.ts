@@ -1,6 +1,8 @@
+import { integralLessons, integralProblems } from "./integrals";
+export type ChapterId = 1 | 2 | 3 | 4;
 export interface Lesson {
   id: string;
-  chapter: 1 | 2 | 3;
+  chapter: ChapterId;
   title: string;
   intuition: string;
   definition: string;
@@ -237,6 +239,7 @@ export const lessons: Lesson[] = [
     takeaway:
       "求极值先找驻点 f'(x) = 0 与不可导点，再用一阶导数变号或二阶导数正负来严格判别。",
   },
+  ...integralLessons,
 ];
 export interface Problem {
   formulaIds?: string[];
@@ -674,6 +677,7 @@ export const problems: Problem[] = [
     errorTag: "monotonicity_extrema",
     errorLabel: "单调性与极值判别",
   },
+  ...integralProblems,
 ];
 export const chapters = [
   {
@@ -691,6 +695,7 @@ export const chapters = [
     title: "第三章 · 中值定理与导数的应用",
     short: "第三章：中值定理与导数应用",
   },
+  { id: 4 as const, title: "第四章 · 不定积分与定积分", short: "第四章：积分" },
 ];
 export const errorTags = Array.from(
   new Map(

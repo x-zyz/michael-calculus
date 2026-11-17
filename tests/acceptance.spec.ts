@@ -1,9 +1,8 @@
 import {chooseSelect,chooseProblem} from './ui';
 import { test, expect, type Page } from '@playwright/test';
 
-// Browser acceptance for the limit & derivative learning loops (desktop + phone projects).
+import { lessons, problems } from "../src/data/learning";
 
-const allLessons = ['limit', 'sine', 'euler', 'infinitesimal', 'continuity', 'derivative', 'rules', 'chain', 'differential', 'mvt', 'lhopital', 'extrema'];
 const tabs = ['直觉', '实验', '定义', '例题', '练习'];
 
 async function layoutProblems(page: Page) {
@@ -29,15 +28,15 @@ async function layoutProblems(page: Page) {
 test.describe('phone layout', () => {
   test.beforeEach(async ({ page }) => page.setViewportSize({ width: 360, height: 740 }));
 
-  test('pages, all 12 lessons and all 24 problems fit a 360px screen with readable text', async ({ page }) => {
-    // Covers 60 lesson steps and 24 drawer selections, including slow CI machines.
+  test('pages, all lessons and problems fit a 360px screen with readable text', async ({ page }) => {
+    // Covers every lesson step and question drawer selection, including slow CI machines.
     test.setTimeout(120000);
     const issues: string[] = [];
     for (const url of ['/#/', '/#/experiments', '/#/practice', '/#/review', '/#/assistant']) {
       await page.goto(url);
       issues.push(...(await layoutProblems(page)).map(p => `${url} ${p}`));
     }
-    for (const lesson of allLessons) {
+    for (const { id: lesson } of lessons) {
       await page.goto(`/#/curriculum?lesson=${lesson}`);
       for (const tab of tabs) {
         await page.getByRole('tab', { name: tab }).click();
@@ -45,7 +44,7 @@ test.describe('phone layout', () => {
       }
     }
     await page.goto('/#/practice');
-    for (let i = 1; i <= 24; i++) {
+    for (let i = 1; i <= problems.length; i++) {
       await chooseProblem(page,i);
       issues.push(...(await layoutProblems(page)).map(p => `problem ${i} ${p}`));
     }
@@ -111,7 +110,7 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await expect(page.getByText('目前没有待复习错题')).toBeVisible();
 
   await page.goto('/#/');
-  await expect(page.getByText('已学 1 / 12 节', { exact: true })).toBeVisible();
+  await expect(page.getByText('已学 1 / 15 节', { exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: /继续学习/ })).toBeVisible();
 });
 
@@ -128,7 +127,7 @@ test('data written by 0.2.0 is kept after an upgrade', async ({ page }) => {
   });
   await page.goto('/#/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await expect(page.getByText('已学 2 / 12 节', { exact: true })).toBeVisible();
+  await expect(page.getByText('已学 2 / 15 节', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: /继续学习/ }).click();
   await expect(page.getByRole('heading', { level: 2, name: '第一个重要极限' })).toBeVisible();
   await page.goto('/#/review');

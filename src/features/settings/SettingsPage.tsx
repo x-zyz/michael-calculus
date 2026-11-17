@@ -17,7 +17,7 @@ export default function SettingsPage() {
       <Card>
         <h2>你的数学学习空间</h2>
         <p>
-          十二节课程、三类交互实验和公式间隔复习。数据保存在本机，离线可用。
+          课程、交互实验和公式间隔复习。数据保存在本机，离线可用。
         </p>
         <div className="learning-actions">
           <Button

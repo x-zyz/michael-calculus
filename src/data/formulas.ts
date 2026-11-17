@@ -1,6 +1,7 @@
+import type { ChapterId } from "./learning";
 export interface FormulaDefinition {
   id: string;
-  chapter: 1 | 2 | 3;
+  chapter: ChapterId;
   lessonId?: string;
   group: string;
   name: string;
@@ -12,7 +13,7 @@ export interface FormulaDefinition {
 }
 const f = (
   id: string,
-  chapter: 1 | 2 | 3,
+  chapter: ChapterId,
   lessonId: string | undefined,
   group: string,
   name: string,
@@ -349,6 +350,25 @@ export const formulas: FormulaDefinition[] = [
     R`f''(x_0)>0`,
     "在 x₀ 附近可导且 f′ 在 x₀ 可导；f″ < 0 对应严格极大；f″ = 0 时此判别法不能下结论。",
   ),
+  f("integral-family", 4, "antiderivative", "不定积分", "原函数族",
+    R`\int f(x)\,dx=F(x)+C`, "=F(x)+C",
+    "F′ = f 且在同一区间上考虑；C 为任意常数。",
+    q("为什么不定积分要写 + C？", ["常数的导数为零", "常数用来替代被积函数", "每个函数都只能有一个原函数"])),
+  f("integral-power", 4, "antiderivative", "不定积分", "幂函数积分",
+    R`\int x^n\,dx=\frac{x^{n+1}}{n+1}+C`, R`=\frac{x^{n+1}}{n+1}+C`,
+    "n ≠ −1，且在所给幂函数定义、可微的区间上使用。n = −1 时用 ln|x| + C。",
+    q("哪一个指数需要单独处理？", ["−1", "0", "1"])),
+  f("integral-reverse", 4, "riemann", "定积分", "交换定积分上下限",
+    R`\int_b^a f(x)\,dx=-\int_a^b f(x)\,dx`, R`=-\int_a^b f(x)\,dx`,
+    "被积函数保持一致；只交换积分方向。"),
+  f("newton-leibniz", 4, "fundamental-theorem", "微积分基本定理", "牛顿—莱布尼茨公式",
+    R`\int_a^b f(x)\,dx=F(b)-F(a)`, "=F(b)-F(a)",
+    "f 在 [a,b] 上连续，F 是它的任一原函数。",
+    q("计算时应作哪个差？", ["F(b) − F(a)", "F(a) − F(b)", "f(b) − f(a)"])),
+  f("integral-derivative", 4, "fundamental-theorem", "微积分基本定理", "变上限积分求导",
+    R`\frac{d}{dx}\int_a^{g(x)}f(t)\,dt=f(g(x))g'(x)`, "=f(g(x))g'(x)",
+    "f 在积分区间上连续，g 在考察点可导。下限 a 为常数。",
+    q("上限为 g(x) 时，还应乘什么？", ["g′(x)", "g(x)", "x"])),
 ];
 export const formulaById = new Map(formulas.map((f) => [f.id, f]));
 export type CardKind = "cloze" | "recall" | "condition" | "recognize";

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { chapters } from "../../data/learning";
 import { formulas, formulaById } from "../../data/formulas";
 import { useFormulas } from "../../db/formulas";
 import { useLearning } from "../../db/learning";
@@ -138,7 +139,7 @@ export default function FormulaPages() {
               </Button>
             </p>
           )}
-          {[1, 2, 3].map((chapter) => {
+          {chapters.map(({ id: chapter }) => {
             const list = available.filter((f) => f.chapter === chapter);
             if (!list.length) return null;
             return (

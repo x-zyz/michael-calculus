@@ -24,6 +24,8 @@ import {
 import { Experiment } from "../experiments/LimitLab";
 import { SecantExperiment } from "../experiments/SecantLab";
 import { DerivativeAppExperiment } from "../experiments/DerivativeLab";
+import { IntegralExperiment } from "../experiments/IntegralLab";
+import { integralModeForLesson } from "../../data/integrals";
 const steps = ["直觉", "实验", "定义", "例题", "练习"];
 export default function CoursePage() {
   const { lessonId } = useParams();
@@ -65,7 +67,7 @@ export default function CoursePage() {
         subtitle={
           lesson
             ? undefined
-            : `十二节课，一条从直觉到独立解题的路径 · 已学 ${state.completed.length}/12`
+            : `${lessons.length} 节课 · 已学 ${state.completed.length}/${lessons.length}`
         }
       />
       <div className="course-layout">
@@ -192,6 +194,8 @@ function Lesson({
               <SecantExperiment
                 initialKind={lessonSecant[lesson.id] || "square"}
               />
+            ) : lesson.chapter === 4 ? (
+              <IntegralExperiment initialMode={integralModeForLesson(lesson.id)} />
             ) : (
               <DerivativeAppExperiment
                 initialKind={lessonDerivativeApp[lesson.id] || "mvt"}

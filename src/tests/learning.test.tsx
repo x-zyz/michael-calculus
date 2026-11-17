@@ -1,3 +1,4 @@
+import { riemannSum, accumulationSlope } from "../data/integrals";
 import {chooseSelect,completeReading} from './ui';
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
@@ -87,8 +88,8 @@ describe("limit and derivative learning", () => {
     expect(decPt.dfx).toBeCloseTo(-3, 6);
     expect(decPt.monotone).toBe("单调递减");
   });
-  it("provides all 12 lessons across chapters 1, 2, and 3 and 24 practice problems", () => {
-    expect(lessons).toHaveLength(12);
+  it("provides 15 lessons across four chapters and 30 practice problems", () => {
+    expect(lessons).toHaveLength(15);
     expect(lessons.filter((l) => l.chapter === 1)).toHaveLength(5);
     expect(lessons.filter((l) => l.chapter === 2).map((l) => l.id)).toEqual([
       "derivative",
@@ -101,7 +102,10 @@ describe("limit and derivative learning", () => {
       "lhopital",
       "extrema",
     ]);
-    expect(problems).toHaveLength(24);
+    expect(lessons.filter((l) => l.chapter === 4).map((l) => l.id)).toEqual([
+      "antiderivative", "riemann", "fundamental-theorem",
+    ]);
+    expect(problems).toHaveLength(30);
   });
   it("links each lesson to its matching experiment across chapters 1, 2, and 3", () => {
     const v = mount("/curriculum?lesson=euler");
@@ -173,7 +177,7 @@ describe("limit and derivative learning", () => {
       { problemId: "p15", correct: false },
       { problemId: "p21", correct: false },
     ]);
-    expect(stats.chapters).toHaveLength(3);
+    expect(stats.chapters).toHaveLength(4);
     expect(stats.chapters[0].mastered).toBe(1);
     expect(stats.chapters[0].attempted).toBe(1);
     expect(stats.chapters[1].pending).toBe(1);
@@ -307,5 +311,25 @@ describe("limit and derivative learning", () => {
     completeReading();
     expect(screen.getByRole("alert")).toHaveTextContent("无法保存");
     spy.mockRestore();
+  });
+});
+
+describe("integral experiments", () => {
+  it("computes rectangle sums and preserves signed area", () => {
+    expect(riemannSum(2, "left").sum).toBe(1 / 8);
+    expect(riemannSum(2, "right").sum).toBe(5 / 8);
+    expect(riemannSum(2, "mid").sum).toBe(5 / 16);
+    expect(riemannSum(8, "mid", true).sum).toBe(0);
+    expect(riemannSum(64, "mid").sum).toBeCloseTo(1 / 3, 4);
+    expect(accumulationSlope(0.5, 0)).toBeNull();
+    expect(accumulationSlope(-0.5, 0.00001)).toBeCloseTo(0.25, 4);
+  });
+
+  it("opens the accumulation experiment directly from the matching lesson", () => {
+    mount("/curriculum/fundamental-theorem");
+    fireEvent.click(screen.getByRole("tab", { name: "实验" }));
+    expect(screen.getByRole("slider", { name: "积分上限" })).toBeVisible();
+    fireEvent.change(screen.getByRole("slider", { name: "累积差商步长" }), { target: { value: "0" } });
+    expect(screen.getByText(/在 h = 0 时未定义/)).toBeVisible();
   });
 });

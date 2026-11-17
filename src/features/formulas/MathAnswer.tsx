@@ -28,12 +28,14 @@ const layouts: Record<string, Key[]> = {
     command("∞", R`\infty`, "无穷"),
   ],
   "f(x)": [
+    command("∫", "\\int", "不定积分"),
+    template("∫ₐᵇ", "\\int_{#?}^{#?}", "带上下限的积分"),
     ...["sin", "cos", "tan", "cot", "sec", "csc", "ln", "arcsin", "arctan"].map((name) => command(name, "\\" + name)),
     template("lim", R`\lim_{#?}`, "极限"),
     template("□/□", R`\frac{#?}{#?}`, "分数"),
     template("√", R`\sqrt{#?}`, "根号"),
   ],
-  "abc": Array.from("abcdefghijklmnopqrstuvwxyzC").map(literal),
+  "abc": Array.from("abcdefghijklmnopqrstuvwxyzACF").map(literal),
   "αβ": [
     ...[">", "<", ",", ":", "/", "=", "+", "-"].map(literal),
     command("α", R`\alpha`), command("π", R`\pi`), command("ξ", R`\xi`),
