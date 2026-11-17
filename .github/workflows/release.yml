@@ -99,3 +99,14 @@ jobs:
       - name: Remove temporary private key
         if: always()
         run: rm -f "$RUNNER_TEMP/michael-calculus-release.jks"
+
+  publish-bytevirt:
+    needs: build-and-release
+    permissions:
+      contents: read
+    uses: ./.github/workflows/bytevirt.yml
+    with:
+      release_tag: ${{ inputs.release_tag || github.ref_name }}
+    secrets:
+      CALCULUS_UPDATE_MANIFEST_KEY: ${{ secrets.CALCULUS_UPDATE_MANIFEST_KEY }}
+      CALCULUS_UPDATE_DEPLOY_KEY: ${{ secrets.CALCULUS_UPDATE_DEPLOY_KEY }}

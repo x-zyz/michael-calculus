@@ -26,12 +26,20 @@ const apk = readFileSync(apkPath);
 const hash = createHash("sha256").update(apk).digest("hex");
 if (!apk.length || apk.length > 256 * 1024 * 1024) throw new Error("Unexpected APK size");
 
+function writeBundle(envelope) {
+  const header = Buffer.alloc(8);
+  header.write("BVU1");
+  header.writeUInt32BE(envelope.length, 4);
+  writeFileSync(output, Buffer.concat([header, envelope, apk]), { flag: "wx" });
+}
+
 if (process.env.BYTEVIRT_CHECK_LIVE === "1") {
   const response = await fetch("https://update.0979019203.top" + lane + "/latest.json", {
     redirect: "error", signal: AbortSignal.timeout(15000),
   });
   if (response.ok) {
-    const existing = await response.json();
+    const envelope = Buffer.from(await response.arrayBuffer());
+    const existing = JSON.parse(envelope.toString("utf8"));
     const input = `${existing.protected}.${existing.payload}`;
     if (!verify("RSA-SHA256", Buffer.from(input), publicKey, Buffer.from(existing.signature, "base64url"))) {
       throw new Error("Existing update manifest has a different signature");
@@ -40,7 +48,8 @@ if (process.env.BYTEVIRT_CHECK_LIVE === "1") {
     if (payload.sequence >= build) {
       if (payload.sequence === build && payload.version === version &&
           payload.asset?.sha256 === hash && Date.parse(payload.expires_at) > Date.now()) {
-        console.log("The exact APK is already published on the update service.");
+        writeBundle(envelope);
+        console.log("Reusing the existing signed manifest for an idempotent upload.");
         process.exit(0);
       }
       throw new Error("Update service already has this or a newer sequence; publish a new build");
@@ -66,8 +75,4 @@ const payload = b64({
   },
 });
 const signature = sign("RSA-SHA256", Buffer.from(`${protectedText}.${payload}`), privateKey).toString("base64url");
-const envelope = Buffer.from(JSON.stringify({ protected: protectedText, payload, signature }));
-const header = Buffer.alloc(8);
-header.write("BVU1");
-header.writeUInt32BE(envelope.length, 4);
-writeFileSync(output, Buffer.concat([header, envelope, apk]), { flag: "wx" });
+writeBundle(Buffer.from(JSON.stringify({ protected: protectedText, payload, signature })));

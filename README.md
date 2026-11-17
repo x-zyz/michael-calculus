@@ -109,10 +109,6 @@ npm run android:debug
 
 ### 自有更新服务发布
 
-GitHub Actions 先发布经固定证书校验的 APK。用该 APK 和高数稳定通道专用清单私钥运行：
+发布标签触发 GitHub Actions。Android 构建任务先验证并发布固定签名 APK，随后 ByteVirt 任务下载并复核该 APK，使用专用 Actions Secrets 签署更新清单，通过固定主机公钥的 SSH 连接发到高数稳定通道。已有版本可在 Actions 中手动运行「Publish Android update to ByteVirt」，填写现有标签即可补发，无需重新构建。
 
-```bash
-BYTEVIRT_CHECK_LIVE=1 node scripts/prepare-bytevirt-release.mjs Michael-calculus-0.8.1.apk 0.8.1 /secure/manifest-private.pem release.bvu
-```
-
-在已固定 VPS 主机公钥的连接上，用该通道的受限发布密钥，通过 SSH 的 `publish-v1` 命令传输 `release.bvu`。私钥保存在受保护位置。清单序号等于 Android versionCode；每次更新使用更高的 versionCode。清单有效期为 90 天。
+清单序号等于 Android versionCode。补发相同 APK 会重用服务上已经签名的原清单，避免覆盖同序号内容。清单有效期为 90 天。
