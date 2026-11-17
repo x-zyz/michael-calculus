@@ -12,7 +12,7 @@ describe("Android update UI", () => {
   beforeEach(() => vi.resetAllMocks());
 
   it("confirms an available release and resumes after opening installation settings", async () => {
-    plugin.check.mockResolvedValue({ installed: "0.8.0", version: "0.8.1", size: 4194304 });
+    plugin.check.mockResolvedValue({ installed: "0.8.0", version: "0.8.1", size: 4194304, sequence: 13, status: "release" });
     plugin.install.mockResolvedValueOnce({ state: "permission" }).mockResolvedValueOnce({ state: "installer" });
     render(<UpdateCard />);
     fireEvent.click(screen.getByRole("button", { name: "检查更新" }));
@@ -23,11 +23,11 @@ describe("Android update UI", () => {
     expect(await screen.findByText(/允许来自本应用的安装/)).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "继续安装" }));
     expect(await screen.findByText("请在 Android 安装界面确认更新。")).toBeVisible();
-    expect(plugin.install).toHaveBeenNthCalledWith(2, { version: "0.8.1" });
+    expect(plugin.install).toHaveBeenNthCalledWith(2, { version: "0.8.1", sequence: "13" });
   });
 
   it("shows the current-version result without offering an APK", async () => {
-    plugin.check.mockResolvedValue({ installed: "0.8.0" });
+    plugin.check.mockResolvedValue({ installed: "0.8.0", status: "current" });
     render(<UpdateCard />);
     fireEvent.click(screen.getByRole("button", { name: "检查更新" }));
     expect(await screen.findByText("已是最新正式版。")).toBeVisible();

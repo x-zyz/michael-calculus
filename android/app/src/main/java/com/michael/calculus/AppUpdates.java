@@ -14,48 +14,39 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
-import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 @CapacitorPlugin(name = "AppUpdates")
 public class AppUpdates extends Plugin {
     private static final String PACKAGE = "com.michael.calculus";
-    private static final String REPO = "x-zyz/michael-calculus";
-    private static final String RELEASES = "https://github.com/" + REPO + "/releases/";
-    private static final String LATEST = "https://api.github.com/repos/" + REPO + "/releases/latest";
-    private static final Pattern TAG = Pattern.compile("v[0-9]{1,8}\\.[0-9]{1,8}\\.[0-9]{1,8}");
-    private static final Pattern DIGEST = Pattern.compile("sha256:[a-f0-9]{64}");
-    private static final long MAX_APK = 100L * 1024 * 1024;
-    private static final int MAX_METADATA = 1024 * 1024;
     private static final String APK_TYPE = "application/vnd.android.package-archive";
 
-    private record Release(String tag, URL url, long size, String digest) {}
+    private record Release(String tag, String url, long size, String digest, long build, long sequence) {}
 
     @PluginMethod
     public void check(PluginCall call) {
         try {
             PackageInfo installed = installedPackage();
-            Release latest = latestRelease(installed.versionName);
-            JSObject response = new JSObject().put("installed", installed.versionName);
+            JSONObject manifest = fetch(installed);
+            Release latest = releaseFrom(manifest);
+            JSObject response = new JSObject().put("installed", installed.versionName)
+                .put("status", manifest.getString("status"));
             if (latest != null) {
                 response.put("version", latest.tag().substring(1));
                 response.put("size", latest.size());
+                response.put("sequence", latest.sequence());
             }
             call.resolve(response);
         } catch (Exception e) {
-            call.reject("无法检查更新，请确认手机能连接 GitHub 后重试。", "CHECK_FAILED", e);
+            call.reject("无法检查更新，请确认手机能连接更新服务 后重试。", "CHECK_FAILED", e);
         }
     }
 
@@ -63,12 +54,17 @@ public class AppUpdates extends Plugin {
     public void install(PluginCall call) {
         try {
             PackageInfo installed = installedPackage();
-            Release latest = latestRelease(installed.versionName);
-            if (latest == null || !latest.tag().substring(1).equals(call.getString("version"))) {
+            Release latest = releaseFrom(fetch(installed));
+            if (latest == null || !latest.tag().substring(1).equals(call.getString("version"))
+                || !Long.toString(latest.sequence()).equals(call.getString("sequence"))) {
                 call.reject("发布版本已变化，请重新检查更新。", "RELEASE_CHANGED");
                 return;
             }
             File apk = cachedApk(latest, installed);
+            if (!latest.equals(releaseFrom(fetch(installed)))) {
+                call.reject("更新清单已变化，请重新检查更新。", "RELEASE_CHANGED");
+                return;
+            }
             getActivity().runOnUiThread(() -> openInstaller(call, apk));
         } catch (SecurityException e) {
             call.reject("更新包校验未通过，安装已取消。", "INVALID_APK", e);
@@ -85,54 +81,21 @@ public class AppUpdates extends Plugin {
         return getContext().getPackageManager().getPackageInfo(PACKAGE, signatureFlags());
     }
 
-    private Release latestRelease(String currentVersion) throws Exception {
-        HttpsURLConnection connection = connect(new URL(LATEST), true);
-        JSONObject release;
-        try (InputStream in = connection.getInputStream();
-             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            copy(in, out, MAX_METADATA);
-            release = new JSONObject(out.toString(StandardCharsets.UTF_8.name()));
-        } finally {
-            connection.disconnect();
-        }
-
-        String tag = release.optString("tag_name");
-        String current = "v" + currentVersion;
-        if (release.optBoolean("draft") || release.optBoolean("prerelease")
-            || !TAG.matcher(tag).matches() || !TAG.matcher(current).matches()) {
-            throw new IOException("Invalid release version");
-        }
-        if (compareTags(tag, current) <= 0) return null;
-        String name = "Michael-calculus-" + tag.substring(1) + ".apk";
-        String url = RELEASES + "download/" + tag + "/" + name;
-        JSONArray assets = release.getJSONArray("assets");
-        for (int i = 0; i < assets.length(); i++) {
-            JSONObject asset = assets.getJSONObject(i);
-            if (!name.equals(asset.optString("name"))) continue;
-            String digest = asset.optString("digest");
-            long size = asset.optLong("size");
-            if (url.equals(asset.optString("browser_download_url"))
-                && DIGEST.matcher(digest).matches() && size > 0 && size <= MAX_APK) {
-                return new Release(tag, new URL(url), size, digest.substring(7));
-            }
-        }
-        throw new IOException("No verified APK asset for " + tag);
+    private JSONObject fetch(PackageInfo installed) throws Exception {
+        return ByteVirtManifest.fetch(getContext(), Math.toIntExact(versionCode(installed)));
     }
 
-    private static int compareTags(String candidate, String installed) {
-        String[] left = candidate.substring(1).split("\\.");
-        String[] right = installed.substring(1).split("\\.");
-        for (int i = 0; i < left.length; i++) {
-            int cmp = Integer.compare(Integer.parseInt(left[i]), Integer.parseInt(right[i]));
-            if (cmp != 0) return cmp;
-        }
-        return 0;
+    private static Release releaseFrom(JSONObject manifest) throws Exception {
+        if (!manifest.has("tag")) return null;
+        return new Release(manifest.getString("tag"), manifest.getString("url"),
+            manifest.getLong("size"), manifest.getString("digest"), manifest.getLong("build"),
+            manifest.getLong("sequence"));
     }
 
     private File cachedApk(Release release, PackageInfo installed) throws Exception {
         File cache = new File(getContext().getCacheDir(), "updates");
         Files.createDirectories(cache.toPath());
-        File apk = new File(cache, release.tag() + ".apk");
+        File apk = new File(cache, release.sequence() + ".apk");
         if (apk.isFile()) {
             try {
                 verifyApk(apk, release, installed);
@@ -143,7 +106,11 @@ public class AppUpdates extends Plugin {
         }
         File temporary = File.createTempFile("download-", ".part", cache);
         try {
-            HttpsURLConnection connection = connect(release.url(), false);
+            HttpsURLConnection connection = ByteVirtManifest.connection(release.url());
+            if (connection.getResponseCode() != 200) {
+                connection.disconnect();
+                throw new IOException("APK download failed");
+            }
             try (InputStream in = connection.getInputStream();
                  OutputStream out = Files.newOutputStream(temporary.toPath())) {
                 copy(in, out, release.size());
@@ -162,41 +129,6 @@ public class AppUpdates extends Plugin {
         } finally {
             Files.deleteIfExists(temporary.toPath());
         }
-    }
-
-    private static HttpsURLConnection connect(URL initial, boolean metadata) throws IOException {
-        URL url = initial;
-        for (int redirects = 0; redirects <= 4; redirects++) {
-            String host = url.getHost();
-            boolean allowedHost = metadata ? "api.github.com".equalsIgnoreCase(host)
-                : "github.com".equalsIgnoreCase(host) || "release-assets.githubusercontent.com".equalsIgnoreCase(host)
-                    || "objects.githubusercontent.com".equalsIgnoreCase(host);
-            if (!"https".equalsIgnoreCase(url.getProtocol()) || !allowedHost
-                || url.getUserInfo() != null || (url.getPort() != -1 && url.getPort() != 443)) {
-                throw new IOException("Unexpected update server");
-            }
-            HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-            connection.setInstanceFollowRedirects(false);
-            connection.setConnectTimeout(15000);
-            connection.setReadTimeout(20000);
-            connection.setRequestProperty("User-Agent", "Michael-calculus-Android");
-            if (metadata) connection.setRequestProperty("Accept", "application/vnd.github+json");
-            try {
-                int status = connection.getResponseCode();
-                if (status == 200) return connection;
-                String location = connection.getHeaderField("Location");
-                if (!metadata && status >= 300 && status < 400 && location != null) {
-                    url = new URL(url, location);
-                    connection.disconnect();
-                    continue;
-                }
-                throw new IOException("Update server returned HTTP " + status);
-            } catch (IOException e) {
-                connection.disconnect();
-                throw e;
-            }
-        }
-        throw new IOException("Too many redirects");
     }
 
     private static void copy(InputStream in, OutputStream out, long limit) throws IOException {
@@ -227,6 +159,7 @@ public class AppUpdates extends Plugin {
         PackageInfo candidate = getContext().getPackageManager().getPackageArchiveInfo(apk.getPath(), signatureFlags());
         if (candidate == null || !PACKAGE.equals(candidate.packageName)
             || !release.tag().substring(1).equals(candidate.versionName)
+            || versionCode(candidate) != release.build()
             || versionCode(candidate) <= versionCode(installed)
             || !sameSigner(candidate, installed)) {
             throw new SecurityException("APK identity does not match the installed release");

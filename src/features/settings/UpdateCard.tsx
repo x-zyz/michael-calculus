@@ -3,13 +3,13 @@ import { useState } from "react";
 import { version } from "../../../package.json";
 import { Button, Card, Sheet } from "../../components/ui";
 
-type Update = { version: string; size: number };
-type UpdateCheck = { installed: string; version?: string; size?: number };
+type Update = { version: string; size: number; sequence: number };
+type UpdateCheck = Partial<Update> & { installed: string; status: string };
 type PluginError = { code?: string; message?: string };
 
 const updates = registerPlugin<{
   check(): Promise<UpdateCheck>;
-  install(options: { version: string }): Promise<{ state: "permission" | "installer" }>;
+  install(options: { version: string; sequence: string }): Promise<{ state: "permission" | "installer" }>;
 }>("AppUpdates");
 const releasePage = "https://github.com/x-zyz/michael-calculus/releases/latest";
 
@@ -30,7 +30,11 @@ export default function UpdateCard() {
     setPermission(false);
     try {
       const result = await updates.check();
-      if (result.version && result.size) setLatest({ version: result.version, size: result.size });
+      if (result.version && result.size && result.sequence) {
+        setLatest({ version: result.version, size: result.size, sequence: result.sequence });
+      } else if (result.status === "unpublished") setMessage("更新服务暂未发布正式版。");
+      else if (result.status === "paused") setMessage("正式版更新已暂停。");
+      else if (result.status === "incompatible") setMessage("此版本需要先手动安装过渡版本。");
       else setMessage("已是最新正式版。");
     } catch (e) {
       setError(true);
@@ -45,7 +49,7 @@ export default function UpdateCard() {
     setMessage("");
     setError(false);
     try {
-      const result = await updates.install({ version: update.version });
+      const result = await updates.install({ version: update.version, sequence: String(update.sequence) });
       setPermission(result.state === "permission");
       setMessage(result.state === "permission"
         ? "请在系统设置中允许来自本应用的安装，然后返回并点「继续安装」。"
@@ -78,7 +82,7 @@ export default function UpdateCard() {
           <>
             <p>当前版本 v{version}</p>
             {latest && <p>发现 v{latest.version} · {(latest.size / 1024 / 1024).toFixed(1)} MB</p>}
-            {busy && <p role="status">{busy === "check" ? "正在检查 GitHub 正式版…" : "正在准备并校验安装包…"}</p>}
+            {busy && <p role="status">{busy === "check" ? "正在检查正式版…" : "正在准备并校验安装包…"}</p>}
             {message && <p role={error ? "alert" : "status"}>{message}</p>}
             <div className="learning-actions">
               {latest ? (
@@ -87,7 +91,7 @@ export default function UpdateCard() {
                 </Button>
               ) : (
                 <Button variant="primary" disabled={Boolean(busy)} onClick={() => void check()}>
-                  检查 GitHub 正式版
+                  检查正式版
                 </Button>
               )}
             </div>
