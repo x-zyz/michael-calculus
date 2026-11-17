@@ -2,7 +2,7 @@
 
 ## v0.7.0 界面结构规则（优先于下方历史基线）
 
-- 当前版本 0.7.0 / versionCode 9。五项学习导航，AI 保留 `/assistant`，只从首页链接进入。永久签名规则继续生效。
+- 五项学习导航，AI 保留 `/assistant`，只从首页链接进入。永久签名规则继续生效。
 - 新功能必须放进已有结构（新路由 / Tabs / Sheet / Accordion），禁止往页面底部继续追加区块；禁止使用原生 select / details / number 控件和字面样式值；只能使用 `src/components/ui` 组件和 tokens。数学图形坐标、SVG 路径和动态百分比是几何数据。
 - 样式入口 `src/styles.css` 只导入 tokens / base / layout / components；组件/页面 TSX 不超过 300 行。字体最小 12px，触控目标至少 44px，每页最多一个可见 primary；手机主任务必须首屏可见。
 - 课程在 `features/curriculum`，答题在 `practice`，掌握度在 `review`，三个独立实验在 `experiments`；`LearningPages.tsx` 仅兼容导出。公式设置放 Sheet，数据备份放 `/settings`。
@@ -15,7 +15,7 @@
 ## Standing Delivery & Release Instructions
 
 - After completing and validating any app change in a turn, commit the relevant source changes and push them to the configured GitHub repository, `x-zyz/michael-calculus` (`https://github.com/x-zyz/michael-calculus`). The user has given standing authorization for this project.
-- When the task produces Android APK or source bundle releases, publish the requested artifacts to GitHub Releases (`gh release create` / `gh release upload`) and verify the download links.
+- For validated app changes, increment the app version and Android versionCode, push the release tag, and use the GitHub Actions `release.yml` workflow to build with the permanent signing identity. The owner has authorized automatic signed releases for this project. Wait for the workflow to finish and verify the APK download link.
 - Keep account credentials, signing keystores (`*.jks`, `*.keystore`, `signing.properties`), and local test reports out of the public repository.
 - If the user requests a local-only change for a specific task, follow that request.
 
