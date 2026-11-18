@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Capacitor, registerPlugin } from "@capacitor/core";
 import UpdateCard from "./UpdateCard";
 import DataImport from "../../components/DataImport";
 import {
@@ -8,12 +9,26 @@ import {
   PageHeader,
   Sheet,
 } from "../../components/ui";
+
+const appHub = registerPlugin<{ open(): Promise<void> }>("AppHubAccount");
+
 export default function SettingsPage() {
   const [guide, setGuide] = useState(false);
+  const [accountError, setAccountError] = useState(false);
   return (
     <div className="page read-page">
       <PageHeader title="关于与数据备份" subtitle="Michael calculus" />
       <UpdateCard />
+      {Capacitor.isPluginAvailable("AppHubAccount") && (
+        <Card>
+          <h2>App Hub 账号</h2>
+          <Button onClick={() => {
+            setAccountError(false);
+            void appHub.open().catch(() => setAccountError(true));
+          }}>管理账号</Button>
+          {accountError && <p role="status">暂时无法打开账号页面。</p>}
+        </Card>
+      )}
       <Card>
         <h2>你的数学学习空间</h2>
         <p>

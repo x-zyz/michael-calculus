@@ -33,6 +33,20 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+
+        <meta-data android:name="top.apphub.account.CLIENT_ID" android:value="fe1d5d42269fba4ffbd0ccc0dcd0bc81" />
+        <meta-data android:name="top.apphub.account.REDIRECT_URI" android:value="https://apps.0979019203.top/oauth/android/michael-calculus/callback" />
+        <activity android:name="top.apphub.account.AppHubActivity"
+            android:exported="true" android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="apps.0979019203.top" android:path="/oauth/android/michael-calculus/callback" />
+            </intent-filter>
+        </activity>
     </application>
 
     <!-- Permissions -->
