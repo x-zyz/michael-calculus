@@ -1,6 +1,10 @@
 # Michael calculus
 
-面向大学生的交互式高等数学学习平台。当前开发版本：**0.17.0，印象派首页与导航**。
+面向大学生的交互式高等数学学习平台。当前开发版本：**0.18.0，图像、练习与公式**。
+
+## 0.18.0 图像、练习与公式
+
+底栏直达图像、练习和公式。错题与作答历史移入练习，三个页面分别使用对应的莫奈画作与配色。
 
 ## 0.17.0 印象派首页与导航
 
@@ -126,7 +130,7 @@ tests/                Playwright 端到端与移动端布局验收测试
 
 ## 安卓 APK
 
-安卓工程位于 `android/`，使用 Capacitor 7 封装本地 `dist/`，无需网站登录或联网加载首页。应用名为 **Michael calculus**，包名 `com.michael.calculus`，版本 `0.17.0`（versionCode 22）。支持 Android 8.0（API 26）及以上，Android System WebView / Chrome 需为 111 或以上。
+安卓工程位于 `android/`，使用 Capacitor 7 封装本地 `dist/`，无需网站登录或联网加载首页。应用名为 **Michael calculus**，包名 `com.michael.calculus`，版本 `0.18.0`（versionCode 23）。支持 Android 8.0（API 26）及以上，Android System WebView / Chrome 需为 111 或以上。
 
 已处理应用图标、启动画面、安卓返回键，以及 Android 15 系统栏边距。主题偏好与学习记录在应用自己的 WebView 本地存储中保存，与浏览器数据相互独立。
 

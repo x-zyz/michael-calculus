@@ -19,8 +19,8 @@ describe('learning workspace', () => {
   });
   it('opens each module directly with its correct heading', () => {
     mount('/experiments');
-    expect(screen.getByRole('heading', { level: 1, name: '数学实验室' })).toBeVisible();
-    fireEvent.click(screen.getAllByRole('link',{name:'进入实验 →'})[0]);
+    expect(screen.getByRole('heading', { level: 1, name: '数学图像' })).toBeVisible();
+    fireEvent.click(screen.getAllByRole('link',{name:'打开图像 →'})[0]);
     expect(screen.getByLabelText('选择实验函数')).toBeVisible();
   });
   it('persists theme preferences across remounting', () => {

@@ -32,3 +32,9 @@
 :root[data-theme="dark"] {
  --home-paper: #222b2b; --home-wash: #141e2680; --home-stats: #263a39; --home-ink: #a9cec2;
 }
+:root {
+ --exercise-paper: #eee1ce; --exercise-ink: #825a40; --formula-paper: #e7e6ee;
+}
+:root[data-theme="dark"] {
+ --exercise-paper: #3b3028; --exercise-ink: #e2ba96; --formula-paper: #2c303e;
+}

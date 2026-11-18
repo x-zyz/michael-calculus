@@ -8,7 +8,6 @@ import {
 } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import {
-  PageHeader,
   ChipRow,
   Chip,
   Select,
@@ -19,7 +18,6 @@ import {
   ActionLink,
 } from "../../components/ui";
 import MasterySummary from "../../components/MasterySummary";
-import { ReviewNavigation } from "../formulas/FormulaActions";
 export default function ReviewPage() {
   const { state } = useLearning();
   const [chapter, setChapter] = useState(0);
@@ -37,12 +35,8 @@ export default function ReviewPage() {
       (!tag || p.errorTag === tag),
   );
   return (
-    <div className="page read-page">
-      <PageHeader
-        title="错题与复习"
-        subtitle={`累计作答 ${state.attempts.length} 次 · 答对 ${state.attempts.filter((a) => a.correct).length} 次 · 待复习 ${wrong.length} 题`}
-      />
-      <ReviewNavigation />
+    <>
+      <p className="learning-note">累计作答 {state.attempts.length} 次 · 答对 {state.attempts.filter((a) => a.correct).length} 次 · 待复习 {wrong.length} 题</p>
       <MasterySummary onTag={setTag} />
       <ChipRow label="错题章节筛选">
         <Chip selected={chapter === 0} onClick={() => setChapter(0)}>
@@ -126,6 +120,6 @@ export default function ReviewPage() {
             ))
         )}
       </Accordion>
-    </div>
+    </>
   );
 }

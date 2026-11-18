@@ -62,7 +62,7 @@ export default function Dashboard() {
           </div>
         </Card>
         <div className="stat-row">
-          <StatTile value={pending} label="待复习错题" to="/review" />
+          <StatTile value={pending} label="待复习错题" to="/practice/mistakes" />
           <StatTile
             value={counts.due}
             label="今日到期公式"
@@ -71,7 +71,7 @@ export default function Dashboard() {
           <StatTile
             value={mastery.chapters.reduce((n, c) => n + c.mastered, 0)}
             label="已掌握题数"
-            to="/review"
+            to="/practice/mistakes"
           />
         </div>
         <Card>

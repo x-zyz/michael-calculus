@@ -15,7 +15,6 @@ import {
   type QueueMode,
 } from "./engine";
 import {
-  PageHeader,
   Card,
   Button,
   Accordion,
@@ -25,7 +24,7 @@ import {
   NumberStepper,
   EmptyState,
 } from "../../components/ui";
-import { ReviewNavigation } from "./FormulaActions";
+import StudyHeading from "../../components/StudyHeading";
 import FormulaDetail from "./FormulaDetail";
 import Session from "./Session";
 import MasteryLights from "./MasteryLights";
@@ -67,15 +66,15 @@ export default function FormulaPages() {
   }
   return (
     <div className="page read-page fm">
-      <PageHeader
+      <StudyHeading
         title="公式记忆中心"
+        chapter={6}
         action={
           !activeSession ? (
             <Button onClick={() => setSettings(true)}>设置</Button>
           ) : undefined
         }
       />
-      {!activeSession && <ReviewNavigation />}
       {storageError && (
         <p role="alert" className="storage-alert">
           公式记录无法保存，退出后可能丢失。请检查设备存储空间。
@@ -100,8 +99,7 @@ export default function FormulaPages() {
         />
       ) : (
         <>
-          <Card variant="emphasis">
-            <p>每日一点，让公式真正留下来。</p>
+          <Card className="formula-daily">
             <h2>今天要复习 {counts.due} 张</h2>
             <p>
               今日新学 {counts.newToday} 个 · 薄弱 {counts.weak} 个 ·

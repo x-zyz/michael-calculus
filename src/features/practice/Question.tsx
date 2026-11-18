@@ -106,7 +106,7 @@ export default function Question({
               再做一次
             </Button>
             <Link to={`/curriculum?lesson=${p.lessonId}`}>回到知识点 →</Link>
-            <Link to="/review">查看错题 →</Link>
+            <Link to="/practice/mistakes">查看错题 →</Link>
           </div>
         </div>
       )}

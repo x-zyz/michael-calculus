@@ -201,7 +201,7 @@ describe("formula UI integration", () => {
     const nav = screen.getByRole("navigation", { name: "主导航" });
     expect(within(nav).getAllByRole("link")).toHaveLength(5);
     expect(
-      within(nav).getByRole("link", { name: "错题与复习" }),
+      within(nav).getByRole("link", { name: "公式记忆中心" }),
     ).toHaveAttribute("aria-current", "page");
     formulaMode("反向识别");
     fireEvent.click(screen.getByRole("button", { name: "开始今日复习" }));

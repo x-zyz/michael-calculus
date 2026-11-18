@@ -1,11 +1,38 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, List } from "lucide-react";
 import { chapters, lessons, problems, errorTags } from "../../data/learning";
 import { useLearning } from "../../db/learning";
-import { Button, PageHeader, Sheet, ChipRow, Chip } from "../../components/ui";
+import { Button, Sheet, ChipRow, Chip, Tabs } from "../../components/ui";
+import StudyHeading from "../../components/StudyHeading";
+import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
 export default function PracticePage() {
+  const { pathname, search } = useLocation();
+  const navigate = useNavigate();
+  const showMistakes = pathname === "/practice/mistakes";
+  const { state } = useLearning();
+  const latest = new Map(state.attempts.map(({ problemId, correct }) => [problemId, correct]));
+  const wrong = problems.filter(({ id }) => latest.get(id) === false).length;
+
+  return (
+    <div className="page focus-layout practice-study">
+      <StudyHeading title="练习中心" chapter={5} />
+      <Tabs
+        label="练习分类"
+        value={showMistakes ? "mistakes" : "questions"}
+        items={[
+          { value: "questions", label: "做题" },
+          { value: "mistakes", label: wrong ? `错题 (${wrong})` : "错题" },
+        ]}
+        onChange={(value) => navigate(value === "mistakes" ? "/practice/mistakes" : "/practice")}
+      />
+      {showMistakes ? <ReviewPage /> : <PracticeQuestions key={search} />}
+    </div>
+  );
+}
+
+function PracticeQuestions() {
   const { state } = useLearning();
   const [query] = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -40,8 +67,7 @@ export default function PracticePage() {
     if (first) setId(first.id);
   }
   return (
-    <div className="page focus-layout">
-      <PageHeader title="练习中心" />
+    <>
       <div className="practice-toolbar">
         <span>
           第 {index + 1} / {list.length} 题 · 第{currentChapter}章
@@ -149,6 +175,6 @@ export default function PracticePage() {
             </section>
           ))}
       </Sheet>
-    </div>
+    </>
   );
 }

@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import {
   Card,
-  PageHeader,
   ActionLink,
   InfoTip,
   EmptyState,
 } from "../../components/ui";
+import StudyHeading from "../../components/StudyHeading";
 import { Experiment } from "./LimitLab";
 import { SecantExperiment } from "./SecantLab";
 import { DerivativeAppExperiment } from "./DerivativeLab";
@@ -40,9 +40,10 @@ export default function ExperimentsPage() {
   const { labId } = useParams();
   const lab = labs.find((l) => l.id === labId);
   return (
-    <div className={`page ${labId ? "read-page" : ""}`}>
-      <PageHeader
-        title="数学实验室"
+    <div className={`page graphics-study ${labId ? "read-page" : ""}`}>
+      <StudyHeading
+        title="数学图像"
+        chapter={2}
         subtitle={lab?.description || "先选择一个实验，再亲手改变参数。"}
         action={
           <InfoTip label="实验说明">
@@ -82,7 +83,7 @@ export default function ExperimentsPage() {
               <h2>{l.title}</h2>
               <p>{l.description}</p>
               <div className="learning-actions">
-                <ActionLink to={`/experiments/${l.id}`}>进入实验 →</ActionLink>
+                <ActionLink to={`/experiments/${l.id}`}>打开图像 →</ActionLink>
                 <Link to={`/curriculum/${l.lesson}`}>关联课时</Link>
               </div>
             </Card>
@@ -91,7 +92,7 @@ export default function ExperimentsPage() {
       ) : lab ? (
         <>
           <Link className="about-link" to="/experiments">
-            ← 全部实验
+            ← 全部图像
           </Link>
           {lab.id === "limits" ? (
             <Experiment />
@@ -113,7 +114,7 @@ export default function ExperimentsPage() {
       ) : (
         <EmptyState
           title="没有找到这个实验"
-          action={<ActionLink to="/experiments">返回实验室</ActionLink>}
+          action={<ActionLink to="/experiments">返回图像列表</ActionLink>}
         />
       )}
     </div>

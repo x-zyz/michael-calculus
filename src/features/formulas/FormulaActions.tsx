@@ -1,27 +1,10 @@
 import { useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
-import { Tabs, Button } from "../../components/ui";
+import { Link } from "react-router-dom";
+import { Button } from "../../components/ui";
 import { problems } from "../../data/learning";
 import { formulaById } from "../../data/formulas";
 import { useFormulas } from "../../db/formulas";
 import { markStuck } from "./engine";
-export function ReviewNavigation() {
-  const location = useLocation(),
-    navigate = useNavigate();
-  return (
-    <Tabs
-      label="复习分类"
-      value={location.pathname === "/review/formulas" ? "formulas" : "mistakes"}
-      items={[
-        { value: "mistakes", label: "错题" },
-        { value: "formulas", label: "公式" },
-      ]}
-      onChange={(v) =>
-        navigate(v === "formulas" ? "/review/formulas" : "/review")
-      }
-    />
-  );
-}
 export function StuckButton({ problemId }: { problemId: string }) {
   const { store, save } = useFormulas();
   const [open, setOpen] = useState(false);

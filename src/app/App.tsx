@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { Link, NavLink, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Moon, Sun, Settings, ChevronRight } from "lucide-react";
 import { learningModules, modules } from "./modules";
 import { readTheme, saveTheme } from "../db/preferences";
@@ -10,7 +10,6 @@ import Dashboard from "../features/dashboard/Dashboard";
 import CoursePage from "../features/curriculum/CoursePage";
 import ExperimentsPage from "../features/experiments/ExperimentsPage";
 import PracticePage from "../features/practice/PracticePage";
-import ReviewPage from "../features/review/ReviewPage";
 import FormulaPages from "../features/formulas/FormulaPages";
 import AssistantStatus from "../components/AssistantStatus";
 import SettingsPage from "../features/settings/SettingsPage";
@@ -114,7 +113,8 @@ function Workspace() {
             <Route path="/curriculum" element={<CoursePage />} />
             <Route path="/curriculum/:lessonId" element={<CoursePage />} />
             <Route path="/practice" element={<PracticePage />} />
-            <Route path="/review" element={<ReviewPage />} />
+            <Route path="/practice/mistakes" element={<PracticePage />} />
+            <Route path="/review" element={<Navigate replace to="/practice/mistakes" />} />
             <Route path="/review/formulas" element={<FormulaPages />} />
             <Route path="/experiments" element={<ExperimentsPage />} />
             <Route path="/experiments/:labId" element={<ExperimentsPage />} />

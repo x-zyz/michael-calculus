@@ -94,7 +94,8 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await expect(page.getByRole('status')).toContainText('此题已加入待复习');
 
   await page.reload();
-  await page.goto('/#/review');
+  await page.getByRole('tab', { name: '错题 (1)' }).click();
+  await expect(page).toHaveURL(/#\/practice\/mistakes$/);
   await expect(page.getByText('累计作答 1 次 · 答对 0 次 · 待复习 1 题')).toBeVisible();
   await page.getByRole('button',{name:'最近 20 次作答',exact:true}).click();
   await expect(page.getByText('你的答案：0 · 使用提示 1 次', { exact: false })).toBeVisible();

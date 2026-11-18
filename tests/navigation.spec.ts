@@ -2,9 +2,9 @@ import { test, expect } from '@playwright/test';
 
 const pages = [
   { heading: '课程中心', mobile: '课程' },
-  { heading: '数学实验室', mobile: '实验' },
+  { heading: '数学图像', mobile: '图像' },
   { heading: '练习中心', mobile: '练习' },
-  { heading: '错题与复习', mobile: '复习' },
+  { heading: '公式记忆中心', mobile: '公式' },
   { heading: '学习首页', mobile: '首页' },
 ];
 
