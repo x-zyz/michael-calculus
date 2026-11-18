@@ -84,34 +84,37 @@ export default function CoursePage() {
     ));
   }
   return (
-    <div className={`page ${lesson ? "" : "course-catalog"}`}>
-      <PageHeader
-        title="课程中心"
-        action={!lesson && <ActionLink variant="primary" to={`/curriculum/${state.lastLesson}`}>继续学习 →</ActionLink>}
-        subtitle={
-          lesson
-            ? undefined
-            : `${lessons.length} 节课 · 已学 ${state.completed.length}/${lessons.length}`
-        }
-      />
-      <div className="course-layout">
-        <aside className="course-outline" aria-label="课程大纲">
-          {outline()}
-        </aside>
-        <div className="lesson-reader">
-          {lesson ? (
-            <Lesson
-              key={lesson.id}
-              lesson={lesson}
-              onCompleted={() =>
-                save({
-                  ...state,
-                  lastLesson: lesson.id,
-                  completed: [...new Set([...state.completed, lesson.id])],
-                })
-              }
-            />
-          ) : null}
+    <div className={lesson ? "course-scene" : undefined}>
+      {lesson && <ChapterPainting key={lesson.chapter} chapter={lesson.chapter} background />}
+      <div className={`page ${lesson ? "" : "course-catalog"}`}>
+        <PageHeader
+          title="课程中心"
+          action={!lesson && <ActionLink variant="primary" to={`/curriculum/${state.lastLesson}`}>继续学习 →</ActionLink>}
+          subtitle={
+            lesson
+              ? undefined
+              : `${lessons.length} 节课 · 已学 ${state.completed.length}/${lessons.length}`
+          }
+        />
+        <div className="course-layout">
+          <aside className="course-outline" aria-label="课程大纲">
+            {outline()}
+          </aside>
+          <div className="lesson-reader">
+            {lesson ? (
+              <Lesson
+                key={lesson.id}
+                lesson={lesson}
+                onCompleted={() =>
+                  save({
+                    ...state,
+                    lastLesson: lesson.id,
+                    completed: [...new Set([...state.completed, lesson.id])],
+                  })
+                }
+              />
+            ) : null}
+          </div>
         </div>
       </div>
     </div>

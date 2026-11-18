@@ -10,10 +10,11 @@ const collection = [
   { id: 16584, title: "伦敦议会大厦", year: "1900–01" },
 ];
 
-export default function ChapterPainting({ chapter, cover = false }: { chapter: number; cover?: boolean }) {
+export default function ChapterPainting({ chapter, cover = false, background = false }: { chapter: number; cover?: boolean; background?: boolean }) {
   const work = collection[chapter - 1];
   if (!work) return null;
-  const image = <img src={`${import.meta.env.BASE_URL}art/${work.id}.jpg`} alt="" loading={cover ? "eager" : "lazy"} />;
+  const image = <img src={`${import.meta.env.BASE_URL}art/${work.id}.jpg`} alt="" loading={cover || background ? "eager" : "lazy"} />;
+  if (background) return <div className="course-painting" aria-hidden="true">{image}</div>;
   return cover ? (
     <figure className="painting-cover">
       {image}

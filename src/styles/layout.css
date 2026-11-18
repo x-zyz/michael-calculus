@@ -90,3 +90,10 @@
   .mobile-nav { background: color-mix(in srgb,var(--surface) 90%,transparent); backdrop-filter: blur(16px); }
  }
 }
+
+.course-scene { position: relative; isolation: isolate; min-height: 80svh; }
+.course-painting { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.course-painting img { width: 100%; height: min(100%, 100svh); object-fit: cover; object-position: center; }
+.course-painting::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, color-mix(in srgb,var(--bg) 82%,transparent), color-mix(in srgb,var(--bg) 40%,transparent) 30svh, var(--bg) 100svh); }
+.course-scene .mobile-course-back { min-height: var(--touch); align-items: center; padding-inline: var(--space-3); background: var(--surface); border-radius: var(--radius-sm); }
+.course-scene .lesson-reader > .card { box-shadow: var(--shadow-md); }
