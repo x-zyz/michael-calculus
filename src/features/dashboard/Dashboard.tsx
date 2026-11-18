@@ -5,7 +5,7 @@ import {
   computeMastery,
   problems,
 } from "../../data/learning";
-import { firstLessonId } from "../../data/textbookSections";
+import { firstLessonId, textbookSections } from "../../data/textbookSections";
 import { useLearning } from "../../db/learning";
 import { useFormulas } from "../../db/formulas";
 import { counters } from "../formulas/engine";
@@ -33,10 +33,7 @@ export default function Dashboard() {
   const pending = problems.filter((p) => latest.get(p.id) === false).length;
   return (
     <div className="page dashboard">
-      <PageHeader
-        title="学习首页"
-        subtitle="把每一次理解，变成下一步的底气。"
-      />
+      <PageHeader title="学习首页" />
       <Card variant="emphasis" className="home-focus">
         <div className="home-visual" aria-hidden="true">
           <MathArtwork />
@@ -87,7 +84,7 @@ export default function Dashboard() {
             <Link
               className="chapter-progress"
               key={c.id}
-              to={`/curriculum/${list[0].id}`}
+              to={`/curriculum/${textbookSections[c.id][0].lessons[0]}`}
             >
               <strong>{c.title}</strong>
               <small>

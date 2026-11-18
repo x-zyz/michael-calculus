@@ -54,8 +54,8 @@ export default function CoursePage() {
     return chapters.map((c) => (
       <Accordion
         key={c.id}
-        title={c.title}
-        defaultOpen={!lesson || lesson.chapter === c.id}
+        title={lesson ? c.title : c.title.split(" · ").at(-1)!}
+        defaultOpen={lesson?.chapter === c.id}
       >
         {textbookSections[c.id].map((section) => (
           <section className="course-section" key={section.number}>
@@ -86,6 +86,7 @@ export default function CoursePage() {
     <div className={`page ${lesson ? "" : "course-catalog"}`}>
       <PageHeader
         title="课程中心"
+        action={!lesson && <ActionLink variant="primary" to={`/curriculum/${state.lastLesson}`}>继续学习 →</ActionLink>}
         subtitle={
           lesson
             ? undefined
@@ -109,22 +110,7 @@ export default function CoursePage() {
                 })
               }
             />
-          ) : (
-            <Card>
-              <h2>从一个问题，走进高数。</h2>
-              <p>
-                按教材节号选课，查看讲解与例题，再完成配套练习。
-              </p>
-              <div className="learning-actions">
-                <ActionLink
-                  variant="primary"
-                  to={`/curriculum/${state.lastLesson}`}
-                >
-                  继续学习 →
-                </ActionLink>
-              </div>
-            </Card>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

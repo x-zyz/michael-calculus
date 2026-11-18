@@ -117,6 +117,7 @@ test('full learning loop persists across reloads', async ({ page }) => {
 test('chapter six connects textbook sections, practice, and formula review', async ({ page }) => {
   await page.goto('/#/curriculum');
   const outline = page.getByRole('complementary', { name: '课程大纲' });
+  await outline.getByRole('button', { name: /多元函数微积分/ }).click();
   await expect(outline.getByRole('heading', { name: '§6.10 二重积分的变量代换法' })).toBeVisible();
   await expect(outline.getByRole('link', { name: /无界区域上的反常二重积分.*选学/ })).toBeVisible();
   await outline.getByRole('link', { name: '方向导数与梯度' }).click();
@@ -135,6 +136,8 @@ test('chapter six connects textbook sections, practice, and formula review', asy
 test('chapters seven and eight connect the textbook outline to worked practice', async ({ page }) => {
   await page.goto('/#/curriculum');
   const outline = page.getByRole('complementary', { name: '课程大纲' });
+  await outline.getByRole('button', { name: /无穷级数/ }).click();
+  await outline.getByRole('button', { name: /常微分方程及差分方程/ }).click();
   await expect(outline.getByRole('heading', { name: '*§7.6 幂级数的简单应用' })).toBeVisible();
   await expect(outline.getByRole('link', { name: '二阶常系数线性差分方程 · 选学' })).toBeVisible();
   await outline.getByRole('link', { name: '泰勒公式与函数的幂级数展开' }).click();
@@ -150,6 +153,7 @@ test('chapters seven and eight connect the textbook outline to worked practice',
   await expect(page.getByRole('status')).toContainText('✓ 回答正确');
 
   await page.goto('/#/curriculum');
+  await outline.getByRole('button', { name: /常微分方程及差分方程/ }).click();
   await outline.getByRole('link', { name: '差分方程在经济分析中的应用' }).click();
   await page.getByRole('tab', { name: '练习' }).click();
   await page.getByRole('link', { name: /完成阅读，开始练习/ }).click();
