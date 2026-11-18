@@ -1,0 +1,16 @@
+{
+  "appId": "michael-calculus",
+  "displayName": "Michael calculus · 大学高数",
+  "repository": "https://github.com/x-zyz/michael-calculus",
+  "identity": {
+    "issuer": "https://id.0979019203.top",
+    "organization": "apphub",
+    "status": "planned",
+    "android": {
+      "clientName": "michael-calculus-android",
+      "applicationId": "com.michael.calculus",
+      "certificateSha256": "8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706",
+      "redirectUri": "https://apps.0979019203.top/oauth/android/michael-calculus/callback"
+    }
+  }
+}
