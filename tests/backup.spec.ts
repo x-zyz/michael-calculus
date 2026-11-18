@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { lessons } from "../src/data/learning";
+
 test("previews an old backup, requires confirmation, and restores records after reload", async ({
   page,
   isMobile,
@@ -43,7 +45,7 @@ test("previews an old backup, requires confirmation, and restores records after 
   await page.getByRole("button", { name: "确认导入并重新载入" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.goto("/#/");
-  await expect(page.getByText("已学 1 / 18 节", { exact: true })).toBeVisible();
+  await expect(page.getByText(`已学 1 / ${lessons.length} 节`, { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /继续学习/ })).toHaveAttribute("href", /curriculum\/sine$/);
   expect(
     await page.evaluate(

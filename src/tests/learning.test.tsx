@@ -5,6 +5,8 @@ import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../app/App";
 import { checkAnswer, computeMastery, derivativeAppState, experimentValue, lessons, linearApprox, problems, secantSlope } from "../data/learning";
+import { textbookSections } from "../data/textbookSections";
+import { formulas } from "../data/formulas";
 import { learningKey } from "../db/learning";
 function mount(path: string) {
   return render(
@@ -88,27 +90,30 @@ describe("limit and derivative learning", () => {
     expect(decPt.dfx).toBeCloseTo(-3, 6);
     expect(decPt.monotone).toBe("单调递减");
   });
-  it("provides 18 lessons across five chapters and 36 practice problems", () => {
-    expect(lessons).toHaveLength(18);
-    expect(lessons.filter((l) => l.chapter === 1)).toHaveLength(5);
-    expect(lessons.filter((l) => l.chapter === 2).map((l) => l.id)).toEqual([
-      "derivative",
-      "rules",
-      "chain",
-      "differential",
+  it("places each lesson and its practice in the correct textbook section", () => {
+    const listed = Object.entries(textbookSections).flatMap(([chapter, sections]) =>
+      sections.flatMap((section, index) => {
+        expect(section.number).toBe(`${chapter}.${index + 1}`);
+        expect(section.lessons.length).toBeGreaterThan(0);
+        return section.lessons.map((id) => ({ id, chapter: Number(chapter) }));
+      }),
+    );
+    expect(listed).toHaveLength(lessons.length);
+    expect(new Set(listed.map(({ id }) => id)).size).toBe(lessons.length);
+    const byId = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+    for (const { id, chapter } of listed) {
+      expect(byId.get(id)?.chapter).toBe(chapter);
+      expect(problems.some((problem) => problem.lessonId === id)).toBe(true);
+    }
+    for (const formula of formulas) {
+      if (formula.lessonId) expect(formula.chapter).toBe(byId.get(formula.lessonId)?.chapter);
+    }
+    expect(textbookSections[4].map(({ lessons }) => lessons)).toEqual([
+      ["antiderivative"], ["substitution"], ["integration-by-parts"], ["rational-integrals"],
     ]);
-    expect(lessons.filter((l) => l.chapter === 3).map((l) => l.id)).toEqual([
-      "mvt",
-      "lhopital",
-      "extrema",
-    ]);
-    expect(lessons.filter((l) => l.chapter === 4).map((l) => l.id)).toEqual([
-      "antiderivative", "riemann", "fundamental-theorem",
-    ]);
-    expect(lessons.filter((l) => l.chapter === 5).map((l) => l.id)).toEqual([
-      "integral-area", "integral-volume", "integral-arc",
-    ]);
-    expect(problems).toHaveLength(36);
+    expect(textbookSections[5][0].lessons).toEqual(["riemann"]);
+    expect(textbookSections[5][1].lessons).toEqual(["fundamental-theorem"]);
+    expect(textbookSections[5][4].lessons).toContain("integral-area");
   });
   it("links each lesson to its matching experiment across chapters 1, 2, and 3", () => {
     const v = mount("/curriculum?lesson=euler");
@@ -191,7 +196,7 @@ describe("limit and derivative learning", () => {
     const v = mount("/practice");
     fireEvent.click(screen.getByRole("button",{name:"题目列表"}));
     fireEvent.click(
-      screen.getByRole("button", { name: "第三章：中值定理与导数应用" }),
+      screen.getByRole("button", { name: "第三章：微分中值定理与导数应用" }),
     );
     expect(
       screen.getByRole("heading", {
@@ -215,7 +220,7 @@ describe("limit and derivative learning", () => {
 
     const rev = mount("/review");
     expect(screen.getByTestId("review-mastery")).toHaveTextContent(
-      "第三章 · 中值定理与导数的应用",
+      "第三章 · 微分中值定理与导数应用",
     );
     expect(screen.getByTestId("review-mastery")).toHaveTextContent(
       "薄弱考点：洛必达法则与未定式",

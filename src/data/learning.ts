@@ -1,5 +1,6 @@
 import { integralLessons, integralProblems } from "./integrals";
 import { applicationLessons, applicationProblems } from "./integralApplications";
+import { textbookLessons, textbookProblems } from "./textbookLessons";
 export type ChapterId = 1 | 2 | 3 | 4 | 5;
 export interface Lesson {
   id: string;
@@ -21,7 +22,7 @@ export const lessons: Lesson[] = [
       "想象你沿着曲线走向 x = 1。我们关心的是附近的函数值走向哪里，而不是这个点本身有没有定义。例如 (x² − 1)/(x − 1) 在 x = 1 没有定义，但附近的函数值会靠近 2。",
     definition: String.raw`\lim_{x\to a}f(x)=L`,
     condition:
-      "直观含义：当 x 充分接近 a（但不等于 a）时，f(x) 可以任意接近 L。严格定义：对任意 ε > 0，存在 δ > 0，使 0 < |x − a| < δ 时都有 |f(x) − L| < ε。左右极限存在且相等时，双侧极限才存在。",
+      "直观含义：当 x 充分接近 a（但不等于 a）时，f(x) 可以任意接近 L。严格定义：对任意 ε > 0，存在 δ > 0，使 0 < |x − a| < δ 时都有 |f(x) − L| < ε。左右极限存在且相等时，双侧极限才存在。数列极限要求对任意 ε>0，存在 N，使 n>N 时 |aₙ−L|<ε。例如 1/n→0。",
     example: String.raw`\lim_{x\to1}\frac{x^2-1}{x-1}=2`,
     steps: [
       "先判断：直接代入会得到 0/0，它不是答案。",
@@ -40,7 +41,7 @@ export const lessons: Lesson[] = [
       "角度以弧度计量时，很小的 x 与 sin x 十分接近。比值 sin x / x 从左右两侧趋向 1。数值和图形帮助建立直觉，但它们本身不是证明。",
     definition: String.raw`\lim_{x\to0}\frac{\sin x}{x}=1`,
     condition:
-      "角度必须使用弧度。使用该结论时，正弦的自变量与分母要配成同一个趋近于 0 的量。",
+      "角度必须使用弧度。由 0<|x|<π/2 时 cos x≤sin x/x≤1，通过夹逼得到该极限。使用时把正弦的自变量与分母配成同一个趋零的量。",
     example: String.raw`\lim_{x\to0}\frac{\sin 3x}{5x}=\frac35`,
     steps: [
       "目标是把分母配成正弦中的 3x。",
@@ -59,7 +60,7 @@ export const lessons: Lesson[] = [
       "把本金 1 元按年利率 100% 复利计息：拆成 n 期时本息和为 (1 + 1/n)ⁿ。结算越密集，结果不会冲向无穷，而是稳定逼近无理数 e ≈ 2.71828。推广到连续自变量，x → 0 时 (1 + x)^(1/x) 从左右两侧都趋向 e。",
     definition: String.raw`\begin{gathered}\lim_{x\to0}(1+x)^{\frac1x}=e\\[4pt]\lim_{n\to\infty}\left(1+\frac1n\right)^n=e\end{gathered}`,
     condition:
-      "核心特征是 1^∞ 型未定式：底数写成 1 + u(x)，其中 u(x) → 0 且 u(x) ≠ 0，再把指数配成 1 / u(x) 的倍数。若底数极限不是 1，不能直接套用。",
+      "核心特征是 1^∞ 型未定式：底数写成 1 + u(x)，其中 u(x) → 0 且 u(x) ≠ 0，再把指数配成 1 / u(x) 的倍数。若底数极限不是 1，不能直接套用。年利率 r、每年复利 m 次时，t 年本息为 P(1+r/m)^(mt)（假设包含整期）；连续复利的本息为 Pe^(rt)。",
     example: String.raw`\lim_{x\to0}(1+2x)^{\frac{3}{x}}=e^6`,
     steps: [
       "先判别类型：x → 0 时底数 1 + 2x → 1，指数 3/x → ∞，属于 1^∞ 型未定式。",
@@ -78,7 +79,7 @@ export const lessons: Lesson[] = [
       "当 x 非常接近 0 时，sin x、tan x、ln(1 + x)、eˣ − 1 的曲线在原点附近几乎都贴在直线 y = x 上，而 1 − cos x 则贴近抛物线 x²/2。抓住无穷小量的主要部分，可以把复杂的乘除极限化为简单的幂函数比值。",
     definition: String.raw`\begin{gathered}\lim_{x\to a}\frac{\alpha(x)}{\beta(x)}=1\iff\alpha(x)\sim\beta(x)\\[4pt]x\to0:\;\sin x\sim x,\;\ln(1+x)\sim x\\[2pt]1-\cos x\sim\tfrac12x^2,\;e^x-1\sim x\end{gathered}`,
     condition:
-      "当 u(x) → 0 时，sin u ~ u，tan u ~ u，ln(1 + u) ~ u，eᵘ − 1 ~ u，1 − cos u ~ u²/2。整个乘除因子可以直接替换；但加减项中若一阶主部相互抵消，不能直接替换。",
+      "当 u(x) → 0 时，sin u ~ u，tan u ~ u，ln(1 + u) ~ u，eᵘ − 1 ~ u，1 − cos u ~ u²/2。同一趋近过程中，若 α/β→0，则 α 是 β 的高阶无穷小；若比值趋于有限非零值，则两者同阶，比值趋于 1 时等价。整个乘除因子可以直接替换；但加减项中若一阶主部相互抵消，不能直接替换。",
     example: String.raw`\lim_{x\to0}\frac{1-\cos 2x}{x\sin x}=2`,
     steps: [
       "当 x → 0 时分子分母均趋于 0，属于 0/0 型未定式，且分子、分母均为乘积因子。",
@@ -97,7 +98,7 @@ export const lessons: Lesson[] = [
       "在一点连续，意味着从附近靠近时，曲线走向的高度正好就是该点的函数值。如果左右走向不同的高度，即使函数在该点有值，也不连续。",
     definition: String.raw`\lim_{x\to a}f(x)=f(a)`,
     condition:
-      "在定义域的内点 a 连续需要：f(a) 有定义；双侧极限存在；极限等于 f(a)。定义域端点使用相应单侧极限。",
+      "在定义域的内点 a 连续需要：f(a) 有定义；双侧极限存在；极限等于 f(a)。定义域端点使用相应单侧极限。左右极限均有限时，若相等但函数值不符或缺失，为可去间断；若不相等，为跳跃间断。至少一侧极限不存在或无穷时为第二类间断。连续性对和、差、积、合法的商与复合都保持。闭区间上的连续函数有界、能取得最大最小值，并取到最大最小值之间的每个值。",
     example: String.raw`f(x)=\begin{cases}0&x<0\\1&x\ge0\end{cases}`,
     steps: [
       "当 x 从左侧趋近 0 时，f(x) 恒为 0，左极限为 0。",
@@ -115,7 +116,7 @@ export const lessons: Lesson[] = [
       "在曲线上取定点 x₀ 与邻近点 x₀ + h，连线就是割线。当步长 h 逐渐缩小趋向 0 时，两点无限靠近，割线绕定点旋转并趋向极限位置——切线。割线斜率的极限就是函数在该点的瞬时变化率（导数）。",
     definition: String.raw`f'(x_0)=\lim_{h\to0}\frac{f(x_0+h)-f(x_0)}{h}`,
     condition:
-      "差商 [f(x₀ + h) − f(x₀)] / h 表示割线斜率（平均变化率），在 h = 0 处未定义。仅当 h → 0⁻ 与 h → 0⁺ 的左右差商极限都存在且相等时，f(x) 在 x₀ 处才可导。可导必连续，但连续不一定可导。",
+      "差商 [f(x₀ + h) − f(x₀)] / h 表示割线斜率（平均变化率），在 h = 0 处未定义。仅当 h → 0⁻ 与 h → 0⁺ 的左右差商极限都存在且相等时，f(x) 在 x₀ 处才可导。可导必连续，但连续不一定可导。常数函数的导数为零，一次函数的导数为斜率。按定义展开平方差还能得到 (x²)′=2x。",
     example: String.raw`\begin{gathered}f(x)=x^2\\[4pt]f'(1)=\lim_{h\to0}\frac{(1+h)^2-1}{h}=2\end{gathered}`,
     steps: [
       "写出 x₀ = 1 处的差商：Δy / h = [(1 + h)² − 1] / h（h ≠ 0）。",
@@ -134,7 +135,7 @@ export const lessons: Lesson[] = [
       "每次都回到差商定义求极限会很繁琐。先对幂函数、三角函数、指数与对数函数建立基本导数公式，再配合和、差、积、商求导法则，就能像搭积木一样求常见初等函数的导数。注意乘积求导不是导数直接相乘，而是两项变化率的叠加。",
     definition: String.raw`\begin{gathered}(x^\alpha)'=\alpha x^{\alpha-1},\;(e^x)'=e^x\\[4pt](\ln x)'=\tfrac1x,\;(\sin x)'=\cos x\\[4pt](\cos x)'=-\sin x\\[4pt](uv)'=u'v+uv'\\[4pt]\left(\frac uv\right)'=\frac{u'v-uv'}{v^2}\end{gathered}`,
     condition:
-      "参与运算的函数 u(x)、v(x) 在该点均可导，商的求导法则还要求分母 v(x) ≠ 0。线性组合 (au + bv)' = au' + bv' 可直接逐项求导，但乘积与商必须使用对应法则，不能把因子各自求导后直接相乘或相除。",
+      "参与运算的函数 u(x)、v(x) 在该点均可导，商的求导法则还要求分母 v(x) ≠ 0。线性组合 (au + bv)' = au' + bv' 可直接逐项求导，但乘积与商必须使用对应法则，不能把因子各自求导后直接相乘或相除。若 f 有可导反函数且 f′(x)≠0，由 f⁻¹(f(x))=x 可得 (f⁻¹)′(f(x))=1/f′(x)。",
     example: String.raw`\begin{gathered}f(x)=x\ln x\\[4pt]f'(1)=1\end{gathered}`,
     steps: [
       "识别结构：f(x) = x ln x 是两个可导函数 u = x 与 v = ln x（x > 0）的乘积。",
@@ -172,7 +173,7 @@ export const lessons: Lesson[] = [
       "光滑曲线在切点附近局部放大看几乎是一条直线（切线）。当自变量发生微小改变 Δx 时，曲线的真实高度增量 Δy 可能不易直接计算，但沿着切线走出的高度增量 dy = f'(x₀)Δx 只是一次函数。当 |Δx| → 0 时，切线近似与真实增量的误差比 Δx 更快地趋近于 0。",
     definition: String.raw`\begin{gathered}dy=f'(x_0)\Delta x=f'(x_0)dx\\[4pt]\Delta y=f(x_0+\Delta x)-f(x_0)\\[4pt]\Delta y=dy+o(\Delta x)\end{gathered}`,
     condition:
-      "一元函数在点 x₀ 可微与可导等价。微分 dy 是真实增量 Δy 的线性主部；线性近似公式 f(x₀ + Δx) ≈ f(x₀) + f'(x₀)Δx 仅在 |Δx| 很小时精度较高，步长较大时高阶项不可忽略。",
+      "一元函数在点 x₀ 可微与可导等价。微分 dy 是真实增量 Δy 的线性主部；线性近似公式 f(x₀ + Δx) ≈ f(x₀) + f'(x₀)Δx 仅在 |Δx| 很小时精度较高，步长较大时高阶项不可忽略。微分的和差积商法则由对应的求导法则乘 dx 得到。若 u=u(x) 可微、y=f(u)，则 dy=f′(u)du，表达形式对中间变量仍成立。",
     example: String.raw`\begin{gathered}f(x)=x^2,\;x_0=2,\;\Delta x=0.1\\[4pt]dy=f'(2)\Delta x=0.4\end{gathered}`,
     steps: [
       "求基准点导数：由 f(x) = x² 得 f'(x) = 2x，在 x₀ = 2 处切线斜率 f'(2) = 4。",
@@ -186,12 +187,12 @@ export const lessons: Lesson[] = [
   {
     id: "mvt",
     chapter: 3,
-    title: "罗尔定理与拉格朗日中值定理",
+    title: "罗尔、拉格朗日与柯西中值定理",
     intuition:
       "在一段光滑起伏的山路上，如果起点与终点海拔相同（罗尔定理），途中至少有一处山顶或谷底的切线是水平的；如果把整段路倾斜过来（拉格朗日中值定理），途中至少有一点 ξ 的瞬时坡度 f'(ξ) 恰好等于整段路的平均坡度 [f(b) − f(a)] / (b − a)。",
     definition: String.raw`\begin{gathered}f(a)=f(b)\implies f'(\xi)=0\\[4pt]f'(\xi)=\frac{f(b)-f(a)}{b-a}\\[4pt]\xi\in(a,b)\end{gathered}`,
     condition:
-      "函数 f(x) 必须同时满足两条假设：在闭区间 [a, b] 上连续，且在开区间 (a, b) 内可导。若区间内存在间断点或不可导的尖点（如 |x| 在 x = 0 处），定理结论可能不成立。",
+      "函数 f(x) 必须同时满足两条假设：在闭区间 [a, b] 上连续，且在开区间 (a, b) 内可导。若区间内存在间断点或不可导的尖点（如 |x| 在 x = 0 处），定理结论可能不成立。若 g 也满足这些条件且区间内 g′ 非零，柯西中值定理给出某个 ξ，使 (f(b)−f(a))/(g(b)−g(a))=f′(ξ)/g′(ξ)。取 g(x)=x 即得拉格朗日中值定理。",
     example: String.raw`\begin{gathered}f(x)=x^2,\;x\in[1,5]\\[4pt]f'(\xi)=\frac{25-1}{5-1}=6\\[4pt]\xi=3\end{gathered}`,
     steps: [
       "检验条件：多项式 f(x) = x² 在 [1, 5] 上连续，在 (1, 5) 内可导，满足拉格朗日中值定理。",
@@ -210,7 +211,7 @@ export const lessons: Lesson[] = [
       "当分子 f(x) 与分母 g(x) 在 x → a 时同时趋近于 0，直接代入得到 0/0。此时两者都从 0 出发，它们比值的极限取决于谁变化得更快——即分子导数 f'(x) 与分母导数 g'(x) 在附近的比值极限。",
     definition: String.raw`\begin{gathered}\lim_{x\to a}f(x)=0,\;\lim_{x\to a}g(x)=0\\[4pt]\lim_{x\to a}\frac{f(x)}{g(x)}=\lim_{x\to a}\frac{f'(x)}{g'(x)}\end{gathered}`,
     condition:
-      "仅适用于 0/0 型或 ∞/∞ 型未定式；要求在 a 的去心邻域内 f'(x)、g'(x) 存在且 g'(x) ≠ 0，并且求导后的比值极限存在（或为无穷大）。注意：对分子和分母分别求导，不是对分式整体用商的求导法则！",
+      "仅适用于 0/0 型或 ∞/∞ 型未定式；要求在 a 的去心邻域内 f'(x)、g'(x) 存在且 g'(x) ≠ 0，并且求导后的比值极限存在（或为无穷大）。注意：对分子和分母分别求导，不是对分式整体用商的求导法则！0·∞ 可改写成商，∞−∞ 可通分或有理化；正底数的 1^∞、0^0、∞^0 型可先取对数。",
     example: String.raw`\begin{gathered}\lim_{x\to0}\frac{e^x-1-x}{x^2}\\[4pt]=\lim_{x\to0}\frac{e^x-1}{2x}=\frac12\end{gathered}`,
     steps: [
       "先判别未定式类型：x → 0 时分子 eˣ − 1 − x → 0，分母 x² → 0，属于 0/0 型。",
@@ -224,12 +225,12 @@ export const lessons: Lesson[] = [
   {
     id: "extrema",
     chapter: 3,
-    title: "函数的单调性与极值判别",
+    title: "函数的单调性、极值与拐点",
     intuition:
       "导数 f'(x) 的正负决定了曲线的走向：f'(x) > 0 时曲线向上爬升（单调递增），f'(x) < 0 时曲线向下滑落（单调递减）。当导数在驻点 x₀ 处由正变负（或二阶导数 f''(x₀) < 0，曲线向下弯）时，就形成了局部极大值。",
     definition: String.raw`\begin{gathered}f'(x)>0\Rightarrow\text{单调递增}\\[4pt]f'(x)<0\Rightarrow\text{单调递减}\\[4pt]f'(x_0)=0,\;f''(x_0)<0\Rightarrow\text{极大}\\[4pt]f'(x_0)=0,\;f''(x_0)>0\Rightarrow\text{极小}\end{gathered}`,
     condition:
-      "f'(x₀) = 0 的点称为驻点。可导函数的极值点必为驻点，但驻点不一定是极值点（例如 f(x) = x³ 在 x = 0 处 f'(0) = 0，但左右导数同为正，不是极值点）。",
+      "f'(x₀) = 0 的点称为驻点。可导函数的极值点必为驻点，但驻点不一定是极值点（例如 f(x) = x³ 在 x = 0 处 f'(0) = 0，但左右导数同为正，不是极值点）。在二阶导数为正的区间，曲线向上弯；为负时向下弯。曲线在某点连续且两侧弯曲方向发生改变，该点是拐点。例题中的二阶导数为 6x，故 (0,0) 是拐点。",
     example: String.raw`\begin{gathered}f(x)=x^3-3x\\[4pt]f'(x)=3(x^2-1)\\[4pt]f(-1)=2,\;f(1)=-2\end{gathered}`,
     steps: [
       "求一阶导数并找驻点：f'(x) = 3x² − 3 = 3(x + 1)(x − 1)，令 f'(x) = 0 得驻点 x = −1 和 x = 1。",
@@ -242,6 +243,7 @@ export const lessons: Lesson[] = [
   },
   ...integralLessons,
   ...applicationLessons,
+  ...textbookLessons,
 ];
 export interface Problem {
   formulaIds?: string[];
@@ -681,6 +683,7 @@ export const problems: Problem[] = [
   },
   ...integralProblems,
   ...applicationProblems,
+  ...textbookProblems,
 ];
 export const chapters = [
   {
@@ -695,11 +698,11 @@ export const chapters = [
   },
   {
     id: 3 as const,
-    title: "第三章 · 中值定理与导数的应用",
-    short: "第三章：中值定理与导数应用",
+    title: "第三章 · 微分中值定理与导数应用",
+    short: "第三章：微分中值定理与导数应用",
   },
-  { id: 4 as const, title: "第四章 · 不定积分与定积分", short: "第四章：积分" },
-  { id: 5 as const, title: "第五章 · 定积分的应用", short: "第五章：积分应用" },
+  { id: 4 as const, title: "第四章 · 不定积分", short: "第四章：不定积分" },
+  { id: 5 as const, title: "第五章 · 定积分及其应用", short: "第五章：定积分及其应用" },
 ];
 export const errorTags = Array.from(
   new Map(

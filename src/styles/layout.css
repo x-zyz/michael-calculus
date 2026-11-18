@@ -27,6 +27,7 @@
 .course-layout { display: grid; grid-template-columns: 240px minmax(0,1fr); gap: var(--space-8); align-items: start; }
 .course-outline { position: sticky; top: var(--space-6); }
 .lesson-reader { min-width: 0; max-width: var(--read-width); }
+.course-section h3 { margin: var(--space-3) 0 var(--space-2); font-size: var(--text-sm); color: var(--muted); }
 .lesson-copy { line-height: 1.9; }
 .lesson-copy > p { margin-block: var(--space-4); }
 .lesson-footer { position: sticky; bottom: var(--space-4); margin-top: var(--space-6); z-index: 10; padding: var(--space-3); background: var(--surface); box-shadow: var(--shadow-md); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }

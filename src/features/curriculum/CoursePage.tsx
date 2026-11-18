@@ -8,6 +8,8 @@ import {
   lessonSecant,
   lessonDerivativeApp,
 } from "../../data/learning";
+import { textbookSections } from "../../data/textbookSections";
+import { formulas } from "../../data/formulas";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
 import {
@@ -28,12 +30,24 @@ import { IntegralExperiment } from "../experiments/IntegralLab";
 import { integralModeForLesson } from "../../data/integrals";
 import { IntegralApplicationsLab } from "../experiments/IntegralApplicationsLab";
 import { applicationModeForLesson } from "../../data/integralApplications";
-const steps = ["直觉", "实验", "定义", "例题", "练习"];
+const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+
+function lessonLab(id: string) {
+  if (id in lessonExperiment) return <Experiment initialKind={lessonExperiment[id]} />;
+  if (id in lessonSecant) return <SecantExperiment initialKind={lessonSecant[id]} />;
+  if (id in lessonDerivativeApp) return <DerivativeAppExperiment initialKind={lessonDerivativeApp[id]} />;
+  if (["antiderivative", "riemann", "fundamental-theorem"].includes(id)) {
+    return <IntegralExperiment initialMode={integralModeForLesson(id)} />;
+  }
+  if (["integral-area", "integral-volume", "integral-arc"].includes(id)) {
+    return <IntegralApplicationsLab initialMode={applicationModeForLesson(id)} />;
+  }
+}
 export default function CoursePage() {
   const { lessonId } = useParams();
   const [query] = useSearchParams();
   const { state, save } = useLearning();
-  const lesson = lessons.find((l) => l.id === lessonId);
+  const lesson = lessonId ? lessonsById.get(lessonId) : undefined;
   if (query.get("lesson"))
     return <Navigate replace to={`/curriculum/${query.get("lesson")}`} />;
   function outline() {
@@ -43,22 +57,25 @@ export default function CoursePage() {
         title={c.title}
         defaultOpen={!lesson || lesson.chapter === c.id}
       >
-        {lessons
-          .filter((l) => l.chapter === c.id)
-          .map((l) => (
-            <ListItem
-              key={l.id}
-              title={l.title}
-              status={
-                state.completed.includes(l.id)
-                  ? "done"
-                  : state.lastLesson === l.id && state.completed.length
-                    ? "active"
-                    : "new"
-              }
-              to={`/curriculum/${l.id}`}
-            />
-          ))}
+        {textbookSections[c.id].map((section) => (
+          <section className="course-section" key={section.number}>
+            <h3>{section.optional ? "*" : ""}§{section.number} {section.title}</h3>
+            {section.lessons.map((id) => (
+              <ListItem
+                key={id}
+                title={lessonsById.get(id)!.title}
+                status={
+                  state.completed.includes(id)
+                    ? "done"
+                    : state.lastLesson === id && state.completed.length
+                      ? "active"
+                      : "new"
+                }
+                to={`/curriculum/${id}`}
+              />
+            ))}
+          </section>
+        ))}
       </Accordion>
     ));
   }
@@ -93,7 +110,7 @@ export default function CoursePage() {
             <Card>
               <h2>从一个问题，走进高数。</h2>
               <p>
-                选择左侧章节中的课时。每节课包含直觉、实验、定义、例题和练习五步。
+                按教材节号选课，查看讲解与例题，再完成配套练习。
               </p>
               <div className="learning-actions">
                 <ActionLink
@@ -118,15 +135,19 @@ function Lesson({
   onCompleted: () => void;
 }) {
   const { state, save } = useLearning();
-  const [step, setStep] = useState(state.completed.includes(lesson.id) ? 4 : 0);
+  const lab = lessonLab(lesson.id);
+  const steps = lab ? ["直觉", "实验", "定义", "例题", "练习"] : ["直觉", "定义", "例题", "练习"];
+  const [step, setStep] = useState(state.completed.includes(lesson.id) ? steps.length - 1 : 0);
+  const currentStep = steps[step];
   const chapter = chapters.find((c) => c.id === lesson.chapter)!;
+  const section = textbookSections[lesson.chapter].find(({ lessons }) => lessons.includes(lesson.id));
   function change(next: number) {
     setStep(next);
     save({
       ...state,
       lastLesson: lesson.id,
       completed:
-        next === 4
+        next === steps.length - 1
           ? [...new Set([...state.completed, lesson.id])]
           : state.completed,
     });
@@ -137,7 +158,7 @@ function Lesson({
         ← 课程目录
       </Link>
       <Card>
-        <span className="eyebrow">{chapter.title}</span>
+        <span className="eyebrow">{chapter.title}{section && ` · §${section.number}`}</span>
         <h2>{lesson.title}</h2>
         <Tabs
           label="学习环节"
@@ -145,26 +166,25 @@ function Lesson({
           value={steps[step]}
           onChange={(value) => change(steps.indexOf(value))}
         />
-        <ProgressBar label="本课学习步骤" value={((step + 1) / 5) * 100} />
+        <ProgressBar label="本课学习步骤" value={((step + 1) / steps.length) * 100} />
         <small>
-          第 {step + 1}/5 步 ·{" "}
+          第 {step + 1}/{steps.length} 步 ·{" "}
           {state.completed.includes(lesson.id) ? "已完成阅读" : "学习中"}
         </small>
         <article className="lesson-copy" data-testid="lesson-content">
-          {step === 0 && <p>{lesson.intuition}</p>}
-          {step === 2 && (
+          {currentStep === "直觉" && <p>{lesson.intuition}</p>}
+          {currentStep === "定义" && (
             <>
               <Formula value={lesson.definition} />
               <p>{lesson.condition}</p>
-              <Link
-                className="about-link"
-                to={`/review/formulas?lesson=${lesson.id}`}
-              >
-                背这节的公式 →
-              </Link>
+              {formulas.some((formula) => formula.lessonId === lesson.id) && (
+                <Link className="about-link" to={`/review/formulas?lesson=${lesson.id}`}>
+                  背这节的公式 →
+                </Link>
+              )}
             </>
           )}
-          {step === 3 && (
+          {currentStep === "例题" && (
             <>
               <Formula value={lesson.example} />
               <ol>
@@ -175,7 +195,7 @@ function Lesson({
               <p className="learning-tip">{lesson.takeaway}</p>
             </>
           )}
-          {step === 4 && (
+          {currentStep === "练习" && (
             <>
               <p>
                 本节有 {problems.filter((p) => p.lessonId === lesson.id).length}{" "}
@@ -185,34 +205,20 @@ function Lesson({
             </>
           )}
         </article>
-        {step === 1 && (
+        {currentStep === "实验" && (
           <>
             <InfoTip label="实验说明">
               图形和有限采样用于观察，不代替数学证明。
             </InfoTip>
-            {lesson.chapter === 1 ? (
-              <Experiment initialKind={lessonExperiment[lesson.id] || "hole"} />
-            ) : lesson.chapter === 2 ? (
-              <SecantExperiment
-                initialKind={lessonSecant[lesson.id] || "square"}
-              />
-            ) : lesson.chapter === 5 ? (
-              <IntegralApplicationsLab initialMode={applicationModeForLesson(lesson.id)} />
-            ) : lesson.chapter === 4 ? (
-              <IntegralExperiment initialMode={integralModeForLesson(lesson.id)} />
-            ) : (
-              <DerivativeAppExperiment
-                initialKind={lessonDerivativeApp[lesson.id] || "mvt"}
-              />
-            )}
+            {lab}
           </>
         )}
       </Card>
       <div className="lesson-footer">
         <small>
-          {steps[step]} · {step + 1}/5
+          {steps[step]} · {step + 1}/{steps.length}
         </small>
-        {step < 4 ? (
+        {step < steps.length - 1 ? (
           <Button variant="primary" onClick={() => change(step + 1)}>
             下一步 →
           </Button>

@@ -33,7 +33,7 @@ const labs = [
     symbol: "ξ",
     lesson: "mvt",
   },
-  { id: "integrals", title: "不定积分与定积分", description: "平移原函数、比较取样矩形，并观察变上限积分。", symbol: "∫", lesson: "riemann", chapter: 4 },
+  { id: "integrals", title: "不定积分与定积分", description: "平移原函数、比较取样矩形，并观察变上限积分。", symbol: "∫", lesson: "riemann", chapter: 5 },
   { id: "integral-applications", title: "定积分的应用", description: "观察曲线间的面积、旋转体截面和逼近弧长的折线。", symbol: "S", lesson: "integral-area", chapter: 5 },
 ];
 export default function ExperimentsPage() {

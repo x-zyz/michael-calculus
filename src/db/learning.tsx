@@ -15,7 +15,7 @@ export interface LearningState {
 const empty: LearningState = {
   completed: [],
   attempts: [],
-  lastLesson: "limit",
+  lastLesson: "functions",
 };
 export const learningKey = "mc-learning-v1";
 function read(): LearningState {
