@@ -97,3 +97,38 @@
 .course-painting::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, color-mix(in srgb,var(--bg) 82%,transparent), color-mix(in srgb,var(--bg) 40%,transparent) 30svh, var(--bg) 100svh); }
 .course-scene .mobile-course-back { min-height: var(--touch); align-items: center; padding-inline: var(--space-3); background: var(--surface); border-radius: var(--radius-sm); }
 .course-scene .lesson-reader > .card { box-shadow: var(--shadow-md); }
+
+.home-scene { position: relative; isolation: isolate; background: var(--home-paper); }
+.home-scene .course-painting img { height: min(100%, 110svh); }
+.home-scene .course-painting::after {
+ background: linear-gradient(to bottom, var(--home-wash), transparent 38svh, var(--home-paper) 110svh);
+}
+.dashboard > .page-header h1 {
+ background: var(--home-paper); color: var(--text); font-family: var(--painting-type);
+ padding: var(--space-2) var(--space-4); border-inline-start: var(--space-1) solid var(--home-ink);
+}
+.dashboard .stat-row {
+ background: var(--home-stats); border-block: 0; border-inline-start: var(--space-1) solid var(--home-ink);
+}
+.dashboard .stat-tile strong { color: var(--home-ink); font-family: var(--font-brand); font-weight: var(--weight-regular); }
+.dashboard > .card:not(.home-focus) {
+ background: var(--home-paper); padding: var(--space-4) var(--space-6);
+ border-block-start: 1px solid var(--home-ink); border-radius: 0;
+}
+.dashboard .section-header h2 { font-family: var(--painting-type); }
+.dashboard .chapter-progress .painting-study { border-radius: 0; outline: 1px solid var(--line); outline-offset: var(--space-1); }
+.dashboard > .about-link { background: var(--home-paper); justify-self: start; }
+.main-nav a { border-radius: 0; border-inline-start: var(--space-1) solid transparent; }
+.main-nav a.active { border-inline-start-color: var(--home-ink); background: linear-gradient(90deg,var(--home-stats),transparent); }
+@media(max-width:800px) {
+ .mobile-nav a { position: relative; border-radius: 0; }
+ .mobile-nav a.active { background: transparent; }
+ .mobile-nav a.active::before {
+  content: ""; position: absolute; width: var(--space-2); height: var(--space-2);
+  top: calc(var(--space-2) * -1); inset-inline-start: calc(50% - var(--space-1));
+  transform: rotate(45deg); background: var(--home-ink);
+ }
+}
+@media(max-width:650px) {
+ .dashboard > .card:not(.home-focus) { padding-inline: var(--space-4); }
+}
