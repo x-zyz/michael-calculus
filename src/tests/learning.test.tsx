@@ -185,7 +185,7 @@ describe("limit and derivative learning", () => {
       { problemId: "p15", correct: false },
       { problemId: "p21", correct: false },
     ]);
-    expect(stats.chapters).toHaveLength(6);
+    expect(stats.chapters).toHaveLength(8);
     expect(stats.chapters[0].mastered).toBe(1);
     expect(stats.chapters[0].attempted).toBe(1);
     expect(stats.chapters[1].pending).toBe(1);

@@ -7,6 +7,7 @@ const aliases: Record<string, string> = {
   "⇒": "\\Rightarrow", "\\implies": "\\Rightarrow",
   "∇": "\\nabla", "∂": "\\partial", "θ": "\\theta", "λ": "\\lambda",
   "·": "\\cdot", "\\cdotp": "\\cdot", "∬": "\\iint", "×": "\\times",
+  "∑": "\\sum", "Δ": "\\Delta", "μ": "\\mu", "≤": "\\le", "\\leq": "\\le",
   "\\vert": "|", "\\lvert": "|", "\\rvert": "|",
   "\\dfrac": "\\frac", "\\tfrac": "\\frac",
 };

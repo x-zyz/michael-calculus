@@ -56,6 +56,23 @@ export const textbookSections: Record<ChapterId, readonly TextbookSection[]> = {
     { number: "6.9", title: "直角坐标系下二重积分的计算", lessons: ["double-integrals"] },
     { number: "6.10", title: "二重积分的变量代换法", lessons: ["polar-integrals", "double-integral-substitution", "improper-double-integrals"] },
   ],
+  7: [
+    { number: "7.1", title: "常数项级数的概念和性质", lessons: ["series-basics"] },
+    { number: "7.2", title: "正项级数的审敛法", lessons: ["positive-series-comparison", "series-ratio-root"] },
+    { number: "7.3", title: "交错级数和任意项级数的审敛法", lessons: ["alternating-series"] },
+    { number: "7.4", title: "幂级数", lessons: ["power-series-convergence", "power-series-operations"] },
+    { number: "7.5", title: "函数展开成幂级数", lessons: ["taylor-series"] },
+    { number: "7.6", title: "幂级数的简单应用", lessons: ["power-series-approximation"], optional: true },
+  ],
+  8: [
+    { number: "8.1", title: "微分方程的基本概念", lessons: ["ode-basics"] },
+    { number: "8.2", title: "一阶微分方程", lessons: ["separable-odes", "homogeneous-first-order", "linear-first-order", "bernoulli-ode"] },
+    { number: "8.3", title: "可降阶的高阶微分方程", lessons: ["ode-order-reduction"] },
+    { number: "8.4", title: "二阶常系数线性微分方程", lessons: ["homogeneous-second-order", "nonhomogeneous-second-order"] },
+    { number: "8.5", title: "微分方程在经济管理中的应用", lessons: ["growth-models", "rate-and-pollution-models"] },
+    { number: "8.6", title: "差分方程简介", lessons: ["first-order-differences", "second-order-differences"] },
+    { number: "8.7", title: "差分方程在经济分析中的简单应用", lessons: ["economic-differences"] },
+  ],
 };
 
 export const firstLessonId = textbookSections[1][0].lessons[0];

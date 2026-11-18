@@ -2,7 +2,9 @@ import { integralLessons, integralProblems } from "./integrals";
 import { applicationLessons, applicationProblems } from "./integralApplications";
 import { textbookLessons, textbookProblems } from "./textbookLessons";
 import { multivariableLessons, multivariableProblems } from "./multivariable";
-export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6;
+import { seriesLessons, seriesProblems } from "./series";
+import { differentialEquationsLessons, differentialEquationsProblems } from "./differentialEquations";
+export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export interface Lesson {
   id: string;
   chapter: ChapterId;
@@ -247,6 +249,8 @@ export const lessons: Lesson[] = [
   ...applicationLessons,
   ...textbookLessons,
   ...multivariableLessons,
+  ...seriesLessons,
+  ...differentialEquationsLessons,
 ];
 export interface Problem {
   formulaIds?: string[];
@@ -688,6 +692,8 @@ export const problems: Problem[] = [
   ...applicationProblems,
   ...textbookProblems,
   ...multivariableProblems,
+  ...seriesProblems,
+  ...differentialEquationsProblems,
 ];
 export const chapters = [
   {
@@ -708,6 +714,8 @@ export const chapters = [
   { id: 4 as const, title: "第四章 · 不定积分", short: "第四章：不定积分" },
   { id: 5 as const, title: "第五章 · 定积分及其应用", short: "第五章：定积分及其应用" },
   { id: 6 as const, title: "第六章 · 多元函数微积分", short: "第六章：多元函数微积分" },
+  { id: 7 as const, title: "第七章 · 无穷级数", short: "第七章：无穷级数" },
+  { id: 8 as const, title: "第八章 · 常微分方程及差分方程", short: "第八章：常微分方程及差分方程" },
 ];
 export const errorTags = Array.from(
   new Map(

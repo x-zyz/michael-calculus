@@ -132,6 +132,33 @@ test('chapter six connects textbook sections, practice, and formula review', asy
   await expect(page.getByRole('status')).toContainText('✓ 回答正确');
 });
 
+test('chapters seven and eight connect the textbook outline to worked practice', async ({ page }) => {
+  await page.goto('/#/curriculum');
+  const outline = page.getByRole('complementary', { name: '课程大纲' });
+  await expect(outline.getByRole('heading', { name: '*§7.6 幂级数的简单应用' })).toBeVisible();
+  await expect(outline.getByRole('link', { name: '二阶常系数线性差分方程 · 选学' })).toBeVisible();
+  await outline.getByRole('link', { name: '泰勒公式与函数的幂级数展开' }).click();
+  await page.getByRole('tab', { name: '定义' }).click();
+  await page.getByRole('link', { name: /背这节的公式/ }).click();
+  await expect(page.getByRole('button', { name: /第7章 · 2 个公式/ })).toBeVisible();
+  await page.goBack();
+  await page.getByRole('tab', { name: '练习' }).click();
+  await page.getByRole('link', { name: /完成阅读，开始练习/ }).click();
+  await expect(page.getByRole('heading', { name: /sin x 的 x³ 项系数/ })).toBeVisible();
+  await page.getByLabel('请输入数值或分数').fill('-1/6');
+  await page.getByRole('button', { name: '检查答案' }).click();
+  await expect(page.getByRole('status')).toContainText('✓ 回答正确');
+
+  await page.goto('/#/curriculum');
+  await outline.getByRole('link', { name: '差分方程在经济分析中的应用' }).click();
+  await page.getByRole('tab', { name: '练习' }).click();
+  await page.getByRole('link', { name: /完成阅读，开始练习/ }).click();
+  await expect(page.getByRole('heading', { name: '求市场的均衡价格' })).toBeVisible();
+  await page.getByLabel('请输入数值或分数').fill('5');
+  await page.getByRole('button', { name: '检查答案' }).click();
+  await expect(page.getByRole('status')).toContainText('✓ 回答正确');
+});
+
 test('data written by 0.2.0 is kept after an upgrade', async ({ page }) => {
   await page.addInitScript(() => {
     if (sessionStorage.getItem('seeded')) return;
