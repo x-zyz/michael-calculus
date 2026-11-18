@@ -1,0 +1,51 @@
+name: Stage signed App Hub update
+
+on:
+  push:
+    branches: [apphub/stage-signed-update-019]
+    paths: [.github/workflows/stage-apphub-update.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  sign:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Verify GitHub release APK
+        shell: bash
+        run: |
+          apk="$RUNNER_TEMP/Michael-calculus-0.19.0.apk"
+          curl --fail --silent --show-error --location --retry 3 -o "$apk" \
+            https://github.com/x-zyz/michael-calculus/releases/download/v0.19.0/Michael-calculus-0.19.0.apk
+          printf '%s  %s\n' a524bbd56867d7bd9e136d266aa71c1b330b0d2b66fce893e35f74b097372317 "$apk" | sha256sum --check -
+          node scripts/verify-android-release.mjs "$apk"
+      - name: Sign compatibility manifest
+        env:
+          MANIFEST_KEY: ${{ secrets.CALCULUS_UPDATE_MANIFEST_KEY }}
+        shell: bash
+        run: |
+          test -n "$MANIFEST_KEY"
+          umask 077
+          key="$(mktemp)"
+          trap 'rm -f "$key"' EXIT
+          printf '%s\n' "$MANIFEST_KEY" > "$key"
+          unset MANIFEST_KEY
+          node scripts/prepare-bytevirt-release.mjs "$RUNNER_TEMP/Michael-calculus-0.19.0.apk" \
+            0.19.0 "$key" "$RUNNER_TEMP/calculus-0.19.0.bvu"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: calculus-0.19.0-update
+          path: ${{ runner.temp }}/calculus-0.19.0.bvu
+          if-no-files-found: error
+          retention-days: 7
