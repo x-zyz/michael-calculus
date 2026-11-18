@@ -17,7 +17,7 @@ import {
   ProgressBar,
   SectionHeader,
 } from "../../components/ui";
-import MathArtwork from "../../components/MathArtwork";
+import ChapterPainting from "../../components/ChapterPainting";
 export default function Dashboard() {
   const { state } = useLearning();
   const { store } = useFormulas();
@@ -35,28 +35,28 @@ export default function Dashboard() {
     <div className="page dashboard">
       <PageHeader title="学习首页" />
       <Card variant="emphasis" className="home-focus">
-        <div className="home-visual" aria-hidden="true">
-          <MathArtwork />
-        </div>
-        <p>
-          {hasProgress ? `继续学习 · ${chapter.title}` : "从 §1.1 函数开始"}
-        </p>
-        <h2>{lesson.title}</h2>
-        <p>
-          当前环节 · {state.completed.includes(lesson.id) ? "练习" : "直觉"}
-        </p>
-        <p>
-          已学 {state.completed.length} / {lessons.length} 节
-        </p>
-        <ProgressBar
-          label="课程阅读进度"
-          value={(state.completed.length / lessons.length) * 100}
-        />
-        <div className="learning-actions">
-          <ActionLink variant="primary" to={`/curriculum/${lesson.id}`}>
-            {hasProgress ? "继续学习" : "开始学习"} →
-          </ActionLink>
-          <Link to="/curriculum">查看全部课程</Link>
+        <ChapterPainting chapter={lesson.chapter} cover />
+        <div className="cover-copy">
+          <p>
+            {hasProgress ? `继续学习 · ${chapter.title}` : "从 §1.1 函数开始"}
+          </p>
+          <h2>{lesson.title}</h2>
+          <p>
+            当前环节 · {state.completed.includes(lesson.id) ? "练习" : "直觉"}
+          </p>
+          <p>
+            已学 {state.completed.length} / {lessons.length} 节
+          </p>
+          <ProgressBar
+            label="课程阅读进度"
+            value={(state.completed.length / lessons.length) * 100}
+          />
+          <div className="learning-actions">
+            <ActionLink variant="primary" to={`/curriculum/${lesson.id}`}>
+              {hasProgress ? "继续学习" : "开始学习"} →
+            </ActionLink>
+            <Link to="/curriculum">查看全部课程</Link>
+          </div>
         </div>
       </Card>
       <div className="stat-row">
@@ -86,6 +86,7 @@ export default function Dashboard() {
               key={c.id}
               to={`/curriculum/${textbookSections[c.id][0].lessons[0]}`}
             >
+              <ChapterPainting chapter={c.id} />
               <strong>{c.title}</strong>
               <small>
                 {done}/{list.length}

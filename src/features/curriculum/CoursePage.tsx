@@ -11,6 +11,7 @@ import {
 import { textbookSections } from "../../data/textbookSections";
 import { formulas } from "../../data/formulas";
 import { useLearning } from "../../db/learning";
+import ChapterPainting from "../../components/ChapterPainting";
 import Formula from "../../components/Formula";
 import {
   Accordion,
@@ -54,7 +55,7 @@ export default function CoursePage() {
     return chapters.map((c) => (
       <Accordion
         key={c.id}
-        title={lesson ? c.title : c.title.split(" · ").at(-1)!}
+        title={lesson ? c.title : <><ChapterPainting chapter={c.id} /><span>{c.title}</span></>}
         defaultOpen={lesson?.chapter === c.id}
       >
         {textbookSections[c.id].map((section) => (

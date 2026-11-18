@@ -21,3 +21,8 @@
   --success: #96cba6; --danger: #efa2a2; --warning: #e7be78; --info: #a1bce1; --success-soft: #253e32; --danger-soft: #492e38; --warning-soft: #423927;
   --shadow-sm: 0 2px 8px #00000015; --shadow-md: 0 16px 48px #00000050;
 }
+:root {
+  --cover-paper: #f4efe3; --pigment: #4a586e; --pigment-label: #ffffff;
+  --painting-type: "Songti SC", "Noto Serif CJK SC", SimSun, serif;
+}
+:root[data-theme="dark"] { --cover-paper: #272c32; --pigment: #ccd5ec; --pigment-label: #242d3a; }

@@ -21,7 +21,7 @@ export function Accordion({
   title: ReactNode;
   children: ReactNode;
   defaultOpen?: boolean;
-} & HTMLAttributes<HTMLElement>) {
+} & Omit<HTMLAttributes<HTMLElement>, "title">) {
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   return (

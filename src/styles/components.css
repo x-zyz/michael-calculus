@@ -77,8 +77,6 @@
 .home-focus { min-height: 260px; padding: var(--space-8); } .home-focus h2 { font-size: var(--text-xxl); max-width: 75%; margin-block: var(--space-4); position: relative; }
 .home-focus > p,.home-focus > .progress,.home-focus > .learning-actions { position: relative; z-index: 1; }
 .home-focus .progress { max-width: var(--read-width); }
-.home-visual { position: absolute; right: -10%; width: 60%; top: var(--space-4); opacity: .28; pointer-events: none; }
-.math-art { width: 100%; color: var(--on-navy); }
 .chapter-progress { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--space-3); padding-block: var(--space-4); border-bottom: 1px solid var(--line); }
 .chapter-progress .progress { grid-column: 1/-1; } .chapter-progress strong { font-weight: var(--weight-medium); font-size: var(--text-sm); }
 .about-link { display: inline-flex; padding-block: var(--space-3); color: var(--muted); font-size: var(--text-sm); }
@@ -117,3 +115,27 @@
 .fm-keyboard-keys { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-1); }
 .fm-keyboard-keys .btn { padding-inline: var(--space-1); overflow-wrap: anywhere; }
 .fm-math-answer .learning-actions { margin-block: var(--space-1); }
+
+.dashboard .home-focus { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,.86fr); background: var(--cover-paper); color: var(--text); padding: 0; border: 1px solid var(--line); }
+.painting-cover { position: relative; margin: 0; min-height: 0; overflow: hidden; grid-column: 2; grid-row: 1; }
+.painting-cover img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+.painting-cover figcaption { position: absolute; bottom: var(--space-2); right: var(--space-2); max-width: calc(100% - var(--space-4)); padding: var(--space-1) var(--space-2); background: var(--cover-paper); color: var(--text); font-size: var(--text-xs); }
+.cover-copy { grid-column: 1; grid-row: 1; padding: clamp(var(--space-6),3vw,var(--space-12)); align-self: center; min-width: 0; }
+.cover-copy h2 { font-family: var(--painting-type); margin-block: var(--space-3); max-width: none; }
+.cover-copy p { color: var(--muted); opacity: 1; }
+.cover-copy .progress { background: var(--line); max-width: none; }
+.cover-copy .progress span,.cover-copy .btn-primary { background: var(--pigment); }
+.cover-copy .btn-primary { color: var(--pigment-label); }
+.cover-copy .learning-actions { margin-bottom: 0; }
+.painting-study { display: block; flex-shrink: 0; width: calc(var(--space-8) * 2); height: var(--space-12); overflow: hidden; border-radius: var(--space-1); }
+.painting-study img { width: 100%; height: 100%; object-fit: cover; }
+.dashboard .chapter-progress { grid-template-columns: auto 1fr auto; column-gap: var(--space-3); row-gap: var(--space-1); }
+.chapter-progress .painting-study { grid-row: span 2; }
+.chapter-progress .progress { grid-column: 2/-1; }
+.course-catalog .accordion-trigger { padding-block: var(--space-4); }
+.course-catalog .accordion-trigger span { text-align: start; }
+@media(max-width:650px) {
+ .dashboard .home-focus { grid-template-columns: 1fr; }
+ .painting-cover { grid-column: 1; grid-row: 1; aspect-ratio: 3/1; }
+ .cover-copy { grid-row: 2; padding: var(--space-4) var(--space-6) var(--space-6); }
+}
