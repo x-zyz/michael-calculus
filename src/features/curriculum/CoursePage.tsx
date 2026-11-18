@@ -26,6 +26,8 @@ import { SecantExperiment } from "../experiments/SecantLab";
 import { DerivativeAppExperiment } from "../experiments/DerivativeLab";
 import { IntegralExperiment } from "../experiments/IntegralLab";
 import { integralModeForLesson } from "../../data/integrals";
+import { IntegralApplicationsLab } from "../experiments/IntegralApplicationsLab";
+import { applicationModeForLesson } from "../../data/integralApplications";
 const steps = ["直觉", "实验", "定义", "例题", "练习"];
 export default function CoursePage() {
   const { lessonId } = useParams();
@@ -194,6 +196,8 @@ function Lesson({
               <SecantExperiment
                 initialKind={lessonSecant[lesson.id] || "square"}
               />
+            ) : lesson.chapter === 5 ? (
+              <IntegralApplicationsLab initialMode={applicationModeForLesson(lesson.id)} />
             ) : lesson.chapter === 4 ? (
               <IntegralExperiment initialMode={integralModeForLesson(lesson.id)} />
             ) : (

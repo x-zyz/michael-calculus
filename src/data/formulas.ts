@@ -369,6 +369,21 @@ export const formulas: FormulaDefinition[] = [
     R`\frac{d}{dx}\int_a^{g(x)}f(t)\,dt=f(g(x))g'(x)`, "=f(g(x))g'(x)",
     "f 在积分区间上连续，g 在考察点可导。下限 a 为常数。",
     q("上限为 g(x) 时，还应乘什么？", ["g′(x)", "g(x)", "x"])),
+  f("area-between-curves", 5, "integral-area", "定积分的应用", "两条曲线之间的面积",
+    R`S=\int_a^b(f(x)-g(x))\,dx`, R`=\int_a^b(f(x)-g(x))\,dx`,
+    "在 [a,b] 上 f 是上边界、g 是下边界。交叉时按交点分段。",
+    q("两条曲线交换上下位置时，应如何处理？", ["在交点处分段", "直接积分原差值", "统一把下边界改成横轴"])),
+  f("cross-section-volume", 5, "integral-volume", "定积分的应用", "由截面积计算体积",
+    R`V=\int_a^b A(x)\,dx`, R`=\int_a^b A(x)\,dx`,
+    "A(x) 是垂直于切片方向的截面积。"),
+  f("washer-area", 5, "integral-volume", "定积分的应用", "旋转体垫片的截面积",
+    R`A=\pi(R^2-r^2)`, R`=\pi(R^2-r^2)`,
+    "R 是外半径，r 是内半径，均为到旋转轴的距离，且 0 ≤ r ≤ R。",
+    q("垫片面积取什么？", ["外圆面积减内圆面积", "半径差的平方乘 π", "外圆周长减内圆周长"])),
+  f("arc-length", 5, "integral-arc", "定积分的应用", "直角坐标下的弧长公式",
+    R`L=\int_a^b\sqrt{1+f'(x)^2}\,dx`, R`=\int_a^b\sqrt{1+f'(x)^2}\,dx`,
+    "曲线为 y = f(x)，在 [a,b] 上连续可导。",
+    q("根号下为什么是 1 加上斜率的平方？", ["来自横向距离和竖向距离的勾股关系", "来自上下限平方差", "来自定积分的奇偶性"])),
 ];
 export const formulaById = new Map(formulas.map((f) => [f.id, f]));
 export type CardKind = "cloze" | "recall" | "condition" | "recognize";

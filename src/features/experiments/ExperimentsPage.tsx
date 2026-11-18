@@ -10,6 +10,7 @@ import { Experiment } from "./LimitLab";
 import { SecantExperiment } from "./SecantLab";
 import { DerivativeAppExperiment } from "./DerivativeLab";
 import { IntegralExperiment } from "./IntegralLab";
+import { IntegralApplicationsLab } from "./IntegralApplicationsLab";
 const labs = [
   {
     id: "limits",
@@ -32,7 +33,8 @@ const labs = [
     symbol: "ξ",
     lesson: "mvt",
   },
-  { id: "integrals", title: "不定积分与定积分", description: "平移原函数、比较取样矩形，并观察变上限积分。", symbol: "∫", lesson: "riemann" },
+  { id: "integrals", title: "不定积分与定积分", description: "平移原函数、比较取样矩形，并观察变上限积分。", symbol: "∫", lesson: "riemann", chapter: 4 },
+  { id: "integral-applications", title: "定积分的应用", description: "观察曲线间的面积、旋转体截面和逼近弧长的折线。", symbol: "S", lesson: "integral-area", chapter: 5 },
 ];
 export default function ExperimentsPage() {
   const { labId } = useParams();
@@ -95,13 +97,15 @@ export default function ExperimentsPage() {
             <Experiment />
           ) : lab.id === "secant" ? (
             <SecantExperiment />
+          ) : lab.id === "integral-applications" ? (
+            <IntegralApplicationsLab />
           ) : lab.id === "integrals" ? (
             <IntegralExperiment />
           ) : (
             <DerivativeAppExperiment />
           )}
           <div className="learning-actions">
-            <ActionLink variant="primary" to={lab.id === "integrals" ? "/practice?chapter=4" : "/practice"}>
+            <ActionLink variant="primary" to={lab.chapter ? "/practice?chapter=" + lab.chapter : "/practice"}>
               观察完了，去练习 →
             </ActionLink>
           </div>

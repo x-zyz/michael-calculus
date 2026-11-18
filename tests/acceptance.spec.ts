@@ -110,7 +110,7 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await expect(page.getByText('目前没有待复习错题')).toBeVisible();
 
   await page.goto('/#/');
-  await expect(page.getByText('已学 1 / 15 节', { exact: true })).toBeVisible();
+  await expect(page.getByText('已学 1 / 18 节', { exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: /继续学习/ })).toBeVisible();
 });
 
@@ -127,7 +127,7 @@ test('data written by 0.2.0 is kept after an upgrade', async ({ page }) => {
   });
   await page.goto('/#/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await expect(page.getByText('已学 2 / 15 节', { exact: true })).toBeVisible();
+  await expect(page.getByText('已学 2 / 18 节', { exact: true })).toBeVisible();
   await page.getByRole('link', { name: /继续学习/ }).click();
   await expect(page.getByRole('heading', { level: 2, name: '第一个重要极限' })).toBeVisible();
   await page.goto('/#/review');

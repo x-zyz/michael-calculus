@@ -88,8 +88,8 @@ describe("limit and derivative learning", () => {
     expect(decPt.dfx).toBeCloseTo(-3, 6);
     expect(decPt.monotone).toBe("单调递减");
   });
-  it("provides 15 lessons across four chapters and 30 practice problems", () => {
-    expect(lessons).toHaveLength(15);
+  it("provides 18 lessons across five chapters and 36 practice problems", () => {
+    expect(lessons).toHaveLength(18);
     expect(lessons.filter((l) => l.chapter === 1)).toHaveLength(5);
     expect(lessons.filter((l) => l.chapter === 2).map((l) => l.id)).toEqual([
       "derivative",
@@ -105,7 +105,10 @@ describe("limit and derivative learning", () => {
     expect(lessons.filter((l) => l.chapter === 4).map((l) => l.id)).toEqual([
       "antiderivative", "riemann", "fundamental-theorem",
     ]);
-    expect(problems).toHaveLength(30);
+    expect(lessons.filter((l) => l.chapter === 5).map((l) => l.id)).toEqual([
+      "integral-area", "integral-volume", "integral-arc",
+    ]);
+    expect(problems).toHaveLength(36);
   });
   it("links each lesson to its matching experiment across chapters 1, 2, and 3", () => {
     const v = mount("/curriculum?lesson=euler");
@@ -177,7 +180,7 @@ describe("limit and derivative learning", () => {
       { problemId: "p15", correct: false },
       { problemId: "p21", correct: false },
     ]);
-    expect(stats.chapters).toHaveLength(4);
+    expect(stats.chapters).toHaveLength(5);
     expect(stats.chapters[0].mastered).toBe(1);
     expect(stats.chapters[0].attempted).toBe(1);
     expect(stats.chapters[1].pending).toBe(1);
@@ -332,4 +335,16 @@ describe("integral experiments", () => {
     fireEvent.change(screen.getByRole("slider", { name: "累积差商步长" }), { target: { value: "0" } });
     expect(screen.getByText(/在 h = 0 时未定义/)).toBeVisible();
   });
+});
+
+it("links the fifth chapter to its own volume experiment and chapter practice", () => {
+  mount("/curriculum/integral-volume");
+  fireEvent.click(screen.getByRole("tab", { name: "实验" }));
+  const inner = screen.getByRole("slider", { name: "内外半径比" });
+  fireEvent.change(inner, { target: { value: "1" } });
+  expect(screen.getByText("右端截面积 0.0000 · 累积体积 0.0000")).toBeVisible();
+  fireEvent.click(screen.getByRole("tab", { name: "练习" }));
+  fireEvent.click(screen.getByRole("link", { name: /开始练习/ }));
+  expect(screen.getByText("第 1 / 2 题 · 第5章")).toBeVisible();
+  expect(screen.getByRole("heading", { name: "由截面积函数求体积" })).toBeVisible();
 });

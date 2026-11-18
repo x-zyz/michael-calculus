@@ -35,7 +35,7 @@ const layouts: Record<string, Key[]> = {
     template("□/□", R`\frac{#?}{#?}`, "分数"),
     template("√", R`\sqrt{#?}`, "根号"),
   ],
-  "abc": Array.from("abcdefghijklmnopqrstuvwxyzACF").map(literal),
+  "abc": Array.from("abcdefghijklmnopqrstuvwxyzACFLRSV").map(literal),
   "αβ": [
     ...[">", "<", ",", ":", "/", "=", "+", "-"].map(literal),
     command("α", R`\alpha`), command("π", R`\pi`), command("ξ", R`\xi`),
