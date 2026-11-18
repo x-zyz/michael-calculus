@@ -48,7 +48,7 @@ export default function Question({
         }}
       >
         <div className="section-header">
-          <label htmlFor="answer">{p.unit}</label>
+          <label htmlFor="answer">{p.unit || "请输入数值或分数"}</label>
           <InfoTip label="判分说明">
             目前只检查预设数值或分数答案，不判断任意推导过程。
           </InfoTip>

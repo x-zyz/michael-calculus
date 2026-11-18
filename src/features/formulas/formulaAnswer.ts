@@ -5,6 +5,9 @@ const aliases: Record<string, string> = {
   "±": "\\pm", "∞": "\\infty", "α": "\\alpha",
   "π": "\\pi", "ξ": "\\xi", "∃": "\\exists", "∈": "\\in",
   "⇒": "\\Rightarrow", "\\implies": "\\Rightarrow",
+  "∇": "\\nabla", "∂": "\\partial", "θ": "\\theta", "λ": "\\lambda",
+  "·": "\\cdot", "\\cdotp": "\\cdot", "∬": "\\iint", "×": "\\times",
+  "\\vert": "|", "\\lvert": "|", "\\rvert": "|",
   "\\dfrac": "\\frac", "\\tfrac": "\\frac",
 };
 

@@ -114,6 +114,24 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await expect(page.getByRole('link', { name: /继续学习/ })).toBeVisible();
 });
 
+test('chapter six connects textbook sections, practice, and formula review', async ({ page }) => {
+  await page.goto('/#/curriculum');
+  const outline = page.getByRole('complementary', { name: '课程大纲' });
+  await expect(outline.getByRole('heading', { name: '§6.10 二重积分的变量代换法' })).toBeVisible();
+  await expect(outline.getByRole('link', { name: /无界区域上的反常二重积分.*选学/ })).toBeVisible();
+  await outline.getByRole('link', { name: '方向导数与梯度' }).click();
+  await page.getByRole('tab', { name: '定义' }).click();
+  await page.getByRole('link', { name: /背这节的公式/ }).click();
+  await expect(page.getByRole('button', { name: /第6章 · 2 个公式/ })).toBeVisible();
+  await page.goBack();
+  await page.getByRole('tab', { name: '练习' }).click();
+  await page.getByRole('link', { name: /完成阅读，开始练习/ }).click();
+  await expect(page.getByRole('heading', { name: /求沿向量/ })).toBeVisible();
+  await page.getByLabel('请输入数值或分数').fill('-3');
+  await page.getByRole('button', { name: '检查答案' }).click();
+  await expect(page.getByRole('status')).toContainText('✓ 回答正确');
+});
+
 test('data written by 0.2.0 is kept after an upgrade', async ({ page }) => {
   await page.addInitScript(() => {
     if (sessionStorage.getItem('seeded')) return;

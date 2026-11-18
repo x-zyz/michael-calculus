@@ -1,10 +1,12 @@
 import { integralLessons, integralProblems } from "./integrals";
 import { applicationLessons, applicationProblems } from "./integralApplications";
 import { textbookLessons, textbookProblems } from "./textbookLessons";
-export type ChapterId = 1 | 2 | 3 | 4 | 5;
+import { multivariableLessons, multivariableProblems } from "./multivariable";
+export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6;
 export interface Lesson {
   id: string;
   chapter: ChapterId;
+  optional?: boolean;
   title: string;
   intuition: string;
   definition: string;
@@ -244,6 +246,7 @@ export const lessons: Lesson[] = [
   ...integralLessons,
   ...applicationLessons,
   ...textbookLessons,
+  ...multivariableLessons,
 ];
 export interface Problem {
   formulaIds?: string[];
@@ -684,6 +687,7 @@ export const problems: Problem[] = [
   ...integralProblems,
   ...applicationProblems,
   ...textbookProblems,
+  ...multivariableProblems,
 ];
 export const chapters = [
   {
@@ -703,6 +707,7 @@ export const chapters = [
   },
   { id: 4 as const, title: "第四章 · 不定积分", short: "第四章：不定积分" },
   { id: 5 as const, title: "第五章 · 定积分及其应用", short: "第五章：定积分及其应用" },
+  { id: 6 as const, title: "第六章 · 多元函数微积分", short: "第六章：多元函数微积分" },
 ];
 export const errorTags = Array.from(
   new Map(

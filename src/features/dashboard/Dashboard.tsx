@@ -5,6 +5,7 @@ import {
   computeMastery,
   problems,
 } from "../../data/learning";
+import { firstLessonId } from "../../data/textbookSections";
 import { useLearning } from "../../db/learning";
 import { useFormulas } from "../../db/formulas";
 import { counters } from "../formulas/engine";
@@ -25,7 +26,7 @@ export default function Dashboard() {
   const hasProgress =
     state.completed.length > 0 ||
     state.attempts.length > 0 ||
-    state.lastLesson !== lessons[0].id;
+    state.lastLesson !== firstLessonId;
   const mastery = computeMastery(state.attempts);
   const counts = counters(store);
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
@@ -41,7 +42,7 @@ export default function Dashboard() {
           <MathArtwork />
         </div>
         <p>
-          {hasProgress ? `继续学习 · ${chapter.title}` : "从 1.1 函数极限开始"}
+          {hasProgress ? `继续学习 · ${chapter.title}` : "从 §1.1 函数开始"}
         </p>
         <h2>{lesson.title}</h2>
         <p>

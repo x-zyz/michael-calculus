@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { lessons, problems } from "../data/learning";
+import { firstLessonId } from "../data/textbookSections";
 export interface Attempt {
   problemId: string;
   correct: boolean;
@@ -15,7 +16,7 @@ export interface LearningState {
 const empty: LearningState = {
   completed: [],
   attempts: [],
-  lastLesson: "functions",
+  lastLesson: firstLessonId,
 };
 export const learningKey = "mc-learning-v1";
 function read(): LearningState {

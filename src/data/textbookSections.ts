@@ -44,4 +44,18 @@ export const textbookSections: Record<ChapterId, readonly TextbookSection[]> = {
     { number: "5.4", title: "反常积分初步及 Γ 函数", lessons: ["improper-integrals"] },
     { number: "5.5", title: "定积分的应用", lessons: ["integral-area", "integral-volume", "integral-arc", "economic-integrals"] },
   ],
+  6: [
+    { number: "6.1", title: "空间直角坐标系", lessons: ["space-vectors", "vector-products", "planes-lines"] },
+    { number: "6.2", title: "空间曲面与空间曲线", lessons: ["space-curves"] },
+    { number: "6.3", title: "多元函数的概念及其极限和连续", lessons: ["multivariable-limits"] },
+    { number: "6.4", title: "偏导数与全微分", lessons: ["partial-derivatives", "total-differential"] },
+    { number: "6.5", title: "方向导数与梯度", lessons: ["directional-gradient"] },
+    { number: "6.6", title: "多元复合函数与隐函数的微分法", lessons: ["multivariable-chain"] },
+    { number: "6.7", title: "多元函数的极值及其求法", lessons: ["multivariable-extrema", "constrained-extrema"] },
+    { number: "6.8", title: "多元函数微分学在经济学中的应用", lessons: ["multivariable-economics"] },
+    { number: "6.9", title: "直角坐标系下二重积分的计算", lessons: ["double-integrals"] },
+    { number: "6.10", title: "二重积分的变量代换法", lessons: ["polar-integrals", "double-integral-substitution", "improper-double-integrals"] },
+  ],
 };
+
+export const firstLessonId = textbookSections[1][0].lessons[0];

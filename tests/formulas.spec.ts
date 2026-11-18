@@ -78,6 +78,33 @@ test("builds a full derivative with the touch keyboard and advances recall evide
   expect(review).toMatchObject({ cardId: "diff-log:recall", result: "good" });
 });
 
+test("enters a direction derivative formula with the touch keyboard", async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 740 });
+  const store = emptyStore();
+  store.settings.newPerDay = 0;
+  store.cards["directional-derivative:cloze:0"] = { box: 1, lapses: 0, due: "2000-01-01" };
+  await page.addInitScript((value) => {
+    if (!localStorage.getItem("mc-formula-v1")) {
+      localStorage.setItem("mc-formula-v1", JSON.stringify(value));
+    }
+  }, store);
+  await page.goto("/#/review/formulas");
+  await formulaMode(page, "cloze");
+  await page.getByRole("button", { name: "开始今日复习" }).click();
+  const keyboard = page.getByRole("group", { name: "数学键盘", exact: true });
+  const press = (name: string) => keyboard.getByRole("button", { name, exact: true }).click();
+  await page.getByRole("button", { name: "αβ", exact: true }).click();
+  await press("梯度符号");
+  await page.getByRole("button", { name: "abc", exact: true }).click();
+  await press("f");
+  await page.getByRole("button", { name: "αβ", exact: true }).click();
+  await press("数量积符号");
+  await page.getByRole("button", { name: "abc", exact: true }).click();
+  await press("u");
+  await page.getByRole("button", { name: "提交答案" }).click();
+  await expect(page.getByRole("heading", { name: "公式正确" })).toBeVisible();
+});
+
 test("every formula and cloze fits a 360px phone without clipping or small visible text", async ({
   page,
 }) => {

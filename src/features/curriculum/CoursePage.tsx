@@ -60,20 +60,23 @@ export default function CoursePage() {
         {textbookSections[c.id].map((section) => (
           <section className="course-section" key={section.number}>
             <h3>{section.optional ? "*" : ""}§{section.number} {section.title}</h3>
-            {section.lessons.map((id) => (
-              <ListItem
-                key={id}
-                title={lessonsById.get(id)!.title}
-                status={
-                  state.completed.includes(id)
-                    ? "done"
-                    : state.lastLesson === id && state.completed.length
-                      ? "active"
-                      : "new"
-                }
-                to={`/curriculum/${id}`}
-              />
-            ))}
+            {section.lessons.map((id) => {
+              const item = lessonsById.get(id)!;
+              return (
+                <ListItem
+                  key={id}
+                  title={item.optional ? `${item.title} · 选学` : item.title}
+                  status={
+                    state.completed.includes(id)
+                      ? "done"
+                      : state.lastLesson === id && state.completed.length
+                        ? "active"
+                        : "new"
+                  }
+                  to={`/curriculum/${id}`}
+                />
+              );
+            })}
           </section>
         ))}
       </Accordion>
@@ -158,7 +161,7 @@ function Lesson({
         ← 课程目录
       </Link>
       <Card>
-        <span className="eyebrow">{chapter.title}{section && ` · §${section.number}`}</span>
+        <span className="eyebrow">{chapter.title}{section && ` · §${section.number}`}{lesson.optional && " · 选学"}</span>
         <h2>{lesson.title}</h2>
         <Tabs
           label="学习环节"
