@@ -27,6 +27,15 @@ test("formula round persists keyboard grades and summarizes on desktop and 360px
   const keyboard = page.getByRole("group", { name: "数学键盘", exact: true });
   const submit = page.getByRole("button", { name: "提交答案" });
   await expect(submit).toBeDisabled();
+  await keyboard.getByRole("button", { name: "函数 f(□)" }).click();
+  await expect(submit).toBeDisabled();
+  await keyboard.getByRole("button", { name: "x", exact: true }).click();
+  const value = await page.locator("math-field").evaluate((field) =>
+    (field as HTMLElement & { value: string }).value.replace(/\\(?:left|right)|\s/g, ""),
+  );
+  expect(value).toBe("f(x)");
+  await expect(submit).toBeEnabled();
+  await page.getByRole("button", { name: "清空", exact: true }).click();
   await keyboard.getByRole("button", { name: "2", exact: true }).click();
   await submit.click();
   await expect(page.getByRole("heading", { name: "答案未匹配" })).toBeVisible();

@@ -14,6 +14,7 @@ const R = String.raw;
 
 const layouts: Record<string, Key[]> = {
   "123": [
+    template("f(□)", R`f\left(#?\right)`, "函数 f(□)"),
     template("□/□", R`\frac{#?}{#?}`, "分数"),
     template("xⁿ", "^{#?}", "乘方"),
     template("√", R`\sqrt{#?}`, "根号"),
@@ -28,6 +29,7 @@ const layouts: Record<string, Key[]> = {
     command("∞", R`\infty`, "无穷"),
   ],
   "f(x)": [
+    template("f(□)", R`f\left(#?\right)`, "函数 f(□)"),
     command("∫", "\\int", "不定积分"),
     template("∫ₐᵇ", "\\int_{#?}^{#?}", "带上下限的积分"),
     command("∬", R`\iint`, "二重积分"),
