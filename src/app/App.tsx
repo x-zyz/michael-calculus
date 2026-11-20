@@ -12,6 +12,7 @@ import ExperimentsPage from "../features/experiments/ExperimentsPage";
 import PracticePage from "../features/practice/PracticePage";
 import FormulaPages from "../features/formulas/FormulaPages";
 import AssistantStatus from "../components/AssistantStatus";
+import MembershipBadge from "../components/MembershipBadge";
 import SettingsPage from "../features/settings/SettingsPage";
 export default function App() {
   return (
@@ -72,7 +73,7 @@ function Workspace() {
         <div className="sidebar-bottom">
           <Link to="/settings">
             <Settings size={20} />
-            关于 / 数据备份
+            0979 会员与设置
           </Link>
           <small>本机学习 · 离线可用</small>
         </div>
@@ -82,7 +83,7 @@ function Workspace() {
           <div className="breadcrumb">
             <Link to="/">学习空间</Link>
             <ChevronRight size={16} />
-            <strong>{active?.label || "关于与数据备份"}</strong>
+            <strong>{active?.label || "0979 会员与设置"}</strong>
           </div>
           <div className="top-actions">
             <Button
@@ -91,15 +92,9 @@ function Workspace() {
               aria-label={theme === "light" ? "切换深色主题" : "切换浅色主题"}
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             >
-              {theme === "light" ? <Moon size={24} /> : <Sun size={24} />}
+              {theme === "light" ? <Moon size={22} /> : <Sun size={22} />}
             </Button>
-            <Link
-              className="btn btn-ghost icon-button"
-              to="/settings"
-              aria-label="关于与数据备份"
-            >
-              <Settings size={24} />
-            </Link>
+            <MembershipBadge />
           </div>
         </header>
         <main id="main-content" tabIndex={-1}>

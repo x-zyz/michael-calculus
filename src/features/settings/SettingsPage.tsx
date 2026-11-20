@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Capacitor, registerPlugin } from "@capacitor/core";
+import { Crown } from "lucide-react";
 import UpdateCard from "./UpdateCard";
 import DataImport from "../../components/DataImport";
+import { useMembership } from "../../db/membership";
 import {
   Accordion,
   Button,
   Card,
   PageHeader,
+  ProgressBar,
   Sheet,
 } from "../../components/ui";
 
@@ -15,9 +18,33 @@ const appHub = registerPlugin<{ open(): Promise<void> }>("AppHubAccount");
 export default function SettingsPage() {
   const [guide, setGuide] = useState(false);
   const [accountError, setAccountError] = useState(false);
+  const member = useMembership();
   return (
     <div className="page read-page">
-      <PageHeader title="关于与数据备份" subtitle="Michael calculus" />
+      <PageHeader title="关于与数据备份" subtitle="0979 会员中心 · Michael calculus" />
+      <Card className="member-card">
+        <div className="member-card-head">
+          <span className="member-emblem" aria-hidden="true">
+            <Crown size={22} />
+          </span>
+          <div>
+            <p className="eyebrow">0979 会员等级</p>
+            <h2>
+              {member.code} · {member.title}
+            </h2>
+          </div>
+          <span className="member-points">{member.points} 积分</span>
+        </div>
+        <ProgressBar
+          value={member.progress}
+          label="0979 会员等级进度"
+        />
+        <p className="learning-note">
+          {member.nextPoints
+            ? `距下一等级还差 ${Math.max(0, member.nextPoints - member.points)} 积分 · 已完成 ${member.lessons} 节课程、掌握 ${member.mastered} 题、复习公式 ${member.reviews} 次。`
+            : `已达最高等级 · 已完成 ${member.lessons} 节课程、掌握 ${member.mastered} 题、复习公式 ${member.reviews} 次。`}
+        </p>
+      </Card>
       <UpdateCard />
       {Capacitor.isPluginAvailable("AppHubAccount") && (
         <Card>

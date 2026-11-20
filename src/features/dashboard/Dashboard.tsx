@@ -39,16 +39,18 @@ export default function Dashboard() {
         <Card variant="emphasis" className="home-focus">
           <ChapterPainting chapter={lesson.chapter} cover />
           <div className="cover-copy">
-            <p>
+            <p className="cover-kicker">
               {hasProgress ? `继续学习 · ${chapter.title}` : "从 §1.1 函数开始"}
             </p>
             <h2>{lesson.title}</h2>
-            <p>
-              当前环节 · {state.completed.includes(lesson.id) ? "练习" : "直觉"}
-            </p>
-            <p>
-              已学 {state.completed.length} / {lessons.length} 节
-            </p>
+            <div className="cover-meta">
+              <p>
+                当前环节 · {state.completed.includes(lesson.id) ? "练习" : "直觉"}
+              </p>
+              <p>
+                已学 {state.completed.length} / {lessons.length} 节
+              </p>
+            </div>
             <ProgressBar
               label="课程阅读进度"
               value={(state.completed.length / lessons.length) * 100}
