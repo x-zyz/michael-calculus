@@ -16,13 +16,15 @@ export interface MembershipLevel {
   source: "local" | "apphub";
 }
 
-const tiers = [
-  { level: 1, title: "初光见习", minPoints: 0 },
-  { level: 2, title: "睡莲探索", minPoints: 5 },
-  { level: 3, title: "晨雾进阶", minPoints: 20 },
-  { level: 4, title: "光影精通", minPoints: 50 },
-  { level: 5, title: "印象典藏", minPoints: 100 },
+export const membershipTiers = [
+  { level: 1, title: "初光见习", minPoints: 0, chapter: 1 },
+  { level: 2, title: "睡莲探索", minPoints: 5, chapter: 2 },
+  { level: 3, title: "晨雾进阶", minPoints: 20, chapter: 6 },
+  { level: 4, title: "光影精通", minPoints: 50, chapter: 5 },
+  { level: 5, title: "印象典藏", minPoints: 100, chapter: 8 },
 ] as const;
+
+const tiers = membershipTiers;
 
 export const membershipKey = "mc-0979-member-v1";
 

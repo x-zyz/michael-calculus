@@ -32,7 +32,7 @@ export default function Dashboard() {
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
   const pending = problems.filter((p) => latest.get(p.id) === false).length;
   return (
-    <div className="home-scene">
+    <div className="home-scene" data-chapter={lesson.chapter}>
       <ChapterPainting key={lesson.chapter} chapter={lesson.chapter} background />
       <div className="page dashboard">
         <PageHeader title="学习首页" />

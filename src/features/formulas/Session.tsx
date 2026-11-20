@@ -116,9 +116,12 @@ export default function Session({
   const problem = problems.find((p) => p.id === card.problemId);
   return (
     <Card className="fm-session">
-      <p>
-        第 {index + 1} / {items.length} 张 · 第{f.chapter}章 · {f.group}
-      </p>
+      <div className="fm-session-head">
+        <p>
+          第 {index + 1} / {items.length} 张 · 第{f.chapter}章 · {f.group}
+        </p>
+        <MasteryLights level={level(f.id, store, state.attempts)} />
+      </div>
       <h2>
         {f.name} ·{" "}
         {card.kind === "cloze"

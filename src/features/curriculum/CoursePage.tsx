@@ -84,7 +84,7 @@ export default function CoursePage() {
     ));
   }
   return (
-    <div className={lesson ? "course-scene" : undefined}>
+    <div className={lesson ? "course-scene" : undefined} data-chapter={lesson?.chapter}>
       {lesson && <ChapterPainting key={lesson.chapter} chapter={lesson.chapter} background />}
       <div className={`page ${lesson ? "" : "course-catalog"}`}>
         <PageHeader
@@ -151,8 +151,13 @@ function Lesson({
         ← 课程目录
       </Link>
       <Card>
-        <span className="eyebrow">{chapter.title}{section && ` · §${section.number}`}{lesson.optional && " · 选学"}</span>
-        <h2>{lesson.title}</h2>
+        <div className="lesson-banner">
+          <div>
+            <span className="eyebrow">{chapter.title}{section && ` · §${section.number}`}{lesson.optional && " · 选学"}</span>
+            <h2>{lesson.title}</h2>
+          </div>
+          <ChapterPainting chapter={lesson.chapter} />
+        </div>
         <Tabs
           label="学习环节"
           items={steps.map((value) => ({ value, label: value }))}

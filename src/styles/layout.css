@@ -103,7 +103,8 @@
   .mobile-nav a.active::before {
     content: ""; position: absolute; width: var(--space-6); height: var(--space-1);
     top: 0; inset-inline-start: calc(50% - var(--space-3));
-    border-radius: var(--radius-pill); background: var(--home-ink);
+    background: var(--home-ink);
+    clip-path: polygon(0 65%, 20% 20%, 78% 0, 100% 45%, 90% 100%, 8% 100%);
   }
   .stat-row { gap: var(--space-2); } .course-layout { display: block; } .course-outline { display: none; } .course-catalog .course-outline { display: block; position: static; }
   .course-catalog .lesson-reader { display: none; } .mobile-course-back { display: inline-flex; margin-bottom: var(--space-4); }

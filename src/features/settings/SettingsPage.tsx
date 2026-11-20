@@ -3,7 +3,8 @@ import { Capacitor, registerPlugin } from "@capacitor/core";
 import { Crown } from "lucide-react";
 import UpdateCard from "./UpdateCard";
 import DataImport from "../../components/DataImport";
-import { useMembership } from "../../db/membership";
+import ChapterPainting from "../../components/ChapterPainting";
+import { membershipTiers, useMembership } from "../../db/membership";
 import {
   Accordion,
   Button,
@@ -39,6 +40,25 @@ export default function SettingsPage() {
           value={member.progress}
           label="0979 会员等级进度"
         />
+        <ol className="member-tiers" aria-label="0979 会员等级路径">
+          {membershipTiers.map((tier) => {
+            const state =
+              tier.level === member.level
+                ? "current"
+                : tier.level < member.level
+                  ? "unlocked"
+                  : "locked";
+            return (
+              <li className="member-step" data-state={state} key={tier.level}>
+                <span className="member-medallion">
+                  <ChapterPainting chapter={tier.chapter} />
+                </span>
+                <span className="member-step-code">Lv.{tier.level}</span>
+                <span className="member-step-name">{tier.title}</span>
+              </li>
+            );
+          })}
+        </ol>
         <p className="learning-note">
           {member.nextPoints
             ? `距下一等级还差 ${Math.max(0, member.nextPoints - member.points)} 积分 · 已完成 ${member.lessons} 节课程、掌握 ${member.mastered} 题、复习公式 ${member.reviews} 次。`
