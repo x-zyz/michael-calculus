@@ -173,6 +173,7 @@ function Lesson({
           {currentStep === "直觉" && <p>{lesson.intuition}</p>}
           {currentStep === "定义" && (
             <>
+              <p>{lesson.definitionExplanation}</p>
               <Formula value={lesson.definition} />
               <p>{lesson.condition}</p>
               {formulas.some((formula) => formula.lessonId === lesson.id) && (
@@ -197,7 +198,7 @@ function Lesson({
             <>
               <p>
                 本节有 {problems.filter((p) => p.lessonId === lesson.id).length}{" "}
-                道基础题。完成最后一步后进入练习，将理解变成解题能力。
+                道配套练习。完成阅读后可直接进入本节题目。
               </p>
               <p className="learning-note">支持数值、分数答案和分级提示。</p>
             </>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { problems, checkAnswer } from "../../data/learning";
+import { problems, checkAnswer, practiceDifficultyLabels } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
 import { StuckButton } from "../formulas/FormulaActions";
@@ -18,6 +18,7 @@ export default function Question({
   const submitted = result !== null;
   return (
     <Card className="practice-question">
+      <small className="learning-note">{practiceDifficultyLabels[p.difficulty ?? "basic"]}</small>
       <h2>{p.title}</h2>
       <Formula value={p.formula} />
       <StuckButton key={p.id} problemId={p.id} />

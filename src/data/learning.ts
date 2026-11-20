@@ -5,7 +5,10 @@ import { multivariableLessons, multivariableProblems } from "./multivariable";
 import { seriesLessons, seriesProblems } from "./series";
 import { differentialEquationsLessons, differentialEquationsProblems } from "./differentialEquations";
 export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+import { expandedPractice } from "./expandedPractice";
+
 export interface Lesson {
+  definitionExplanation: string;
   id: string;
   chapter: ChapterId;
   optional?: boolean;
@@ -20,6 +23,7 @@ export interface Lesson {
 export const lessons: Lesson[] = [
   {
     id: "limit",
+    definitionExplanation: "让 x 从两侧靠近 a，观察输出是否都能被控制在 L 附近。公式说的是靠近时的趋势，计算时可以把 x＝a 这一点挖掉。",
     chapter: 1,
     title: "函数极限",
     intuition:
@@ -39,6 +43,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "sine",
+    definitionExplanation: "把弧度角缩到很小时，正弦和角本身几乎一样大，二者相除越来越接近 1。若角里有倍数，先把分母配成同一个角。",
     chapter: 1,
     title: "第一个重要极限",
     intuition:
@@ -58,6 +63,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "euler",
+    definitionExplanation: "把同样的总利率拆成越来越多次复利，单次增幅变小，累积倍率趋向 e。遇到 1 的无穷次方型，先识别底数的小增量和指数的乘积。",
     chapter: 1,
     title: "第二个重要极限",
     intuition:
@@ -77,6 +83,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "infinitesimal",
+    definitionExplanation: "等价无穷小比较的是相对大小：两项都趋零，且比值趋于 1。积和商里往往能换成更简单的项，差里要先检查主要项会不会抵消。",
     chapter: 1,
     title: "等价无穷小替换",
     intuition:
@@ -96,6 +103,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "continuity",
+    definitionExplanation: "判断一点是否连续有三步：该点有值、左右极限相同、极限等于点值。补上一个洞能修好可去间断，补一个点无法消除跳跃。",
     chapter: 1,
     title: "连续性与左右极限",
     intuition:
@@ -114,6 +122,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "derivative",
+    definitionExplanation: "先用输出的改变量除以输入的改变量，得到一小段上的平均变化率。把这段缩到一点，如果比值有有限极限，它就是该点的导数。",
     chapter: 2,
     title: "导数的定义与切线",
     intuition:
@@ -133,6 +142,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "rules",
+    definitionExplanation: "先辨认最外层是和、积还是商。积的两项分别表示一个因子在变、另一个按原值参与；商的分子做差，分母要平方。",
     chapter: 2,
     title: "基本求导法则与初等函数导数",
     intuition:
@@ -152,6 +162,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "chain",
+    definitionExplanation: "复合函数像接力：x 先改变内层输出，内层输出再改变外层。总变化率等于这两段变化率相乘。",
     chapter: 2,
     title: "复合函数求导（链式法则）",
     intuition:
@@ -171,6 +182,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "differential",
+    definitionExplanation: "把曲线在当前点附近看成切线，切线给出的输出变化就是微分。用它估算实际变化时，输入的改变量越小，这个近似通常越贴合。",
     chapter: 2,
     title: "微分的概念与线性近似",
     intuition:
@@ -190,6 +202,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "mvt",
+    definitionExplanation: "想象一段连续而平滑的路。起终点连起来是一条割线，中间至少有一处切线与它平行。罗尔定理是两端等高的情形。",
     chapter: 3,
     title: "罗尔、拉格朗日与柯西中值定理",
     intuition:
@@ -209,6 +222,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "lhopital",
+    definitionExplanation: "分子分母同时趋零，或都发散到无穷时，可以在满足条件后比较它们变化的速度。操作是分开求导，再取新比值的极限。",
     chapter: 3,
     title: "洛必达法则与未定式极限",
     intuition:
@@ -228,6 +242,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "extrema",
+    definitionExplanation: "导数的正负告诉你函数往上走还是往下走。由正变负像山顶，由负变正像谷底；只有导数等于零，还不能确认是哪一种。",
     chapter: 3,
     title: "函数的单调性、极值与拐点",
     intuition:
@@ -252,7 +267,15 @@ export const lessons: Lesson[] = [
   ...seriesLessons,
   ...differentialEquationsLessons,
 ];
+export const practiceDifficultyLabels = {
+  basic: "基础",
+  applied: "提高",
+  challenge: "挑战",
+} as const;
+export type PracticeDifficulty = keyof typeof practiceDifficultyLabels;
+
 export interface Problem {
+  difficulty?: PracticeDifficulty;
   formulaIds?: string[];
   id: string;
   lessonId: string;
@@ -265,7 +288,7 @@ export interface Problem {
   errorTag: string;
   errorLabel: string;
 }
-export const problems: Problem[] = [
+const baseProblems: Problem[] = [
   {
     id: "p1",
     lessonId: "limit",
@@ -694,6 +717,16 @@ export const problems: Problem[] = [
   ...multivariableProblems,
   ...seriesProblems,
   ...differentialEquationsProblems,
+];
+const topicLabels = new Map(baseProblems.map(({ errorTag, errorLabel }) => [errorTag, errorLabel]));
+topicLabels.set("improper_integrals", "反常积分的截断与极限");
+topicLabels.set("rationalization", "根式有理化");
+export const problems: Problem[] = [
+  ...baseProblems,
+  ...expandedPractice.map((problem) => ({
+    ...problem,
+    errorLabel: topicLabels.get(problem.errorTag)!,
+  })),
 ];
 export const chapters = [
   {

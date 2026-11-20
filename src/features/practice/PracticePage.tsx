@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, List } from "lucide-react";
-import { chapters, lessons, problems, errorTags } from "../../data/learning";
+import { chapters, lessons, problems, errorTags, practiceDifficultyLabels, type PracticeDifficulty } from "../../data/learning";
 import { useLearning } from "../../db/learning";
-import { Button, Sheet, ChipRow, Chip, Tabs } from "../../components/ui";
+import { Button, Sheet, ChipRow, Chip, Tabs, EmptyState } from "../../components/ui";
 import StudyHeading from "../../components/StudyHeading";
 import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
@@ -38,39 +38,29 @@ function PracticeQuestions() {
   const [open, setOpen] = useState(false);
   const [chapter, setChapter] = useState(Number(query.get("chapter")) || 0);
   const [tag, setTag] = useState(query.get("tag") || "");
-  const filtered = problems.filter(
+  const [difficulty, setDifficulty] = useState<PracticeDifficulty | "">("");
+  const lesson = query.get("lesson");
+  const list = problems.filter(
     (p) =>
-      (!query.get("lesson") || p.lessonId === query.get("lesson")) &&
+      (!lesson || p.lessonId === lesson) &&
       (!chapter ||
         lessons.find((l) => l.id === p.lessonId)?.chapter === chapter) &&
-      (!tag || p.errorTag === tag),
+      (!tag || p.errorTag === tag) &&
+      (!difficulty || (p.difficulty ?? "basic") === difficulty),
   );
-  const list = filtered.length ? filtered : problems;
-  const [id, setId] = useState(query.get("problem") || list[0].id);
+  const [id, setId] = useState(query.get("problem"));
   const index = Math.max(
     0,
     list.findIndex((p) => p.id === id),
   );
   const current = list[index];
-  const currentChapter = lessons.find(
-    (l) => l.id === current.lessonId,
-  )!.chapter;
+  const currentChapter = lessons.find((l) => l.id === current?.lessonId)?.chapter;
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
-  function changeFilter(c: number, t: string) {
-    setChapter(c);
-    setTag(t);
-    const first = problems.find(
-      (p) =>
-        (!c || lessons.find((l) => l.id === p.lessonId)?.chapter === c) &&
-        (!t || p.errorTag === t),
-    );
-    if (first) setId(first.id);
-  }
   return (
     <>
       <div className="practice-toolbar">
         <span>
-          第 {index + 1} / {list.length} 题 · 第{currentChapter}章
+          {current ? `第 ${index + 1} / ${list.length} 题 · 第${currentChapter}章` : "0 道匹配题目"}
         </span>
         <div className="practice-nav">
           <Button
@@ -86,7 +76,7 @@ function PracticeQuestions() {
             className="icon-button"
             variant="ghost"
             aria-label="下一题"
-            disabled={index === list.length - 1}
+            disabled={index >= list.length - 1}
             onClick={() => setId(list[index + 1].id)}
           >
             <ChevronRight size={24} />
@@ -100,32 +90,42 @@ function PracticeQuestions() {
           </Button>
         </div>
       </div>
-      <Question key={current.id} problem={current} />
+      {current ? <Question key={current.id} problem={current} /> : (
+        <EmptyState title="没有匹配的题目" description="可以在题目列表中调整筛选条件。" />
+      )}
       <Sheet title="题目列表" open={open} onClose={() => setOpen(false)}>
         <section data-testid="chapter-mastery">
+          <ChipRow label="按难度筛选">
+            <Chip selected={!difficulty} onClick={() => setDifficulty("")}>全部难度</Chip>
+            {(Object.keys(practiceDifficultyLabels) as PracticeDifficulty[]).map((level) => (
+              <Chip key={level} selected={difficulty === level} onClick={() => setDifficulty(level)}>
+                {practiceDifficultyLabels[level]}
+              </Chip>
+            ))}
+          </ChipRow>
           <ChipRow label="按章节筛选">
-            <Chip selected={chapter === 0} onClick={() => changeFilter(0, tag)}>
+            <Chip selected={chapter === 0} onClick={() => setChapter(0)}>
               全部章节
             </Chip>
             {chapters.map((c) => (
               <Chip
                 key={c.id}
                 selected={chapter === c.id}
-                onClick={() => changeFilter(c.id, tag)}
+                onClick={() => setChapter(c.id)}
               >
                 {c.short}
               </Chip>
             ))}
           </ChipRow>
           <ChipRow label="按错因标签筛选">
-            <Chip selected={!tag} onClick={() => changeFilter(chapter, "")}>
+            <Chip selected={!tag} onClick={() => setTag("")}>
               全部错因考点
             </Chip>
             {errorTags.map((t) => (
               <Chip
                 key={t.tag}
                 selected={tag === t.tag}
-                onClick={() => changeFilter(chapter, t.tag)}
+                onClick={() => setTag(t.tag)}
               >
                 {t.label}
               </Chip>
@@ -133,7 +133,7 @@ function PracticeQuestions() {
           </ChipRow>
         </section>
         {chapters
-          .filter((c) => !chapter || c.id === chapter)
+          .filter((c) => list.some((p) => lessons.find((l) => l.id === p.lessonId)?.chapter === c.id))
           .map((c) => (
             <section key={c.id}>
               <h3>{c.title}</h3>
@@ -147,7 +147,7 @@ function PracticeQuestions() {
                   .map((p) => (
                     <Button
                       key={p.id}
-                      aria-pressed={current.id === p.id}
+                      aria-pressed={current?.id === p.id}
                       className={
                         latest.get(p.id) === true
                           ? "status-done"
@@ -168,7 +168,7 @@ function PracticeQuestions() {
                             : "○"}{" "}
                         第 {problems.indexOf(p) + 1} 题
                       </strong>
-                      <small>{p.title}</small>
+                      <small>{practiceDifficultyLabels[p.difficulty ?? "basic"]} · {p.title}</small>
                     </Button>
                   ))}
               </div>

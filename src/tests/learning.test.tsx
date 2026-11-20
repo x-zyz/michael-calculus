@@ -16,6 +16,18 @@ function mount(path: string) {
   );
 }
 describe("limit and derivative learning", () => {
+  it("filters challenge questions without falling back to unrelated lessons", () => {
+    mount("/practice?lesson=continuity");
+    fireEvent.click(screen.getByRole("button", { name: "题目列表" }));
+    const sheet = screen.getByRole("dialog");
+    fireEvent.click(within(sheet).getByRole("button", { name: "挑战" }));
+    expect(within(sheet).getByText(/求使分段函数在 2 连续/)).toBeVisible();
+    expect(within(sheet).queryByText(/参数曲线的二阶导数/)).toBeNull();
+    fireEvent.click(within(sheet).getByRole("button", { name: /第八章：/ }));
+    expect(within(sheet).queryByText(/求使分段函数在 2 连续/)).toBeNull();
+    fireEvent.keyDown(sheet, { key: "Escape" });
+    expect(screen.getByRole("heading", { name: "没有匹配的题目" })).toBeVisible();
+  });
   it("accepts restricted numeric answers and rejects invalid or unsafe input", () => {
     expect(checkAnswer("3/5", 3 / 5)).toBe(true);
     expect(checkAnswer("0.666667", 2 / 3)).toBe(true);
@@ -350,6 +362,6 @@ it("links the fifth chapter to its own volume experiment and chapter practice", 
   expect(screen.getByText("右端截面积 0.0000 · 累积体积 0.0000")).toBeVisible();
   fireEvent.click(screen.getByRole("tab", { name: "练习" }));
   fireEvent.click(screen.getByRole("link", { name: /开始练习/ }));
-  expect(screen.getByText("第 1 / 2 题 · 第5章")).toBeVisible();
+  expect(screen.getByText("第 1 / 3 题 · 第5章")).toBeVisible();
   expect(screen.getByRole("heading", { name: "由截面积函数求体积" })).toBeVisible();
 });

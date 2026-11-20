@@ -3,6 +3,7 @@ import type { Lesson, Problem } from "./learning";
 export const integralLessons = [
   {
     id: "antiderivative", chapter: 4, title: "原函数与不定积分",
+    definitionExplanation: "求原函数是倒着做求导：给定变化率，找一条具有该变化率的曲线。把整条曲线上下平移不改斜率，所以答案带有常数 C。",
     intuition: "知道速度，就能反推位移怎么变化。起点位置不确定时，得到的是一族相差常数的位移函数。求原函数正是把求导倒过来。",
     definition: "F'(x)=f(x)\\quad\\Longrightarrow\\quad\\int f(x)\\,dx=F(x)+C",
     condition: "在同一区间上，若 F′ = f，则所有原函数都可写成 F + C。幂函数积分把指数加 1 再除以新指数。指数 −1 要单独处理，∫1/x dx = ln|x| + C，区间不能跨过 0。不定积分具有线性性质，允许逐项积分并将常数因子提出，最后合并为一个积分常数。",
@@ -12,6 +13,7 @@ export const integralLessons = [
   },
   {
     id: "riemann", chapter: 5, title: "定积分与黎曼和",
+    definitionExplanation: "把区间切成很多窄条，每条用一个样点的函数值乘宽度，再相加。切得越来越细后，如果和趋向一个确定的值，它就是定积分。",
     intuition: "把曲边区域切成窄条，用矩形近似每条的面积。矩形宽度越细，累加值越接近定积分。横轴下方的部分以负号计入。",
     definition: "\\begin{gathered}\\Delta x=\\frac{b-a}{n}\\\\\\int_a^b f(x)\\,dx=\\lim_{n\\to\\infty}\\sum_{i=1}^{n}f(\\xi_i)\\Delta x\\end{gathered}",
     condition: "当 a < b 时，将 [a,b] 等分，第 i 段任取一个采样点 ξᵢ。对连续函数，分割加细时不同取样给出同一个极限。求几何面积时，要把横轴下方的部分取正。定积分具有线性、区间可加性与保序性，交换上下限时变号。若 m≤f(x)≤M，则积分介于 m(b−a) 与 M(b−a) 之间；若 f 连续，存在 ξ 使积分等于 f(ξ)(b−a)。",
@@ -21,6 +23,7 @@ export const integralLessons = [
   },
   {
     id: "fundamental-theorem", chapter: 5, title: "微积分基本定理",
+    definitionExplanation: "把从固定起点积累到 x 的总量看成一个函数，它在 x 的瞬时增长率就是当前的被积函数值。算总量时也可用原函数的终点值减起点值。",
     intuition: "设 A(x) 是从固定起点累积到 x 的带符号面积。右端点移动一点时，新增薄条的平均高度会趋向 f(x)，因此 A 的导数就是 f。",
     definition: "\\begin{gathered}A(x)=\\int_a^x f(t)\\,dt,\\quad A'(x)=f(x)\\\\\\int_a^b f(x)\\,dx=F(b)-F(a)\\end{gathered}",
     condition: "若 f 在区间上连续，则累积函数在区间内部可导。第二式是牛顿—莱布尼茨公式，F 是 f 的任一原函数。交换上下限，定积分变号。变上限是 g(x) 时，还要乘 g′(x)。",

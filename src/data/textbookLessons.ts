@@ -3,6 +3,7 @@ import type { Lesson, Problem } from "./learning";
 export const textbookLessons: Lesson[] = [
   {
     id: "functions",
+    definitionExplanation: "函数给每个允许的输入一个确定的输出。复合时，先用 g 算出中间值，再确认这个中间值能交给 f。",
     chapter: 1,
     title: "函数、定义域与复合",
     intuition: "如商品需求函数 Q(p)=100−2p 可在价格 0≤p≤50 上使用；收益函数 R(p)=pQ(p) 则把价格对应到销售收入。极坐标用到原点的距离和方向描述点。两者都要明确输入的取值范围。",
@@ -18,6 +19,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "limit-laws",
+    definitionExplanation: "若两个量分别靠近有限数，通常可以先取极限再运算。做除法前先看分母的极限，做复合时先看外层在内层趋近值处是否连续。",
     chapter: 1,
     title: "极限的四则与复合运算",
     intuition: "若两个量各自有确定的有限趋势，可以先算它们的极限，再做运算。",
@@ -32,6 +34,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "limit-criteria",
+    definitionExplanation: "夹逼就像把未知量夹在两条逐渐靠拢的边界中。对单调数列，只要它一直朝同一方向走且前方有界，就能确定它会收敛。",
     chapter: 1,
     title: "夹逼准则与单调有界准则",
     intuition: "振荡中常能找出上下界。单调数列则是一旦被界挡住，就只能向某个有限值靠近。",
@@ -46,6 +49,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "advanced-derivatives",
+    definitionExplanation: "若 x 和 y 都随时间 t 变化，y 相对 x 的变化率等于两者对 t 的变化率之比。隐式求导时，把 y 看作随 x 一起变的量。",
     chapter: 2,
     title: "高阶、隐函数与参数求导",
     intuition: "反复求导可描述变化率的变化。含多个变量的关系式也可以通过求导得到斜率。",
@@ -61,6 +65,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "economic-derivatives",
+    definitionExplanation: "边际量回答“多一小单位，会多多少”。弹性回答“价格变动约 1%，需求约变动百分之几”，所以它不依赖计量单位。",
     chapter: 2,
     title: "边际量与需求价格弹性",
     intuition: "边际成本衡量多生产一点的成本变化速度，弹性比较两个量的相对变化速度。",
@@ -76,6 +81,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "curve-sketch",
+    definitionExplanation: "判断斜渐近线时，可以比较曲线在同一个 x 处与直线的高度差。往无穷远处走时，高度差趋零，这条直线就是该端的渐近线。",
     chapter: 3,
     title: "渐近线与函数作图",
     intuition: "画曲线要把局部的增减、弯曲和远处的走向拼起来。",
@@ -91,6 +97,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "economic-optimization",
+    definitionExplanation: "利润是收入减成本。要在允许范围里挑最优产量，除了检查内部的临界点，还要比较产量范围的两端。",
     chapter: 3,
     title: "闭区间最值与利润优化",
     intuition: "最大利润可能出现在最优产量，也可能出现在产能或需求给出的边界。",
@@ -106,6 +113,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "substitution",
+    definitionExplanation: "当复杂表达式反复出现，可以把它叫作 u。若旁边正好有它的导数，原来关于 x 的积分就能改写成更简单的关于 u 的积分。",
     chapter: 4,
     title: "两类换元积分法",
     intuition: "凑微分是识别复合函数的求导过程。也可以主动把 x 改写成新变量的函数来简化根式。",
@@ -121,6 +129,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "integration-by-parts",
+    definitionExplanation: "分部积分是把乘积求导公式倒过来用。把一个因子求导、另一个因子积分，目标是让换出来的新积分更容易算。",
     chapter: 4,
     title: "分部积分法",
     intuition: "乘积求导法则倒过来，可以把一个较难的积分换成另一个较容易的积分。",
@@ -136,6 +145,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "rational-integrals",
+    definitionExplanation: "复杂分式常能拆成几个简单分式。先看分子是否需要做多项式除法，再按分母的因子拆开积分。",
     chapter: 4,
     title: "有理函数的部分分式积分",
     intuition: "把复杂分母拆成简单因子，就能把积分分成几项基本积分。",
@@ -151,6 +161,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "definite-methods",
+    definitionExplanation: "换元时把起点和终点一起换成新变量的值。分部积分时除了新的积分，还要计算乘积在两端的差。",
     chapter: 5,
     title: "定积分的换元与分部积分",
     intuition: "换变量时连端点一起换，分部积分时乘积项也要计算两个端点的差。",
@@ -166,6 +177,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "improper-integrals",
+    definitionExplanation: "遇到无限长的区间，先在有限区间上算积分，再把边界推远。若函数在某点无界，则从合法一侧逼近；每个反常端都要单独收敛。",
     chapter: 5,
     title: "反常积分与 Γ 函数",
     intuition: "积分区间延伸到无穷远或函数在端点无界时，可以先截断，再考察截断积分的极限。例如 ∫₁ᴮx⁻²dx=1−1/B，令 B→∞ 就得到 ∫₁^∞x⁻²dx=1。",
@@ -181,6 +193,7 @@ export const textbookLessons: Lesson[] = [
   },
   {
     id: "economic-integrals",
+    definitionExplanation: "边际成本描述每增加一点产量时的成本变化率。把这段产量范围内的边际成本积分起来，得到总成本的增量。",
     chapter: 5,
     title: "微元法与边际量的累积",
     intuition: "把总量变化切成小段，每小段的变化约是变化率乘以段长。把小段加起来就得到定积分。",
