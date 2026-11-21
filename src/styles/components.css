@@ -152,8 +152,9 @@
 .formula .katex-display { margin: 0; } .formula .katex { font-size: 1em; }
 .eyebrow, .learning-note { color: var(--muted); font-size: var(--text-xs); }
 .learning-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); margin-block: var(--space-4); }
-.learning-tip, .answer-feedback { padding: var(--space-4); border-radius: var(--radius-sm); border: 1px solid var(--line); border-inline-start: var(--space-1) solid var(--home-ink); background: var(--nav); margin-block: var(--space-4); }
+.learning-tip, .answer-feedback { padding: var(--space-4); border-radius: var(--radius-sm); border: 1px solid var(--line); border-inline-start: var(--space-1) solid var(--home-ink); background: var(--nav); margin-block: var(--space-4); overflow-wrap: anywhere; }
 .answer-feedback > p { margin-block: var(--space-3); }
+.practice-question { overflow-wrap: anywhere; }
 .storage-alert { padding: var(--space-4); margin: var(--space-4); border-radius: var(--radius-sm); border: 1px solid var(--warning); background: var(--warning-soft); color: var(--warning); }
 .practice-question h2 { font-size: var(--text-lg); font-family: var(--painting-type); } .practice-question .formula { font-size: var(--text-lg); padding-block: var(--space-6); }
 .question-grid .btn { justify-content: start; flex-direction: column; align-items: start; text-align: left; font-weight: var(--weight-regular); }

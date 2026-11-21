@@ -470,7 +470,7 @@ export const bankChapterThreeReview = [
     title: "作差求导证明对数有理不等式",
     prompt: "证明：当 x>0 时，有 ln(1+x)>2x/(2+x)。",
     formula: math`\ln(1+x)>\frac{2x}{2+x}\quad(x>0)`,
-    solution: math`\begin{gathered}h(x)=\ln(1+x)-\frac{2x}{2+x},\;h(0)=0\\[4pt]h'(x)=\frac{x^2}{(1+x)(2+x)^2}>0\end{gathered}`,
+    solution: math`\begin{gathered}h(x)=\ln(1+x)-\frac{2x}{2+x},\\h(0)=0\\h'(x)=\frac{x^2}{(1+x)(2+x)^2}>0\end{gathered}`,
     explanation: "把左右两边相减造一个新函数，它在原点正好为零，而一往右走斜率永远大于零，所以高度必然恒为正。",
     commonMistake: "对 2x/(2+x) 求导时通分化简出错，漏掉分子化简后的完全平方 x²。",
     hints: [

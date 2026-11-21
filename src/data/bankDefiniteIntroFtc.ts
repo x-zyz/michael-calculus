@@ -279,7 +279,7 @@ export const bankDefiniteIntroFtc = [
     title: "选取积分上下限使积分最大",
     prompt: "设 a < b，问 a 与 b 取什么值时，下面的定积分取得最大值？并求出该最大值。",
     formula: math`\int_{a}^{b}(2x-x^2)\,dx`,
-    solution: math`\begin{gathered}2x-x^2=x(2-x)\ge 0\iff x\in[0,2]\\\text{当 }a=0,\;b=2\text{ 时最大}\\\int_{0}^{2}(2x-x^2)\,dx=\frac{4}{3}\end{gathered}`,
+    solution: math`\begin{gathered}2x-x^2=x(2-x)\ge 0\\\iff x\in[0,2]\\\text{当 }a=0,\;b=2\text{ 时最大}\\\int_{0}^{2}(2x-x^2)\,dx=\frac{4}{3}\end{gathered}`,
     explanation: "要让带符号面积最大，就要把曲线在 x 轴上方的正区间全包进来，一块负区间都别沾。",
     commonMistake: "只把上限取到顶点 x = 1，误以为函数值开始下降积分就会减小。",
     hints: [
@@ -327,7 +327,7 @@ export const bankDefiniteIntroFtc = [
     title: "用抛物线法近似计算对数积分",
     prompt: "已知 ln 3 = ∫₀² 1/(1+x) dx，取 n = 4，用抛物线法（辛普森公式）求 ln 3 的近似值（保留 4 位小数）。",
     formula: math`\begin{gathered}\ln 3=\int_{0}^{2}\frac{1}{1+x}\,dx\\n=4,\;h=0.5\end{gathered}`,
-    solution: math`\begin{gathered}y_0=1,\;y_1=\frac{2}{3},\;y_2=\frac{1}{2},\;y_3=\frac{2}{5},\;y_4=\frac{1}{3}\\S=\frac{0.5}{3}\bigl[(y_0+y_4)+4(y_1+y_3)+2y_2\bigr]\\=\frac{11}{10}=1.1000\end{gathered}`,
+    solution: math`\begin{gathered}y_0=1,\;y_1=\frac{2}{3},\;y_2=\frac{1}{2},\\y_3=\frac{2}{5},\;y_4=\frac{1}{3}\\S=\frac{0.5}{3}\bigl[(y_0\\+y_4)+4(y_1+y_3)+2y_2\bigr]\\=\frac{11}{10}=1.1000\end{gathered}`,
     explanation: "辛普森公式用抛物线弧代替折线去贴合曲线，奇数分点权 4、偶数内分点权 2，4 等分就能精准到小数点后两位。",
     commonMistake: "把奇数节点权 4 与偶数内节点权 2 写反，或误把步长系数 h/3 写成 h/2。",
     hints: [
@@ -375,7 +375,7 @@ export const bankDefiniteIntroFtc = [
     title: "用区间可加性拆分定积分",
     prompt: "已知 ∫₀² 4f(x)dx = 20，∫₀⁵ f(x)dx = 7，∫₀⁵ g(x)dx = −4，求下面的定积分。",
     formula: math`\int_{2}^{5}f(x)\,dx`,
-    solution: math`\begin{gathered}\int_{2}^{5}f(x)\,dx=\int_{0}^{5}f(x)\,dx-\int_{0}^{2}f(x)\,dx\\=7-5=2\end{gathered}`,
+    solution: math`\begin{gathered}\int_{2}^{5}f(x)\,dx\\=\int_{0}^{5}f(x)\,dx-\int_{0}^{2}f(x)\,dx\\=7-5=2\end{gathered}`,
     explanation: "整段 [0, 5] 的积分等于前段 [0, 2] 加上后段 [2, 5]，所以后段就是整段减前段。",
     commonMistake: "把减数和被减数写反，算成 5 − 7 = −2。",
     hints: [
@@ -471,7 +471,7 @@ export const bankDefiniteIntroFtc = [
     title: "用定义证明常数函数的定积分",
     prompt: "设 c 为任意常数，利用定积分的定义证明下面的等式。",
     formula: math`\int_{a}^{b}c\,dx=c(b-a)`,
-    solution: math`\begin{gathered}\sum_{i=1}^{n}c\,\Delta x_i=c\sum_{i=1}^{n}(x_i-x_{i-1})=c(b-a)\\\Rightarrow\int_{a}^{b}c\,dx=\lim_{\lambda\to 0}c(b-a)=c(b-a)\end{gathered}`,
+    solution: math`\begin{gathered}\sum_{i=1}^{n}c\,\Delta x_i\\=c\sum_{i=1}^{n}(x_i-x_{i-1})=c(b-a)\\\Rightarrow\int_{a}^{b}c\,dx\\=\lim_{\lambda\to 0}c(b-a)=c(b-a)\end{gathered}`,
     explanation: "不管怎么切分 [a, b]，所有小段长度加起来永远等于总长度 b − a，再乘上恒定高度 c 即可。",
     commonMistake: "误以为需要先借助牛顿-莱布尼茨公式来证，那样会造成逻辑循环。",
     hints: [
@@ -495,7 +495,7 @@ export const bankDefiniteIntroFtc = [
     title: "用估值定理估计多项式定积分",
     prompt: "利用定积分的估值定理，估计下面定积分的取值范围。",
     formula: math`\int_{2}^{5}(x^2+2)\,dx`,
-    solution: math`\begin{gathered}x\in[2,5]\Rightarrow 6\le x^2+2\le 27\\6(5-2)\le\int_{2}^{5}(x^2+2)\,dx\le 27(5-2)\\18\le\int_{2}^{5}(x^2+2)\,dx\le 81\end{gathered}`,
+    solution: math`\begin{gathered}x\in[2,5]\Rightarrow 6\le x^2+2\le 27\\6(5-2)\le\int_{2}^{5}(x^2+2)\,dx\\\le 27(5-2)\\18\le\int_{2}^{5}(x^2+2)\,dx\le 81\end{gathered}`,
     explanation: "把曲线夹在最低水平线和最高水平线之间，积分就被夹在对应两个矩形的面积之间。",
     commonMistake: "求出被积函数的最值 6 和 27 后，忘记乘以区间长度 5 − 2 = 3。",
     hints: [
@@ -519,7 +519,7 @@ export const bankDefiniteIntroFtc = [
     title: "用估值定理估计三角函数定积分",
     prompt: "利用定积分的估值定理，估计下面三角函数定积分的取值范围。",
     formula: math`\int_{\frac{\pi}{6}}^{\frac{7\pi}{6}}(2+\cos^2 x)\,dx`,
-    solution: math`\begin{gathered}0\le\cos^2 x\le 1\Rightarrow 2\le 2+\cos^2 x\le 3\\2\pi\le\int_{\frac{\pi}{6}}^{\frac{7\pi}{6}}(2+\cos^2 x)\,dx\le 3\pi\end{gathered}`,
+    solution: math`\begin{gathered}0\le\cos^2 x\le 1\\\Rightarrow 2\le 2+\cos^2 x\le 3\\2\pi\le\int_{\frac{\pi}{6}}^{\frac{7\pi}{6}}(2\\+\cos^2 x)\,dx\le 3\pi\end{gathered}`,
     explanation: "cos²x 总在 0 和 1 之间摆动，所以被积函数被牢牢夹在 2 和 3 之间，再乘区间长度 π 即可。",
     commonMistake: "只代区间端点 x = π/6 和 7π/6 求最值，忽略 cos x 在区间内部取到 0 和 −1。",
     hints: [
@@ -591,7 +591,7 @@ export const bankDefiniteIntroFtc = [
     title: "用非负平方积分证明积分不等式",
     prompt: "设 f(x) 在 [0, 2] 上连续，证明下面的积分不等式成立。",
     formula: math`2\int_{0}^{2}f^2(x)\,dx\ge\left[\int_{0}^{2}f(x)\,dx\right]^2`,
-    solution: math`\begin{gathered}\text{令 }c=\frac{1}{2}\int_{0}^{2}f(x)\,dx,\\\int_{0}^{2}[f(x)-c]^2\,dx\ge 0\\\int_{0}^{2}f^2(x)\,dx-2c\int_{0}^{2}f(x)\,dx+2c^2\ge 0\\\Rightarrow 2\int_{0}^{2}f^2(x)\,dx\ge\left[\int_{0}^{2}f(x)\,dx\right]^2\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 }c=\frac{1}{2}\int_{0}^{2}f(x)\,dx,\\\int_{0}^{2}[f(x)-c]^2\,dx\ge 0\\\int_{0}^{2}f^2(x)\,dx\\-2c\int_{0}^{2}f(x)\,dx+2c^2\ge 0\\\Rightarrow 2\int_{0}^{2}f^2(x)\,dx\\\ge\left[\int_{0}^{2}f(x)\,dx\right]^2\end{gathered}`,
     explanation: "把函数减去它的平均值再平方，积分一定非负，展开后刚好就是“均方 ≥ 均值的平方”。",
     commonMistake: "把常数值设成 ∫₀² f(x)dx 而忘记除以区间长度 2，导致展开后交叉项与常数项无法合并。",
     hints: [
@@ -639,7 +639,7 @@ export const bankDefiniteIntroFtc = [
     title: "非正连续函数积分为零必恒零",
     prompt: "设 f(x) 在 [c, d]（c < d）上连续，f(x) ≤ 0 且 ∫_c^d f(x)dx = 0，证明在 [c, d] 上 f(x) ≡ 0。",
     formula: math`\begin{gathered}f\in C[c,d],\;f\le 0,\;\int_{c}^{d}f(x)\,dx=0\\\Rightarrow f(x)\equiv 0\end{gathered}`,
-    solution: math`\begin{gathered}\text{令 }h(x)=-f(x)\ge 0,\;\int_{c}^{d}h(x)\,dx=0\\\text{若 }h\not\equiv 0\text{ 则 }\int_{c}^{d}h\,dx>0\text{（矛盾）}\\\Rightarrow f(x)\equiv 0\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 }h(x)=-f(x)\ge 0,\\\int_{c}^{d}h(x)\,dx=0\\\text{若 }h\not\equiv 0\text{ 则 }\int_{c}^{d}h\,dx>0\text{（矛盾）}\\\Rightarrow f(x)\equiv 0\end{gathered}`,
     explanation: "连续函数若始终在 x 轴下方（或贴着 x 轴），只要有一处严格掉到下方，总面积就会是负的，不可能等于 0。",
     commonMistake: "忽略连续性前提（若是只在个别点非零的间断函数，积分仍可为 0）。",
     hints: [
@@ -663,7 +663,7 @@ export const bankDefiniteIntroFtc = [
     title: "保序等积分连续函数必恒等",
     prompt: "设 f(x), g(x) 在 [c, d]（c < d）上连续，f(x) ≥ g(x) 且 ∫_c^d f(x)dx = ∫_c^d g(x)dx，证明在 [c, d] 上 f(x) ≡ g(x)。",
     formula: math`\begin{gathered}f\ge g,\;\int_{c}^{d}f(x)\,dx=\int_{c}^{d}g(x)\,dx\\\Rightarrow f(x)\equiv g(x)\end{gathered}`,
-    solution: math`\begin{gathered}h(x)=f(x)-g(x)\ge 0\\\int_{c}^{d}h(x)\,dx=\int_{c}^{d}f\,dx-\int_{c}^{d}g\,dx=0\\\Rightarrow h(x)\equiv 0\Rightarrow f(x)\equiv g(x)\end{gathered}`,
+    solution: math`\begin{gathered}h(x)=f(x)-g(x)\ge 0\\\int_{c}^{d}h(x)\,dx\\=\int_{c}^{d}f\,dx-\int_{c}^{d}g\,dx=0\\\Rightarrow h(x)\equiv 0\Rightarrow f(x)\equiv g(x)\end{gathered}`,
     explanation: "把两个函数相减构造差函数 h = f − g，它既非负又积分为零，于是只能处处为零。",
     commonMistake: "忘记说明差函数 f − g 的连续性就直接套用前一结论。",
     hints: [
@@ -952,7 +952,7 @@ export const bankDefiniteIntroFtc = [
     title: "三角双变限积分求导并化简",
     prompt: "计算下面三角上下限变限积分的导数，并用三角恒等式化简结果。",
     formula: math`\frac{d}{dx}\int_{\cos x}^{\sin x}\sin(\pi t^2)\,dt`,
-    solution: math`\begin{gathered}\cos x\sin(\pi\sin^2 x)-(-\sin x)\sin(\pi\cos^2 x)\\=\cos x\sin(\pi\sin^2 x)\\+\sin x\sin(\pi-\pi\sin^2 x)\\=(\cos x+\sin x)\sin(\pi\sin^2 x)\end{gathered}`,
+    solution: math`\begin{gathered}\cos x\sin(\pi\sin^2 x)\\-(-\sin x)\sin(\pi\cos^2 x)\\=\cos x\sin(\pi\sin^2 x)\\+\sin x\sin(\pi-\pi\sin^2 x)\\=(\cos x+\sin x)\sin(\pi\sin^2 x)\end{gathered}`,
     explanation: "先按双变限公式求导，再把 π cos²x 改写成 π − π sin²x，利用诱导公式 sin(π − θ) = sin θ 合并公因式。",
     commonMistake: "求下限 (cos x)' = −sin x 时与公式自带的减号没负负得正。",
     hints: [
@@ -976,7 +976,7 @@ export const bankDefiniteIntroFtc = [
     title: "变上限积分的单调性与反函数导数",
     prompt: "证明函数 f(x) = ∫₂^x √(8+t³) dt 在 [−2, +∞) 上单调增加，并求其反函数在 0 处的导数 (f⁻¹)'(0)。",
     formula: math`\begin{gathered}f(x)=\int_{2}^{x}\sqrt{8+t^3}\,dt\\x\in[-2,+\infty),\;\text{求 }(f^{-1})'(0)\end{gathered}`,
-    solution: math`\begin{gathered}x>-2\Rightarrow f'(x)=\sqrt{8+x^3}>0\Rightarrow f\text{ 递增}\\f(2)=0\Rightarrow(f^{-1})'(0)=\frac{1}{f'(2)}=\frac{1}{\sqrt{16}}=\frac{1}{4}\end{gathered}`,
+    solution: math`\begin{gathered}x>-2\Rightarrow f'(x)=\sqrt{8+x^3}>0\\\Rightarrow f\text{ 递增}\\f(2)=0\Rightarrow(f^{-1})'(0)=\frac{1}{f'(2)}\\=\frac{1}{\sqrt{16}}=\frac{1}{4}\end{gathered}`,
     explanation: "导数恒正说明函数一路严格上升、一定有反函数；看一眼下限就知道 f(2) = 0，反函数导数就是 f'(2) 的倒数。",
     commonMistake: "错把 (f⁻¹)'(0) 算成 1/f'(0)，忘记先找满足 f(x₀) = 0 的对应点 x₀ = 2。",
     hints: [
@@ -1024,7 +1024,7 @@ export const bankDefiniteIntroFtc = [
     title: "用微积分基本公式判定高阶导数积分符号",
     prompt: "设 g(x) 在 [0, 4] 上具有三阶连续导数，且 g(x) ≥ 0（不恒为零），端点满足 g(0) = g(4) = 0，g'(0) > 0 > g'(4)，g''(0) < 0 < g''(4)。判断 ∫₀⁴ g、∫₀⁴ g'、∫₀⁴ g''、∫₀⁴ g''' 中哪一个为负。",
     formula: math`\begin{gathered}\text{比较 }\int_{0}^{4}g\,dx,\;\int_{0}^{4}g'\,dx,\\\int_{0}^{4}g''\,dx,\;\int_{0}^{4}g'''\,dx\text{ 的符号}\end{gathered}`,
-    solution: math`\begin{gathered}\int_{0}^{4}g\,dx>0,\;\int_{0}^{4}g'\,dx=g(4)-g(0)=0\\\int_{0}^{4}g''\,dx=g'(4)-g'(0)<0\\\int_{0}^{4}g'''\,dx=g''(4)-g''(0)>0\end{gathered}`,
+    solution: math`\begin{gathered}\int_{0}^{4}g\,dx>0,\\\int_{0}^{4}g'\,dx=g(4)-g(0)=0\\\int_{0}^{4}g''\,dx=g'(4)-g'(0)<0\\\int_{0}^{4}g'''\,dx=g''(4)-g''(0)>0\end{gathered}`,
     explanation: "对导数做定积分就等于低一阶函数在右端点减左端点，直接比一比两端点的正负即可一目了然。",
     commonMistake: "把牛顿-莱布尼茨公式的上下限相减顺序搞反，误算成 g'(0) − g'(4) > 0。",
     hints: [
@@ -1240,7 +1240,7 @@ export const bankDefiniteIntroFtc = [
     title: "负区间上的对数绝对值定积分",
     prompt: "计算下面定义在负值区间上的分式定积分。",
     formula: math`\int_{-e^2-2}^{-3}\frac{dx}{2+x}`,
-    solution: math`\begin{gathered}\Bigl[\ln|2+x|\Bigr]_{-e^2-2}^{-3}\\=\ln|-1|-\ln|-e^2|=0-2=-2\end{gathered}`,
+    solution: math`\begin{gathered}\Bigl[\ln|2\\+x|\Bigr]_{-e^2-2}^{-3}\\=\ln|-1|-\ln|-e^2|\\=0-2=-2\end{gathered}`,
     explanation: "在积分区间里 2 + x 始终是负的，所以原函数 ln|2+x| 里的绝对值号绝不能省。",
     commonMistake: "漏写绝对值号写成 ln(2+x)，代入负数后无法求对数或符号出错。",
     hints: [
@@ -1288,7 +1288,7 @@ export const bankDefiniteIntroFtc = [
     title: "分段去绝对值求余弦绝对值积分",
     prompt: "按被积函数的正负号分段，计算下面的绝对值定积分。",
     formula: math`\int_{0}^{2\pi}|\cos x|\,dx`,
-    solution: math`\begin{gathered}\int_{0}^{\frac{\pi}{2}}\cos x\,dx-\int_{\frac{\pi}{2}}^{\frac{3\pi}{2}}\cos x\,dx+\int_{\frac{3\pi}{2}}^{2\pi}\cos x\,dx\\=1-(-2)+1=4\end{gathered}`,
+    solution: math`\begin{gathered}\int_{0}^{\frac{\pi}{2}}\cos x\,dx-\int_{\frac{\pi}{2}}^{\frac{3\pi}{2}}\cos x\,dx\\+\int_{\frac{3\pi}{2}}^{2\pi}\cos x\,dx\\=1-(-2)+1=4\end{gathered}`,
     explanation: "cos x 在 [0, 2π] 上一正一负再一正，先把零点 π/2 和 3π/2 切开去掉绝对值，再把三段正面积加起来。",
     commonMistake: "不去绝对值直接积 cos x，得到错误答案 0。",
     hints: [
@@ -1432,7 +1432,7 @@ export const bankDefiniteIntroFtc = [
     title: "证明正弦与余弦谐波的正交性",
     prompt: "设 m, n ∈ N_+ 且 m ≠ n，利用积化和差公式证明下面的正交积分等式。",
     formula: math`\int_{0}^{2\pi}\sin mx\cos nx\,dx=0`,
-    solution: math`\begin{gathered}\frac{1}{2}\int_{0}^{2\pi}\bigl[\sin(m+n)x+\sin(m-n)x\bigr]\,dx\\=\frac{1}{2}\cdot 0+\frac{1}{2}\cdot 0=0\end{gathered}`,
+    solution: math`\begin{gathered}\frac{1}{2}\int_{0}^{2\pi}\bigl[\sin(m\\+n)x+\sin(m-n)x\bigr]\,dx\\=\frac{1}{2}\cdot 0+\frac{1}{2}\cdot 0=0\end{gathered}`,
     explanation: "把乘积拆成两个正弦波的和，由于 m ≠ n，两项频率都是非零整数，全周期积分都归零。",
     commonMistake: "未注意到 m − n 可能为负数，其实 sin(−kx) = −sin(kx) 积分依然为 0。",
     hints: [
@@ -1456,7 +1456,7 @@ export const bankDefiniteIntroFtc = [
     title: "证明不同频率余弦谐波的正交性",
     prompt: "设 m, n ∈ N_+ 且 m ≠ n，利用积化和差公式证明下面的正交积分等式。",
     formula: math`\int_{0}^{2\pi}\cos mx\cos nx\,dx=0`,
-    solution: math`\begin{gathered}\frac{1}{2}\int_{0}^{2\pi}\bigl[\cos(m+n)x+\cos(m-n)x\bigr]\,dx\\=\frac{1}{2}\cdot 0+\frac{1}{2}\cdot 0=0\end{gathered}`,
+    solution: math`\begin{gathered}\frac{1}{2}\int_{0}^{2\pi}\bigl[\cos(m\\+n)x+\cos(m-n)x\bigr]\,dx\\=\frac{1}{2}\cdot 0+\frac{1}{2}\cdot 0=0\end{gathered}`,
     explanation: "两个不同频率的余弦相乘拆成和频与差频两个余弦波，因为频率不等，差频不为 0，所以积分全为 0。",
     commonMistake: "忘记说明必须依赖条件 m ≠ n（若 m = n 则差频项变为 cos 0 = 1，积分等于 π）。",
     hints: [
@@ -1480,7 +1480,7 @@ export const bankDefiniteIntroFtc = [
     title: "证明不同频率正弦谐波的正交性",
     prompt: "设 m, n ∈ N_+ 且 m ≠ n，利用积化和差公式证明下面的正交积分等式。",
     formula: math`\int_{0}^{2\pi}\sin mx\sin nx\,dx=0`,
-    solution: math`\begin{gathered}\frac{1}{2}\int_{0}^{2\pi}\bigl[\cos(m-n)x-\cos(m+n)x\bigr]\,dx\\=\frac{1}{2}\cdot 0-\frac{1}{2}\cdot 0=0\end{gathered}`,
+    solution: math`\begin{gathered}\frac{1}{2}\int_{0}^{2\pi}\bigl[\cos(m\\-n)x-\cos(m+n)x\bigr]\,dx\\=\frac{1}{2}\cdot 0-\frac{1}{2}\cdot 0=0\end{gathered}`,
     explanation: "sin mx sin nx 化为两个非零整数频率的余弦波之差，全周期积分各自为 0，相减还是 0。",
     commonMistake: "把 sin α sin β 误记成 (1/2)[cos(α+β) − cos(α−β)]（虽不影响本题得 0，但符号相反）。",
     hints: [
@@ -1623,7 +1623,7 @@ export const bankDefiniteIntroFtc = [
     difficulty: "applied",
     title: "证明类菲涅耳积分是奇函数",
     prompt: "设 S₂(x) = ∫₀^x sin(πt²)dt（x ∈ R），证明 S₂(x) 是奇函数。",
-    formula: math`S_2(x)=\int_{0}^{x}\sin(\pi t^2)\,dt,\;S_2(-x)=-S_2(x)`,
+    formula: math`\begin{gathered}S_2(x)=\int_{0}^{x}\sin(\pi t^2)\,dt,\\S_2(-x)=-S_2(x)\end{gathered}`,
     solution: math`\begin{gathered}S_2(-x)=\int_{0}^{-x}\sin(\pi t^2)\,dt\\\overset{t=-u}{=}\int_{0}^{x}\sin(\pi u^2)(-du)=-S_2(x)\end{gathered}`,
     explanation: "偶函数从 0 积到 x 一定是奇函数：把变量换成相反数 t = −u，被积函数不变，微分吐出一个负号。",
     commonMistake: "变量代换 t = −u 时只改了上限 −x → x，忘记 dt = −du 带来的负号。",
@@ -1648,7 +1648,7 @@ export const bankDefiniteIntroFtc = [
     title: "求类菲涅耳积分的全部极小值点",
     prompt: "求出函数 S₂(x) = ∫₀^x sin(πt²)dt（x ∈ R）在实数轴上的全部极小值点。",
     formula: math`\begin{gathered}S_2(x)=\int_{0}^{x}\sin(\pi t^2)\,dt\\\text{求全部极小值点}\end{gathered}`,
-    solution: math`\begin{gathered}S_2'(x)=\sin(\pi x^2)=0\Rightarrow x=\pm\sqrt{k}\;(k\ge 0)\\S_2''(x)=2\pi x\cos(\pi x^2)\\x=(-1)^k\sqrt{k}\quad(k=1,2,3,\dots)\end{gathered}`,
+    solution: math`\begin{gathered}S_2'(x)=\sin(\pi x^2)=0\\\Rightarrow x=\pm\sqrt{k}\;(k\ge 0)\\S_2''(x)=2\pi x\cos(\pi x^2)\\x=(-1)^k\sqrt{k}\quad(k=1,2,3,\dots)\end{gathered}`,
     explanation: "x = 0 处导数左右都为正不是极值点；正半轴取偶数 k、负半轴取奇数 k 时二阶导数才为正，合起来正好写成 (−1)^k √k。",
     commonMistake: "把驻点 x = 0 误判为极值点，或漏掉负半轴上的极小值点 −√1, −√3, −√5, …。",
     hints: [

@@ -800,7 +800,7 @@ export const bankFunctionsAndSequences = [
       "每条斜边长 √2h，水接触的底和两条侧边长为 b+2√2h。",
       "底宽 b>0 且 h>0，推出 0<h<3。",
     ],
-    solution: math`L(h)=\frac9h+(2\sqrt2-1)h,\quad 0<h<3`,
+    solution: math`\begin{gathered}L(h)=\frac9h+(2\sqrt2-1)h,\\0<h<3\end{gathered}`,
   },
   {
     id: "jc935-1-1-16", source: "上册习题 1-1 第 16 题",
@@ -815,7 +815,7 @@ export const bankFunctionsAndSequences = [
       "2<t≤4 时，缺掉的角的两条直角边都为 4−t，从面积 4 扣掉它。",
       "t>4 时，直线超过整个方形，面积保持 4。",
     ],
-    solution: math`S(t)=\begin{cases}t^2/2,&0\le t\le2\\4-(4-t)^2/2,&2<t\le4\\4,&t>4\end{cases}`,
+    solution: math`\begin{gathered}S(t)\\=\begin{cases}t^2/2,&0\le t\le2\\4-(4-t)^2/2,&2<t\le4\\4,&t>4\end{cases}\end{gathered}`,
   },
   {
     id: "jc935-1-1-17-1", source: "上册习题 1-1 第 17 题（1）",
@@ -860,7 +860,7 @@ export const bankFunctionsAndSequences = [
       "6<x≤9 时，BQ=27−2x，Q 到 BC 的距离为 (12/15)BQ。以 CP=x 作底得 2x(27−2x)/5。",
       "9<x≤12 时，P、Q 同在 AB，PQ=36−3x。C 到 AB 的高是 36/5，乘以底再除 2。x=12 时两点相遇，面积是零。",
     ],
-    solution: math`\begin{gathered}S(x)=\begin{cases}x^2,&0\le x\le6\\\frac25x(27-2x),&6<x\le9\\\frac{18}5(36-3x),&9<x\le12\end{cases}\end{gathered}`,
+    solution: math`\begin{gathered}S(x)\\=\begin{cases}x^2,&0\le x\le6\\\frac25x(27-2x),&6<x\le9\\\frac{18}5(36-3x),&9<x\le12\end{cases}\end{gathered}`,
   },
   {
     id: "jc935-1-2-1-1", source: "上册习题 1-2 第 1 题（1）",

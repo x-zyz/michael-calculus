@@ -137,10 +137,7 @@ A = \int_{-2}^4 (2x + 8 - x^2)\,dx \\
 y = x^2,\quad x^2 + y^2 = 2 \\
 \text{求被分割的两部分面积 } A_1,\; A_2
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A_1 = 2\int_0^1 \left(\sqrt{2 - x^2} - x^2\right)dx = \frac{\pi}{2} + \frac{1}{3} \\
-A_2 = 2\pi - A_1 = \frac{3\pi}{2} - \frac{1}{3}
-\end{gathered}`,
+    solution: math`\begin{gathered}A_1 = 2\int_0^1 \left(\sqrt{2 - x^2} - x^2\right)dx\\= \frac{\pi}{2} + \frac{1}{3}\\A_2 = 2\pi - A_1 = \frac{3\pi}{2} - \frac{1}{3}\end{gathered}`,
     explanation: "先用圆弧减抛物线算出上半块 A₁，再用整圆面积 2π 减去 A₁ 就立刻得到下半块 A₂。",
     commonMistake: "计算 ∫₀¹ √(2 - x²) dx 时忘记换元 x = √2 sin t 的上下限变换，或误把圆面积写成 4π。",
     hints: [
@@ -288,10 +285,7 @@ y = -x^2 + 6x - 5 \\
 y^2 = 2px\;(p > 0),\;\text{过 }(2p, 2p)\text{ 的法线} \\
 \text{求所围封闭图形的面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-\text{法线：}x = 3p - \frac{y}{2},\quad y \in [-3p,\, 2p] \\
-A = \int_{-3p}^{2p}\!\left(3p - \frac{y}{2} - \frac{y^2}{2p}\right)dy = \frac{125}{12}p^2
-\end{gathered}`,
+    solution: math`\begin{gathered}\text{法线：}x = 3p - \frac{y}{2},\quad y \in [-3p,\, 2p]\\A = \int_{-3p}^{2p}\!\left(3p - \frac{y}{2} - \frac{y^2}{2p}\right)dy\\= \frac{125}{12}p^2\end{gathered}`,
     explanation: "先用隐函数求导得到法线斜率 -2，再改以 y 为积分变量，右边界减左边界一条积分就能算完。",
     commonMistake: "容易把法线斜率误写成切线斜率 1/2，或者忘记负倒数关系 k_法 = -1/k_切。",
     hints: [
@@ -318,10 +312,7 @@ A = \int_{-3p}^{2p}\!\left(3p - \frac{y}{2} - \frac{y^2}{2p}\right)dy = \frac{12
 y = \cos x\;(0 \le x \le \tfrac{\pi}{2}),\\y = k\sin x,\; y = m\sin x \\
 \text{按 } 1:2:1 \text{ 分割面积，求 } k,\; m
 \end{gathered}`,
-    solution: math`\begin{gathered}
-\sqrt{1+k^2} - k = \frac{1}{4} \implies k = \frac{15}{8} \\
-m + 1 - \sqrt{1+m^2} = \frac{1}{4} \implies m = \frac{7}{24}
-\end{gathered}`,
+    solution: math`\begin{gathered}\sqrt{1+k^2} - k = \frac{1}{4} \implies k = \frac{15}{8}\\m + 1 - \sqrt{1+m^2} = \frac{1}{4}\\\implies m = \frac{7}{24}\end{gathered}`,
     explanation: "把左右两块各占总面积 1/4 的区域分别用交点横坐标 arctan(1/k) 和 arctan(1/m) 积出来，再解根式方程即可。",
     commonMistake: "把 sin(arctan(1/k)) 与 cos(arctan(1/k)) 代换回代数式时，容易把分子 1 和 k 写颠倒。",
     hints: [
@@ -378,10 +369,7 @@ A = \frac{1}{2}\int_0^\pi (4a\sin\theta)^2\,d\theta \\
 x = 2a\cos^3 t,\quad y = a\sin^3 t\;(a > 0) \\
 \text{求所围封闭图形的面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A = 4\int_0^{2a} y\,dx = 24a^2\int_0^{\frac{\pi}{2}} \sin^4 t\cos^2 t\,dt \\
-= 24a^2 \cdot \frac{3\cdot 1\cdot 1}{6\cdot 4\cdot 2}\cdot\frac{\pi}{2} = \frac{3}{4}\pi a^2
-\end{gathered}`,
+    solution: math`\begin{gathered}A = 4\int_0^{2a} y\,dx\\= 24a^2\int_0^{\frac{\pi}{2}} \sin^4 t\cos^2 t\,dt\\= 24a^2 \cdot \frac{3\cdot 1\cdot 1}{6\cdot 4\cdot 2}\cdot\frac{\pi}{2} = \frac{3}{4}\pi a^2\end{gathered}`,
     explanation: "图形关于两坐标轴对称，先算第一象限再乘 4；把 x 从 0 到 2a 换元成参数 t 从 π/2 到 0 即可。",
     commonMistake: "参数换元时容易把上下限写成 0 到 π/2 却忘记 dx = -6a cos²t sin t dt 中的负号，算成负面积。",
     hints: [
@@ -408,10 +396,7 @@ A = 4\int_0^{2a} y\,dx = 24a^2\int_0^{\frac{\pi}{2}} \sin^4 t\cos^2 t\,dt \\
 r = a(3 + \sin\theta)\;(a > 0) \\
 \text{求所围封闭图形的面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A = \frac{1}{2}\int_0^{2\pi} a^2(9 + 6\sin\theta + \sin^2\theta)\,d\theta \\
-= \frac{a^2}{2}(18\pi + 0 + \pi) = \frac{19}{2}\pi a^2
-\end{gathered}`,
+    solution: math`\begin{gathered}A = \frac{1}{2}\int_0^{2\pi} a^2(9\\+ 6\sin\theta + \sin^2\theta)\,d\theta\\= \frac{a^2}{2}(18\pi + 0 + \pi) = \frac{19}{2}\pi a^2\end{gathered}`,
     explanation: "因为 3 + sin θ 恒大于 0，极角转满一圈 [0, 2π] 画出封闭蚶线，其中 sin θ 的整周期积分为 0。",
     commonMistake: "套用极坐标面积公式时容易漏掉最前面的系数 1/2，把结果算成 19πa²。",
     hints: [
@@ -438,10 +423,7 @@ A = \frac{1}{2}\int_0^{2\pi} a^2(9 + 6\sin\theta + \sin^2\theta)\,d\theta \\
 x = 2a(t - \sin t),\quad y = a(1 - \cos t) \\
 0 \le t \le 2\pi,\;\text{与 } x \text{ 轴所围面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A = \int_0^{2\pi} a(1 - \cos t)\cdot 2a(1 - \cos t)\,dt \\
-= 2a^2\int_0^{2\pi} (1 - 2\cos t + \cos^2 t)\,dt = 6\pi a^2
-\end{gathered}`,
+    solution: math`\begin{gathered}A = \int_0^{2\pi} a(1 - \cos t)\\\cdot 2a(1 - \cos t)\,dt\\= 2a^2\int_0^{2\pi} (1 - 2\cos t + \cos^2 t)\,dt\\= 6\pi a^2\end{gathered}`,
     explanation: "把面积 ∫ y dx 换成对参数 t 的积分，dx 刚好也含因子 (1 - cos t)，展开后利用周期性一算就出。",
     commonMistake: "容易漏乘 x(t) 前面的系数 2，或者把 ∫₀^(2π) cos²t dt 误算成 2π。",
     hints: [
@@ -498,10 +480,7 @@ A = \frac{1}{2}\int_0^\pi \left(a e^{2\theta}\right)^2 d\theta \\
 r = 2\cos\theta,\quad r = 2(1 - \cos\theta) \\
 \text{求两曲线公共部分的面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A = \int_0^{\frac{\pi}{3}} 4(1 - \cos\theta)^2\,d\theta + \int_{\frac{\pi}{3}}^{\frac{\pi}{2}} 4\cos^2\theta\,d\theta \\
-= \frac{7\pi}{3} - 4\sqrt{3}
-\end{gathered}`,
+    solution: math`\begin{gathered}A = \int_0^{\frac{\pi}{3}} 4(1 - \cos\theta)^2\,d\theta\\+ \int_{\frac{\pi}{3}}^{\frac{\pi}{2}} 4\cos^2\theta\,d\theta\\= \frac{7\pi}{3} - 4\sqrt{3}\end{gathered}`,
     explanation: "从极点往外发射射线，在交点 θ = π/3 前先撞到心形线，过了 π/3 先撞到圆，所以要按较小的 r 分段积分。",
     commonMistake: "公共部分要取内侧（较小）的极径积分，常有同学误把两极径直接相减或选成外侧极径。",
     hints: [
@@ -528,10 +507,7 @@ A = \int_0^{\frac{\pi}{3}} 4(1 - \cos\theta)^2\,d\theta + \int_{\frac{\pi}{3}}^{
 r = 1,\quad r^2 = 2\cos 2\theta \\
 \text{求两曲线公共部分的面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A = 4\left[\frac{1}{2}\int_0^{\frac{\pi}{6}} 1\,d\theta + \frac{1}{2}\int_{\frac{\pi}{6}}^{\frac{\pi}{4}} 2\cos 2\theta\,d\theta\right] \\
-= \frac{\pi}{3} + 2 - \sqrt{3}
-\end{gathered}`,
+    solution: math`\begin{gathered}A = 4\Bigl[\frac{1}{2}\int_0^{\frac{\pi}{6}} 1\,d\theta\\+ \frac{1}{2}\int_{\frac{\pi}{6}}^{\frac{\pi}{4}} 2\cos 2\theta\,d\theta\Bigr]\\= \frac{\pi}{3} + 2 - \sqrt{3}\end{gathered}`,
     explanation: "两图形关于 x 轴、y 轴都对称，只算第一象限再乘 4；在 π/6 前圆在内，之后双纽线缩回极点在内。",
     commonMistake: "容易把双纽线收拢到极点的角度误写成 π/2（实际 cos 2θ = 0 对应 θ = π/4），或忘记双纽线有左右两叶共 4 份对称块。",
     hints: [
@@ -555,13 +531,10 @@ A = 4\left[\frac{1}{2}\int_0^{\frac{\pi}{6}} 1\,d\theta + \frac{1}{2}\int_{\frac
     title: "指数曲线与过原点切线的无界区域面积",
     prompt: "求位于曲线 y = e^(2x) 下方、该曲线过原点的切线左方以及 x 轴上方之间的无界平面图形面积。",
     formula: math`\begin{gathered}
-y = e^{2x}\text{ 下方、过原点切线左方、}x\text{ 轴上方} \\
-\text{求该无界区域的面积 } A
+y = e^{2x}\text{ 下方、过原点切线左方} \\
+\text{及 }x\text{ 轴上方，求无界区域面积 } A
 \end{gathered}`,
-    solution: math`\begin{gathered}
-\text{切点 }\!\left(\frac{1}{2}, e\right),\quad \text{切线 } y = 2ex \\
-A = \int_{-\infty}^0 e^{2x}\,dx + \int_0^{\frac{1}{2}} (e^{2x} - 2ex)\,dx = \frac{e}{4}
-\end{gathered}`,
+    solution: math`\begin{gathered}\text{切点 }\!\left(\frac{1}{2}, e\right),\quad \text{切线 } y = 2ex\\A = \int_{-\infty}^0 e^{2x}\,dx\\+ \int_0^{\frac{1}{2}} (e^{2x} - 2ex)\,dx\\= \frac{e}{4}\end{gathered}`,
     explanation: "先找到从原点出发与指数曲线相切的射线，再在 x = 0 处分成左半边反常积分与右半边定积分相加。",
     commonMistake: "容易漏掉 x < 0 那一块无界尾巴，或者把切点横坐标误算成 1。",
     hints: [
@@ -708,10 +681,7 @@ V = 2\pi\int_0^{2a} y^2\,dx\\= 12\pi a^3\int_0^{\frac{\pi}{2}} \sin^7 t\cos^2 t\
 x^2 + y^2 \le R^2,\quad -R \le a \le y \le b \le R \\
 \text{证：} V = \pi(b - a)\!\left(R^2 - \frac{a^2 + ab + b^2}{3}\right)
 \end{gathered}`,
-    solution: math`\begin{gathered}
-V = \pi\int_a^b (R^2 - y^2)\,dy = \pi\left[R^2 y - \frac{y^3}{3}\right]_a^b \\
-= \pi(b - a)\!\left(R^2 - \frac{a^2 + ab + b^2}{3}\right)
-\end{gathered}`,
+    solution: math`\begin{gathered}V = \pi\int_a^b (R^2 - y^2)\,dy\\= \pi\left[R^2 y - \frac{y^3}{3}\right]_a^b\\= \pi(b - a)\!\left(R^2 - \frac{a^2 + ab + b^2}{3}\right)\end{gathered}`,
     explanation: "把球台沿 y 轴切成一张张水平圆形薄片，在高度 y 处的圆半径平方正好是 R² - y²，积分后用立方差公式提公因式即得证。",
     commonMistake: "容易把水平截面半径误写成 R - y，忘记勾股定理给出的是 r² = R² - y²。",
     hints: [
@@ -831,10 +801,7 @@ V = \pi\int_{-3}^3 \Bigl[(4+\sqrt{9-x^2})^2 \\
 x = a(t - \sin t),\\y = a(1 - \cos t)\;(0 \le t \le 2\pi) \\
 \text{与 } x \text{ 轴所围图形绕 } y = 3a \text{ 旋转，求 } V
 \end{gathered}`,
-    solution: math`\begin{gathered}
-V = \pi\int_0^{2\pi a} \left[(3a)^2 - (3a - y)^2\right]dx \\
-= \pi a^3\int_0^{2\pi} \left[6(1-\cos t)^2 - (1-\cos t)^3\right]dt\\= 13\pi^2 a^3
-\end{gathered}`,
+    solution: math`\begin{gathered}V = \pi\int_0^{2\pi a} \left[(3a)^2 - (3a - y)^2\right]dx\\= \pi a^3\int_0^{2\pi} \Bigl[6(1\\-\cos t)^2 - (1-\cos t)^3\Bigr]dt\\= 13\pi^2 a^3\end{gathered}`,
     explanation: "转轴 y = 3a 在整拱摆线（最高点 2a）上方，所以外半径恒为 3a，内半径是 3a - y，用垫片法换元到 t 即可。",
     commonMistake: "容易把内半径错写成 y - 3a 漏看符号，或者忘记 (1 - cos t)³ 在 [0, 2π] 上积分等于 5π。",
     hints: [
@@ -857,10 +824,7 @@ V = \pi\int_0^{2\pi a} \left[(3a)^2 - (3a - y)^2\right]dx \\
     difficulty: "applied",
     title: "一般圆盘绕水平外轴的环面体积",
     prompt: "求圆盘 x² + y² ≤ r² 绕水平直线 y = c（c > r > 0）旋转一周所得旋转体的体积。",
-    formula: math`\begin{gathered}
-x^2 + y^2 \le r^2,\quad \text{绕 } y = c\;(c > r > 0)\text{ 旋转} \\
-\text{求旋转体体积 } V
-\end{gathered}`,
+    formula: math`\begin{gathered}x^2 + y^2 \le r^2,\\\text{绕 } y = c\;(c > r > 0)\text{ 旋转}\\\text{求旋转体体积 } V\end{gathered}`,
     solution: math`\begin{gathered}
 V = \pi\int_{-r}^r \Bigl[(c+\sqrt{r^2-x^2})^2 \\
 - (c-\sqrt{r^2-x^2})^2\Bigr]\,dx \\
@@ -888,14 +852,8 @@ V = \pi\int_{-r}^r \Bigl[(c+\sqrt{r^2-x^2})^2 \\
     difficulty: "applied",
     title: "线性变截面矩形截锥体的体积",
     prompt: "设有一高为 h 的立体，其下底为边长 A、B 的矩形，上底为边长 a、b 的矩形，且距下底 z 处的水平截面均为边长随 z 线性变化的矩形。求该立体的体积。",
-    formula: math`\begin{gathered}
-u(z) = A + \frac{a - A}{h}z,\quad v(z) = B + \frac{b - B}{h}z \\
-0 \le z \le h,\;\text{求体积 } V = \int_0^h u(z)v(z)\,dz
-\end{gathered}`,
-    solution: math`\begin{gathered}
-V = \int_0^h \left(A + \frac{a-A}{h}z\right)\left(B + \frac{b-B}{h}z\right)dz \\
-= \frac{h}{6}\left[2(AB + ab) + Ab + aB\right]
-\end{gathered}`,
+    formula: math`\begin{gathered}u(z) = A + \frac{a - A}{h}z,\\v(z) = B + \frac{b - B}{h}z\\0 \le z \le h,\\\text{求体积 } V = \int_0^h u(z)v(z)\,dz\end{gathered}`,
+    solution: math`\begin{gathered}V = \int_0^h \Bigl(A + \frac{a-A}{h}z\Bigr)\Bigl(B\\+ \frac{b-B}{h}z\Bigr)dz\\= \frac{h}{6}\left[2(AB + ab) + Ab + aB\right]\end{gathered}`,
     explanation: "把截面长宽写成高度 z 的一次函数，乘积展开成关于 z 的二次多项式再从 0 积到 h，整理即得经典拟柱体公式。",
     commonMistake: "展开乘积并代入 z = h 后，通分合并 AB、Ab、aB、ab 的系数时容易算错分数。",
     hints: [
@@ -922,10 +880,7 @@ V = \int_0^h \left(A + \frac{a-A}{h}z\right)\left(B + \frac{b-B}{h}z\right)dz \\
 \text{底面：}x^2 + y^2 \le R^2,\;\text{横截面为正方形} \\
 \text{求该立体的体积 } V
 \end{gathered}`,
-    solution: math`\begin{gathered}
-A(x) = \left(2\sqrt{R^2 - x^2}\right)^2 = 4(R^2 - x^2) \\
-V = \int_{-R}^R 4(R^2 - x^2)\,dx = \frac{16}{3}R^3
-\end{gathered}`,
+    solution: math`\begin{gathered}A(x) = \left(2\sqrt{R^2 - x^2}\right)^2\\= 4(R^2 - x^2)\\V = \int_{-R}^R 4(R^2 - x^2)\,dx = \frac{16}{3}R^3\end{gathered}`,
     explanation: "以固定直径为 x 轴，在位置 x 处圆的弦长就是正方形的边长 2√(R² - x²)，平方得截面积后积分即可。",
     commonMistake: "常把正方形边长误写成半弦长 √(R² - x²)，导致结果少了 4 倍。",
     hints: [
@@ -952,10 +907,7 @@ V = \int_{-R}^R 4(R^2 - x^2)\,dx = \frac{16}{3}R^3
 a \le x \le b,\; 0 \le y \le f(x),\; c \le a \\
 \text{证绕 } x = c \text{ 旋转体积 } V\\= 2\pi\int_a^b (x - c)f(x)\,dx
 \end{gathered}`,
-    solution: math`\begin{gathered}
-\text{薄圆柱壳半径 } r = x - c,\;\text{高 } f(x),\;\text{厚 } dx \\
-dV = 2\pi(x - c)f(x)\,dx\\\implies V = 2\pi\int_a^b (x - c)f(x)\,dx
-\end{gathered}`,
+    solution: math`\begin{gathered}\text{薄圆柱壳半径 } r = x - c,\\\text{高 } f(x),\;\text{厚 } dx\\dV = 2\pi(x - c)f(x)\,dx\\\implies V = 2\pi\int_a^b (x - c)f(x)\,dx\end{gathered}`,
     explanation: "把小竖条绕竖轴转一圈得到一只极薄的空心圆筒，剪开铺平就是一块长 2π(x - c)、高 f(x)、厚 dx 的薄纸片。",
     commonMistake: "容易把旋转半径写成 x 而忽略轴的平移量 c，或漏掉展开圆周长里的因子 2π。",
     hints: [
@@ -1072,10 +1024,7 @@ V_2 = 2\pi\int_0^a x\cdot x^2\,dx = \frac{\pi}{2}a^4
 V(a) = \frac{\pi}{5}(243 - a^5) + \frac{\pi}{2}a^4\;(0 < a < 3) \\
 \text{求使 } V(a) \text{ 最大的 } a \text{ 与 } V_{\max}
 \end{gathered}`,
-    solution: math`\begin{gathered}
-V'(a) = \pi a^3(2 - a) = 0 \implies a = 2 \\
-V_{\max} = V(2) = \frac{251}{5}\pi
-\end{gathered}`,
+    solution: math`\begin{gathered}V'(a) = \pi a^3(2 - a) = 0\\\implies a = 2\\V_{\max} = V(2) = \frac{251}{5}\pi\end{gathered}`,
     explanation: "对参数 a 求导，正好把积分号还原成被积函数之差，唯一驻点 a = 2 左增右减，立刻锁定全局最大值。",
     commonMistake: "算出驻点 a = 2 后容易忘了检验单调性，或在代入 V(2) 时算错 243 - 32 + 40。",
     hints: [
@@ -1132,10 +1081,7 @@ y = \ln x,\quad 2\sqrt{2} \le x \le \sqrt{15} \\
 y^2 = \frac{4}{9}(x - 2)^3,\quad y^2 = \frac{4}{27}x \\
 \text{求所截弧段的总长度 } s
 \end{gathered}`,
-    solution: math`\begin{gathered}
-\text{交点 } x = 3,\; y = \frac{2}{3}(x-2)^{\frac{3}{2}},\; y' = \sqrt{x-2} \\
-s = 2\int_2^3 \sqrt{x - 1}\,dx = \frac{4}{3}\left(2\sqrt{2} - 1\right)
-\end{gathered}`,
+    solution: math`\begin{gathered}\text{交点 } x = 3,\; y = \frac{2}{3}(x-2)^{\frac{3}{2}},\\y' = \sqrt{x-2}\\s = 2\int_2^3 \sqrt{x - 1}\,dx = \frac{4}{3}\left(2\sqrt{2} - 1\right)\end{gathered}`,
     explanation: "两曲线关于 x 轴对称，只算上半支再乘 2；半立方抛物线的导数平方刚好让 1 + (y')² 化成一个一次式 x - 1。",
     commonMistake: "容易忘记曲线有上下两支（漏乘 2），或在求 x 区间时把尖点起点误当成 x = 0（实际定义域 x ≥ 2）。",
     hints: [
@@ -1162,10 +1108,7 @@ s = 2\int_2^3 \sqrt{x - 1}\,dx = \frac{4}{3}\left(2\sqrt{2} - 1\right)
 y = \frac{x^2}{2p}\;(p > 0),\;\text{从 } O(0,0)\text{ 到 } M(x,y) \\
 \text{求弧长 } s = \int_0^x \sqrt{1 + \frac{t^2}{p^2}}\,dt
 \end{gathered}`,
-    solution: math`\begin{gathered}
-s = \frac{1}{p}\int_0^x \sqrt{p^2 + t^2}\,dt \\
-= \frac{x}{2p}\sqrt{p^2 + x^2} + \frac{p}{2}\ln\frac{x + \sqrt{p^2 + x^2}}{p}
-\end{gathered}`,
+    solution: math`\begin{gathered}s = \frac{1}{p}\int_0^x \sqrt{p^2 + t^2}\,dt\\= \frac{x}{2p}\sqrt{p^2 + x^2}\\+ \frac{p}{2}\ln\frac{x + \sqrt{p^2 + x^2}}{p}\end{gathered}`,
     explanation: "求导得到斜率 t/p，提因子 1/p 后就变成标准根式积分 ∫ √(p² + t²) dt，直接套用基本积分公式。",
     commonMistake: "代入下限 t = 0 时，容易漏掉对数项 ln(0 + p) = ln p，导致结果缺少分母 p。",
     hints: [
@@ -1222,10 +1165,7 @@ s = 4\int_0^{\frac{\pi}{2}} 9a\sin t\cos t\,dt \\
 x = a(\cos t + t\sin t),\\y = a(\sin t - t\cos t) \\
 0 \le t \le 2\pi,\;\text{求弧长 } s
 \end{gathered}`,
-    solution: math`\begin{gathered}
-x' = at\cos t,\quad y' = at\sin t \\
-s = \int_0^{2\pi} \sqrt{a^2 t^2(\cos^2 t + \sin^2 t)}\,dt = 2\pi^2 a
-\end{gathered}`,
+    solution: math`\begin{gathered}x' = at\cos t,\quad y' = at\sin t\\s = \int_0^{2\pi} \sqrt{a^2 t^2(\cos^2 t + \sin^2 t)}\,dt\\= 2\pi^2 a\end{gathered}`,
     explanation: "求导后多余的 sin t、cos t 项全部自动抵消，弧长微元竟然干净到只剩 at dt！",
     commonMistake: "对 t sin t 和 t cos t 求导时容易漏用乘法法则，导致无法消去前面项。",
     hints: [
@@ -1312,10 +1252,7 @@ s = \int_0^\alpha 2\sqrt{1 + k^2}\,e^{k\theta}\,d\theta \\
 r\theta = 2,\quad \frac{5}{12} \le \theta \le \frac{12}{5} \\
 \text{求弧长 } s = \int_{\frac{5}{12}}^{\frac{12}{5}} \frac{2\sqrt{1 + \theta^2}}{\theta^2}\,d\theta
 \end{gathered}`,
-    solution: math`\begin{gathered}
-s = 2\left[-\frac{\sqrt{1+\theta^2}}{\theta} + \ln\left(\theta + \sqrt{1+\theta^2}\right)\right]_{\frac{5}{12}}^{\frac{12}{5}} \\
-= \frac{91}{30} + 2\ln\frac{10}{3}
-\end{gathered}`,
+    solution: math`\begin{gathered}s = 2\Bigl[-\frac{\sqrt{1+\theta^2}}{\theta} + \ln\Bigl(\theta\\+ \sqrt{1+\theta^2}\Bigr)\Bigr]_{\frac{5}{12}}^{\frac{12}{5}}\\= \frac{91}{30} + 2\ln\frac{10}{3}\end{gathered}`,
     explanation: "把 1/θ² dθ 凑成 -d(1/θ) 做一次分部积分，端点 5/12 和 12/5 是一组勾股数，根号全部开成有理数！",
     commonMistake: "对 1/θ² 凑微分时容易漏掉负号，或在代入端点 5/12 时把 √(1 + 25/144) = 13/12 除以 5/12 算错。",
     hints: [

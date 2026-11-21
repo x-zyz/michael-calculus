@@ -176,7 +176,7 @@ export const bankDiscontinuities = [
     lessonId: "continuity", errorTag: "continuity_value",
     kind: "证明题", difficulty: "challenge",
     title: "负数附近的连续值仍然是负的", prompt: "用连续性证明在 2 的某个邻域内 f(x)<−2。",
-    formula: math`f(2)=-4,\quad f\text{ continuous at }2`, solution: math`\exists\delta>0:\ |x-2|<\delta\Longrightarrow f(x)<-2`,
+    formula: math`f(2)=-4,\quad f\text{ continuous at }2`, solution: math`\begin{gathered}\exists\delta>0:\ |x\\-2|<\delta\Longrightarrow f(x)<-2\end{gathered}`,
     explanation: "从 −4 出发，可以允许走动一点，只要离 −4 小于 2，就到不了 −2。", commonMistake: "选定 ε 后才由连续性寻找 δ，不能直接把两者当成同一个数。",
     hints: ["目标和点值相差 2。","在连续性定义中取 ε=2。","从 |f(x)+4|<2 读出上界。"],
     steps: [
@@ -218,7 +218,7 @@ export const bankDiscontinuities = [
     lessonId: "continuity", errorTag: "continuity_value",
     kind: "证明题", difficulty: "challenge",
     title: "把一点的连续性移到整条轴上", prompt: "证明 F 在实数轴上处处连续。",
-    formula: math`\begin{gathered}F(x+y)=F(x)+F(y)-2\\F\text{ continuous at }1\end{gathered}`, solution: math`F(x+h)-F(x)=F(1+h)-F(1)`,
+    formula: math`\begin{gathered}F(x+y)=F(x)+F(y)-2\\F\text{ continuous at }1\end{gathered}`, solution: math`\begin{gathered}F(x+h)-F(x)\\=F(1+h)-F(1)\end{gathered}`,
     explanation: "这个规则使得“走同一步 h 带来的高度变化”与出发位置无关。", commonMistake: "连续性已知在 1，不能不加说明就把它搬到 0 或任意 x。",
     hints: ["分别从 x 和 1 出发走一步 h。","把函数方程各减去出发点的函数值。","用在 1 连续控制所有出发点。"],
     steps: [

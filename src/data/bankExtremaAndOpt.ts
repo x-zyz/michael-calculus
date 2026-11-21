@@ -214,7 +214,7 @@ export const bankExtremaAndOpt = [
     title: "三次函数无极值的判别式条件",
     prompt: "设函数 f(x)=(p/3)x³+qx²+rx+s 的实系数满足 q²−pr<0，证明 f(x) 在 (−∞,+∞) 内没有极值。",
     formula: math`\begin{gathered}f(x)=\frac{p}{3}x^3+qx^2+rx+s\\q^2-pr<0\end{gathered}`,
-    solution: math`\begin{gathered}\Delta=4(q^2-pr)<0\Rightarrow f'(x)\ \text{恒同号}\\\text{故}\ f(x)\ \text{严格单调，无极值}\end{gathered}`,
+    solution: math`\begin{gathered}\Delta=4(q^2-pr)<0\\\Rightarrow f'(x)\ \text{恒同号}\\\text{故}\ f(x)\ \text{严格单调，无极值}\end{gathered}`,
     explanation: "导数是一条永不触碰横轴的抛物线，坡度始终朝同一方向，曲线自然不会折返出极值。",
     commonMistake: "直接套用二次判别式却漏掉说明为什么 p 不能等于零。",
     hints: ["先从 q²<pr 推出 p≠0。", "求出导数 f′(x) 并计算其二次判别式 Δ。", "按 p>0 与 p<0 分别说明 f′(x) 恒正或恒负。"],

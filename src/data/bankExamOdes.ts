@@ -446,7 +446,7 @@ export const bankExamOdes = [
     title: "由系数递推证明幂级数和函数满足微分方程",
     prompt: "设数列 {a_n} 满足 a₀=5, a₁=2 且 4a_{n−2}−n(n−1)a_n=0（n≥2），记 S(x)=∑_{n=0}^∞ a_n x^n。证明 S(x) 在 (−∞,+∞) 内满足下列微分方程。",
     formula: math`S''(x)-4S(x)=0,\quad x\in(-\infty,+\infty)`,
-    solution: math`\begin{gathered}R=+\infty,\ S''(x)=\sum_{n=2}^{\infty}n(n-1)a_nx^{n-2}\\=\sum_{n=2}^{\infty}4a_{n-2}x^{n-2}=4S(x)\end{gathered}`,
+    solution: math`\begin{gathered}R=+\infty,\ S''(x)\\=\sum_{n=2}^{\infty}n(n-1)a_nx^{n-2}\\=\sum_{n=2}^{\infty}4a_{n-2}x^{n-2}=4S(x)\end{gathered}`,
     explanation: "先由递推式看出系数按阶乘速度衰减、收敛域为整条实轴，再把幂级数逐项求导两次，利用递推式把指标平移回 0 就正好变回 4S(x)。",
     commonMistake: "未先论证幂级数收敛半径 R=+∞ 就直接逐项求导，或求二阶导时起始指标误写成 n=0。",
     hints: [

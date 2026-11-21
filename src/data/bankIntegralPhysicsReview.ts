@@ -42,7 +42,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "直径为 40 cm、高为 100 cm 的圆筒内充满压强为 5 N/cm² 的气体。在温度不变（pV = C）的条件下，将气体体积压缩为原来的 1/3，求需做的功。",
     formula: math`\begin{gathered}pV=C,\quad r=0.2\,\text{m},\;H=1\,\text{m}\\W=\int_{0}^{\frac{2}{3}}\frac{C}{1-h}\,dh\end{gathered}`,
-    solution: math`\begin{gathered}C=5\times 10^{4}\cdot\pi(0.2)^{2}\cdot 1=2000\pi\\W=\int_{0}^{\frac{2}{3}}\frac{2000\pi}{1-h}\,dh\\=2000\pi[-\ln(1-h)]_{0}^{\frac{2}{3}}=2000\pi\ln 3\,\text{J}\end{gathered}`,
+    solution: math`\begin{gathered}C=5\times 10^{4}\cdot\pi(0.2)^{2}\cdot 1=2000\pi\\W=\int_{0}^{\frac{2}{3}}\frac{2000\pi}{1-h}\,dh\\=2000\pi[-\ln(1-h)]_{0}^{\frac{2}{3}}\\=2000\pi\ln 3\,\text{J}\end{gathered}`,
     explanation:
       "活塞向下压得越深，剩余体积越小、压强越大，压强随高度成反比增大，积分后自然出现对数。",
     commonMistake:
@@ -69,7 +69,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "证明：把质量为 m 的航天器从半径为 R、表面重力加速度为 g₀ 的行星表面垂直提升到离表面高度 H 处，克服万有引力所做的功为 W = m g₀ R H / (R + H)。",
     formula: math`\begin{gathered}F(x)=G\frac{Mm}{x^{2}},\quad G\frac{Mm}{R^{2}}=mg_{0}\\W=\int_{R}^{R+H}\frac{mg_{0}R^{2}}{x^{2}}\,dx\end{gathered}`,
-    solution: math`\begin{gathered}GM=g_{0}R^{2}\implies F(x)=\frac{mg_{0}R^{2}}{x^{2}}\\W=\int_{R}^{R+H}\frac{mg_{0}R^{2}}{x^{2}}\,dx=mg_{0}R^{2}\left[-\frac{1}{x}\right]_{R}^{R+H}\\=mg_{0}R^{2}\left(\frac{1}{R}-\frac{1}{R+H}\right)=\frac{mg_{0}RH}{R+H}\end{gathered}`,
+    solution: math`\begin{gathered}GM=g_{0}R^{2}\implies F(x)=\frac{mg_{0}R^{2}}{x^{2}}\\W=\int_{R}^{R+H}\frac{mg_{0}R^{2}}{x^{2}}\,dx\\=mg_{0}R^{2}\left[-\frac{1}{x}\right]_{R}^{R+H}\\=mg_{0}R^{2}\left(\frac{1}{R}-\frac{1}{R+H}\right)=\frac{mg_{0}RH}{R+H}\end{gathered}`,
     explanation:
       "飞得越高引力越弱，按距离平方反比衰减；把从地心距 R 到 R+H 的引力微元积分后，分母自然多出 R+H。",
     commonMistake: "把积分区间错写成 [0, H]，忘记万有引力公式中的距离 x 是到球心的距离。",
@@ -121,7 +121,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "一质点沿直线按规律 x = c t²（c > 0，t ≥ 0）运动，介质阻力大小与速度的立方成正比（R = k v³，k > 0）。计算质点由 x = 0 移至 x = a（a > 0）时克服阻力所做的功。",
     formula: math`\begin{gathered}x=ct^{2},\quad R=kv^{3}\\W=\int_{0}^{a}R\,dx\end{gathered}`,
-    solution: math`\begin{gathered}v=\frac{dx}{dt}=2ct,\quad R=8kc^{3}t^{3}\\dW=R\,dx=16kc^{4}t^{4}\,dt,\quad T=\sqrt{\frac{a}{c}}\\W=\int_{0}^{T}16kc^{4}t^{4}\,dt=\frac{16}{5}kc^{\frac{3}{2}}a^{\frac{5}{2}}\end{gathered}`,
+    solution: math`\begin{gathered}v=\frac{dx}{dt}=2ct,\quad R=8kc^{3}t^{3}\\dW=R\,dx=16kc^{4}t^{4}\,dt,\\T=\sqrt{\frac{a}{c}}\\W=\int_{0}^{T}16kc^{4}t^{4}\,dt\\=\frac{16}{5}kc^{\frac{3}{2}}a^{\frac{5}{2}}\end{gathered}`,
     explanation:
       "位移和阻力都能写成时间 t 的函数，把 dx 换成 v dt 后就变成普通幂函数关于时间的定积分。",
     commonMistake: "容易漏乘 dx = 2ct dt 中的速度因子，或者忘记把积分上限从 x = a 换算为 t = √(a/c)。",
@@ -147,7 +147,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "用铁锤将一木桩击入土层，设土层阻力与木桩入土深度成正比（R = k h）。第一次锤击将木桩打入 2 cm。若第二次锤击所做功与第一次相等，求第二次又将木桩打入多少厘米？",
     formula: math`\begin{gathered}W_{1}=\int_{0}^{2}kh\,dh\\W_{2}=\int_{2}^{2+h_{0}}kh\,dh=W_{1}\end{gathered}`,
-    solution: math`\begin{gathered}W_{1}=\int_{0}^{2}kh\,dh=2k\\W_{2}=\frac{k}{2}\left[(2+h_{0})^{2}-4\right]=2k\\(2+h_{0})^{2}=8\implies h_{0}=2(\sqrt{2}-1)\,\text{cm}\end{gathered}`,
+    solution: math`\begin{gathered}W_{1}=\int_{0}^{2}kh\,dh=2k\\W_{2}=\frac{k}{2}\left[(2+h_{0})^{2}-4\right]=2k\\(2+h_{0})^{2}=8\\\implies h_{0}=2(\sqrt{2}-1)\,\text{cm}\end{gathered}`,
     explanation:
       "越往深处阻力越大，所以做同样多的功，第二次能推进的新深度必然比第一次短得多。",
     commonMistake: "把第二次的积分区间错写成 [0, h₀]，忽略了木桩已经处在深度 2 cm 处。",
@@ -199,7 +199,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "一宽为 w、高为 H 的矩形闸门铅直放置，其顶边与水面齐平。一条对角线将闸门分为上三角形 T₁ 与下三角形 T₂，证明 T₂ 所受水压力是 T₁ 的 2 倍。",
     formula: math`\begin{gathered}P_{1}=\int_{0}^{H}\rho gy\cdot w\!\left(1-\frac{y}{H}\right)dy\\P_{2}=\int_{0}^{H}\rho gy\cdot w\frac{y}{H}\,dy\end{gathered}`,
-    solution: math`\begin{gathered}P_{1}=\rho gw\left[\frac{y^{2}}{2}-\frac{y^{3}}{3H}\right]_{0}^{H}=\frac{1}{6}\rho gwH^{2}\\P_{2}=\rho gw\left[\frac{y^{3}}{3H}\right]_{0}^{H}=\frac{1}{3}\rho gwH^{2}=2P_{1}\end{gathered}`,
+    solution: math`\begin{gathered}P_{1}=\rho gw\left[\frac{y^{2}}{2}-\frac{y^{3}}{3H}\right]_{0}^{H}\\=\frac{1}{6}\rho gwH^{2}\\P_{2}=\rho gw\left[\frac{y^{3}}{3H}\right]_{0}^{H}\\=\frac{1}{3}\rho gwH^{2}=2P_{1}\end{gathered}`,
     explanation:
       "两块三角形面积一样大，但下面那块重心更深、水压更大，精确积分表明它的总水压力正好是上面那块的两倍。",
     commonMistake: "把上三角形和下三角形在深度 y 处的水平宽度写反，导致算得 P₁ > P₂。",
@@ -277,7 +277,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "一长为 L、线密度为 λ 的均匀细直棒置于 y 轴区间 [0, L] 上，在点 (d, 0)（d > 0）处有一质量为 m 的质点。求细棒对该质点的万有引力分量 (F_x, F_y)。",
     formula: math`\begin{gathered}F_{x}=\int_{0}^{L}\frac{-Gm\lambda d}{(d^{2}+y^{2})^{\frac{3}{2}}}\,dy\\F_{y}=\int_{0}^{L}\frac{Gm\lambda y}{(d^{2}+y^{2})^{\frac{3}{2}}}\,dy\end{gathered}`,
-    solution: math`\begin{gathered}F_{x}=-\frac{Gm\lambda}{d}\left[\frac{y}{\sqrt{d^{2}+y^{2}}}\right]_{0}^{L}=-\frac{Gm\lambda L}{d\sqrt{d^{2}+L^{2}}}\\F_{y}=Gm\lambda\left[-\frac{1}{\sqrt{d^{2}+y^{2}}}\right]_{0}^{L}\\=Gm\lambda\!\left(\frac{1}{d}-\frac{1}{\sqrt{d^{2}+L^{2}}}\right)\end{gathered}`,
+    solution: math`\begin{gathered}F_{x}=-\frac{Gm\lambda}{d}\left[\frac{y}{\sqrt{d^{2}+y^{2}}}\right]_{0}^{L}\\=-\frac{Gm\lambda L}{d\sqrt{d^{2}+L^{2}}}\\F_{y}=Gm\lambda\left[-\frac{1}{\sqrt{d^{2}+y^{2}}}\right]_{0}^{L}\\=Gm\lambda\!\left(\frac{1}{d}-\frac{1}{\sqrt{d^{2}+L^{2}}}\right)\end{gathered}`,
     explanation:
       "棒上不同小段拉质点的方向各不相同，不能直接把引力大小相加，必须先正交分解到 x、y 两个方向再分别积分。",
     commonMistake: "忘记力是矢量，直接对 dF = Gmλ dy/(d²+y²) 标量积分；或写错 F_x 的负号方向。",
@@ -330,7 +330,7 @@ export const bankIntegralPhysicsReview = [
     title: "三次曲线与横轴所围面积",
     prompt: "求曲线 y = x³ − 5x² + 4x 与 x 轴所围成的封闭图形的总面积 A。",
     formula: math`\begin{gathered}y=x^{3}-5x^{2}+4x=x(x-1)(x-4)\\A=\int_{0}^{1}y\,dx-\int_{1}^{4}y\,dx\end{gathered}`,
-    solution: math`\begin{gathered}\int_{0}^{1}y\,dx=\left[\frac{x^{4}}{4}-\frac{5x^{3}}{3}+2x^{2}\right]_{0}^{1}=\frac{7}{12}\\-\int_{1}^{4}y\,dx=-\left(-\frac{32}{3}-\frac{7}{12}\right)=\frac{135}{12}\\A=\frac{7}{12}+\frac{135}{12}=\frac{71}{6}\end{gathered}`,
+    solution: math`\begin{gathered}\int_{0}^{1}y\,dx\\=\left[\frac{x^{4}}{4}-\frac{5x^{3}}{3}+2x^{2}\right]_{0}^{1}=\frac{7}{12}\\-\int_{1}^{4}y\,dx=-\left(-\frac{32}{3}-\frac{7}{12}\right)=\frac{135}{12}\\A=\frac{7}{12}+\frac{135}{12}=\frac{71}{6}\end{gathered}`,
     explanation:
       "曲线先在 x 轴上方鼓起，过了 x = 1 又钻到 x 轴下方；算面积必须把下方那块取正号再加起来。",
     commonMistake: "直接从 0 积到 4 而不分段取绝对值，导致上下两块面积相互抵消。",
@@ -407,7 +407,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "设在区间 [a, b]（a < b）上，f(x) > 0，f'(x) < 0，f''(x) > 0。记 I₁ = ∫_a^b f(x) dx，I₂ = f(b)(b − a)，I₃ = (1/2)[f(a) + f(b)](b − a)。证明：I₂ < I₁ < I₃。",
     formula: math`\begin{gathered}I_{1}=\int_{a}^{b}f(x)\,dx,\;I_{2}=f(b)(b-a)\\I_{3}=\frac{1}{2}\left[f(a)+f(b)\right](b-a)\end{gathered}`,
-    solution: math`\begin{gathered}f'(x)<0\implies f(x)>f(b)\;\text{于}\;[a,b)\\\implies I_{1}>I_{2}\\f''(x)>0\implies f(x)<\text{弦线}\;\text{于}\;(a,b)\\\implies I_{1}<I_{3},\quad\text{故}\;I_{2}<I_{1}<I_{3}\end{gathered}`,
+    solution: math`\begin{gathered}f'(x)<0\\\implies f(x)>f(b)\;\text{于}\;[a,b)\\\implies I_{1}>I_{2}\\f''(x)>0\\\implies f(x)<\text{弦线}\;\text{于}\;(a,b)\\\implies I_{1}<I_{3},\quad\text{故}\;I_{2}<I_{1}<I_{3}\end{gathered}`,
     explanation:
       "曲线一路下降且向下凹（像碗底），因此它始终高于右端水平矩形，却低于连接两端点的直梯形顶边。",
     commonMistake: "把 f''(x) > 0（下凸/凹向上）和 f''(x) < 0（上凸）对应的弦线位置记反。",
@@ -459,7 +459,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "一根长 8 m 的金属棒，离左端 x m 处的线密度为 ρ(x) = 1 / √(1 + x)（kg/m）。问 x 为何值时，[0, x] 一段的质量恰好等于全棒质量的一半？",
     formula: math`\begin{gathered}m(x)=\int_{0}^{x}\frac{dt}{\sqrt{1+t}}\\m(x)=\frac{1}{2}m(8)\end{gathered}`,
-    solution: math`\begin{gathered}m(x)=\left[2\sqrt{1+t}\right]_{0}^{x}\\=2(\sqrt{1+x}-1)\\m(8)=2(3-1)=4\\2(\sqrt{1+x}-1)=2\implies\sqrt{1+x}=2\\\implies x=3\,\text{m}\end{gathered}`,
+    solution: math`\begin{gathered}m(x)\\=\left[2\sqrt{1+t}\right]_{0}^{x}\\=2(\sqrt{1+x}-1)\\m(8)=2(3-1)=4\\2(\sqrt{1+x}-1)=2\\\implies\sqrt{1+x}=2\\\implies x=3\,\text{m}\end{gathered}`,
     explanation:
       "棒子左端更密实、右端更轻，所以不需要走到中点 4 m，走到 3 m 时就已经凑够了一半的质量。",
     commonMistake: "把原函数 2√(1+x) 在下限 t = 0 处的值漏减，误把 m(x) 写成 2√(1+x)。",
@@ -511,7 +511,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "在第一象限从下到上依次有曲线 y = x²、y = 4x² 与过原点的曲线 C：x = f(y)。若对 y = 4x² 上任一点 P，由 C、y = 4x² 及过 P 的水平线围成的面积 A，恒等于由 y = x²、y = 4x² 及过 P 的竖直线围成的面积 B，求曲线 C 的方程。",
     formula: math`\begin{gathered}A(y)=\int_{0}^{y}\left[\frac{\sqrt{t}}{2}-f(t)\right]dt\\B(y)=\int_{0}^{\frac{\sqrt{y}}{2}}(4x^{2}-x^{2})\,dx\end{gathered}`,
-    solution: math`\begin{gathered}B(y)=\left[x^{3}\right]_{0}^{\frac{\sqrt{y}}{2}}=\frac{1}{8}y^{\frac{3}{2}}\\A'(y)=B'(y)\implies\frac{\sqrt{y}}{2}-f(y)=\frac{3}{16}\sqrt{y}\\f(y)=\frac{5}{16}\sqrt{y}\iff y=\frac{256}{25}x^{2}\;(x\ge 0)\end{gathered}`,
+    solution: math`\begin{gathered}B(y)=\left[x^{3}\right]_{0}^{\frac{\sqrt{y}}{2}}\\=\frac{1}{8}y^{\frac{3}{2}}\\A'(y)=B'(y)\\\implies\frac{\sqrt{y}}{2}-f(y)=\frac{3}{16}\sqrt{y}\\f(y)=\frac{5}{16}\sqrt{y}\\\iff y=\frac{256}{25}x^{2}\;(x\ge 0)\end{gathered}`,
     explanation:
       "把两个面积都写成点 P 纵坐标 y 的函数，令它们恒等后两边对 y 求导，积分号立刻脱掉，直接解出 f(y)。",
     commonMistake: "对变上限积分 B(y) 求导时忘记链式法则（上限是 √y/2 而非 y），导致系数出错。",
@@ -562,7 +562,7 @@ export const bankIntegralPhysicsReview = [
     title: "过原点切线与对数曲线所围面积",
     prompt:
       "过坐标原点作曲线 y = ln(2x) 的切线，该切线与曲线 y = ln(2x) 及 x 轴围成平面图形 D。求图形 D 的面积 A。",
-    formula: math`\begin{gathered}y=\ln(2x)\iff x=\frac{1}{2}e^{y},\quad\text{切线}\;x=\frac{e}{2}y\\A=\int_{0}^{1}\left(\frac{1}{2}e^{y}-\frac{e}{2}y\right)dy\end{gathered}`,
+    formula: math`\begin{gathered}y=\ln(2x)\iff x=\frac{1}{2}e^{y},\\\text{切线}\;x=\frac{e}{2}y\\A=\int_{0}^{1}\left(\frac{1}{2}e^{y}-\frac{e}{2}y\right)dy\end{gathered}`,
     solution: math`\begin{gathered}\ln(2x_{0})=1\implies x_{0}=\frac{e}{2},\;y_{0}=1\\A=\left[\frac{1}{2}e^{y}-\frac{e}{4}y^{2}\right]_{0}^{1}\\=\left(\frac{e}{2}-\frac{e}{4}\right)-\frac{1}{2}=\frac{e}{4}-\frac{1}{2}\end{gathered}`,
     explanation:
       "先确定切点纵坐标为 1，再用 y 做积分变量水平切片，就不用把区域按 x 拆成三角形和曲边梯形两段。",
@@ -589,7 +589,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "将上题中由切线 y = (2/e)x、曲线 y = ln(2x) 及 x 轴围成的平面图形 D 绕竖直线 x = e/2 旋转一周，求所得旋转体的体积 V。",
     formula: math`\begin{gathered}R(y)=\frac{e}{2}-\frac{e}{2}y,\quad r(y)=\frac{e}{2}-\frac{1}{2}e^{y}\\V=\pi\int_{0}^{1}\left[R(y)^{2}-r(y)^{2}\right]dy\end{gathered}`,
-    solution: math`\begin{gathered}V=\frac{\pi}{4}\int_{0}^{1}\left[e^{2}(1-y)^{2}-(e-e^{y})^{2}\right]dy\\=\frac{\pi}{4}\left[\frac{e^{2}}{3}-\left(e^{2}-2e(e-1)+\frac{e^{2}-1}{2}\right)\right]\\=\frac{\pi}{24}\left(5e^{2}-12e+3\right)\end{gathered}`,
+    solution: math`\begin{gathered}V=\frac{\pi}{4}\int_{0}^{1}\Bigl[e^{2}(1\\-y)^{2}-(e-e^{y})^{2}\Bigr]dy\\=\frac{\pi}{4}\Bigl[\frac{e^{2}}{3}-\Bigl(e^{2}\\-2e(e-1)+\frac{e^{2}-1}{2}\Bigr)\Bigr]\\=\frac{\pi}{24}\left(5e^{2}-12e+3\right)\end{gathered}`,
     explanation:
       "旋转轴在区域最右侧 x = e/2，所以越靠左的切线离轴越远是外半径，对数曲线离轴更近是内半径，用垫片法相减即得体积。",
     commonMistake: "把内外半径错写成直接对 x 平方相减，而忘记旋转轴是 x = e/2 而非 y 轴。",
@@ -615,7 +615,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "设曲线 C 为 y = x e^(−2x)（x ≥ 0），M 为 C 的拐点，MT 为 C 在点 M 处的切线。求由曲线 C、切线 MT 和 x 轴围成的向右无限延伸的平面图形的面积 A。",
     formula: math`\begin{gathered}y=xe^{-2x},\quad M\!\left(1,e^{-2}\right)\\MT:\;y=e^{-2}(2-x)\\A=\int_{1}^{+\infty}xe^{-2x}\,dx-\frac{1}{2}(2-1)e^{-2}\end{gathered}`,
-    solution: math`\begin{gathered}y'=(1-2x)e^{-2x},\quad y''=(4x-4)e^{-2x}\\x=1\implies M(1,e^{-2}),\;y'(1)=-e^{-2}\\\int_{1}^{+\infty}xe^{-2x}\,dx=\left[-\frac{2x+1}{4}e^{-2x}\right]_{1}^{+\infty}=\frac{3}{4e^{2}}\\A=\frac{3}{4e^{2}}-\frac{1}{2e^{2}}=\frac{1}{4e^{2}}\end{gathered}`,
+    solution: math`\begin{gathered}y'=(1-2x)e^{-2x},\\y''=(4x-4)e^{-2x}\\x=1\implies M(1,e^{-2}),\\y'(1)=-e^{-2}\\\int_{1}^{+\infty}xe^{-2x}\,dx\\=\left[-\frac{2x+1}{4}e^{-2x}\right]_{1}^{+\infty}\\=\frac{3}{4e^{2}}\\A=\frac{3}{4e^{2}}-\frac{1}{2e^{2}}=\frac{1}{4e^{2}}\end{gathered}`,
     explanation:
       "拐点右侧曲线向上弯（下凸），因此切线始终在曲线下方并于 x = 2 处扎进横轴；总面积就是曲线右侧反常积分减去这个小直角三角形。",
     commonMistake: "把分部积分 ∫ x e^(−2x) dx 的系数 1/4 算错，或忘记减去切线与横轴围成的三角形面积。",
@@ -690,7 +690,7 @@ export const bankIntegralPhysicsReview = [
     title: "圆截抛物线所得有限弧长",
     prompt: "求抛物线 y = x² 被圆 x² + y² = 2 所截下的有限部分的弧长 s。",
     formula: math`\begin{gathered}\begin{cases}y=x^{2}\\x^{2}+y^{2}=2\end{cases}\implies x\in[-1,1]\\s=\int_{-1}^{1}\sqrt{1+4x^{2}}\,dx\end{gathered}`,
-    solution: math`\begin{gathered}s=2\int_{0}^{1}\sqrt{1+4x^{2}}\,dx\;\;(u=2x)\\=\int_{0}^{2}\sqrt{1+u^{2}}\,du\\=\left[\frac{u}{2}\sqrt{1+u^{2}}+\frac{1}{2}\ln\!\left(u+\sqrt{1+u^{2}}\right)\right]_{0}^{2}\\=\sqrt{5}+\frac{1}{2}\ln(2+\sqrt{5})\end{gathered}`,
+    solution: math`\begin{gathered}s=2\int_{0}^{1}\sqrt{1+4x^{2}}\,dx\;\;(u=2x)\\=\int_{0}^{2}\sqrt{1+u^{2}}\,du\\=\Bigl[\frac{u}{2}\sqrt{1+u^{2}}+\frac{1}{2}\ln\!\Bigl(u\\+\sqrt{1+u^{2}}\Bigr)\Bigr]_{0}^{2}\\=\sqrt{5}+\frac{1}{2}\ln(2+\sqrt{5})\end{gathered}`,
     explanation:
       "先联立找出圆和抛物线的两个交点 x = ±1，再用对称性和换元 u = 2x 套用标准根式积分公式。",
     commonMistake: "令 u = 2x 换元时忘记 dx = du/2，或者漏把积分上限 1 同步换算成 2。",
@@ -716,7 +716,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "一半径为 R、密度 ρ 与水相同的实心球沉入水中，球的顶端恰与水面相切。现将球完整地从水中垂直取出，求需做的功 W。",
     formula: math`\begin{gathered}dV=\pi(R^{2}-x^{2})\,dx,\quad x\in[-R,R]\\W=\int_{-R}^{R}\rho g\pi(R^{2}-x^{2})(R+x)\,dx\end{gathered}`,
-    solution: math`\begin{gathered}W=\pi\rho gR\int_{-R}^{R}(R^{2}-x^{2})\,dx\\+\pi\rho g\int_{-R}^{R}x(R^{2}-x^{2})\,dx\\=2\pi\rho gR\left[R^{2}x-\frac{x^{3}}{3}\right]_{0}^{R}+0=\frac{4}{3}\pi\rho gR^{4}\end{gathered}`,
+    solution: math`\begin{gathered}W=\pi\rho gR\int_{-R}^{R}(R^{2}-x^{2})\,dx\\+\pi\rho g\int_{-R}^{R}x(R^{2}-x^{2})\,dx\\=2\pi\rho gR\left[R^{2}x-\frac{x^{3}}{3}\right]_{0}^{R}+0\\=\frac{4}{3}\pi\rho gR^{4}\end{gathered}`,
     explanation:
       "球和水一样密，在水面以下浮力正好抵消重力不费力；只需算每层薄片露出水面后继续抬高 R+x 所克服的重力功。",
     commonMistake: "把薄片在水面以上移动的距离错写成 R − x，或在水下阶段也额外计入重力功。",
@@ -768,7 +768,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "设星形线 x = R cos³t、y = R sin³t（0 ≤ t ≤ π/2）上每点处的线密度为 k r³（k > 0，r 为该点到原点距离）。求第一象限弧段对原点 O 处单位质点的引力。",
     formula: math`\begin{gathered}ds=3R\cos t\sin t\,dt,\quad dm=kr^{3}\,ds\\dF_{x}=\frac{x}{r}\cdot G\frac{dm}{r^{2}}=Gkx\,ds\end{gathered}`,
-    solution: math`\begin{gathered}F_{x}=\int_{0}^{\frac{\pi}{2}}3GkR^{2}\cos^{4}t\sin t\,dt=\frac{3}{5}GkR^{2}\\F_{y}=\int_{0}^{\frac{\pi}{2}}3GkR^{2}\sin^{4}t\cos t\,dt=\frac{3}{5}GkR^{2}\\|\vec{F}|=\frac{3\sqrt{2}}{5}GkR^{2},\quad\text{方向角}\;\frac{\pi}{4}\end{gathered}`,
+    solution: math`\begin{gathered}F_{x}=\int_{0}^{\frac{\pi}{2}}3GkR^{2}\cos^{4}t\sin t\,dt\\=\frac{3}{5}GkR^{2}\\F_{y}=\int_{0}^{\frac{\pi}{2}}3GkR^{2}\sin^{4}t\cos t\,dt\\=\frac{3}{5}GkR^{2}\\|\vec{F}|=\frac{3\sqrt{2}}{5}GkR^{2},\quad\text{方向角}\;\frac{\pi}{4}\end{gathered}`,
     explanation:
       "密度里的 r³ 正好和万有引力分母 r² 以及方向余弦分母 r 全部约掉，复杂的根式奇迹般地消成极简单的三角凑微分。",
     commonMistake: "没有先约去 r³/(r²·r) = 1，导致盲目展开 √(cos⁶t + sin⁶t) 卡住。",
@@ -820,7 +820,7 @@ export const bankIntegralPhysicsReview = [
     prompt:
       "接上题条件（土层阻力 R = k x，首次入土深度 d m，每次做功为前一次的 q 倍且 0 < q < 1）。若击打次数不限，汽锤至多能将桩打入地下多深？",
     formula: math`\begin{gathered}x_{n}=d\sqrt{1+q+\cdots+q^{n-1}}=d\sqrt{\frac{1-q^{n}}{1-q}}\\x_{\max}=\lim_{n\to\infty}x_{n}\end{gathered}`,
-    solution: math`\begin{gathered}0<q<1\implies\lim_{n\to\infty}q^{n}=0\\\lim_{n\to\infty}x_{n}=\lim_{n\to\infty}d\sqrt{\frac{1-q^{n}}{1-q}}=\frac{d}{\sqrt{1-q}}\,\text{m}\end{gathered}`,
+    solution: math`\begin{gathered}0<q<1\implies\lim_{n\to\infty}q^{n}=0\\\lim_{n\to\infty}x_{n}=\lim_{n\to\infty}d\sqrt{\frac{1-q^{n}}{1-q}}\\=\frac{d}{\sqrt{1-q}}\,\text{m}\end{gathered}`,
     explanation:
       "每次做功按比例 q 衰减，累积总功趋近一个有限上限，因此桩永远打不到无穷深，而是稳稳停在极限深度 d/√(1−q) 之前。",
     commonMistake: "忘记结果外层有根号，把极限深度错写成 d/(1 − q)。",

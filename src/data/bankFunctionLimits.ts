@@ -478,7 +478,7 @@ export const bankFunctionLimits = [
       "右端有 X₊>0，使 x>X₊ 时误差也小于 ε。",
       "用 X=max(X₋,X₊)，|x|>X 必落在其中一个已被控制的远端。",
     ],
-    solution: math`X=\max(X_-,X_+),\quad \lim_{|x|\to\infty}f(x)=2`,
+    solution: math`\begin{gathered}X=\max(X_-,X_+),\\\lim_{|x|\to\infty}f(x)=2\end{gathered}`,
   },
   {
     id: "jc935-1-3-11", source: "上册习题 1-3 第 11 题",

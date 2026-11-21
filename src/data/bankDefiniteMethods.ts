@@ -158,7 +158,7 @@ export const bankDefiniteMethods = [
     title: "提系数后的三角换元",
     prompt: "先提取根号内系数，再用三角换元计算定积分。",
     formula: math`\int_{-1}^{1} \sqrt{6-3y^2}\, dy`,
-    solution: math`\begin{gathered}\text{令 } y=\sqrt{2}\sin u,\; u\in\left[-\frac{\pi}{4},\frac{\pi}{4}\right] \\ \sqrt{3}\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}(1+\cos 2u)\,du=\frac{\sqrt{3}}{2}(\pi+2)\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 } y=\sqrt{2}\sin u,\; u\in\left[-\frac{\pi}{4},\frac{\pi}{4}\right]\\\sqrt{3}\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}(1+\cos 2u)\,du\\=\frac{\sqrt{3}}{2}(\pi+2)\end{gathered}`,
     explanation: "先把根号里的 3 提出来变成 √3·√(2-y^2)，再用 y=√2 sin u 脱去根号，顺便利用对称区间简化计算。",
     commonMistake: "提出系数 3 时忘记开根号，写成 3√(2-y^2)，导致结果多出 √3 倍。",
     hints: [
@@ -206,7 +206,7 @@ export const bankDefiniteMethods = [
     title: "含参圆弧高次乘积积分",
     prompt: "设常数 a > 0，用三角换元计算下列定积分。",
     formula: math`\int_{0}^{2a} x^2\sqrt{4a^2-x^2}\, dx\quad (a>0)`,
-    solution: math`\begin{gathered}\text{令 } x=2a\sin u,\; 16a^4\int_{0}^{\frac{\pi}{2}}\sin^2 u\cos^2 u\,du \\ =4a^4\int_{0}^{\frac{\pi}{2}}\sin^2(2u)\,du=\pi a^4\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 } x=2a\sin u,\\16a^4\int_{0}^{\frac{\pi}{2}}\sin^2 u\cos^2 u\,du\\=4a^4\int_{0}^{\frac{\pi}{2}}\sin^2(2u)\,du=\pi a^4\end{gathered}`,
     explanation: "令 x=2a sin u 后出现 sin^2 u cos^2 u，用二倍角公式合并成 (1/4)sin^2(2u) 再降幂，比硬拆 cos^2 u 省事得多。",
     commonMistake: "提出系数时漏乘 dx 中的 2a，把 16a^4 误算成 8a^3 或 8a^4。",
     hints: [
@@ -326,7 +326,7 @@ export const bankDefiniteMethods = [
     title: "根号内二次式直接凑微分",
     prompt: "设常数 a > 0，用凑微分法计算下列定积分。",
     formula: math`\int_{0}^{\sqrt{3}a} \frac{x\,dx}{\sqrt{4a^2-x^2}}\quad (a>0)`,
-    solution: math`\begin{gathered}-\frac{1}{2}\int_{0}^{\sqrt{3}a}\frac{d(4a^2-x^2)}{\sqrt{4a^2-x^2}} \\ =\left[-\sqrt{4a^2-x^2}\right]_{0}^{\sqrt{3}a}=-a+2a=a\end{gathered}`,
+    solution: math`\begin{gathered}-\frac{1}{2}\int_{0}^{\sqrt{3}a}\frac{d(4a^2-x^2)}{\sqrt{4a^2-x^2}}\\=\left[-\sqrt{4a^2-x^2}\right]_{0}^{\sqrt{3}a}\\=-a+2a=a\end{gathered}`,
     explanation: "分子多了一个 x，正好是根号里 -x^2 的导数，完全不需要三角换元，直接凑微分一步到位。",
     commonMistake: "凑微分 d(4a^2-x^2) = -2x dx 时漏掉负号或 1/2，导致结果符号出错。",
     hints: [
@@ -422,7 +422,7 @@ export const bankDefiniteMethods = [
     title: "配方后正切三角换元",
     prompt: "先对分母配方，再用正切换元计算下列定积分。",
     formula: math`\int_{-2}^{0} \frac{x}{(x^2+2x+2)^2}\, dx`,
-    solution: math`\begin{gathered}\text{令 } x+1=\tan u,\; \int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}(\tan u-1)\cos^2 u\,du \\ =-2\int_{0}^{\frac{\pi}{4}}\cos^2 u\,du=-\frac{\pi}{4}-\frac{1}{2}\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 } x+1=\tan u,\\\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}}(\tan u-1)\cos^2 u\,du\\=-2\int_{0}^{\frac{\pi}{4}}\cos^2 u\,du=-\frac{\pi}{4}-\frac{1}{2}\end{gathered}`,
     explanation: "配方成 [(x+1)^2+1]^2 后令 x+1=tan u，分母的 sec^4 u 与 dx 的 sec^2 u 约掉，剩下的奇函数 tan u cos^2 u 在对称区间上直接归零。",
     commonMistake: "忘记 (1+tan^2 u)^2 = sec^4 u 约掉 sec^2 u 后剩下的是 cos^2 u，或者算漏前面的负号。",
     hints: [
@@ -518,7 +518,7 @@ export const bankDefiniteMethods = [
     title: "复杂分式奇偶性判别",
     prompt: "利用函数奇偶性计算下列对称区间定积分。",
     formula: math`\int_{-3}^{3} \frac{x^5\cos^2 x}{x^4+3x^2+2}\, dx`,
-    solution: math`\begin{gathered}f(-x)=\frac{(-x)^5\cos^2(-x)}{(-x)^4+3(-x)^2+2}=-f(x) \\ \int_{-3}^{3}\frac{x^5\cos^2 x}{x^4+3x^2+2}\,dx=0\end{gathered}`,
+    solution: math`\begin{gathered}f(-x)=\frac{(-x)^5\cos^2(-x)}{(-x)^4+3(-x)^2+2}\\=-f(x)\\\int_{-3}^{3}\frac{x^5\cos^2 x}{x^4+3x^2+2}\,dx=0\end{gathered}`,
     explanation: "分子里只有 x^5 是奇函数，其余 cos^2 x 和分母全是偶函数且分母恒正，整体为连续奇函数，对称区间积分必为 0。",
     commonMistake: "被复杂分式吓住试图求原函数（实际上无初等原函数），忽略了先检查奇偶性。",
     hints: [
@@ -590,7 +590,7 @@ export const bankDefiniteMethods = [
     title: "半角根式去绝对值积分",
     prompt: "化简被积根式并正确处理绝对值，计算下列定积分。",
     formula: math`\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \sqrt{1-\cos 2x}\, dx`,
-    solution: math`\begin{gathered}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\sqrt{2}|\sin x|\,dx=2\sqrt{2}\int_{0}^{\frac{\pi}{2}}\sin x\,dx \\ =2\sqrt{2}\left[-\cos x\right]_{0}^{\frac{\pi}{2}}=2\sqrt{2}\end{gathered}`,
+    solution: math`\begin{gathered}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\sqrt{2}|\sin x|\,dx\\=2\sqrt{2}\int_{0}^{\frac{\pi}{2}}\sin x\,dx\\=2\sqrt{2}\left[-\cos x\right]_{0}^{\frac{\pi}{2}}=2\sqrt{2}\end{gathered}`,
     explanation: "1-cos 2x 等于 2sin^2 x，开根号是 √2|sin x|；被积函数恒非负，积分绝不可能是 0，必须按偶函数折半去绝对值。",
     commonMistake: "忽略绝对值直接把 √(sin^2 x) 写成 sin x，误用奇函数性质算出 0。",
     hints: [
@@ -662,7 +662,7 @@ export const bankDefiniteMethods = [
     title: "倒代换证明定积分恒等式",
     prompt: "设 x > 0，用适当的倒代换证明下列定积分等式。",
     formula: math`\int_{x}^{2} \frac{dt}{4+t^2}=\int_{2}^{\frac{4}{x}} \frac{dt}{4+t^2}\quad (x>0)`,
-    solution: math`\begin{gathered}\text{令 } t=\frac{4}{u},\; dt=-\frac{4}{u^2}\,du \\ \int_{x}^{2}\frac{dt}{4+t^2}=-\int_{\frac{4}{x}}^{2}\frac{du}{u^2+4}=\int_{2}^{\frac{4}{x}}\frac{dt}{4+t^2}\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 } t=\frac{4}{u},\; dt=-\frac{4}{u^2}\,du\\\int_{x}^{2}\frac{dt}{4+t^2}=-\int_{\frac{4}{x}}^{2}\frac{du}{u^2+4}\\=\int_{2}^{\frac{4}{x}}\frac{dt}{4+t^2}\end{gathered}`,
     explanation: "令 t=4/u 把积分区间的乘积中点 2 映射到自身，同时分母 4+16/u^2 与微分 -4/u^2 du 里的 4/u^2 完美抵消。",
     commonMistake: "套用 t=1/u 而不是匹配常数 4 的 t=4/u，导致换元后分母系数无法还原成 4+u^2。",
     hints: [
@@ -686,7 +686,7 @@ export const bankDefiniteMethods = [
     title: "贝塔型乘积幂次对称性",
     prompt: "设 p, q 为正整数，证明下列定积分关于指数 p, q 对称。",
     formula: math`\int_{0}^{2} t^p(2-t)^q\, dt=\int_{0}^{2} t^q(2-t)^p\, dt`,
-    solution: math`\begin{gathered}\text{令 } t=2-u,\; dt=-du \\ \int_{0}^{2}t^p(2-t)^q\,dt\\=-\int_{2}^{0}(2-u)^p u^q\,du=\int_{0}^{2}t^q(2-t)^p\,dt\end{gathered}`,
+    solution: math`\begin{gathered}\text{令 } t=2-u,\; dt=-du\\\int_{0}^{2}t^p(2-t)^q\,dt\\=-\int_{2}^{0}(2-u)^p u^q\,du\\=\int_{0}^{2}t^q(2-t)^p\,dt\end{gathered}`,
     explanation: "t 和 2-t 刚好关于中点 1 互为镜像，做一次 t=2-u 换元就把两者的身份互换了，指数 p 和 q 自然也跟着互换。",
     commonMistake: "试图用二项式定理暴力展开计算，既繁琐又难以对一般正整数 p, q 收尾。",
     hints: [
@@ -854,7 +854,7 @@ export const bankDefiniteMethods = [
     title: "正割平方分部积分",
     prompt: "用分部积分法计算下列定积分。",
     formula: math`\int_{0}^{\frac{\pi}{4}} \frac{x}{\cos^2 x}\, dx`,
-    solution: math`\begin{gathered}\int_{0}^{\frac{\pi}{4}}x\,d(\tan x)=\left[x\tan x\right]_{0}^{\frac{\pi}{4}}-\int_{0}^{\frac{\pi}{4}}\tan x\,dx \\ =\frac{\pi}{4}+\left[\ln\cos x\right]_{0}^{\frac{\pi}{4}}=\frac{\pi}{4}-\frac{1}{2}\ln 2\end{gathered}`,
+    solution: math`\begin{gathered}\int_{0}^{\frac{\pi}{4}}x\,d(\tan x)\\=\left[x\tan x\right]_{0}^{\frac{\pi}{4}}-\int_{0}^{\frac{\pi}{4}}\tan x\,dx\\=\frac{\pi}{4}+\left[\ln\cos x\right]_{0}^{\frac{\pi}{4}}=\frac{\pi}{4}-\frac{1}{2}\ln 2\end{gathered}`,
     explanation: "看到 1/cos^2 x 立刻想到它是 tan x 的导数，把它凑进微分号后，分部积分剩下 tan x 的基础积分。",
     commonMistake: "把 ∫ tan x dx 误记成 ln|cos x|（漏了负号），导致结果变成 π/4 + (1/2)ln 2。",
     hints: [
@@ -902,7 +902,7 @@ export const bankDefiniteMethods = [
     title: "反正切乘幂函数分部积分",
     prompt: "用分部积分法计算下列定积分。",
     formula: math`\int_{0}^{\sqrt{3}} x\arctan x\, dx`,
-    solution: math`\begin{gathered}\frac{1}{2}\left[x^2\arctan x\right]_{0}^{\sqrt{3}}-\frac{1}{2}\int_{0}^{\sqrt{3}}\frac{x^2}{1+x^2}\,dx \\ =\frac{\pi}{2}-\frac{1}{2}\left[x-\arctan x\right]_{0}^{\sqrt{3}}=\frac{2\pi}{3}-\frac{\sqrt{3}}{2}\end{gathered}`,
+    solution: math`\begin{gathered}\frac{1}{2}\left[x^2\arctan x\right]_{0}^{\sqrt{3}}\\-\frac{1}{2}\int_{0}^{\sqrt{3}}\frac{x^2}{1+x^2}\,dx\\=\frac{\pi}{2}-\frac{1}{2}\left[x-\arctan x\right]_{0}^{\sqrt{3}}\\=\frac{2\pi}{3}-\frac{\sqrt{3}}{2}\end{gathered}`,
     explanation: "把 x 凑进 d(x^2/2)，arctan x 求导变成 1/(1+x^2)，分式 x^2/(1+x^2) 拆成 1 - 1/(1+x^2) 就能直接积分。",
     commonMistake: "拆分 x^2/(1+x^2) = 1 - 1/(1+x^2) 后，前面括号外的负号分配出错，把 +arctan x 错算成 -arctan x。",
     hints: [
@@ -926,7 +926,7 @@ export const bankDefiniteMethods = [
     title: "指数乘正弦循环分部积分",
     prompt: "利用两次分部积分建立方程，计算下列定积分。",
     formula: math`\int_{0}^{\frac{\pi}{2}} e^{3x}\sin x\, dx`,
-    solution: math`\begin{gathered}I=\left[-e^{3x}\cos x\right]_{0}^{\frac{\pi}{2}}+3\left[e^{3x}\sin x\right]_{0}^{\frac{\pi}{2}}-9I \\ 10I=3e^{\frac{3\pi}{2}}+1\Rightarrow I=\frac{3e^{\frac{3\pi}{2}}+1}{10}\end{gathered}`,
+    solution: math`\begin{gathered}I=\left[-e^{3x}\cos x\right]_{0}^{\frac{\pi}{2}}\\+3\left[e^{3x}\sin x\right]_{0}^{\frac{\pi}{2}}-9I\\10I=3e^{\frac{3\pi}{2}}+1\Rightarrow I=\frac{3e^{\frac{3\pi}{2}}+1}{10}\end{gathered}`,
     explanation: "指数和三角函数怎么分部都不会消失，连做两次同方向分部积分后原积分 I 会带着 -9I 重新出现，移项解一次方程即可。",
     commonMistake: "第二次分部积分时把 u 和 dv 的选择方向反过来了，导致退回原式 0=0。",
     hints: [
@@ -1046,7 +1046,7 @@ export const bankDefiniteMethods = [
     title: "含参根式高次幂华里士积分",
     prompt: "设 n 为正整数，利用三角换元与华里士公式计算下列定积分。",
     formula: math`\int_{0}^{2} (4-x^2)^{\frac{n}{2}}\, dx\quad (n\in\mathbf{N}_+)`,
-    solution: math`\begin{gathered}2^{n+1}\int_{0}^{\frac{\pi}{2}}\cos^{n+1}u\,du \\ =\begin{cases}2^{n+1}\dfrac{1\cdot 3\cdots n}{2\cdot 4\cdots (n+1)}\cdot\dfrac{\pi}{2}, & n\text{ 为奇数}, \\[6pt] 2^{n+1}\dfrac{2\cdot 4\cdots n}{1\cdot 3\cdots (n+1)}, & n\text{ 为偶数}.\end{cases}\end{gathered}`,
+    solution: math`\begin{gathered}2^{n+1}\int_{0}^{\frac{\pi}{2}}\cos^{n+1}u\,du \\ =\begin{cases}2^{n}\frac{1\cdot 3\cdots n}{2\cdot 4\cdots (n+1)}\pi, & n\text{ 奇}, \\[6pt] 2^{n+1}\frac{2\cdot 4\cdots n}{1\cdot 3\cdots (n+1)}, & n\text{ 偶}.\end{cases}\end{gathered}`,
     explanation: "令 x=2 sin u 后，(4-x^2)^(n/2) 乘上 dx 恰好凑出 2^(n+1) cos^(n+1) u，注意幂次是 n+1，所以 n 为奇数时 n+1 反而是偶数，末尾带 π/2。",
     commonMistake: "把幂次 n+1 的奇偶性与 n 混淆，错在 n 为偶数时乘上 π/2。",
     hints: [

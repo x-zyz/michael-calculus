@@ -378,10 +378,7 @@ y''+4y=x\cos x \\
 y=C_1\cos 2x+C_2\sin 2x \\
 +\frac{1}{9}(3x\cos x+2\sin x)
 \end{gathered}`,
-    solution: math`\begin{gathered}
-y_1=\cos 2x,\;y_2=\sin 2x\text{ 为齐次基解} \\
-(y^*)''+4y^*=x\cos x,\text{ 故为通解}
-\end{gathered}`,
+    solution: math`\begin{gathered}y_1=\cos 2x,\\y_2=\sin 2x\text{ 为齐次基解}\\(y^*)''+4y^*=x\cos x,\text{ 故为通解}\end{gathered}`,
     explanation: "齐次部分是频率为 2 的简谐振动，特解部分把 x cos x 的二阶导与自身 4 倍组合，正好消掉多余的 sin x 项。",
     commonMistake: "对 x cos x 连续求两次导时漏掉中间交叉项 -2 sin x。",
     hints: [
@@ -645,10 +642,7 @@ y=C_1x^2+C_2x^2\ln x+x^2\ln^2 x
 y=C_1e^{2x}+C_2\cos 3x+C_3\sin 3x \\
 \text{求对应的三阶常系数齐次方程}
 \end{gathered}`,
-    solution: math`\begin{gathered}
-(r-2)(r^2+9)=r^3-2r^2+9r-18=0 \\
-y'''-2y''+9y'-18y=0
-\end{gathered}`,
+    solution: math`\begin{gathered}(r-2)(r^2+9)\\=r^3-2r^2+9r-18=0\\y'''-2y''+9y'-18y=0\end{gathered}`,
     explanation: "通解里的每一块都对应特征方程的根：e^(2x) 对应实根 2，cos 3x 与 sin 3x 对应共轭虚根 ±3i，乘起来展开即可。",
     commonMistake: "把 cos 3x 与 sin 3x 对应的二次因子错写成 r² - 9 或 r² + 3。",
     hints: [

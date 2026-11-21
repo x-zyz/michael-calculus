@@ -165,7 +165,7 @@ export const bankOdeLinearAndReducible = [
     title: "高斯型积分因子线性方程",
     prompt: "求微分方程 dy/dx + 4xy = 12x 的通解。",
     formula: math`\frac{dy}{dx}+4xy=12x`,
-    solution: math`\begin{gathered}\mu(x)=e^{\int 4x\,dx}=e^{2x^{2}}\\(ye^{2x^{2}})'=12xe^{2x^{2}}\\ye^{2x^{2}}=3e^{2x^{2}}+C\implies y=3+Ce^{-2x^{2}}\end{gathered}`,
+    solution: math`\begin{gathered}\mu(x)=e^{\int 4x\,dx}=e^{2x^{2}}\\(ye^{2x^{2}})'=12xe^{2x^{2}}\\ye^{2x^{2}}=3e^{2x^{2}}+C\\\implies y=3+Ce^{-2x^{2}}\end{gathered}`,
     explanation:
       "积分因子是 e^(2x²)，而右端恰好带有因子 x，用凑微分 d(2x²) = 4x dx 就能秒算出积分。",
     commonMistake: "凑微分 12x e^(2x²) dx = 3 e^(2x²) d(2x²) 时系数 12/4 算错成 6。",
@@ -190,7 +190,7 @@ export const bankOdeLinearAndReducible = [
     title: "互换主元化为 x(y) 的线性方程",
     prompt: "求微分方程 y ln y dx + (x − 2 ln²y) dy = 0 的通解（y > 0 且 y ≠ 1）。",
     formula: math`y\ln y\,dx+(x-2\ln^{2}y)\,dy=0`,
-    solution: math`\begin{gathered}\frac{dx}{dy}+\frac{1}{y\ln y}x=\frac{2\ln y}{y}\\\mu(y)=e^{\int\frac{dy}{y\ln y}}=\ln y\\(x\ln y)'=\frac{2\ln^{2}y}{y}\implies x=\frac{2}{3}\ln^{2}y+\frac{C}{\ln y}\end{gathered}`,
+    solution: math`\begin{gathered}\frac{dx}{dy}+\frac{1}{y\ln y}x=\frac{2\ln y}{y}\\\mu(y)=e^{\int\frac{dy}{y\ln y}}=\ln y\\(x\ln y)'=\frac{2\ln^{2}y}{y}\\\implies x=\frac{2}{3}\ln^{2}y+\frac{C}{\ln y}\end{gathered}`,
     explanation:
       "把 y 当自变量、x 当因变量一看，x 只出现一次，原本看似复杂的方程立刻变成标准的一阶线性方程。",
     commonMistake: "硬把 y 当作 x 的函数去求解，导致方程非线性而卡住。",
@@ -240,7 +240,7 @@ export const bankOdeLinearAndReducible = [
     title: "倒数视角下的 x(y) 一阶线性方程",
     prompt: "求微分方程 (y³ − 4x) dy/dx + y = 0 的通解（y ≠ 0）。",
     formula: math`(y^{3}-4x)\frac{dy}{dx}+y=0`,
-    solution: math`\begin{gathered}\frac{dx}{dy}-\frac{4}{y}x=-y^{2},\quad \mu(y)=y^{-4}\\(xy^{-4})'=-y^{-2}\implies xy^{-4}=y^{-1}+C\\x=y^{3}+Cy^{4}\end{gathered}`,
+    solution: math`\begin{gathered}\frac{dx}{dy}-\frac{4}{y}x=-y^{2},\\\mu(y)=y^{-4}\\(xy^{-4})'=-y^{-2}\\\implies xy^{-4}=y^{-1}+C\\x=y^{3}+Cy^{4}\end{gathered}`,
     explanation:
       "把 dy/dx 翻成 dx/dy 后，x 的次数只有一次，立刻就能用一阶线性方程的积分因子 y^(-4) 拿下。",
     commonMistake: "对 −y^(-2) 积分时漏掉负负得正，误写成 x = −y³ + Cy⁴。",
@@ -265,7 +265,7 @@ export const bankOdeLinearAndReducible = [
     title: "正切系数一阶线性初值问题",
     prompt: "求微分方程 dy/dx + y tan x = 2 sec x 满足初始条件 y(0) = 1 的特解。",
     formula: math`\frac{dy}{dx}+y\tan x=2\sec x,\quad y|_{x=0}=1`,
-    solution: math`\begin{gathered}\mu(x)=e^{\int\tan x\,dx}=\sec x\\(y\sec x)'=2\sec^{2}x\\\implies y=2\sin x+C\cos x\\y(0)=1\implies C=1,\quad y=2\sin x+\cos x\end{gathered}`,
+    solution: math`\begin{gathered}\mu(x)=e^{\int\tan x\,dx}=\sec x\\(y\sec x)'=2\sec^{2}x\\\implies y=2\sin x+C\cos x\\y(0)=1\implies C=1,\\y=2\sin x+\cos x\end{gathered}`,
     explanation:
       "积分因子 sec x 把右端变成了 2 sec²x，它的原函数就是 2 tan x，回乘 cos x 后干净地化为正余弦组合。",
     commonMistake: "把 ∫tan x dx 误算成 ln|cos x|，导致积分因子变成 cos x 而非 sec x。",
@@ -315,7 +315,7 @@ export const bankOdeLinearAndReducible = [
     title: "余切与复合指数初值问题",
     prompt: "求微分方程 dy/dx + y cot x = 3e^(cos x) 满足初始条件 y(π/2) = 2 的特解。",
     formula: math`\frac{dy}{dx}+y\cot x=3e^{\cos x},\quad y|_{x=\frac{\pi}{2}}=2`,
-    solution: math`\begin{gathered}\mu(x)=\sin x,\quad (y\sin x)'=3e^{\cos x}\sin x\\y\sin x=-3e^{\cos x}+C\\y(\tfrac{\pi}{2})=2\implies C=5,\quad y=\frac{5-3e^{\cos x}}{\sin x}\end{gathered}`,
+    solution: math`\begin{gathered}\mu(x)=\sin x,\\(y\sin x)'=3e^{\cos x}\sin x\\y\sin x=-3e^{\cos x}+C\\y(\tfrac{\pi}{2})=2\\\implies C=5,\quad y=\frac{5-3e^{\cos x}}{\sin x}\end{gathered}`,
     explanation:
       "积分因子 sin x 正好补足了 d(cos x) = −sin x dx 所需的因子，让复合指数 3e^(cos x) sin x 一步凑微积分出。",
     commonMistake: "对 3e^(cos x) sin x 积分时漏掉负号，误写成 3e^(cos x) + C。",
@@ -340,7 +340,7 @@ export const bankOdeLinearAndReducible = [
     title: "常系数线性方程初值特解",
     prompt: "求微分方程 dy/dx + 2y = 10 满足初始条件 y(0) = 3 的特解。",
     formula: math`\frac{dy}{dx}+2y=10,\quad y|_{x=0}=3`,
-    solution: math`\begin{gathered}(ye^{2x})'=10e^{2x}\implies y=5+Ce^{-2x}\\y(0)=3\implies 5+C=3\implies C=-2\\y=5-2e^{-2x}\end{gathered}`,
+    solution: math`\begin{gathered}(ye^{2x})'=10e^{2x}\\\implies y=5+Ce^{-2x}\\y(0)=3\implies 5+C=3\\\implies C=-2\\y=5-2e^{-2x}\end{gathered}`,
     explanation:
       "稳态值是 5，初始值 3 比稳态低 2，于是解就是从 3 出发按 e^(-2x) 指数逼近 5。",
     commonMistake: "代入初值时把 e⁰ 误算成 0，导致 C 算错。",
@@ -390,7 +390,7 @@ export const bankOdeLinearAndReducible = [
     title: "部分分式积分因子初值问题",
     prompt: "求微分方程 x(4 + x²)y' + 4y = 4 + x² 满足初始条件 y(2) = 0 的特解（x > 0）。",
     formula: math`x(4+x^{2})y'+4y=4+x^{2},\quad y|_{x=2}=0`,
-    solution: math`\begin{gathered}y'+\frac{4}{x(4+x^{2})}y=\frac{1}{x},\quad \mu(x)=\frac{x}{\sqrt{4+x^{2}}}\\\left(\frac{xy}{\sqrt{4+x^{2}}}\right)'=\frac{1}{\sqrt{4+x^{2}}}\\y=\frac{\sqrt{4+x^{2}}}{x}\ln\frac{x+\sqrt{4+x^{2}}}{2(1+\sqrt{2})}\end{gathered}`,
+    solution: math`\begin{gathered}y'+\frac{4}{x(4+x^{2})}y=\frac{1}{x},\\\mu(x)=\frac{x}{\sqrt{4+x^{2}}}\\\left(\frac{xy}{\sqrt{4+x^{2}}}\right)'=\frac{1}{\sqrt{4+x^{2}}}\\y=\frac{\sqrt{4+x^{2}}}{x}\ln\frac{x+\sqrt{4+x^{2}}}{2(1+\sqrt{2})}\end{gathered}`,
     explanation:
       "把 4/[x(4 + x²)] 裂成 1/x − x/(4 + x²) 得到积分因子 x/√(4 + x²)，乘到右端 1/x 恰好约去 x，化成标准根式积分。",
     commonMistake: "对 −x/(4 + x²) 积分时漏掉系数 1/2，导致积分因子少了根号。",
@@ -415,7 +415,7 @@ export const bankOdeLinearAndReducible = [
     title: "由切线斜率关系确定曲线方程",
     prompt: "一条平面曲线经过点 (0, 1)，且它在任意点 (x, y) 处的切线斜率等于 3x + y，求这条曲线的方程。",
     formula: math`y'-y=3x,\quad y|_{x=0}=1`,
-    solution: math`\begin{gathered}(ye^{-x})'=3xe^{-x}\\ye^{-x}=-3xe^{-x}-3e^{-x}+C\\y(0)=1\implies C=4,\quad y=4e^{x}-3x-3\end{gathered}`,
+    solution: math`\begin{gathered}(ye^{-x})'=3xe^{-x}\\ye^{-x}=-3xe^{-x}-3e^{-x}+C\\y(0)=1\\\implies C=4,\quad y=4e^{x}-3x-3\end{gathered}`,
     explanation:
       "切线斜率就是导数 y'，把几何条件翻译成 y' − y = 3x 和 y(0) = 1，再用分部积分求特解即可。",
     commonMistake: "对 ∫3x e^(-x) dx 分部积分时连续两次符号出错，误算出 −3x + 3。",
@@ -441,7 +441,7 @@ export const bankOdeLinearAndReducible = [
     prompt:
       "一质量为 m 的滑块从静止开始沿直线运动，受到与运动同向、大小随时间线性增长的推力 F₁ = a t（a > 0）以及与速度成正比的阻尼力 F₂ = b v（b > 0）。求速度 v 与时间 t 的函数关系。",
     formula: math`m\frac{dv}{dt}+bv=at,\quad v|_{t=0}=0`,
-    solution: math`\begin{gathered}\frac{dv}{dt}+\frac{b}{m}v=\frac{a}{m}t,\quad \mu(t)=e^{\frac{b}{m}t}\\v=\frac{a}{b}t-\frac{am}{b^{2}}+Ce^{-\frac{b}{m}t}\\v(0)=0\implies v=\frac{a}{b}t-\frac{am}{b^{2}}\left(1-e^{-\frac{b}{m}t}\right)\end{gathered}`,
+    solution: math`\begin{gathered}\frac{dv}{dt}+\frac{b}{m}v=\frac{a}{m}t,\quad \mu(t)=e^{\frac{b}{m}t}\\v=\frac{a}{b}t-\frac{am}{b^{2}}+Ce^{-\frac{b}{m}t}\\v(0)=0\implies v\\=\frac{a}{b}t-\frac{am}{b^{2}}\left(1-e^{-\frac{b}{m}t}\right)\end{gathered}`,
     explanation:
       "牛顿第二定律直接给出关于速度 v(t) 的一阶线性方程：时间足够长后指数项衰减为零，速度趋近于线性增长 (a/b)t − am/b²。",
     commonMistake: "对 ∫t e^((b/m)t) dt 分部积分时把系数 m/b 和 (m/b)² 弄颠倒。",
@@ -467,7 +467,7 @@ export const bankOdeLinearAndReducible = [
     prompt:
       "一个串联电路由电阻 R = 12 Ω、电感 L = 3 H 和交流电源 E = 24 sin(4t) V 组成。t = 0 时合上开关（初始电流为 0），求电流 i 与时间 t 的函数关系。",
     formula: math`3\frac{di}{dt}+12i=24\sin 4t,\quad i|_{t=0}=0`,
-    solution: math`\begin{gathered}\frac{di}{dt}+4i=8\sin 4t\\i=\sin 4t-\cos 4t+Ce^{-4t}\\i(0)=0\implies i=e^{-4t}+\sqrt{2}\sin\left(4t-\frac{\pi}{4}\right)\end{gathered}`,
+    solution: math`\begin{gathered}\frac{di}{dt}+4i=8\sin 4t\\i=\sin 4t-\cos 4t+Ce^{-4t}\\i(0)=0\implies i\\=e^{-4t}+\sqrt{2}\sin\left(4t-\frac{\pi}{4}\right)\end{gathered}`,
     explanation:
       "电感阻碍电流突变，电流由快速衰减的暂态项 e^(-4t) 和滞后电源 45° 的稳态正弦电流组成。",
     commonMistake: "两次分部积分求 ∫e^(4t) sin 4t dt 时移项系数 1 + 1 = 2 漏除。",
@@ -518,7 +518,7 @@ export const bankOdeLinearAndReducible = [
     title: "线性组合代换 u = x + y 求通解",
     prompt: "选用适当的变量代换将微分方程 dy/dx = (x + y)² + 3 化为可分离变量方程，并求其通解。",
     formula: math`\frac{dy}{dx}=(x+y)^{2}+3`,
-    solution: math`\begin{gathered}u=x+y\implies \frac{du}{dx}=u^{2}+4\\\frac{du}{u^{2}+4}=dx\implies \frac{1}{2}\arctan\frac{u}{2}=x+C_{1}\\y=-x+2\tan(2x+C)\end{gathered}`,
+    solution: math`\begin{gathered}u=x+y\implies \frac{du}{dx}=u^{2}+4\\\frac{du}{u^{2}+4}=dx\\\implies \frac{1}{2}\arctan\frac{u}{2}=x+C_{1}\\y=-x+2\tan(2x+C)\end{gathered}`,
     explanation:
       "右端只出现 x + y 的整体，把它打包成新变量 u 后，u' = 1 + y' = u² + 4 立刻就能分离变量。",
     commonMistake: "对 ∫du/(u² + 4) 积分时漏掉前面的系数 1/2，或者回代时忘记把 x 移项。",
@@ -543,7 +543,7 @@ export const bankOdeLinearAndReducible = [
     title: "线性差值代换 u = 2x − y 求通解",
     prompt: "选用适当的变量代换将微分方程 dy/dx = 2/(2x − y) + 2 化为可分离变量方程，并求其通解。",
     formula: math`\frac{dy}{dx}=\frac{2}{2x-y}+2`,
-    solution: math`\begin{gathered}u=2x-y\implies \frac{du}{dx}=2-\frac{dy}{dx}=-\frac{2}{u}\\u\,du=-2\,dx\implies \frac{u^{2}}{2}=-2x+C_{1}\\(2x-y)^{2}+4x=C\end{gathered}`,
+    solution: math`\begin{gathered}u=2x-y\implies \frac{du}{dx}\\=2-\frac{dy}{dx}=-\frac{2}{u}\\u\,du=-2\,dx\implies \frac{u^{2}}{2}=-2x+C_{1}\\(2x-y)^{2}+4x=C\end{gathered}`,
     explanation:
       "令 u = 2x − y，导数里的常数 2 正好和右端的 +2 相互抵消，只剩下极其简单的 u du = −2 dx。",
     commonMistake: "求 du/dx 时把 2 − y' 的符号写反，错算成 (2x − y)² − 4x = C。",
@@ -643,7 +643,7 @@ export const bankOdeLinearAndReducible = [
     title: "n = 2 的三角右端伯努利方程",
     prompt: "求伯努利方程 dy/dx − y = y²(cos x + sin x) 的通解。",
     formula: math`\frac{dy}{dx}-y=y^{2}(\cos x+\sin x)`,
-    solution: math`\begin{gathered}z=y^{-1}\implies z'+z=-(\cos x+\sin x)\\(ze^{x})'=-e^{x}(\cos x+\sin x)=-(e^{x}\sin x)'\\\frac{1}{y}=Ce^{-x}-\sin x\end{gathered}`,
+    solution: math`\begin{gathered}z=y^{-1}\\\implies z'+z=-(\cos x+\sin x)\\(ze^{x})'=-e^{x}(\cos x+\sin x)\\=-(e^{x}\sin x)'\\\frac{1}{y}=Ce^{-x}-\sin x\end{gathered}`,
     explanation:
       "两边除以 y² 并令 z = 1/y 后变成一阶线性方程，右端乘上 e^x 恰好是 (e^x sin x)' 的相反数，免去了繁琐的分部积分。",
     commonMistake: "由 z = y^(-1) 得 z' = −y^(-2) y' 时漏掉负号，导致线性方程各项符号全反。",
@@ -668,7 +668,7 @@ export const bankOdeLinearAndReducible = [
     title: "高斯积分因子型伯努利方程",
     prompt: "求伯努利方程 dy/dx − 2xy = 4xy² 的通解。",
     formula: math`\frac{dy}{dx}-2xy=4xy^{2}`,
-    solution: math`\begin{gathered}z=y^{-1}\implies z'+2xz=-4x\\(ze^{x^{2}})'=-4xe^{x^{2}}\implies ze^{x^{2}}=-2e^{x^{2}}+C\\\frac{1}{y}=-2+Ce^{-x^{2}}\end{gathered}`,
+    solution: math`\begin{gathered}z=y^{-1}\implies z'+2xz=-4x\\(ze^{x^{2}})'=-4xe^{x^{2}}\\\implies ze^{x^{2}}=-2e^{x^{2}}+C\\\frac{1}{y}=-2+Ce^{-x^{2}}\end{gathered}`,
     explanation:
       "用 z = 1/y 降成线性方程 z' + 2xz = −4x 后，积分因子 e^(x²) 让右端正好凑出 −2 d(e^(x²))。",
     commonMistake: "忘了 y ≡ 0 是特解，或者在 −z' − 2xz = 4x 变号时漏改右端符号。",
@@ -743,7 +743,7 @@ export const bankOdeLinearAndReducible = [
     title: "含对数右端的伯努利方程",
     prompt: "求伯努利方程 x dy − (y + 2xy³ ln x) dx = 0 的通解（x > 0）。",
     formula: math`x\,dy-(y+2xy^{3}\ln x)\,dx=0`,
-    solution: math`\begin{gathered}y'-\frac{1}{x}y=2y^{3}\ln x,\quad z=y^{-2}\\z'+\frac{2}{x}z=-4\ln x\implies (x^{2}z)'=-4x^{2}\ln x\\\frac{1}{y^{2}}=-\frac{4}{3}x\ln x+\frac{4}{9}x+\frac{C}{x^{2}}\end{gathered}`,
+    solution: math`\begin{gathered}y'-\frac{1}{x}y=2y^{3}\ln x,\quad z=y^{-2}\\z'+\frac{2}{x}z=-4\ln x\\\implies (x^{2}z)'=-4x^{2}\ln x\\\frac{1}{y^{2}}=-\frac{4}{3}x\ln x+\frac{4}{9}x+\frac{C}{x^{2}}\end{gathered}`,
     explanation:
       "先整理成标准伯努利形式再取 z = y^(-2)，积分因子 x² 与 ln x 相乘，用一次分部积分就能干净求得通解。",
     commonMistake: "分部积分 ∫x² ln x dx = (1/3)x³ ln x − (1/9)x³ 时漏掉第二项的负号，导致 +4x/9 错成 −4x/9。",
@@ -795,7 +795,7 @@ export const bankOdeLinearAndReducible = [
     title: "三阶方程的连续分部积分",
     prompt: "求三阶微分方程 y''' = x e^(-x) 的通解。",
     formula: math`y'''=xe^{-x}`,
-    solution: math`\begin{gathered}y''=-(x+1)e^{-x}+A_{1}\\y'=(x+2)e^{-x}+A_{1}x+C_{2}\\y=-(x+3)e^{-x}+C_{1}x^{2}+C_{2}x+C_{3}\end{gathered}`,
+    solution: math`\begin{gathered}y''=-(x+1)e^{-x}+A_{1}\\y'=(x+2)e^{-x}+A_{1}x+C_{2}\\y=-(x+3)e^{-x}\\+C_{1}x^{2}+C_{2}x+C_{3}\end{gathered}`,
     explanation:
       "每对 x e^(-x) 积分一次，前面的多项式常数就加 1 且整体变号，积分三次恰好得到 −(x + 3)e^(-x) 再配上一个二次多项式。",
     commonMistake: "连续三次变号容易乱，把 −(x + 3)e^(-x) 的符号写反，或漏掉二次多项式项 C₁x²。",
@@ -820,7 +820,7 @@ export const bankOdeLinearAndReducible = [
     title: "有理分式型二阶直接积分方程",
     prompt: "求二阶微分方程 y'' = 1/(4 + x²) 的通解。",
     formula: math`y''=\frac{1}{4+x^{2}}`,
-    solution: math`\begin{gathered}y'=\frac{1}{2}\arctan\frac{x}{2}+C_{1}\\y=\frac{x}{2}\arctan\frac{x}{2}-\frac{1}{2}\ln(4+x^{2})+C_{1}x+C_{2}\end{gathered}`,
+    solution: math`\begin{gathered}y'=\frac{1}{2}\arctan\frac{x}{2}+C_{1}\\y=\frac{x}{2}\arctan\frac{x}{2}\\-\frac{1}{2}\ln(4+x^{2})+C_{1}x+C_{2}\end{gathered}`,
     explanation:
       "第一次积分得到反正切函数，第二次再对反正切用分部积分，正好拆出一个对数项。",
     commonMistake: "对 ∫arctan(x/2) dx 分部积分时把后面的系数 1/2 弄错，误写成 −ln(4 + x²)。",
@@ -920,7 +920,7 @@ export const bankOdeLinearAndReducible = [
     title: "不显含 x 的自治二阶方程降阶",
     prompt: "求二阶微分方程 yy'' + 3(y')² = 0 的通解。",
     formula: math`yy''+3(y')^{2}=0`,
-    solution: math`\begin{gathered}p=y',\;y''=p\frac{dp}{dy}\implies \frac{dp}{p}=-\frac{3\,dy}{y}\\p=\frac{C_{0}}{y^{3}}\implies y^{3}\,dy=C_{0}\,dx\\y^{4}=C_{1}x+C_{2}\end{gathered}`,
+    solution: math`\begin{gathered}p=y',\;y''=p\frac{dp}{dy}\\\implies \frac{dp}{p}=-\frac{3\,dy}{y}\\p=\frac{C_{0}}{y^{3}}\implies y^{3}\,dy=C_{0}\,dx\\y^{4}=C_{1}x+C_{2}\end{gathered}`,
     explanation:
       "方程不显含自变量 x，用链式法则 y'' = p dp/dy 把 y 当作新自变量，连续两次分离变量就能解出四次幂关系。",
     commonMistake: "误把 y'' 写成 dp/dx 而不是 p dp/dy，导致变量无法分离。",
@@ -970,7 +970,7 @@ export const bankOdeLinearAndReducible = [
     title: "乘以 2y' 降阶求根式型方程",
     prompt: "求二阶微分方程 y'' = 1/(4√y) 的通解（y > 0）。",
     formula: math`y''=\frac{1}{4\sqrt{y}}`,
-    solution: math`\begin{gathered}2y'y''=\frac{y'}{2\sqrt{y}}\implies (y')^{2}=\sqrt{y}+C_{1}\\dx=\pm\frac{dy}{\sqrt{\sqrt{y}+C_{1}}},\quad u=\sqrt{y}\\x=\pm\left[\frac{4}{3}(\sqrt{y}+C_{1})^{\frac{3}{2}}-4C_{1}(\sqrt{y}+C_{1})^{\frac{1}{2}}\right]\\+C_{2}\end{gathered}`,
+    solution: math`\begin{gathered}2y'y''=\frac{y'}{2\sqrt{y}}\\\implies (y')^{2}=\sqrt{y}+C_{1}\\dx=\pm\frac{dy}{\sqrt{\sqrt{y}+C_{1}}},\quad u=\sqrt{y}\\x=\pm\Bigl[\frac{4}{3}(\sqrt{y}+C_{1})^{\frac{3}{2}}\\-4C_{1}(\sqrt{y}+C_{1})^{\frac{1}{2}}\Bigr]\\+C_{2}\end{gathered}`,
     explanation:
       "两边同乘 2y' 后左右立刻都是全导数，降成一阶后做代换 u = √y，把分子 2u 拆成 2(u + C₁) − 2C₁ 就能轻松积出。",
     commonMistake: "作代换 u = √y 时忘记 dy = 2u du 中的因子 2u，导致积分结果少项。",
@@ -1020,7 +1020,7 @@ export const bankOdeLinearAndReducible = [
     title: "变上限积分方程化为可降阶方程",
     prompt: "设 f(x) 具有二阶连续导数，满足 [f'(x)]² = 2f(x) + 2∫₀ˣ [f'(t)]³ dt 且 f'(0) = 1，求 f(x)。",
     formula: math`\begin{gathered}[f'(x)]^{2}=2f(x)+2\int_{0}^{x}[f'(t)]^{3}\,dt,\\f'(0)=1\end{gathered}`,
-    solution: math`\begin{gathered}x=0\implies f(0)=\frac{1}{2}\\2f'f''=2f'+2(f')^{3}\implies f''=1+(f')^{2}\\f'(x)=\tan\left(x+\frac{\pi}{4}\right)\\f(x)=\ln\sec\left(x+\frac{\pi}{4}\right)+\frac{1}{2}-\frac{1}{2}\ln 2\end{gathered}`,
+    solution: math`\begin{gathered}x=0\implies f(0)=\frac{1}{2}\\2f'f''=2f'+2(f')^{3}\\\implies f''=1+(f')^{2}\\f'(x)=\tan\left(x+\frac{\pi}{4}\right)\\f(x)=\ln\sec\left(x+\frac{\pi}{4}\right)\\+\frac{1}{2}-\frac{1}{2}\ln 2\end{gathered}`,
     explanation:
       "先令 x = 0 挖出隐藏初值 f(0) = 1/2，再对等式两边求导消去积分号，约去 2f' 后变成标准的不显含 y 二阶方程。",
     commonMistake: "忘记令 x = 0 从原积分方程中求 f(0)，导致最后定不出第二个积分常数 C₂。",
@@ -1070,7 +1070,7 @@ export const bankOdeLinearAndReducible = [
     title: "含参不显含 y 初值问题",
     prompt: "求微分方程 y'' − k(y')² = 0（k ≠ 0）满足初始条件 y(0) = 1, y'(0) = −1 的特解。",
     formula: math`y''-k(y')^{2}=0,\quad y|_{x=0}=1,\;y'|_{x=0}=-1`,
-    solution: math`\begin{gathered}p=y'\implies \frac{dp}{p^{2}}=k\,dx\\\implies -\frac{1}{p}=kx+C_{1}\\p(0)=-1\implies C_{1}=1,\quad y'=-\frac{1}{kx+1}\\y=1-\frac{1}{k}\ln(kx+1)\end{gathered}`,
+    solution: math`\begin{gathered}p=y'\implies \frac{dp}{p^{2}}=k\,dx\\\implies -\frac{1}{p}=kx+C_{1}\\p(0)=-1\implies C_{1}=1,\\y'=-\frac{1}{kx+1}\\y=1-\frac{1}{k}\ln(kx+1)\end{gathered}`,
     explanation:
       "不显含 y，令 p = y' 后分离变量立即算出 p = −1/(kx + 1)，再积分一次并利用 y(0) = 1 定出常数即可。",
     commonMistake: "对 −1/(kx + 1) 积分时漏除以系数 k，误写成 1 − ln(kx + 1)。",
@@ -1095,7 +1095,7 @@ export const bankOdeLinearAndReducible = [
     title: "三阶指数方程零初值特解",
     prompt: "求三阶微分方程 y''' = e^(kx)（k ≠ 0）满足初始条件 y(0) = y'(0) = y''(0) = 0 的特解。",
     formula: math`y'''=e^{kx},\quad y|_{0}=y'|_{0}=y''|_{0}=0`,
-    solution: math`\begin{gathered}y''=\frac{1}{k}(e^{kx}-1),\quad y'=\frac{1}{k^{2}}(e^{kx}-1)-\frac{x}{k}\\y=\frac{e^{kx}-1}{k^{3}}-\frac{x}{k^{2}}-\frac{x^{2}}{2k}\end{gathered}`,
+    solution: math`\begin{gathered}y''=\frac{1}{k}(e^{kx}-1),\\y'=\frac{1}{k^{2}}(e^{kx}-1)-\frac{x}{k}\\y=\frac{e^{kx}-1}{k^{3}}-\frac{x}{k^{2}}-\frac{x^{2}}{2k}\end{gathered}`,
     explanation:
       "每次都从 0 到 x 做变上限积分，就自动满足该阶导数在 x = 0 处为零，结果恰好是 e^(kx)/k³ 减去它在原点的前两阶泰勒展开。",
     commonMistake: "连续积分时漏掉把 e^(0) = 1 减掉，导致在 x = 0 处不满足零初值。",
@@ -1120,7 +1120,7 @@ export const bankOdeLinearAndReducible = [
     title: "指数型自治二阶方程初值特解",
     prompt: "求微分方程 y'' = 2e^(4y) 满足初始条件 y(0) = 0, y'(0) = 0 的特解。",
     formula: math`y''=2e^{4y},\quad y|_{x=0}=0,\;y'|_{x=0}=0`,
-    solution: math`\begin{gathered}(y')^{2}=e^{4y}-1\implies \frac{e^{-2y}\,dy}{\sqrt{1-e^{-4y}}}=\pm\,dx\\-\frac{1}{2}\arcsin(e^{-2y})=\pm x-\frac{\pi}{4}\\e^{-2y}=\cos 2x\implies y=-\frac{1}{2}\ln\cos 2x\end{gathered}`,
+    solution: math`\begin{gathered}(y')^{2}=e^{4y}-1\\\implies \frac{e^{-2y}\,dy}{\sqrt{1-e^{-4y}}}\\=\pm\,dx\\-\frac{1}{2}\arcsin(e^{-2y})=\pm x-\frac{\pi}{4}\\e^{-2y}=\cos 2x\\\implies y=-\frac{1}{2}\ln\cos 2x\end{gathered}`,
     explanation:
       "两边乘 2y' 后一次积分得 (y')² = e^(4y) − 1，分子分母同乘 e^(-2y) 就能凑出反正弦的导数结构。",
     commonMistake: "把 ∫dy/√(e^(4y) − 1) 换元时漏掉系数 −1/2，导致特解里出现 cos x 而非 cos 2x。",
@@ -1145,7 +1145,7 @@ export const bankOdeLinearAndReducible = [
     title: "根式型自治二阶方程初值特解",
     prompt: "求微分方程 y'' = 12√y 满足初始条件 y(0) = 1, y'(0) = 4 的特解。",
     formula: math`y''=12\sqrt{y},\quad y|_{x=0}=1,\;y'|_{x=0}=4`,
-    solution: math`\begin{gathered}2y'y''=24y'\sqrt{y}\implies (y')^{2}=16y^{\frac{3}{2}}+C_{1}\\y(0)=1,\;y'(0)=4\\\implies C_{1}=0,\;y'=4y^{\frac{3}{4}}\\4y^{\frac{1}{4}}=4x+4\implies y=(x+1)^{4}\end{gathered}`,
+    solution: math`\begin{gathered}2y'y''=24y'\sqrt{y}\\\implies (y')^{2}=16y^{\frac{3}{2}}+C_{1}\\y(0)=1,\;y'(0)=4\\\implies C_{1}=0,\;y'=4y^{\frac{3}{4}}\\4y^{\frac{1}{4}}=4x+4\implies y=(x+1)^{4}\end{gathered}`,
     explanation:
       "初值恰巧让第一个积分常数 C₁ = 0，省去了根式加常数的麻烦，再利用 y'(0) = 4 > 0 取正号，一次幂函数积分即得四次方。",
     commonMistake: "开方得到 y' = ±4y^(3/4) 后没有用 y'(0) = 4 > 0 舍去负号。",
@@ -1170,7 +1170,7 @@ export const bankOdeLinearAndReducible = [
     title: "双曲余弦对数特解的降阶初值问题",
     prompt: "求微分方程 y'' + 2(y')² = 2 满足初始条件 y(0) = 0, y'(0) = 0 的特解。",
     formula: math`y''+2(y')^{2}=2,\quad y|_{x=0}=0,\;y'|_{x=0}=0`,
-    solution: math`\begin{gathered}\frac{p\,dp}{1-p^{2}}=2\,dy\implies p=\pm\sqrt{1-e^{-4y}}\\\int_{0}^{y}\frac{e^{2t}\,dt}{\sqrt{e^{4t}-1}}=\pm x\implies e^{2y}=\cosh(2x)\\y=\frac{1}{2}\ln\frac{e^{2x}+e^{-2x}}{2}\end{gathered}`,
+    solution: math`\begin{gathered}\frac{p\,dp}{1-p^{2}}=2\,dy\\\implies p=\pm\sqrt{1-e^{-4y}}\\\int_{0}^{y}\frac{e^{2t}\,dt}{\sqrt{e^{4t}-1}}=\pm x\\\implies e^{2y}=\cosh(2x)\\y=\frac{1}{2}\ln\frac{e^{2x}+e^{-2x}}{2}\end{gathered}`,
     explanation:
       "两次分离变量分别用对数积分与双曲代换积分，最后把 e^(2y) + √(e^(4y) − 1) = e^(±2x) 与其倒数相加即得双曲余弦。",
     commonMistake: "解 ln(e^(2y) + √(e^(4y) − 1)) = ±2x 时忘记取倒数相加，卡在根式方程里解不出 y。",
@@ -1195,7 +1195,7 @@ export const bankOdeLinearAndReducible = [
     title: "由切线条件确定二阶方程积分曲线",
     prompt: "求微分方程 y'' = 6x 的经过点 P(0, 2) 且在该点与直线 y = 3x + 2 相切的积分曲线方程。",
     formula: math`y''=6x,\quad y|_{x=0}=2,\;y'|_{x=0}=3`,
-    solution: math`\begin{gathered}y'=3x^{2}+C_{1},\quad y'(0)=3\implies C_{1}=3\\y=x^{3}+3x+C_{2},\quad y(0)=2\implies C_{2}=2\\y=x^{3}+3x+2\end{gathered}`,
+    solution: math`\begin{gathered}y'=3x^{2}+C_{1},\quad y'(0)=3\\\implies C_{1}=3\\y=x^{3}+3x+C_{2},\quad y(0)=2\\\implies C_{2}=2\\y=x^{3}+3x+2\end{gathered}`,
     explanation:
       "在点 P 处与直线 y = 3x + 2 相切，就等于同时给了两个初值：函数值 y(0) = 2 和一阶导数值 y'(0) = 3。",
     commonMistake: "只用了过点 (0, 2) 的条件，漏掉了切线斜率 y'(0) = 3 这个一阶导数初值。",

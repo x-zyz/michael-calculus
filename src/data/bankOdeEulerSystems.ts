@@ -14,10 +14,7 @@ export const bankOdeEulerSystems = [
     title: "二阶齐次欧拉方程通解",
     prompt: "求欧拉方程 x²y'' + xy' - 9y = 0 在 x > 0 上的通解。",
     formula: math`x^2 y'' + x y' - 9y = 0 \quad (x>0)`,
-    solution: math`\begin{gathered}
-[D(D-1)+D-9]y=0 \Rightarrow r=\pm 3 \\
-y=C_1 x^3 + \frac{C_2}{x^3}
-\end{gathered}`,
+    solution: math`\begin{gathered}[D(D-1)+D-9]y=0\\\Rightarrow r=\pm 3\\y=C_1 x^3 + \frac{C_2}{x^3}\end{gathered}`,
     explanation: "令 x = e^t 把自变量从乘法尺度换成加法尺度，欧拉方程立刻变成熟悉的常系数线性方程。",
     commonMistake: "误把 x²y'' 直接写成 D²y，漏掉换元求导产生的 -Dy 项，导致特征方程错成 r²+r-9=0。",
     hints: [
@@ -103,11 +100,7 @@ y=x^2(C_1+C_2\ln x)+\frac{C_3}{x^3}
 x^2 y''-3xy'+3y=3\ln^2 x-2\ln x \\
 (x>0)
 \end{gathered}`,
-    solution: math`\begin{gathered}
-(D^2-4D+3)y=3t^2-2t \\
-y^*=t^2+2t+2 \\
-y=C_1 x+C_2 x^3+\ln^2 x+2\ln x+2
-\end{gathered}`,
+    solution: math`\begin{gathered}(D^2-4D+3)y=3t^2-2t\\y^*=t^2+2t+2\\y=C_1 x+C_2 x^3\\+\ln^2 x+2\ln x+2\end{gathered}`,
     explanation: "换元 t = ln x 后，右端的对数多项式立刻变成普通的 t 的二次多项式，直接用待定系数法设二次多项式特解即可。",
     commonMistake: "看到右端没有常数项就漏设特解里的常数项 C，结果比较系数时常数项无法抵消。",
     hints: [
@@ -162,12 +155,7 @@ y=C_1 x^2+\frac{C_2}{x^3}+x^4
 x^2 y''-3xy'+8y=3x^2\cos(\ln x) \\
 (x>0)
 \end{gathered}`,
-    solution: math`\begin{gathered}
-(D^2-4D+8)y=3e^{2t}\cos t \\
-r_{1,2}=2\pm 2i,\quad y^*=x^2\cos(\ln x) \\
-y=x^2[C_1\cos(2\ln x)+C_2\sin(2\ln x)] \\
-+x^2\cos(\ln x)
-\end{gathered}`,
+    solution: math`\begin{gathered}(D^2-4D+8)y=3e^{2t}\cos t\\r_{1,2}=2\pm 2i,\quad y^*=x^2\cos(\ln x)\\y=x^2[C_1\cos(2\ln x)\\+C_2\sin(2\ln x)]\\+x^2\cos(\ln x)\end{gathered}`,
     explanation: "换元后 x²cos(ln x) 化作 e^{2t}cos t，虽然指数 2 与复特征根实部相同，但角频率 1 不等于虚部 2，所以不共振。",
     commonMistake: "只看到指数 2 等于特征根实部 2 就误判共振并多乘了 t；判断是否共振必须同时比较实部和虚部 2 + i 与 2 ± 2i。",
     hints: [
@@ -382,11 +370,7 @@ y=-6C_1 e^{2t}-C_2 e^{-3t} \\
 \dfrac{dx}{dt}+6x+\dfrac{dy}{dt}+y=2t, \\[6pt]
 8x+\dfrac{dy}{dt}+2y=4t^2.
 \end{cases}`,
-    solution: math`\begin{gathered}
-y=C_1\cos 2t+C_2\sin 2t+6t^2-2t-3, \\
-x=-\frac{C_1+C_2}{4}\cos 2t \\
-+\frac{C_1-C_2}{4}\sin 2t-t^2-t+1.
-\end{gathered}`,
+    solution: math`\begin{gathered}y=C_1\cos 2t\\+C_2\sin 2t+6t^2-2t-3,\\x=-\frac{C_1+C_2}{4}\cos 2t\\+\frac{C_1-C_2}{4}\sin 2t-t^2-t+1.\end{gathered}`,
     explanation: "先消去只含一处导数的 x 更容易：算子行列式恰好消掉一阶项留下 (D²+4)y，求出 y 后从第二式一步反解 x。",
     commonMistake: "回代第二式求 x = (1/8)[4t² - (D + 2)y] 时漏掉乘 1/8，或忘记对 C₁cos 2t + C₂sin 2t 求导产生的符号变化。",
     hints: [
