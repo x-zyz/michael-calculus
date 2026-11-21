@@ -10,6 +10,11 @@ import { tongjiPractice } from "./tongjiPractice";
 import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
 import { tongjiChapterOneReview } from "./tongjiChapterOneReview";
 import { tongjiDerivativeConcept } from "./tongjiDerivativeConcept";
+import { tongjiDerivativeRules } from "./tongjiDerivativeRules";
+import { tongjiHigherDerivatives } from "./tongjiHigherDerivatives";
+import { tongjiImplicitParam } from "./tongjiImplicitParam";
+import { tongjiDifferentials } from "./tongjiDifferentials";
+import { tongjiChapterTwoReview } from "./tongjiChapterTwoReview";
 import { tongjiClosedContinuity, tongjiDiscontinuities } from "./tongjiContinuity";
 import { tongjiContinuousOperations } from "./tongjiContinuousOperations";
 import { tongjiImportantLimits } from "./tongjiImportantLimits";
@@ -769,7 +774,7 @@ topicLabels.set("marginal_cost", "边际成本与实际增量");
 
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity, ...tongjiChapterOneReview, ...tongjiDerivativeConcept].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity, ...tongjiChapterOneReview, ...tongjiDerivativeConcept, ...tongjiDerivativeRules, ...tongjiHigherDerivatives, ...tongjiImplicitParam, ...tongjiDifferentials, ...tongjiChapterTwoReview].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),

@@ -406,7 +406,7 @@ it("reconciles the Tongji inventory with the installed bank and KaTeX output", (
   for (const p of exercises) {
     if (!("kind" in p)) throw new Error("Missing written exercise " + p.id);
     expect(p.source, p.id).toBeTruthy();
-    if (/^jc935-(?:1-(?:[4-9]|10|review)|2-1)-/.test(p.id)) expect(p.commonMistake, p.id).toBeTruthy();
+    if (/^jc935-(?:1-(?:[4-9]|10|review)|[2-7]-|exam-)/.test(p.id)) expect(p.commonMistake, p.id).toBeTruthy();
     for (const formula of [p.formula, p.solution]) {
       expect(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), p.id).not.toThrow();
     }
