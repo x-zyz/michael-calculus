@@ -1,4 +1,5 @@
 import katex from "katex";
+import tongjiInventory from "../../docs/tongji/inventory.json";
 import { riemannSum, accumulationSlope } from "../data/integrals";
 import {chooseSelect,completeReading} from './ui';
 import { describe, it, expect, vi } from "vitest";
@@ -390,23 +391,25 @@ it("assigns each written exercise to a real lesson and error topic", () => {
 });
 
 
-it("covers every printed exercise item in Tongji 1-1 to 1-3", () => {
-  const itemCounts = [
-    [10, 4, 0, 2, 2, 2, 0, 2, 6, 5, 6, 5, 4, 2, 0, 0, 2, 0],
-    [8, 3, 4, 0, 4, 0, 0, 0],
-    [3, 6, 8, 2, 4, 2, 0, 0, 0, 0, 0, 0],
-  ];
-  const expected = itemCounts.flatMap((counts, section) => counts.flatMap((count, index) => {
-    const id = "jc935-1-" + (section + 1) + "-" + (index + 1);
-    return count === 0 ? [id] : Array.from({ length: count }, (_, part) => id + "-" + (part + 1));
-  }));
-  const exercises = problems.filter(({ id }) => id.startsWith("jc935-1-"));
-  expect(exercises.map(({ id }) => id)).toEqual(expected);
+
+it("reconciles the Tongji inventory with the installed bank and KaTeX output", () => {
+  const { sections, items } = tongjiInventory;
+  expect(new Set(sections.map(({ id }) => id)).size).toBe(sections.length);
+  expect(new Set(items.map(({ id }) => id)).size).toBe(items.length);
+  for (const item of items) {
+    expect(sections.find(({ id }) => id === item.section)?.inventory, item.id).toBe("enumerated");
+    expect(item.appIds.length > 0, item.id).toBe(item.status === "integrated");
+  }
+  const integrated = items.filter(({ status }) => status === "integrated");
+  const exercises = problems.filter(({ id }) => id.startsWith("jc935-"));
+  expect(exercises.map(({ id }) => id).sort()).toEqual(integrated.flatMap(({ appIds }) => appIds).sort());
   for (const p of exercises) {
     if (!("kind" in p)) throw new Error("Missing written exercise " + p.id);
     expect(p.source, p.id).toBeTruthy();
+    if (p.id.startsWith("jc935-1-4-")) expect(p.commonMistake, p.id).toBeTruthy();
     for (const formula of [p.formula, p.solution]) {
       expect(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), p.id).not.toThrow();
     }
   }
+  expect(integrated.filter(({ section }) => section === "1-4")).toHaveLength(33);
 });

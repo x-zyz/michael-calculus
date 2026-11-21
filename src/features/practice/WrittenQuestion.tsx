@@ -51,6 +51,7 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
           <p>{problem.explanation}</p>
           <ol>{problem.steps.map((step) => <li key={step}>{step}</li>)}</ol>
           <Formula value={problem.solution} />
+          {problem.commonMistake && <p><strong>易错点</strong>{' '}{problem.commonMistake}</p>}
           {problem.graph && <ReferenceGraph graph={problem.graph} />}
           {result === null ? (
             <div className="learning-actions">
