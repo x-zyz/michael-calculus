@@ -8,6 +8,7 @@ export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
 import { tongjiPractice } from "./tongjiPractice";
 import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
+import { tongjiLimitLaws } from "./tongjiLimitLaws";
 import { tongjiInfinitesimals } from "./tongjiInfinitesimals";
 import { tongjiFunctionLimits } from "./tongjiFunctionLimits";
 import { tongjiFunctionsAndSequences } from "./tongjiFunctionsAndSequences";
@@ -758,7 +759,7 @@ topicLabels.set("function_limit_definition", "函数极限定义与误差估计"
 topicLabels.set("infinite_limits", "无穷小、无穷大与极限定义");
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
