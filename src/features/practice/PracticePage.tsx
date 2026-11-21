@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, List } from "lucide-react";
-import { chapters, lessons, problems, errorTags, practiceDifficultyLabels, type PracticeDifficulty } from "../../data/learning";
+import { chapters, lessons, problems, errorTags, practiceDifficultyLabels, writtenProblemKinds, type PracticeDifficulty, type WrittenProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import { Button, Sheet, ChipRow, Chip, Tabs, EmptyState } from "../../components/ui";
 import StudyHeading from "../../components/StudyHeading";
@@ -39,6 +39,7 @@ function PracticeQuestions() {
   const [chapter, setChapter] = useState(Number(query.get("chapter")) || 0);
   const [tag, setTag] = useState(query.get("tag") || "");
   const [difficulty, setDifficulty] = useState<PracticeDifficulty | "">("");
+  const [kind, setKind] = useState<WrittenProblem["kind"] | "数值题" | "">("");
   const lesson = query.get("lesson");
   const list = problems.filter(
     (p) =>
@@ -46,6 +47,7 @@ function PracticeQuestions() {
       (!chapter ||
         lessons.find((l) => l.id === p.lessonId)?.chapter === chapter) &&
       (!tag || p.errorTag === tag) &&
+      (!kind || ("kind" in p ? p.kind : "数值题") === kind) &&
       (!difficulty || (p.difficulty ?? "basic") === difficulty),
   );
   const [id, setId] = useState(query.get("problem"));
@@ -101,6 +103,12 @@ function PracticeQuestions() {
               <Chip key={level} selected={difficulty === level} onClick={() => setDifficulty(level)}>
                 {practiceDifficultyLabels[level]}
               </Chip>
+            ))}
+          </ChipRow>
+          <ChipRow label="按题型筛选">
+            <Chip selected={!kind} onClick={() => setKind("")}>全部题型</Chip>
+            {(["数值题", ...writtenProblemKinds] as const).map((value) => (
+              <Chip key={value} selected={kind === value} onClick={() => setKind(value)}>{value}</Chip>
             ))}
           </ChipRow>
           <ChipRow label="按章节筛选">

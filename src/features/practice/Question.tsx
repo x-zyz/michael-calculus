@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { problems, checkAnswer, practiceDifficultyLabels } from "../../data/learning";
+import { checkAnswer, practiceDifficultyLabels, type Problem, type NumericProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
 import { StuckButton } from "../formulas/FormulaActions";
 import { Button, Card, InfoTip } from "../../components/ui";
-export default function Question({
-  problem: p,
-}: {
-  problem: (typeof problems)[number];
-}) {
+import WrittenQuestion from "./WrittenQuestion";
+
+export default function Question({ problem }: { problem: Problem }) {
+  return "answer" in problem
+    ? <NumericQuestion problem={problem} />
+    : <WrittenQuestion problem={problem} />;
+}
+
+function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const { state, save } = useLearning();
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState(0);

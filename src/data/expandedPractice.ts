@@ -1,12 +1,12 @@
-import type { Problem } from "./learning";
+import type { NumericProblem } from "./learning";
 
 const math = String.raw;
 
 export function exercise(
-  id: string, lessonId: string, difficulty: NonNullable<Problem["difficulty"]>,
+  id: string, lessonId: string, difficulty: NonNullable<NumericProblem["difficulty"]>,
   title: string, formula: string, answer: number, errorTag: string,
   hints: [string, string, string], explanation: string,
-): Omit<Problem, "errorLabel"> {
+): Omit<NumericProblem, "errorLabel"> {
   return { id, lessonId, difficulty, title, formula, answer, errorTag, hints, explanation, unit: "请输入数值或分数" };
 }
 

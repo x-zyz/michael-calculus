@@ -46,6 +46,7 @@ test.describe('phone layout', () => {
     await page.goto('/#/practice');
     for (let i = 1; i <= problems.length; i++) {
       await chooseProblem(page,i);
+      if ("kind" in problems[i - 1]) await page.getByRole("button", { name: "查看分步解析" }).click();
       issues.push(...(await layoutProblems(page)).map(p => `problem ${i} ${p}`));
     }
     expect(issues).toEqual([]);

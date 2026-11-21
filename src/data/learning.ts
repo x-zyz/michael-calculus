@@ -7,6 +7,7 @@ import { differentialEquationsLessons, differentialEquationsProblems } from "./d
 export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
 import { tongjiPractice } from "./tongjiPractice";
+import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
 
 export interface Lesson {
   definitionExplanation: string;
@@ -275,20 +276,34 @@ export const practiceDifficultyLabels = {
 } as const;
 export type PracticeDifficulty = keyof typeof practiceDifficultyLabels;
 
-export interface Problem {
+interface ProblemDetails {
   difficulty?: PracticeDifficulty;
   formulaIds?: string[];
   id: string;
   lessonId: string;
   title: string;
   formula: string;
-  answer: number;
-  unit: string;
   hints: string[];
   explanation: string;
   errorTag: string;
   errorLabel: string;
 }
+export type NumericProblem = ProblemDetails & { answer: number; unit: string };
+export const writtenProblemKinds = ["证明题", "作图题", "推导题"] as const;
+export type WrittenProblem = ProblemDetails & {
+  kind: (typeof writtenProblemKinds)[number];
+  prompt: string;
+  steps: [string, string, string];
+  solution: string;
+  graph?: {
+    bounds: [number, number, number, number];
+    branches: [number, number][];
+    fn: (x: number) => number;
+    description: string;
+  };
+};
+export type Problem = NumericProblem | WrittenProblem;
+
 const baseProblems: Problem[] = [
   {
     id: "p1",
@@ -727,7 +742,7 @@ topicLabels.set("implicit_derivative", "隐函数求导");
 topicLabels.set("integral_work", "力随位移变化时的功");
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),

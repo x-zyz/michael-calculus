@@ -362,6 +362,28 @@ it("links the fifth chapter to its own volume experiment and chapter practice", 
   expect(screen.getByText("右端截面积 0.0000 · 累积体积 0.0000")).toBeVisible();
   fireEvent.click(screen.getByRole("tab", { name: "练习" }));
   fireEvent.click(screen.getByRole("link", { name: /开始练习/ }));
-  expect(screen.getByText("第 1 / 3 题 · 第5章")).toBeVisible();
+  expect(screen.getByText("第 1 / 4 题 · 第5章")).toBeVisible();
   expect(screen.getByRole("heading", { name: "由截面积函数求体积" })).toBeVisible();
+});
+
+it("reveals a reference plot and records only an explicit written self-assessment", () => {
+  mount("/practice?problem=p220");
+  expect(screen.queryByRole("textbox", { name: /数值/ })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "查看分步解析" }));
+  expect(screen.getByRole("img", { name: /四次函数参考图/ })).toBeVisible();
+  expect(screen.queryByRole("tab", { name: /错题 \(1\)/ })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "加入错题" }));
+  fireEvent.click(screen.getByRole("tab", { name: /错题 \(1\)/ }));
+  fireEvent.click(screen.getByRole("button", { name: "最近 20 次作答" }));
+  expect(screen.getByText(/你的答案：自评：还需复习/)).toBeVisible();
+});
+
+it("assigns each written exercise to a real lesson and error topic", () => {
+  const written = problems.filter((problem) => "kind" in problem);
+  expect(written.length).toBeGreaterThan(40);
+  for (const problem of written) {
+    expect(lessons.some(({ id }) => id === problem.lessonId), problem.id).toBe(true);
+    expect(problem.errorLabel, problem.id).toBeTruthy();
+  }
+  expect(new Set(problems.map(({ id }) => id)).size).toBe(problems.length);
 });
