@@ -28,7 +28,7 @@ test.describe('phone layout', () => {
 
   test('pages, all lessons and problems fit a 360px screen with readable text', async ({ page }) => {
     // Covers every lesson step and exercise, including the revealed written solutions.
-    test.setTimeout(180000);
+    test.setTimeout(600000);
     const issues: string[] = [];
     for (const url of ['/#/', '/#/experiments', '/#/practice', '/#/review', '/#/assistant']) {
       await page.goto(url);

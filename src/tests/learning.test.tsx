@@ -247,7 +247,7 @@ describe("limit and derivative learning", () => {
       }),
     ).toBeVisible();
     rev.unmount();
-  });
+  }, 20000);
   it("grades new second-important-limit, infinitesimal, and derivative problems", () => {
     const v = mount("/practice?problem=p8");
     fireEvent.change(screen.getByLabelText("请输入指数 k 的数值或分数"), {
@@ -442,6 +442,7 @@ it("reconciles the calculus bank inventory with the installed bank and KaTeX out
   expect(integrated.filter(({ section }) => section === "4-review")).toHaveLength(45);
   expect(integrated.filter(({ section }) => section === "5-1")).toHaveLength(33);
   expect(integrated.filter(({ section }) => section === "5-2")).toHaveLength(37);
+  expect(integrated.filter(({ section }) => section === "5-3")).toHaveLength(45);
   expect(integrated.filter(({ section }) => section === "5-4")).toHaveLength(14);
   expect(integrated.filter(({ section }) => section === "5-5")).toHaveLength(16);
   expect(integrated.filter(({ section }) => section === "5-review")).toHaveLength(46);
@@ -456,4 +457,8 @@ it("reconciles the calculus bank inventory with the installed bank and KaTeX out
   expect(integrated.filter(({ section }) => section === "7-6")).toHaveLength(22);
   expect(integrated.filter(({ section }) => section === "7-7")).toHaveLength(20);
   expect(integrated.filter(({ section }) => section === "7-8")).toHaveLength(19);
+  expect(integrated.filter(({ section }) => section === "7-9")).toHaveLength(8);
+  expect(integrated.filter(({ section }) => section === "7-10")).toHaveLength(12);
+  expect(integrated.filter(({ section }) => section === "7-review")).toHaveLength(32);
+  expect(integrated.filter(({ section }) => section === "exam-1")).toHaveLength(23);
 });
