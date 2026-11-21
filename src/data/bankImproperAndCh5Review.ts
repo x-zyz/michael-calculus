@@ -1018,7 +1018,7 @@ export const bankImproperAndCh5Review = [
     difficulty: "challenge",
     title: "带权柯西-施瓦茨积分不等式",
     prompt: "设 f(x)、g(x)、w(x) 在 [a,b] 上连续且 w(x)>0，证明下面的带权柯西-施瓦茨不等式。",
-    formula: math`\begin{gathered}\left(\int_{a}^{b}w(x)f(x)g(x)\,dx\right)^{2}\\\le\left(\int_{a}^{b}w(x)f^{2}(x)\,dx\right)\left(\int_{a}^{b}w(x)g^{2}(x)\,dx\right)\end{gathered}`,
+    formula: math`\begin{gathered}\left(\int_{a}^{b}w(x)f(x)g(x)\,dx\right)^{2}\\\le\left(\int_{a}^{b}w(x)f^{2}(x)\,dx\right)\\\cdot\left(\int_{a}^{b}w(x)g^{2}(x)\,dx\right)\end{gathered}`,
     solution: math`\begin{gathered}\forall\lambda\in\mathbb{R},\\\int_{a}^{b}w(x)\bigl[f(x)\\+\lambda g(x)\bigr]^{2}\,dx\ge 0\\\Rightarrow A\lambda^{2}+2B\lambda+C\ge 0\\\text{判别式 }\Delta=4(B^{2}-AC)\le 0\\\Rightarrow B^{2}\le AC\end{gathered}`,
     explanation: "构造一个恒非负的带权完全平方积分，展开成关于参数 λ 的二次三项式，判别式 Δ≤0 一步锁死不等式。",
     commonMistake: "忘记说明当二次项系数 A=∫ w g² dx = 0 时不等式平凡成立，直接套判别式。",
