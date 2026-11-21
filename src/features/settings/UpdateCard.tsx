@@ -1,11 +1,15 @@
 import { Capacitor, registerPlugin } from "@capacitor/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { version } from "../../../package.json";
 import { Button, Card, Sheet } from "../../components/ui";
 
 type Update = { version: string; size: number; sequence: number };
 type UpdateCheck = Partial<Update> & { installed: string; status: string };
 type PluginError = { code?: string; message?: string };
+type BeforeInstallPromptEvent = Event & {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+};
 
 const updates = registerPlugin<{
   check(): Promise<UpdateCheck>;
@@ -20,7 +24,48 @@ export default function UpdateCard() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const [permission, setPermission] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent>();
+  const [pwaMessage, setPwaMessage] = useState("");
   const android = Capacitor.getPlatform() === "android" && Capacitor.isPluginAvailable("AppUpdates");
+
+  useEffect(() => {
+    if (android || typeof window === "undefined") return;
+    const onPrompt = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener("beforeinstallprompt", onPrompt);
+    return () => window.removeEventListener("beforeinstallprompt", onPrompt);
+  }, [android]);
+
+  async function installPwa() {
+    if (!installPrompt) return;
+    await installPrompt.prompt();
+    const choice = await installPrompt.userChoice;
+    if (choice.outcome === "accepted") {
+      setInstallPrompt(undefined);
+      setPwaMessage("已添加到主屏幕，可离线独立运行。");
+    }
+  }
+
+  async function refreshPwaCache() {
+    setPwaMessage("");
+    if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) {
+      setPwaMessage("当前浏览器环境未启用离线 Service Worker。");
+      return;
+    }
+    try {
+      const reg = await navigator.serviceWorker.getRegistration();
+      if (reg) {
+        await reg.update();
+        setPwaMessage("已检查并同步最新离线缓存，刷新页面即可生效。");
+      } else {
+        setPwaMessage("离线缓存将在首次生产环境加载后自动启用。");
+      }
+    } catch {
+      setPwaMessage("离线缓存刷新失败，请检查网络连接后重试。");
+    }
+  }
 
   async function check() {
     setBusy("check");
@@ -76,7 +121,13 @@ export default function UpdateCard() {
           setOpen(true);
           if (android && !busy && !latest) void check();
         }}>检查更新</Button>
+        {!android && installPrompt && (
+          <Button variant="primary" onClick={() => void installPwa()}>
+            安装桌面应用 (PWA)
+          </Button>
+        )}
       </div>
+      {!android && pwaMessage && <p role="status">{pwaMessage}</p>}
       <Sheet open={open} title="应用更新" onClose={() => setOpen(false)}>
         {android ? (
           <>
@@ -98,8 +149,17 @@ export default function UpdateCard() {
           </>
         ) : (
           <>
-            <p>应用内安装适用于 Android 正式版。</p>
-            <a href={releasePage}>查看 GitHub 正式版</a>
+            <p>应用内安装适用于 Android 正式版。Web / PWA 端可通过浏览器菜单「添加到主屏幕」离线安装使用。</p>
+            {pwaMessage && <p role="status">{pwaMessage}</p>}
+            <div className="learning-actions">
+              {installPrompt && (
+                <Button variant="primary" onClick={() => void installPwa()}>
+                  安装桌面应用 (PWA)
+                </Button>
+              )}
+              <Button onClick={() => void refreshPwaCache()}>刷新离线缓存</Button>
+              <a href={releasePage}>查看 GitHub 正式版</a>
+            </div>
           </>
         )}
       </Sheet>

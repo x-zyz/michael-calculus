@@ -1,6 +1,6 @@
 # Michael calculus
 
-面向大学生的离线交互式高等数学学习平台（Web + Capacitor Android APK）。让极限、导数、积分与级数看得见、练得会、记得住。
+面向大学生的离线交互式高等数学学习平台（PWA 离线网页应用 + Capacitor Android APK）。让极限、导数、积分与级数看得见、练得会、记得住。
 
 - **最新正式版与更新记录**：[GitHub Releases](https://github.com/x-zyz/michael-calculus/releases)
 - **离线优先**：内置本地 KaTeX 字体与莫奈公有领域画作，无需登录即可完整学习，数据保存在本机。
@@ -28,8 +28,8 @@
 
 ## 下载与使用
 
+- **PWA 离线网页版**：支持 iOS / iPadOS（Safari「分享 → 添加到主屏幕」）、Android 与桌面浏览器（Chrome / Edge 地址栏或设置页「安装桌面应用 (PWA)」）一键安装到主屏幕，由 Service Worker 预缓存全部课程、题库、KaTeX 字体与莫奈画作，断网亦可完整使用。每个 Release 同时提供 `Michael-calculus-<version>-pwa.zip` 离线静态包，解压即可部署到任意静态托管服务（相对路径 + Hash 路由，无需服务端重写）。
 - **Android APK**：前往 [Releases](https://github.com/x-zyz/michael-calculus/releases) 下载最新签名版 `Michael-calculus-<version>.apk`（支持 Android 8.0+，使用固定证书签名可直接覆盖升级）。
-- **Web 端**：本地运行 `npm run dev` 或将 `npm run build` 生成的 `dist/` 部署到任意静态托管服务（使用 Hash 路由，无需服务端重写）。
 
 ---
 

@@ -82,19 +82,22 @@ jobs:
         run: |
           VERSION="${RELEASE_TAG#v}"
           cp android/app/build/outputs/apk/release/app-release.apk "Michael-calculus-${VERSION}.apk"
+          (cd dist && zip -qr "../Michael-calculus-${VERSION}-pwa.zip" .)
           git archive --format=zip --prefix="Michael-calculus/" -o "Michael-calculus-${VERSION}-source.zip" HEAD
-          sha256sum "Michael-calculus-${VERSION}.apk" "Michael-calculus-${VERSION}-source.zip" > SHA256SUMS.txt
+          sha256sum "Michael-calculus-${VERSION}.apk" "Michael-calculus-${VERSION}-pwa.zip" "Michael-calculus-${VERSION}-source.zip" > SHA256SUMS.txt
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           generate_release_notes: true
           body: |
             App Hub 登录使用系统浏览器的自定义标签页，支持登录后返回应用。
+            离线 PWA 网页版：支持添加到 iOS / Android / 桌面主屏幕并完整离线使用（亦可下载 `Michael-calculus-*-pwa.zip` 自建静态托管）。
             固定签名正式包：已核对仓库中锁定的唯一证书、包名和版本，后续正式版本使用同一签名覆盖更新。
             历史 v0.5/v0.6 随机调试签名与此证书不同，不能直接覆盖；请先保留旧版，按 docs/android-signing.md 只读备份并导入数据，不要在备份验证前卸载。
             本次不包含 Android 真机迁移验收；自动化检查通过不等于已经操作过用户手机。
           files: |
             Michael-calculus-*.apk
+            Michael-calculus-*-pwa.zip
             Michael-calculus-*-source.zip
             SHA256SUMS.txt
       - name: Remove temporary private key
