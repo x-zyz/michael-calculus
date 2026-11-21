@@ -406,7 +406,7 @@ it("reconciles the Tongji inventory with the installed bank and KaTeX output", (
   for (const p of exercises) {
     if (!("kind" in p)) throw new Error("Missing written exercise " + p.id);
     expect(p.source, p.id).toBeTruthy();
-    if (/^jc935-1-[4-7]-/.test(p.id)) expect(p.commonMistake, p.id).toBeTruthy();
+    if (/^jc935-1-(?:[4-9]|10)-/.test(p.id)) expect(p.commonMistake, p.id).toBeTruthy();
     for (const formula of [p.formula, p.solution]) {
       expect(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), p.id).not.toThrow();
     }
@@ -415,4 +415,7 @@ it("reconciles the Tongji inventory with the installed bank and KaTeX output", (
   expect(integrated.filter(({ section }) => section === "1-5")).toHaveLength(29);
   expect(integrated.filter(({ section }) => section === "1-6")).toHaveLength(17);
   expect(integrated.filter(({ section }) => section === "1-7")).toHaveLength(13);
+  expect(integrated.filter(({ section }) => section === "1-8")).toHaveLength(14);
+  expect(integrated.filter(({ section }) => section === "1-9")).toHaveLength(25);
+  expect(integrated.filter(({ section }) => section === "1-10")).toHaveLength(9);
 });

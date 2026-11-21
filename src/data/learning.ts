@@ -8,6 +8,8 @@ export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
 import { tongjiPractice } from "./tongjiPractice";
 import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
+import { tongjiClosedContinuity, tongjiDiscontinuities } from "./tongjiContinuity";
+import { tongjiContinuousOperations } from "./tongjiContinuousOperations";
 import { tongjiImportantLimits } from "./tongjiImportantLimits";
 import { tongjiLimitLaws } from "./tongjiLimitLaws";
 import { tongjiInfinitesimals } from "./tongjiInfinitesimals";
@@ -758,9 +760,10 @@ topicLabels.set("sequence_limit_definition", "数列极限定义与证明");
 topicLabels.set("sequence_convergence", "数列收敛与发散");
 topicLabels.set("function_limit_definition", "函数极限定义与误差估计");
 topicLabels.set("infinite_limits", "无穷小、无穷大与极限定义");
+topicLabels.set("intermediate_value", "介值定理与零点定理");
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
