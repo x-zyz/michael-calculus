@@ -3,7 +3,7 @@ import type { Lesson, Problem } from "./learning";
 export const differentialEquationsLessons: Lesson[] = [
   {
     id: "ode-basics",
-    definitionExplanation: "普通代数方程求一个数，微分方程求一个函数。方程描述它怎样变化，初始条件用来从许多可能的曲线中挑出符合要求的一条。",
+    definitionExplanation: "给你一条规则：小车从静止出发，速度每秒都增加一点。我们想知道它在每个时刻都走到了哪里。给出变化规则和出发状态，再找整条运动路线，就是微分方程在做的事。",
     chapter: 8,
     title: "微分方程、阶数与初值",
     intuition: "当关系式直接约束导数时，未知量是整条函数曲线。附加初值用来从解族中选出符合起点条件的解。",
@@ -19,7 +19,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "separable-odes",
-    definitionExplanation: "把含 y 的量和含 x 的量分到两边再积分。若分离时除以了一个含 y 的因子，先检查让因子为零的常值解。",
+    definitionExplanation: "有些变化规则可以把跟时间有关的东西放一边，把跟当前数量有关的东西放另一边，就能分别把变化加起来。分开之前，先检查数量一直为零时是不是本来就符合规则，别把它除没了。",
     chapter: 8,
     title: "可分离变量的一阶方程",
     intuition: "把含 y 的因子和含 x 的因子分到两边，就能分别积分。",
@@ -35,7 +35,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "homogeneous-first-order",
-    definitionExplanation: "若斜率只由 y/x 决定，沿原点发出的同一条射线斜率相同。把这个比值记成 u，再用 y＝xu 把方程改写。",
+    definitionExplanation: "从原点拉一条斜线，线上每一点的高度和横向距离的比都一样，比如都是 2。若规则只看这个比，沿整条线都会用同一个数。给这个比取个短名字，就能把原来的方程改写得更好解。",
     chapter: 8,
     title: "一阶齐次微分方程",
     intuition: "当右边只依赖 y/x，可以用斜率变量 u=y/x 表示方程。",
@@ -51,7 +51,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "linear-first-order",
-    definitionExplanation: "给方程两边乘上专门选的函数，让左边变成一个乘积的导数。这样只需积分一次，就能求出这个乘积。",
+    definitionExplanation: "知道一桶水每分钟多了多少，就能倒推出一段时间里总共多了多少。这里先给方程两边乘一个挑好的式子，把左边凑成「某个乘积变得有多快」。知道了变化有多快，就可以用积分找回那个乘积。",
     chapter: 8,
     title: "一阶线性微分方程与积分因子",
     intuition: "乘以积分因子后，左侧两个项正好合成一个乘积的导数。",
@@ -67,7 +67,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "bernoulli-ode",
-    definitionExplanation: "这类方程多了一个 y 的幂。选合适的幂作为新变量后，新方程可以变成一阶线性方程。",
+    definitionExplanation: "如果原式里同时出现了 y 和 y²，直接追踪 y 可能很麻烦。换个问法，改追踪它的倒数。这种题里，倒数的变化规则可以写成一阶线性方程，更容易求解。",
     chapter: 8,
     title: "伯努利方程的线性化",
     intuition: "带有 y 的幂次的非线性方程，可以用一个幂函数作为新未知量。",
@@ -83,7 +83,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "ode-order-reduction",
-    definitionExplanation: "降阶是先把某个导数看成新未知量。先解这个新未知量满足的较低阶方程，再还原原函数并用初始条件定常数。",
+    definitionExplanation: "想知道小车到了哪，如果题目直接告诉你加速度怎样变，可以先只问速度怎样变。速度找到了，再把速度积起来得到位置。每往回算一步，就用一个初始读数来定住答案。",
     chapter: 8,
     title: "可降阶的高阶微分方程",
     intuition: "方程缺少某个变量时，可以通过逐次积分或把导数当作新未知量，降低需要处理的阶数。",
@@ -99,7 +99,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "homogeneous-second-order",
-    definitionExplanation: "试把指数函数放进常系数方程，求导会把指数函数乘上一个常数，于是微分方程变成关于这个常数的代数方程。",
+    definitionExplanation: "试想一种每秒按固定倍数长大的曲线。它的变化速度仍然是同样的形状，只多乘一个数。把这样的曲线代进方程，就能先解那个数，再拼出整条曲线。",
     chapter: 8,
     title: "二阶常系数齐次线性微分方程",
     intuition: "指数函数求导后仍保留同一个指数。代入方程，可以把微分问题变成求根问题。",
@@ -115,7 +115,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "nonhomogeneous-second-order",
-    definitionExplanation: "把解分成两部分：一部分响应右侧的外部输入，另一部分是系统自身的自由变化。两者相加，再满足初始条件。",
+    definitionExplanation: "推秋千时，运动一部分来自你一直在推，一部分来自它原本就有的摆动。线性方程里这两部分可以相加。先找一个能应付外力的运动，再加上自由摆动，使起步状态符合题目。",
     chapter: 8,
     title: "二阶常系数非齐次方程",
     intuition: "先找出一个能产生右端输入的特解，再加上齐次方程的所有自由响应。",
@@ -131,7 +131,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "growth-models",
-    definitionExplanation: "指数增长假设增长率一直和当前规模成正比。逻辑斯谛模型再乘一个随规模上升而变小的因子，体现资源有限。",
+    definitionExplanation: "鱼池里鱼越多，起初生出的小鱼可能越多。但池子快住满时，食物不够，鱼群长得就慢了。逻辑斯谛模型把这两件事一起算进去。",
     chapter: 8,
     title: "国内生产总值预测与逻辑斯谛增长",
     intuition: "固定比例的增长给出指数曲线。若增长越来越受资源约束，可用逻辑斯谛方程描述增长逐步减慢。",
@@ -147,7 +147,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "rate-and-pollution-models",
-    definitionExplanation: "先列清当前存量的变化率：流入多少、流出多少。按当前存量成比例流出时，长期稳定值出现在两种速率平衡的位置。",
+    definitionExplanation: "水桶一边加水一边漏水。每分钟进多少减掉漏多少，就是水量此刻的变化速度。如果两边一样多，水量就保持原样。污染物的流入和清除也能这样记账。",
     chapter: 8,
     title: "无风险利率与污染累积模型",
     intuition: "一个量同时受到外部输入与回落机制影响时，可以用同一个一阶线性方程描述向平衡靠近的过程。",
@@ -163,7 +163,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "first-order-differences",
-    definitionExplanation: "差分方程按一期一期递推。若每期都乘同一个倍率、再加固定常数，可以先找稳定值，再看每期与稳定值的差如何变化。",
+    definitionExplanation: "今天有 4 颗糖，明天先剩下一半，再放进 6 颗，就变成 8 颗。每天都用同一条规则算下一天，就是差分方程。想找不再改变的数量，就问多少糖按这个规则算完还是原来的数。",
     chapter: 8,
     title: "差分与一阶常系数线性方程",
     intuition: "时间按期推进时，用下一期减这一期描述变化。递推式可以给出任意期的数值。",
@@ -179,7 +179,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "second-order-differences",
-    definitionExplanation: "下一项同时由前两项决定，所以通常需要给出两个初值。试用等比形式代入，就能把递推关系转成特征方程。",
+    definitionExplanation: "如果明天的数要用今天和昨天两个数一起算，只知道今天就还不够。给出前两天的数，就可以一天一天往后推。这就是二阶差分方程为什么通常需要两个初值。",
     chapter: 8,
     optional: true,
     title: "二阶常系数线性差分方程",
@@ -196,7 +196,7 @@ export const differentialEquationsLessons: Lesson[] = [
   },
   {
     id: "economic-differences",
-    definitionExplanation: "把这一期的价格、需求或供给与下一期联系起来。先找每期都不再变的均衡值，再看偏离均衡的幅度是逐期缩小还是扩大。",
+    definitionExplanation: "菜农看到这一周菜价高，决定下周多种一些。如果下周供应多了，价格又可能降下来。把这一周和下一周的数字连起来，就能看出价格会慢慢稳住，还是一周高、一周低，越摆越远。",
     chapter: 8,
     title: "差分方程在经济分析中的应用",
     intuition: "预期、生产和消费往往跨期调整。写出每期的时序关系后，可以看出系统是回到平衡还是越偏越远。",

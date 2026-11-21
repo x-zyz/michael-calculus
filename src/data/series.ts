@@ -3,7 +3,7 @@ import type { Lesson, Problem } from "./learning";
 export const seriesLessons: Lesson[] = [
   {
     id: "series-basics",
-    definitionExplanation: "先把前 n 项相加。若 n 不断增大时，这串部分和趋于一个有限数，无穷级数就收敛，级数和就是那个数。",
+    definitionExplanation: "先走半米，再走四分之一米，再走八分之一米。每次走的距离越来越短，把已经走过的路加起来会越来越接近 1 米。如果无限加下去时，总数仍靠近一个固定值，就叫收敛。",
     chapter: 7,
     title: "部分和与常数项级数",
     intuition: "无穷多个数相加，先计算前 n 项和，再看这些部分和是否趋向有限值。",
@@ -19,7 +19,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "positive-series-comparison",
-    definitionExplanation: "正项级数一直在往总和里加东西。若它被一个已知收敛的正项级数逐项压住，就不会无限增加；若它压住一个发散级数，就一定发散。",
+    definitionExplanation: "把石子一颗颗放进两个盒子。如果每次放进小盒子的都比大盒子少，而大盒子最后加起来仍有限，小盒子就不会没完没了地涨。如果小盒子都能一直涨下去，比它加得多的大盒子也一样。",
     chapter: 7,
     title: "正项级数的比较法与积分法",
     intuition: "正项级数的部分和不断增加。审敛的目标是判断这些部分和有没有上界。",
@@ -35,7 +35,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "series-ratio-root",
-    definitionExplanation: "比值法看下一项约是上一项的几倍，根值法看每项整体的指数衰减速度。两种方法的临界值都是 1，等于 1 时需要另找方法。",
+    definitionExplanation: "每一项如果总比前一项小很多，比如大致是前一项的一半，后面的量就像不断对折，很快变小。比值法看两项之间的倍率，根值法看第 n 项大致像哪个数连乘 n 次。临界倍率是 1 时，需要换方法再判断。",
     chapter: 7,
     title: "比值判别法与根值判别法",
     intuition: "相邻项持续按一个小于 1 的比例缩小，长远上就受收敛的等比级数控制。",
@@ -51,7 +51,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "alternating-series",
-    definitionExplanation: "正负交替时，后面一项会抵消前面的一部分。若项的绝对值逐步减到零，部分和会从两侧夹住总和。",
+    definitionExplanation: "先往前走 1 米，再后退半米，再往前走三分之一米，再后退四分之一米。每一步都比上一步短，于是走到的位置会从两边夹住最后的落点。",
     chapter: 7,
     title: "交错级数、绝对收敛与条件收敛",
     intuition: "正负交替的项可能相互抵消，即使所有绝对值加起来无限大，原级数仍可能有和。",
@@ -67,7 +67,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "power-series-convergence",
-    definitionExplanation: "幂级数以 c 为中心。判断收敛时先找离 c 多远还会收敛，再把边界的两个端点分别代回原级数判断。",
+    definitionExplanation: "试着一直加 1、x、x²、x³。取 x＝1/2，后面的项越来越小，和靠近 2；取 x＝2，项越来越大。这一课就是找这种加法在哪些 x 上行得通，还要分别检查两头。",
     chapter: 7,
     title: "函数项级数与幂级数的收敛域",
     intuition: "函数项级数可能在一些 x 上收敛，在另一些 x 上发散。对幂级数，先求离中心多远还能收敛。",
@@ -83,7 +83,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "power-series-operations",
-    definitionExplanation: "在收敛区间内部，可以把幂级数当作无限长的多项式逐项求导或积分。计算后仍要分别检查两个端点。",
+    definitionExplanation: "把一长串带有 x 的小项想成一列车厢。在下面指定的范围内，可以逐节车厢做同一种操作，比如逐项求导，再把结果连起来。到了范围两头，要重新看看这列车能不能接起来。",
     chapter: 7,
     title: "幂级数的运算与和函数",
     intuition: "同中心的幂级数可用系数相加、相乘或除法递推求新展开；已知展开还可以逐项求导、积分。",
@@ -99,7 +99,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "taylor-series",
-    definitionExplanation: "在展开点先对齐函数值，再对齐斜率和更高阶的变化，这样得到的多项式能在附近近似原函数。余项衡量近似剩下的误差。",
+    definitionExplanation: "给一段弯路做纸模型，先对齐出发的位置，再对齐起步的方向，接着调整弯曲程度。对得越细，附近通常越像真路。泰勒多项式就是这样做出来的，余项告诉你模型和真路还差多少。",
     chapter: 7,
     title: "泰勒公式与函数的幂级数展开",
     intuition: "用中心点的各阶导数固定多项式的系数。逐步增加次数时，要验证余项趋于零才能得到级数等式。",
@@ -115,7 +115,7 @@ export const seriesLessons: Lesson[] = [
   },
   {
     id: "power-series-approximation",
-    definitionExplanation: "当原函数难直接积分时，可以先把被积函数写成熟悉的幂级数，再逐项积分。只取前几项时要结合区间和余项判断精度。",
+    definitionExplanation: "给一块边缘很难量的地算面积。先用几条容易算的弯线拼出一个近似形状，再算这些简单部分各有多大。多加几项通常能逼近真实面积，也要看看省掉的部分会差多少。",
     chapter: 7,
     optional: true,
     title: "用幂级数近似函数值和定积分",

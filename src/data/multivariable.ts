@@ -3,7 +3,7 @@ import type { Lesson, Problem } from "./learning";
 export const multivariableLessons: Lesson[] = [
   {
     id: "space-vectors",
-    definitionExplanation: "从 A 走到 B 的位移，要用终点坐标减起点坐标。三个方向的位移做平方和再开根号，得到直线距离。",
+    definitionExplanation: "从房间角落走到架子旁，向右 3 步、向前 4 步、再向上 2 格。这三个数记录了从起点到终点的箭头。换个起点摆同一支箭头，只要三个方向的走法一样，它仍代表同一个向量。",
     chapter: 6,
     title: "空间坐标与向量",
     intuition: "在空间中用三个坐标定位一个点。连接两点的向量描述从起点到终点的位移。",
@@ -19,7 +19,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "vector-products",
-    definitionExplanation: "数量积把一个向量投到另一个的方向，结果是数；向量积给出垂直于两者的方向，它的长度等于两者张出的平行四边形面积。",
+    definitionExplanation: "沿地面斜着拉小车，只有顺着车道的那部分力在拉车前进，点积可以量出这一份贡献。把两支箭头当作平行四边形的邻边，叉积的长度则量出它围起来的面积。",
     chapter: 6,
     optional: true,
     title: "数量积与向量积",
@@ -36,7 +36,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "planes-lines",
-    definitionExplanation: "给定一个点和一条方向，可以沿方向前后走出一条直线。给定一个点和一个法向量，所有与法向量垂直的位移就铺出一个平面。",
+    definitionExplanation: "伸出一根筷子，通过指定的点并朝指定方向，就摆出一条直线。把筷子垂直插在一张纸上，插入的位置和筷子的朝向就能确定这张平纸怎么摆。",
     chapter: 6,
     title: "平面方程与空间直线",
     intuition: "平面由一个点和一个垂直方向确定，直线由一个点和一个前进方向确定。",
@@ -52,7 +52,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "space-curves",
-    definitionExplanation: "空间曲面像一张弯曲的纸，曲线像纸上的一条轨迹。参数 t 变化时，每个 t 给出轨迹上的一个三维位置。",
+    definitionExplanation: "想象一架无人机飞过一间房子。每一秒记下它左右、前后和上下的位置，把这些点连起来就是一条空间曲线。房间里一张弯曲的棚面，则是空间曲面。",
     chapter: 6,
     title: "空间曲面与空间曲线",
     intuition: "一个方程常在三维空间中确定一张曲面；用参数描述运动点的三个坐标，可以得到它走过的曲线。",
@@ -68,7 +68,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "multivariable-limits",
-    definitionExplanation: "二维里可以从任意方向或弯曲路径接近目标点。不同路径得到不同值就能否定极限；即使几条路径结果相同，仍需对附近所有点作统一控制。",
+    definitionExplanation: "一座公园有很多条小路通向同一扇门。如果从两条路走近门时，测到的温度靠近两个不同的数，就不能说门附近的温度趋向同一个数。只测两条路碰巧一致，也还得检查其他走法。",
     chapter: 6,
     title: "多元函数、极限与连续",
     intuition: "二元函数给平面上的点分配一个数。靠近同一点可以沿无数条路径，二元极限要求趋近结果一致。",
@@ -84,7 +84,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "partial-derivatives",
-    definitionExplanation: "只让一个输入变化，其余输入保持固定，所得的一元变化率就是偏导数。偏导描述的是沿一条坐标方向的斜率。",
+    definitionExplanation: "调一杯果汁时有两个旋钮，一个加水，一个加糖。水不动，只动一点糖，看看甜度变多少。这个只动一项时的变化率，就是对糖的偏导数。",
     chapter: 6,
     title: "一阶与高阶偏导数",
     intuition: "求一个方向的坐标变化率时，先把其他变量固定。",
@@ -100,7 +100,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "total-differential",
-    definitionExplanation: "输入同时有小改动时，若函数可微，可以把各方向的线性贡献相加来估计总变化。各偏导数给出这些贡献的系数。",
+    definitionExplanation: "果汁的水和糖都微调一点。如果变化足够平滑，可以先估算单独加水会改多少甜度，再估算单独加糖会改多少，把两份小变化相加，估计一起调的效果。",
     chapter: 6,
     title: "全微分与局部线性近似",
     intuition: "在可微点附近，用切平面的高度变化近似曲面的高度变化。",
@@ -116,7 +116,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "directional-gradient",
-    definitionExplanation: "先把方向箭头化为单位长度，再用梯度与它做数量积。这样得到沿该方向每走一单位时的变化率。",
+    definitionExplanation: "站在山坡上，朝东走和朝北走，爬升可能不同。方向导数回答沿某个方向每走一步会上升多少。梯度是一支指向最陡上坡方向的箭头，可以用它算其他方向的爬升。",
     chapter: 6,
     title: "方向导数与梯度",
     intuition: "梯度指向局部上升最快的方向。沿另一个方向的变化率等于梯度向该方向的投影。",
@@ -132,7 +132,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "multivariable-chain",
-    definitionExplanation: "t 可以通过 x 和 y 两条路影响 z。逐条把沿路的导数相乘，再把两条路对 z 的贡献相加。",
+    definitionExplanation: "转动同一个旋钮，会同时加一点水和一点糖。想知道甜度怎么变，就分别算水的变化带来多少、糖的变化带来多少，再把两份影响相加。",
     chapter: 6,
     title: "多元链式法则与隐函数求导",
     intuition: "当变量通过多条路径影响结果，把各条路径的变化率相加；关系式保持为零时，可以反推出被隐式定义变量的变化率。",
@@ -148,7 +148,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "multivariable-extrema",
-    definitionExplanation: "先寻找各方向一阶变化都停下的候选点，再观察周围是整体向上、向下，还是有的方向上升有的下降。二阶判别式用于区分这些局部形状。",
+    definitionExplanation: "在碗底向四周走都变高，在小丘顶向四周走都变低。在马鞍中间，沿一个方向走会上去，换个方向却会下去。二阶导数可以帮我们区分这些形状。",
     chapter: 6,
     title: "驻点、鞍点与区域最值",
     intuition: "平坦处可能是谷底、山峰，也可能一边向上、另一边向下。区域边界也会限制可能的最优位置。",
@@ -164,7 +164,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "constrained-extrema",
-    definitionExplanation: "在约束曲线上寻找最高或最低值。若约束光滑且梯度非零，极值处沿曲线切向的一阶变化为零，因此两个梯度平行。",
+    definitionExplanation: "山坡上画了一条线，规则是只能沿线走。要找线上的最高处，只看沿线走时还能不能上升。就算线外还有更高处，也不属于这道题能选的范围。",
     chapter: 6,
     title: "条件极值与拉格朗日乘数法",
     intuition: "沿着约束曲线移动时，极值点处目标在可行切线方向上的变化率为零。",
@@ -180,7 +180,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "multivariable-economics",
-    definitionExplanation: "衡量资本投入 K 的作用时，把其他投入先固定。边际产量看绝对增量，资本弹性看相对增量。",
+    definitionExplanation: "一间面包房只多添一点烤箱时间，人手保持原样，看看能多出多少面包，是问烤箱的边际产量。若改问烤箱时间多 1%，产量大约多百分之几，就是在问弹性。",
     chapter: 6,
     title: "边际产量与偏弹性",
     intuition: "改变一种投入或价格、把其他因素固定，就能分开考察它们各自的局部影响。",
@@ -196,7 +196,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "double-integrals",
-    definitionExplanation: "把平面区域切成小块，每块累加函数值乘面积。写成累次积分时，先固定一个变量把一条细带加完，再把各条细带相加。",
+    definitionExplanation: "给一块操场铺上高低不同的雪。把操场画成很多小方格，每格用雪的高度乘这一格的面积，最后加起来，就能算一共多少雪。沿行先加、最后加各行，也能得到同一个总量。",
     chapter: 6,
     title: "二重积分与直角坐标累次积分",
     intuition: "把平面区域划成小块，每块的函数值乘面积，再将贡献加总。用竖条或横条扫过区域，可以把二重积分写成累次积分。",
@@ -212,7 +212,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "polar-integrals",
-    definitionExplanation: "用距离 r 和方向 θ 描述位置。角度改动相同时，离原点越远弧越长，所以小块面积里要多乘一个 r。",
+    definitionExplanation: "切披萨时，从圆心向外切出一样宽的角。靠外的一小段比靠圆心的一小段宽得多。用角度和半径来算面积时，多乘一个 r，就是为了算上这份越来越大的宽度。",
     chapter: 6,
     title: "极坐标下的二重积分",
     intuition: "用半径和角度描述圆形区域时，径向厚度 dr 和弧长 r dθ 合起来给出面积微元。",
@@ -228,7 +228,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "double-integral-substitution",
-    definitionExplanation: "换坐标会把小矩形拉伸成小平行四边形。雅可比行列式的绝对值衡量这种面积变化，同时还要把积分区域换成新坐标。",
+    definitionExplanation: "画在橡皮片上的小方格，拉一拉就会变成大格子或斜格子。换坐标之后，用新格子来算旧面积，就要先乘上每个小格的面积缩放倍数，再加起来。",
     chapter: 6,
     title: "一般变量代换与雅可比行列式",
     intuition: "新坐标的小矩形通常变成小平行四边形。雅可比行列式的绝对值给出了近似面积倍率。",
@@ -244,7 +244,7 @@ export const multivariableLessons: Lesson[] = [
   },
   {
     id: "improper-double-integrals",
-    definitionExplanation: "先在有限大小的区域里累加，再让区域逐步覆盖整个平面。对有正有负的函数，要留意靠抵消得到的结果是否依赖截取方式。",
+    definitionExplanation: "雨下得很远，想算一共下了多少，可以先算方圆 1 公里，再算方圆 2 公里，不断扩大地盘。如果这些总量越来越靠近同一个有限值，就找到了这类积分要算的数。",
     chapter: 6,
     optional: true,
     title: "无界区域上的反常二重积分",

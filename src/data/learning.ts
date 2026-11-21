@@ -23,7 +23,7 @@ export interface Lesson {
 export const lessons: Lesson[] = [
   {
     id: "limit",
-    definitionExplanation: "让 x 从两侧靠近 a，观察输出是否都能被控制在 L 附近。公式说的是靠近时的趋势，计算时可以把 x＝a 这一点挖掉。",
+    definitionExplanation: "小车从左右两头开向桥中央，桥中央就算少了一块砖，也能看出它们在朝哪里开。函数的极限也是这样：看旁边的点越来越靠近哪里。两边给出同一个数，才有这个两侧极限。",
     chapter: 1,
     title: "函数极限",
     intuition:
@@ -43,7 +43,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "sine",
-    definitionExplanation: "把弧度角缩到很小时，正弦和角本身几乎一样大，二者相除越来越接近 1。若角里有倍数，先把分母配成同一个角。",
+    definitionExplanation: "把一根杆的一头固定，另一头抬高一点点。杆越接近水平，杆尖抬高的高度和它转过的短弧就越接近一样长。用弧度量角时，这就是说小角度的正弦除以角度，越来越接近 1。",
     chapter: 1,
     title: "第一个重要极限",
     intuition:
@@ -63,7 +63,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "euler",
-    definitionExplanation: "把同样的总利率拆成越来越多次复利，单次增幅变小，累积倍率趋向 e。遇到 1 的无穷次方型，先识别底数的小增量和指数的乘积。",
+    definitionExplanation: "存 1 元，年利率是 100%。年底一次结息变 2 元；半年结一次，每次加 50%，就变成 2.25 元。把一年分成更多小段结息，最后的钱越来越接近 2.718 元，这个极限叫 e。",
     chapter: 1,
     title: "第二个重要极限",
     intuition:
@@ -83,7 +83,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "infinitesimal",
-    definitionExplanation: "等价无穷小比较的是相对大小：两项都趋零，且比值趋于 1。积和商里往往能换成更简单的项，差里要先检查主要项会不会抵消。",
+    definitionExplanation: "两根线段都在缩短，长度分别是 0.0101 和 0.01；较长那根只多 1%。如果继续缩短时，长短的比例还越来越接近 1，就说它们是等价无穷小。",
     chapter: 1,
     title: "等价无穷小替换",
     intuition:
@@ -103,7 +103,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "continuity",
-    definitionExplanation: "判断一点是否连续有三步：该点有值、左右极限相同、极限等于点值。补上一个洞能修好可去间断，补一个点无法消除跳跃。",
+    definitionExplanation: "用铅笔顺着图形画到一个点。左边和右边都通向同一个位置，而且那个位置真的有一个点，图形就在这里接得上。只有一个空心圈，或者左右高低不同，都接不上。",
     chapter: 1,
     title: "连续性与左右极限",
     intuition:
@@ -122,7 +122,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "derivative",
-    definitionExplanation: "先用输出的改变量除以输入的改变量，得到一小段上的平均变化率。把这段缩到一点，如果比值有有限极限，它就是该点的导数。",
+    definitionExplanation: "走 10 米用了 2 秒，平均每秒走 5 米。但想知道经过路灯那一刻有多快，就只看路灯附近很短的一段。把这段越缩越短，如果算出的速度趋向同一个数，那就是那一刻的速度，也就是位置的导数。",
     chapter: 2,
     title: "导数的定义与切线",
     intuition:
@@ -142,7 +142,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "rules",
-    definitionExplanation: "先辨认最外层是和、积还是商。积的两项分别表示一个因子在变、另一个按原值参与；商的分子做差，分母要平方。",
+    definitionExplanation: "想象一个长方形，长和宽都稍微变大。新增面积一部分是沿长边贴上的细条，另一部分是沿宽边贴上的细条。角落还有一个更小的方块。变化缩得很小时，面积的一阶变化由两条细条决定，这就是乘积求导为什么有两项。",
     chapter: 2,
     title: "基本求导法则与初等函数导数",
     intuition:
@@ -162,7 +162,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "chain",
-    definitionExplanation: "复合函数像接力：x 先改变内层输出，内层输出再改变外层。总变化率等于这两段变化率相乘。",
+    definitionExplanation: "一个齿轮转 1 圈，带动下一个转 2 圈；第二个每转 1 圈，又让第三个转 3 圈。所以第一个转 1 圈，第三个转 6 圈。变化一层层传下去，就把每一层的变化倍率乘起来。",
     chapter: 2,
     title: "复合函数求导（链式法则）",
     intuition:
@@ -182,7 +182,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "differential",
-    definitionExplanation: "把曲线在当前点附近看成切线，切线给出的输出变化就是微分。用它估算实际变化时，输入的改变量越小，这个近似通常越贴合。",
+    definitionExplanation: "在弯路上放一把短直尺，让它贴着你站的那一点。往前挪一小步，直尺告诉你大约会升高多少。用直尺算出来的那一点高度变化，就是微分。",
     chapter: 2,
     title: "微分的概念与线性近似",
     intuition:
@@ -202,7 +202,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "mvt",
-    definitionExplanation: "想象一段连续而平滑的路。起终点连起来是一条割线，中间至少有一处切线与它平行。罗尔定理是两端等高的情形。",
+    definitionExplanation: "骑车一小时到了 12 公里外，平均时速是 12。只要一路的位置连续、速度在途中都能定义，就有一刻的速度恰好是 12。看看图，就是中途有一条切线和起点、终点连成的线平行。",
     chapter: 3,
     title: "罗尔、拉格朗日与柯西中值定理",
     intuition:
@@ -222,7 +222,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "lhopital",
-    definitionExplanation: "分子分母同时趋零，或都发散到无穷时，可以在满足条件后比较它们变化的速度。操作是分开求导，再取新比值的极限。",
+    definitionExplanation: "两杯水都快漏空了，直接把剩下的水量相除容易碰到 0 除以 0。可以改问两杯水各自漏得有多快，再比较这两个速度。只有满足下面的条件，速度的比才可以用来求原来的极限。",
     chapter: 3,
     title: "洛必达法则与未定式极限",
     intuition:
@@ -242,7 +242,7 @@ export const lessons: Lesson[] = [
   },
   {
     id: "extrema",
-    definitionExplanation: "导数的正负告诉你函数往上走还是往下走。由正变负像山顶，由负变正像谷底；只有导数等于零，还不能确认是哪一种。",
+    definitionExplanation: "走过一座小山包，先上坡再下坡的地方是附近的最高点，先下坡再上坡的是附近的最低点。脚下刚好平平的，也可能只是山腰突然平了一小段。看两边怎么走，才能分清。",
     chapter: 3,
     title: "函数的单调性、极值与拐点",
     intuition:

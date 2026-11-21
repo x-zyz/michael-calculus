@@ -3,7 +3,7 @@ import type { Lesson, Problem } from "./learning";
 export const applicationLessons = [
   {
     id: "integral-area", chapter: 5, title: "平面图形的面积",
-    definitionExplanation: "把图形切成竖直细条，每条的高度是上边界减下边界。若两条曲线交叉，就用交点分段，分别确定谁在上。",
+    definitionExplanation: "把两条弯线之间的空地切成一条条窄纸带。每条纸带的高度，就拿上面的线减下面的线。两条线如果交叉，交叉前后上面那条可能变了，所以要分开算。",
     intuition: "把两条曲线围成的区域切成竖直窄条。每条的高度是上边界减下边界。若两条曲线中途交换上下位置，就在交点处分段。",
     definition: "S=\\int_a^b (f(x)-g(x))\\,dx",
     condition: "这里 f(x) ≥ g(x)，两条边界在 [a,b] 上连续。若上下位置交换，要分段或对差取绝对值。面积与横轴的上下位置无关。",
@@ -13,7 +13,7 @@ export const applicationLessons = [
   },
   {
     id: "integral-volume", chapter: 5, title: "截面法与旋转体体积",
-    definitionExplanation: "把立体切成薄片，每片体积近似等于截面积乘厚度。旋转产生圆环时，截面积是外圆面积减内圆面积。",
+    definitionExplanation: "想知道一整条面包有多大，把它切成薄片。每片的大小约等于切面面积乘厚度。中间有洞时，面积用外圈减洞的面积。最后把薄片全加起来。",
     intuition: "沿旋转轴把立体切成薄片，体积就是截面积乘厚度后累加。横截面若有空洞，要用大圆的面积减去小圆的面积。",
     definition: "\\begin{gathered}V=\\int_a^b A(x)\\,dx\\\\A(x)=\\pi(R(x)^2-r(x)^2)\\end{gathered}",
     condition: "截面垂直于切片方向。垫片法中，R 和 r 分别是外边界、内边界到旋转轴的距离，且 0 ≤ r ≤ R。实心圆盘取 r = 0。",
@@ -23,7 +23,7 @@ export const applicationLessons = [
   },
   {
     id: "integral-arc", chapter: 5, title: "平面曲线的弧长",
-    definitionExplanation: "用许多短直线拼接曲线。每小段同时有水平和竖直变化，按勾股定理量长，再把所有小段累加。",
+    definitionExplanation: "弯弯的路不能直接拿直尺量。先用许多短直线沿着路拼起来，每小段把横着走和竖着走的距离一起算进去，再把短线的长度相加。",
     intuition: "用折线贴近曲线。每段长度同时取决于横向和竖向的变化。分割加细后，可用导数把小段长度写成横向步长乘一个伸长因子。",
     definition: "L=\\int_a^b \\sqrt{1+f'(x)^2}\\,dx",
     condition: "对 y = f(x)，若 f 在 [a,b] 上连续可导，就可以使用此式。折线段长度来自勾股定理，因此根号内是 1 加上斜率的平方。",
