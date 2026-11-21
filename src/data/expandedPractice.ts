@@ -2,7 +2,7 @@ import type { Problem } from "./learning";
 
 const math = String.raw;
 
-function exercise(
+export function exercise(
   id: string, lessonId: string, difficulty: NonNullable<Problem["difficulty"]>,
   title: string, formula: string, answer: number, errorTag: string,
   hints: [string, string, string], explanation: string,

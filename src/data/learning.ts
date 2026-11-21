@@ -6,6 +6,7 @@ import { seriesLessons, seriesProblems } from "./series";
 import { differentialEquationsLessons, differentialEquationsProblems } from "./differentialEquations";
 export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
+import { tongjiPractice } from "./tongjiPractice";
 
 export interface Lesson {
   definitionExplanation: string;
@@ -721,9 +722,12 @@ const baseProblems: Problem[] = [
 const topicLabels = new Map(baseProblems.map(({ errorTag, errorLabel }) => [errorTag, errorLabel]));
 topicLabels.set("improper_integrals", "反常积分的截断与极限");
 topicLabels.set("rationalization", "根式有理化");
+topicLabels.set("higher_derivative", "高阶导数");
+topicLabels.set("implicit_derivative", "隐函数求导");
+topicLabels.set("integral_work", "力随位移变化时的功");
 export const problems: Problem[] = [
   ...baseProblems,
-  ...expandedPractice.map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
