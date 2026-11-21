@@ -461,4 +461,5 @@ it("reconciles the calculus bank inventory with the installed bank and KaTeX out
   expect(integrated.filter(({ section }) => section === "7-10")).toHaveLength(12);
   expect(integrated.filter(({ section }) => section === "7-review")).toHaveLength(32);
   expect(integrated.filter(({ section }) => section === "exam-1")).toHaveLength(23);
+  expect(integrated.filter(({ section }) => section === "exam-4")).toHaveLength(25);
 });

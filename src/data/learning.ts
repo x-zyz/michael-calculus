@@ -37,6 +37,7 @@ import { bankOdeNonhomog } from "./bankOdeNonhomog";
 import { bankOdeEulerSystems } from "./bankOdeEulerSystems";
 import { bankChapterSevenReview } from "./bankChapterSevenReview";
 import { bankExamLimits } from "./bankExamLimits";
+import { bankExamOdes } from "./bankExamOdes";
 import { bankClosedContinuity, bankDiscontinuities } from "./bankContinuity";
 import { bankContinuousOperations } from "./bankContinuousOperations";
 import { bankImportantLimits } from "./bankImportantLimits";
@@ -796,7 +797,7 @@ topicLabels.set("marginal_cost", "边际成本与实际增量");
 
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...bankPractice, ...bankWrittenPractice, ...bankFunctionsAndSequences, ...bankFunctionLimits, ...bankInfinitesimals, ...bankLimitLaws, ...bankImportantLimits, ...bankDiscontinuities, ...bankContinuousOperations, ...bankClosedContinuity, ...bankChapterOneReview, ...bankDerivativeConcept, ...bankDerivativeRules, ...bankHigherDerivatives, ...bankImplicitParam, ...bankDifferentials, ...bankChapterTwoReview, ...bankMvtAndLhopital, ...bankTaylorFormula, ...bankMonotonicityConcavity, ...bankExtremaAndOpt, ...bankCurveCurvatureRoot, ...bankChapterThreeReview, ...bankAntiderivatives, ...bankIntegralSubstitution, ...bankIntegralPartsRational, ...bankChapterFourTail, ...bankDefiniteIntroFtc, ...bankDefiniteMethods, ...bankImproperAndCh5Review, ...bankIntegralGeometry, ...bankIntegralPhysicsReview, ...bankOdeFirstOrderBasics, ...bankOdeLinearAndReducible, ...bankOdeHigherHomog, ...bankOdeNonhomog, ...bankOdeEulerSystems, ...bankChapterSevenReview, ...bankExamLimits].map((problem) => ({
+  ...[...expandedPractice, ...bankPractice, ...bankWrittenPractice, ...bankFunctionsAndSequences, ...bankFunctionLimits, ...bankInfinitesimals, ...bankLimitLaws, ...bankImportantLimits, ...bankDiscontinuities, ...bankContinuousOperations, ...bankClosedContinuity, ...bankChapterOneReview, ...bankDerivativeConcept, ...bankDerivativeRules, ...bankHigherDerivatives, ...bankImplicitParam, ...bankDifferentials, ...bankChapterTwoReview, ...bankMvtAndLhopital, ...bankTaylorFormula, ...bankMonotonicityConcavity, ...bankExtremaAndOpt, ...bankCurveCurvatureRoot, ...bankChapterThreeReview, ...bankAntiderivatives, ...bankIntegralSubstitution, ...bankIntegralPartsRational, ...bankChapterFourTail, ...bankDefiniteIntroFtc, ...bankDefiniteMethods, ...bankImproperAndCh5Review, ...bankIntegralGeometry, ...bankIntegralPhysicsReview, ...bankOdeFirstOrderBasics, ...bankOdeLinearAndReducible, ...bankOdeHigherHomog, ...bankOdeNonhomog, ...bankOdeEulerSystems, ...bankChapterSevenReview, ...bankExamLimits, ...bankExamOdes].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),

@@ -485,7 +485,7 @@
       "bookChapter": null,
       "title": "考研题：微分方程",
       "printedStartPage": 371,
-      "inventory": "not-started"
+      "inventory": "enumerated"
     },
     {
       "id": "exam-5",
@@ -17447,6 +17447,306 @@
       ],
       "verification": "manual",
       "evidence": "docs/bank/review-exam-1.md"
+    },
+    {
+      "id": "jc935-exam-4-1",
+      "section": "exam-4",
+      "question": 1,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-1"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-2",
+      "section": "exam-4",
+      "question": 2,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-2"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-3",
+      "section": "exam-4",
+      "question": 3,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-3"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-4",
+      "section": "exam-4",
+      "question": 4,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-4"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-5",
+      "section": "exam-4",
+      "question": 5,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-5"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-6",
+      "section": "exam-4",
+      "question": 6,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-6"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-7",
+      "section": "exam-4",
+      "question": 7,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-7"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-8",
+      "section": "exam-4",
+      "question": 8,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-8"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-9",
+      "section": "exam-4",
+      "question": 9,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-9"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-10",
+      "section": "exam-4",
+      "question": 10,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-10"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-11",
+      "section": "exam-4",
+      "question": 11,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-11"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-12",
+      "section": "exam-4",
+      "question": 12,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-12"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-13",
+      "section": "exam-4",
+      "question": 13,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-13"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-14-1",
+      "section": "exam-4",
+      "question": 14,
+      "part": 1,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-14-1"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-14-2",
+      "section": "exam-4",
+      "question": 14,
+      "part": 2,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-14-2"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-15-1",
+      "section": "exam-4",
+      "question": 15,
+      "part": 1,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-15-1"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-15-2",
+      "section": "exam-4",
+      "question": 15,
+      "part": 2,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-15-2"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-16",
+      "section": "exam-4",
+      "question": 16,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-16"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-17-1",
+      "section": "exam-4",
+      "question": 17,
+      "part": 1,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-17-1"
+      ],
+      "verification": "manual",
+      "evidence": "docs/bank/review-exam-4.md"
+    },
+    {
+      "id": "jc935-exam-4-17-2",
+      "section": "exam-4",
+      "question": 17,
+      "part": 2,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-17-2"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-18",
+      "section": "exam-4",
+      "question": 18,
+      "part": null,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-18"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-19-1",
+      "section": "exam-4",
+      "question": 19,
+      "part": 1,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-19-1"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-19-2",
+      "section": "exam-4",
+      "question": 19,
+      "part": 2,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-19-2"
+      ],
+      "verification": "manual",
+      "evidence": "docs/bank/review-exam-4.md"
+    },
+    {
+      "id": "jc935-exam-4-20-1",
+      "section": "exam-4",
+      "question": 20,
+      "part": 1,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-20-1"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
+    },
+    {
+      "id": "jc935-exam-4-20-2",
+      "section": "exam-4",
+      "question": 20,
+      "part": 2,
+      "status": "integrated",
+      "appIds": [
+        "jc935-exam-4-20-2"
+      ],
+      "verification": "symbolic",
+      "evidence": "scripts/check-bank-exam-4.py"
     }
   ]
 }
