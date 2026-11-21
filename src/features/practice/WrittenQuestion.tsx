@@ -103,7 +103,7 @@ function ReferenceGraph({ graph }: { graph: PracticeGraph }) {
       {graph.ticks?.x.map((x) => (
         <g key={x} className="practice-plot-tick">
           <path d={`M${px(x)} ${py(0) - 3}v6`} stroke="currentColor" />
-          <text x={px(x)} y={py(0) + 15} textAnchor="middle" fill="currentColor">{x}</text>
+          <text x={px(x)} y={py(0) + 15} textAnchor="middle" fill="currentColor">{graph.ticks?.xLabels?.[x] ?? x}</text>
         </g>
       ))}
       {graph.ticks?.y.map((y) => (

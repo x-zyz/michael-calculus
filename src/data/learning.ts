@@ -8,6 +8,7 @@ export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
 import { tongjiPractice } from "./tongjiPractice";
 import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
+import { tongjiChapterOneReview } from "./tongjiChapterOneReview";
 import { tongjiClosedContinuity, tongjiDiscontinuities } from "./tongjiContinuity";
 import { tongjiContinuousOperations } from "./tongjiContinuousOperations";
 import { tongjiImportantLimits } from "./tongjiImportantLimits";
@@ -311,7 +312,7 @@ export type PracticeGraph = {
   bounds: [number, number, number, number];
   branches: [start: number, end: number, fn: (x: number) => number][];
   points?: [x: number, y: number, included: boolean][];
-  ticks?: { x: number[]; y: number[] };
+  ticks?: { x: number[]; y: number[]; xLabels?: Record<number, string> };
   description: string;
 };
 export type Problem = NumericProblem | WrittenProblem;
@@ -763,7 +764,7 @@ topicLabels.set("infinite_limits", "无穷小、无穷大与极限定义");
 topicLabels.set("intermediate_value", "介值定理与零点定理");
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity, ...tongjiChapterOneReview].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
