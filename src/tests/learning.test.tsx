@@ -1,5 +1,5 @@
 import katex from "katex";
-import tongjiInventory from "../../docs/tongji/inventory.json";
+import bankInventory from "../../docs/bank/inventory.json";
 import { riemannSum, accumulationSlope } from "../data/integrals";
 import {chooseSelect,completeReading} from './ui';
 import { describe, it, expect, vi } from "vitest";
@@ -392,8 +392,8 @@ it("assigns each written exercise to a real lesson and error topic", () => {
 
 
 
-it("reconciles the Tongji inventory with the installed bank and KaTeX output", () => {
-  const { sections, items } = tongjiInventory;
+it("reconciles the calculus bank inventory with the installed bank and KaTeX output", () => {
+  const { sections, items } = bankInventory;
   expect(new Set(sections.map(({ id }) => id)).size).toBe(sections.length);
   expect(new Set(items.map(({ id }) => id)).size).toBe(items.length);
   for (const item of items) {
@@ -420,4 +420,22 @@ it("reconciles the Tongji inventory with the installed bank and KaTeX output", (
   expect(integrated.filter(({ section }) => section === "1-10")).toHaveLength(9);
   expect(integrated.filter(({ section }) => section === "1-review")).toHaveLength(35);
   expect(integrated.filter(({ section }) => section === "2-1")).toHaveLength(33);
+  expect(integrated.filter(({ section }) => section === "2-2")).toHaveLength(74);
+  expect(integrated.filter(({ section }) => section === "2-3")).toHaveLength(28);
+  expect(integrated.filter(({ section }) => section === "2-4")).toHaveLength(28);
+  expect(integrated.filter(({ section }) => section === "2-5")).toHaveLength(40);
+  expect(integrated.filter(({ section }) => section === "2-review")).toHaveLength(29);
+  expect(integrated.filter(({ section }) => section === "3-1")).toHaveLength(16);
+  expect(integrated.filter(({ section }) => section === "3-2")).toHaveLength(19);
+  expect(integrated.filter(({ section }) => section === "3-3")).toHaveLength(15);
+  expect(integrated.filter(({ section }) => section === "3-4")).toHaveLength(38);
+  expect(integrated.filter(({ section }) => section === "3-5")).toHaveLength(31);
+  expect(integrated.filter(({ section }) => section === "3-6")).toHaveLength(5);
+  expect(integrated.filter(({ section }) => section === "3-7")).toHaveLength(11);
+  expect(integrated.filter(({ section }) => section === "3-8")).toHaveLength(4);
+  expect(integrated.filter(({ section }) => section === "3-review")).toHaveLength(30);
+  expect(integrated.filter(({ section }) => section === "4-1")).toHaveLength(41);
+  expect(integrated.filter(({ section }) => section === "4-2")).toHaveLength(58);
+  expect(integrated.filter(({ section }) => section === "4-3")).toHaveLength(24);
+  expect(integrated.filter(({ section }) => section === "4-4")).toHaveLength(24);
 });

@@ -6,22 +6,31 @@ import { seriesLessons, seriesProblems } from "./series";
 import { differentialEquationsLessons, differentialEquationsProblems } from "./differentialEquations";
 export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
-import { tongjiPractice } from "./tongjiPractice";
-import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
-import { tongjiChapterOneReview } from "./tongjiChapterOneReview";
-import { tongjiDerivativeConcept } from "./tongjiDerivativeConcept";
-import { tongjiDerivativeRules } from "./tongjiDerivativeRules";
-import { tongjiHigherDerivatives } from "./tongjiHigherDerivatives";
-import { tongjiImplicitParam } from "./tongjiImplicitParam";
-import { tongjiDifferentials } from "./tongjiDifferentials";
-import { tongjiChapterTwoReview } from "./tongjiChapterTwoReview";
-import { tongjiClosedContinuity, tongjiDiscontinuities } from "./tongjiContinuity";
-import { tongjiContinuousOperations } from "./tongjiContinuousOperations";
-import { tongjiImportantLimits } from "./tongjiImportantLimits";
-import { tongjiLimitLaws } from "./tongjiLimitLaws";
-import { tongjiInfinitesimals } from "./tongjiInfinitesimals";
-import { tongjiFunctionLimits } from "./tongjiFunctionLimits";
-import { tongjiFunctionsAndSequences } from "./tongjiFunctionsAndSequences";
+import { bankPractice } from "./bankPractice";
+import { bankWrittenPractice } from "./bankWrittenPractice";
+import { bankChapterOneReview } from "./bankChapterOneReview";
+import { bankDerivativeConcept } from "./bankDerivativeConcept";
+import { bankDerivativeRules } from "./bankDerivativeRules";
+import { bankHigherDerivatives } from "./bankHigherDerivatives";
+import { bankImplicitParam } from "./bankImplicitParam";
+import { bankDifferentials } from "./bankDifferentials";
+import { bankChapterTwoReview } from "./bankChapterTwoReview";
+import { bankMvtAndLhopital } from "./bankMvtAndLhopital";
+import { bankTaylorFormula } from "./bankTaylorFormula";
+import { bankMonotonicityConcavity } from "./bankMonotonicityConcavity";
+import { bankExtremaAndOpt } from "./bankExtremaAndOpt";
+import { bankCurveCurvatureRoot } from "./bankCurveCurvatureRoot";
+import { bankChapterThreeReview } from "./bankChapterThreeReview";
+import { bankAntiderivatives } from "./bankAntiderivatives";
+import { bankIntegralSubstitution } from "./bankIntegralSubstitution";
+import { bankIntegralPartsRational } from "./bankIntegralPartsRational";
+import { bankClosedContinuity, bankDiscontinuities } from "./bankContinuity";
+import { bankContinuousOperations } from "./bankContinuousOperations";
+import { bankImportantLimits } from "./bankImportantLimits";
+import { bankLimitLaws } from "./bankLimitLaws";
+import { bankInfinitesimals } from "./bankInfinitesimals";
+import { bankFunctionLimits } from "./bankFunctionLimits";
+import { bankFunctionsAndSequences } from "./bankFunctionsAndSequences";
 
 export interface Lesson {
   definitionExplanation: string;
@@ -774,7 +783,7 @@ topicLabels.set("marginal_cost", "边际成本与实际增量");
 
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity, ...tongjiChapterOneReview, ...tongjiDerivativeConcept, ...tongjiDerivativeRules, ...tongjiHigherDerivatives, ...tongjiImplicitParam, ...tongjiDifferentials, ...tongjiChapterTwoReview].map((problem) => ({
+  ...[...expandedPractice, ...bankPractice, ...bankWrittenPractice, ...bankFunctionsAndSequences, ...bankFunctionLimits, ...bankInfinitesimals, ...bankLimitLaws, ...bankImportantLimits, ...bankDiscontinuities, ...bankContinuousOperations, ...bankClosedContinuity, ...bankChapterOneReview, ...bankDerivativeConcept, ...bankDerivativeRules, ...bankHigherDerivatives, ...bankImplicitParam, ...bankDifferentials, ...bankChapterTwoReview, ...bankMvtAndLhopital, ...bankTaylorFormula, ...bankMonotonicityConcavity, ...bankExtremaAndOpt, ...bankCurveCurvatureRoot, ...bankChapterThreeReview, ...bankAntiderivatives, ...bankIntegralSubstitution, ...bankIntegralPartsRational].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
