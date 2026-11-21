@@ -9,6 +9,7 @@ import { expandedPractice } from "./expandedPractice";
 import { tongjiPractice } from "./tongjiPractice";
 import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
 import { tongjiChapterOneReview } from "./tongjiChapterOneReview";
+import { tongjiDerivativeConcept } from "./tongjiDerivativeConcept";
 import { tongjiClosedContinuity, tongjiDiscontinuities } from "./tongjiContinuity";
 import { tongjiContinuousOperations } from "./tongjiContinuousOperations";
 import { tongjiImportantLimits } from "./tongjiImportantLimits";
@@ -762,9 +763,13 @@ topicLabels.set("sequence_convergence", "数列收敛与发散");
 topicLabels.set("function_limit_definition", "函数极限定义与误差估计");
 topicLabels.set("infinite_limits", "无穷小、无穷大与极限定义");
 topicLabels.set("intermediate_value", "介值定理与零点定理");
+topicLabels.set("derivative_tangent", "切线、法线与斜率");
+topicLabels.set("one_sided_derivative", "左右导数与可导性");
+topicLabels.set("marginal_cost", "边际成本与实际增量");
+
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity, ...tongjiChapterOneReview].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits, ...tongjiInfinitesimals, ...tongjiLimitLaws, ...tongjiImportantLimits, ...tongjiDiscontinuities, ...tongjiContinuousOperations, ...tongjiClosedContinuity, ...tongjiChapterOneReview, ...tongjiDerivativeConcept].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
