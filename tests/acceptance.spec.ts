@@ -1,4 +1,4 @@
-import {chooseSelect,chooseProblem} from './ui';
+import {chooseSelect} from './ui';
 import { test, expect, type Page } from '@playwright/test';
 
 import { lessons, problems } from "../src/data/learning";
@@ -27,8 +27,8 @@ test.describe('phone layout', () => {
   test.beforeEach(async ({ page }) => page.setViewportSize({ width: 360, height: 740 }));
 
   test('pages, all lessons and problems fit a 360px screen with readable text', async ({ page }) => {
-    // Covers every lesson step and question drawer selection, including slow CI machines.
-    test.setTimeout(120000);
+    // Covers every lesson step and exercise, including the revealed written solutions.
+    test.setTimeout(180000);
     const issues: string[] = [];
     for (const url of ['/#/', '/#/experiments', '/#/practice', '/#/review', '/#/assistant']) {
       await page.goto(url);
@@ -45,7 +45,7 @@ test.describe('phone layout', () => {
     }
     await page.goto('/#/practice');
     for (let i = 1; i <= problems.length; i++) {
-      await chooseProblem(page,i);
+      if (i > 1) await page.getByRole("button", { name: "下一题", exact: true }).click();
       if ("kind" in problems[i - 1]) {
         await page.getByRole("button", { name: "查看分步解析" }).click();
         await expect(page.locator(".practice-question .katex-error")).toHaveCount(0);

@@ -259,7 +259,7 @@ export const tongjiWrittenPractice = [
       "两边谷底是 (±2,−16)，中间局部峰在 (0,0)，最外两端向上伸展。",
     ],
     solution: math`\text{zeros: }0,\ \pm2\sqrt2`,
-    graph: { bounds: [-3.2, 3.2, -19, 18], branches: [[-3.2, 3.2]], fn: (x) => x ** 4 - 8 * x ** 2, description: "四次函数参考图，两个谷底在横坐标负二与二，原点是局部峰顶" },
+    graph: { bounds: [-3.2, 3.2, -19, 18], branches: [[-3.2, 3.2, (x) => x ** 4 - 8 * x ** 2]], description: "四次函数参考图，两个谷底在横坐标负二与二，原点是局部峰顶" },
   },
   // p124 · §3-6 2
   {
@@ -275,7 +275,7 @@ export const tongjiWrittenPractice = [
       "最低点 (−1,−3/2)，最高点 (1,3/2)。无穷远两端都趋近 y=0。",
     ],
     solution: math`f(-1)=-\tfrac32,\quad f(1)=\tfrac32`,
-    graph: { bounds: [-6, 6, -1.8, 1.8], branches: [[-6, 6]], fn: (x) => 3 * x / (1 + x ** 2), description: "有理函数参考图，过原点，两端贴近横轴，在负一和一处转弯" },
+    graph: { bounds: [-6, 6, -1.8, 1.8], branches: [[-6, 6, (x) => 3 * x / (1 + x ** 2)]], description: "有理函数参考图，过原点，两端贴近横轴，在负一和一处转弯" },
   },
   // p124 · §3-6 3
   {
@@ -291,7 +291,7 @@ export const tongjiWrittenPractice = [
       "两端指数趋负无穷，函数值趋 0，水平渐近线是 y=0。",
     ],
     solution: math`x_{\mathrm{inf}}=2\pm\frac1{\sqrt2}`,
-    graph: { bounds: [-1, 5, -0.25, 2.3], branches: [[-1, 5]], fn: (x) => 2 * Math.exp(-((x - 2) ** 2)), description: "钟形曲线参考图，以横坐标二为对称轴，最高点的纵坐标为二" },
+    graph: { bounds: [-1, 5, -0.25, 2.3], branches: [[-1, 5, (x) => 2 * Math.exp(-((x - 2) ** 2))]], description: "钟形曲线参考图，以横坐标二为对称轴，最高点的纵坐标为二" },
   },
   // p124 · §3-6 4
   {
@@ -307,7 +307,7 @@ export const tongjiWrittenPractice = [
       "当 |x| 很大时，2/x 趋于 0，两支都向上，逐渐贴近抛物线 y=x²。",
     ],
     solution: math`x=0,\qquad f(1)=3`,
-    graph: { bounds: [-3.5, 3.5, -7, 13], branches: [[-3.5, -0.025], [0.025, 3.5]], fn: (x) => x ** 2 + 2 / x, description: "两支分开的参考曲线，竖直渐近线是纵轴，右支的最低点为一逗号三" },
+    graph: { bounds: [-3.5, 3.5, -7, 13], branches: [[-3.5, -0.025, (x) => x ** 2 + 2 / x], [0.025, 3.5, (x) => x ** 2 + 2 / x]], description: "两支分开的参考曲线，竖直渐近线是纵轴，右支的最低点为一逗号三" },
   },
   // p145 · §4-1 2(2)
   {

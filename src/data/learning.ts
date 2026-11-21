@@ -8,6 +8,8 @@ export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
 import { tongjiPractice } from "./tongjiPractice";
 import { tongjiWrittenPractice } from "./tongjiWrittenPractice";
+import { tongjiFunctionLimits } from "./tongjiFunctionLimits";
+import { tongjiFunctionsAndSequences } from "./tongjiFunctionsAndSequences";
 
 export interface Lesson {
   definitionExplanation: string;
@@ -293,14 +295,18 @@ export const writtenProblemKinds = ["证明题", "作图题", "推导题"] as co
 export type WrittenProblem = ProblemDetails & {
   kind: (typeof writtenProblemKinds)[number];
   prompt: string;
+  source?: string;
   steps: [string, string, string];
   solution: string;
-  graph?: {
-    bounds: [number, number, number, number];
-    branches: [number, number][];
-    fn: (x: number) => number;
-    description: string;
-  };
+  graph?: PracticeGraph;
+  questionGraph?: PracticeGraph;
+};
+export type PracticeGraph = {
+  bounds: [number, number, number, number];
+  branches: [start: number, end: number, fn: (x: number) => number][];
+  points?: [x: number, y: number, included: boolean][];
+  ticks?: { x: number[]; y: number[] };
+  description: string;
 };
 export type Problem = NumericProblem | WrittenProblem;
 
@@ -740,9 +746,16 @@ topicLabels.set("rationalization", "根式有理化");
 topicLabels.set("higher_derivative", "高阶导数");
 topicLabels.set("implicit_derivative", "隐函数求导");
 topicLabels.set("integral_work", "力随位移变化时的功");
+topicLabels.set("inverse_functions", "反函数与定义域");
+topicLabels.set("function_composition", "复合顺序与函数值");
+topicLabels.set("piecewise_modeling", "分段建模与解的范围");
+topicLabels.set("function_properties", "有界、单调、奇偶与周期");
+topicLabels.set("sequence_limit_definition", "数列极限定义与证明");
+topicLabels.set("sequence_convergence", "数列收敛与发散");
+topicLabels.set("function_limit_definition", "函数极限定义与误差估计");
 export const problems: Problem[] = [
   ...baseProblems,
-  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice].map((problem) => ({
+  ...[...expandedPractice, ...tongjiPractice, ...tongjiWrittenPractice, ...tongjiFunctionsAndSequences, ...tongjiFunctionLimits].map((problem) => ({
     ...problem,
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
