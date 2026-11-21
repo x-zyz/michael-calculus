@@ -364,7 +364,7 @@ it("links the fifth chapter to its own volume experiment and chapter practice", 
   expect(screen.getByText("右端截面积 0.0000 · 累积体积 0.0000")).toBeVisible();
   fireEvent.click(screen.getByRole("tab", { name: "练习" }));
   fireEvent.click(screen.getByRole("link", { name: /开始练习/ }));
-  expect(screen.getByText("第 1 / 4 题 · 第5章")).toBeVisible();
+  expect(screen.getByText(`第 1 / ${problems.filter((p) => p.lessonId === "integral-volume").length} 题 · 第5章`)).toBeVisible();
   expect(screen.getByRole("heading", { name: "由截面积函数求体积" })).toBeVisible();
 });
 
@@ -438,4 +438,22 @@ it("reconciles the calculus bank inventory with the installed bank and KaTeX out
   expect(integrated.filter(({ section }) => section === "4-2")).toHaveLength(58);
   expect(integrated.filter(({ section }) => section === "4-3")).toHaveLength(24);
   expect(integrated.filter(({ section }) => section === "4-4")).toHaveLength(24);
+  expect(integrated.filter(({ section }) => section === "4-5")).toHaveLength(25);
+  expect(integrated.filter(({ section }) => section === "4-review")).toHaveLength(45);
+  expect(integrated.filter(({ section }) => section === "5-1")).toHaveLength(33);
+  expect(integrated.filter(({ section }) => section === "5-2")).toHaveLength(37);
+  expect(integrated.filter(({ section }) => section === "5-4")).toHaveLength(14);
+  expect(integrated.filter(({ section }) => section === "5-5")).toHaveLength(16);
+  expect(integrated.filter(({ section }) => section === "5-review")).toHaveLength(46);
+  expect(integrated.filter(({ section }) => section === "6-2")).toHaveLength(44);
+  expect(integrated.filter(({ section }) => section === "6-3")).toHaveLength(12);
+  expect(integrated.filter(({ section }) => section === "6-review")).toHaveLength(20);
+  expect(integrated.filter(({ section }) => section === "7-1")).toHaveLength(20);
+  expect(integrated.filter(({ section }) => section === "7-2")).toHaveLength(22);
+  expect(integrated.filter(({ section }) => section === "7-3")).toHaveLength(15);
+  expect(integrated.filter(({ section }) => section === "7-4")).toHaveLength(30);
+  expect(integrated.filter(({ section }) => section === "7-5")).toHaveLength(19);
+  expect(integrated.filter(({ section }) => section === "7-6")).toHaveLength(22);
+  expect(integrated.filter(({ section }) => section === "7-7")).toHaveLength(20);
+  expect(integrated.filter(({ section }) => section === "7-8")).toHaveLength(19);
 });

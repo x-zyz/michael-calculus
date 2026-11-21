@@ -1,0 +1,838 @@
+import type { WrittenProblem } from "./learning";
+
+const math = String.raw;
+
+// 第六章：习题 6-3（定积分在物理学上的应用）与总习题六原创同构题库（共 32 题）。
+export const bankIntegralPhysicsReview = [
+  // ==================== 习题 6-3 ====================
+  {
+    id: "jc935-6-3-1",
+    source: "上册习题 6-3 第 1 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "basic",
+    title: "胡克定律下的弹簧拉伸功",
+    prompt:
+      "已知弹簧拉伸时的弹力 F（单位：N）与伸长量 s（单位：cm）满足 F = k s（k 为弹性系数，单位：N/cm）。计算将弹簧由原长拉长 8 cm 所需做的功（用 J 表示）。",
+    formula: math`\begin{gathered}F=ks,\quad s\in[0,8]\,\text{cm}\\W=\int_{0}^{8}ks\,ds\end{gathered}`,
+    solution: math`\begin{gathered}W=\int_{0}^{8}ks\,ds=\left[\frac{1}{2}ks^{2}\right]_{0}^{8}\\=32k\,\text{N}\cdot\text{cm}=0.32k\,\text{J}\end{gathered}`,
+    explanation:
+      "弹簧越拉越费力，不能用终点弹力乘全长，而要把每一小段伸长量上的微元功累加起来。",
+    commonMistake: "容易直接用 8k 乘以 8 漏掉因子 1/2，或忘记把 N·cm 换算成 J（除以 100）。",
+    hints: [
+      "写出伸长量在 [s, s+ds] 区间内的功微元 dW = ks ds。",
+      "在区间 [0, 8] 上对 s 积分，先求 N·cm 单位下的功。",
+      "利用 1 J = 100 N·cm 将结果换算为焦耳。",
+    ],
+    steps: [
+      "建立微元：伸长量为 s 处再拉长 ds，所做微元功 dW = ks ds。",
+      "积分计算：W = ∫₀⁸ ks ds = (1/2)k·8² = 32k N·cm。",
+      "单位换算：1 m = 100 cm，故 W = 0.32k J。",
+    ],
+  },
+  {
+    id: "jc935-6-3-2",
+    source: "上册习题 6-3 第 2 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "圆筒内气体等温压缩功",
+    prompt:
+      "直径为 40 cm、高为 100 cm 的圆筒内充满压强为 5 N/cm² 的气体。在温度不变（pV = C）的条件下，将气体体积压缩为原来的 1/3，求需做的功。",
+    formula: math`\begin{gathered}pV=C,\quad r=0.2\,\text{m},\;H=1\,\text{m}\\W=\int_{0}^{\frac{2}{3}}\frac{C}{1-h}\,dh\end{gathered}`,
+    solution: math`\begin{gathered}C=5\times 10^{4}\cdot\pi(0.2)^{2}\cdot 1=2000\pi\\W=\int_{0}^{\frac{2}{3}}\frac{2000\pi}{1-h}\,dh\\=2000\pi[-\ln(1-h)]_{0}^{\frac{2}{3}}=2000\pi\ln 3\,\text{J}\end{gathered}`,
+    explanation:
+      "活塞向下压得越深，剩余体积越小、压强越大，压强随高度成反比增大，积分后自然出现对数。",
+    commonMistake:
+      "压强单位 5 N/cm² 换算为 N/m² 时需乘 10⁴ 而非 10²；压缩至原体积的 1/3，活塞移动距离是 2/3 m 而非 1/3 m。",
+    hints: [
+      "先把直径、高度与压强统一换算成国际单位 m 与 N/m²，求出常数 C = p₀V₀。",
+      "设活塞下压 h m，剩余体积为 (1−h)S，推得活塞所受压力 P(h) = C/(1−h)。",
+      "在 h ∈ [0, 2/3] 上对 P(h) 积分即可得总功。",
+    ],
+    steps: [
+      "统一单位：r = 0.2 m，H = 1 m，p₀ = 5×10⁴ N/m²，得 C = p₀·πr²H = 2000π J。",
+      "设活塞下压 h m，压力 P(h) = p(h)S = C/(1−h) = 2000π/(1−h)。",
+      "积分得 W = ∫₀^(2/3) [2000π/(1−h)] dh = 2000π ln 3 J（约 6903 J）。",
+    ],
+  },
+  {
+    id: "jc935-6-3-3-1",
+    source: "上册习题 6-3 第 3 题（1）",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "证明题",
+    difficulty: "applied",
+    title: "克服行星引力的升空功公式",
+    prompt:
+      "证明：把质量为 m 的航天器从半径为 R、表面重力加速度为 g₀ 的行星表面垂直提升到离表面高度 H 处，克服万有引力所做的功为 W = m g₀ R H / (R + H)。",
+    formula: math`\begin{gathered}F(x)=G\frac{Mm}{x^{2}},\quad G\frac{Mm}{R^{2}}=mg_{0}\\W=\int_{R}^{R+H}\frac{mg_{0}R^{2}}{x^{2}}\,dx\end{gathered}`,
+    solution: math`\begin{gathered}GM=g_{0}R^{2}\implies F(x)=\frac{mg_{0}R^{2}}{x^{2}}\\W=\int_{R}^{R+H}\frac{mg_{0}R^{2}}{x^{2}}\,dx=mg_{0}R^{2}\left[-\frac{1}{x}\right]_{R}^{R+H}\\=mg_{0}R^{2}\left(\frac{1}{R}-\frac{1}{R+H}\right)=\frac{mg_{0}RH}{R+H}\end{gathered}`,
+    explanation:
+      "飞得越高引力越弱，按距离平方反比衰减；把从地心距 R 到 R+H 的引力微元积分后，分母自然多出 R+H。",
+    commonMistake: "把积分区间错写成 [0, H]，忘记万有引力公式中的距离 x 是到球心的距离。",
+    hints: [
+      "在行星表面 x = R 处利用万有引力等于重力 mg₀，消去常量 GM。",
+      "写出距球心 x 处的引力表达式 F(x) = mg₀R²/x²。",
+      "对 F(x) 在区间 [R, R+H] 上积分并通分化简。",
+    ],
+    steps: [
+      "由行星表面条件 GMm/R² = mg₀ 得 GM = g₀R²，从而 F(x) = mg₀R²/x²。",
+      "建立功的积分：W = ∫_R^(R+H) (mg₀R²/x²) dx。",
+      "求原函数并代入上下限得 mg₀R²(1/R − 1/(R+H)) = mg₀RH/(R+H)。",
+    ],
+  },
+  {
+    id: "jc935-6-3-3-2",
+    source: "上册习题 6-3 第 3 题（2）",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "basic",
+    title: "科研卫星入轨克服引力做功",
+    prompt:
+      "一颗质量为 250 kg 的科研卫星需送入离地表高度 600 km 的轨道。已知行星半径 R = 6400 km，表面重力加速度 g = 9.8 m/s²，计算克服引力所做的功（单位：kJ）。",
+    formula: math`\begin{gathered}m=250\,\text{kg},\;H=600\,\text{km}\\R=6400\,\text{km},\;W=\frac{mgRH}{R+H}\end{gathered}`,
+    solution: math`\begin{gathered}\frac{RH}{R+H}=\frac{6400\times 600}{7000}=\frac{3840}{7}\,\text{km}\\W=250\times 9.8\times\frac{3840}{7}\,\text{kJ}\\=350\times 3840=1.344\times 10^{6}\,\text{kJ}\end{gathered}`,
+    explanation:
+      "直接把卫星质量、半径和轨道高度代入已证的引力功公式，注意千米与焦耳之间的千倍对应即可算出精确值。",
+    commonMistake: "把 R 和 H 的单位 km 直接当成 m 代入却把结果标成 J，导致差了 1000 倍。",
+    hints: [
+      "先算比值 RH/(R+H)，注意分母 R+H = 7000 km 便于约分。",
+      "计算 mg = 250 × 9.8 = 2450 N，恰好能被 7 整除。",
+      "1 N · 1 km = 1 kJ，直接得出以 kJ 为单位的结果。",
+    ],
+    steps: [
+      "代入半径与高度：RH/(R+H) = (6400×600)/7000 = 3840/7 km。",
+      "计算重力 mg = 250×9.8 = 2450 N，且 2450/7 = 350。",
+      "乘积得 W = 350×3840 kJ = 1.344×10⁶ kJ。",
+    ],
+  },
+  {
+    id: "jc935-6-3-4",
+    source: "上册习题 6-3 第 4 题",
+    lessonId: "economic-integrals",
+    errorTag: "definite_substitution",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "变速直线运动克服介质阻力功",
+    prompt:
+      "一质点沿直线按规律 x = c t²（c > 0，t ≥ 0）运动，介质阻力大小与速度的立方成正比（R = k v³，k > 0）。计算质点由 x = 0 移至 x = a（a > 0）时克服阻力所做的功。",
+    formula: math`\begin{gathered}x=ct^{2},\quad R=kv^{3}\\W=\int_{0}^{a}R\,dx\end{gathered}`,
+    solution: math`\begin{gathered}v=\frac{dx}{dt}=2ct,\quad R=8kc^{3}t^{3}\\dW=R\,dx=16kc^{4}t^{4}\,dt,\quad T=\sqrt{\frac{a}{c}}\\W=\int_{0}^{T}16kc^{4}t^{4}\,dt=\frac{16}{5}kc^{\frac{3}{2}}a^{\frac{5}{2}}\end{gathered}`,
+    explanation:
+      "位移和阻力都能写成时间 t 的函数，把 dx 换成 v dt 后就变成普通幂函数关于时间的定积分。",
+    commonMistake: "容易漏乘 dx = 2ct dt 中的速度因子，或者忘记把积分上限从 x = a 换算为 t = √(a/c)。",
+    hints: [
+      "先对 x = ct² 求导得到速度 v = 2ct 及位移微元 dx = 2ct dt。",
+      "将 R = kv³ 与 dx 相乘得到用时间表示的微元功 dW = 16kc⁴t⁴ dt。",
+      "由 cT² = a 解出时间上限 T = (a/c)^(1/2) 再积分。",
+    ],
+    steps: [
+      "求导得 v = 2ct，故阻力 R = k(2ct)³ = 8kc³t³，微元功 dW = R·2ct dt = 16kc⁴t⁴ dt。",
+      "确定时间上限：x = a 对应 T = (a/c)^(1/2)。",
+      "积分得 W = (16/5)kc⁴T⁵ = (16/5)k c^(3/2) a^(5/2)。",
+    ],
+  },
+  {
+    id: "jc935-6-3-5",
+    source: "上册习题 6-3 第 5 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "等功锤击木桩的二次入土深度",
+    prompt:
+      "用铁锤将一木桩击入土层，设土层阻力与木桩入土深度成正比（R = k h）。第一次锤击将木桩打入 2 cm。若第二次锤击所做功与第一次相等，求第二次又将木桩打入多少厘米？",
+    formula: math`\begin{gathered}W_{1}=\int_{0}^{2}kh\,dh\\W_{2}=\int_{2}^{2+h_{0}}kh\,dh=W_{1}\end{gathered}`,
+    solution: math`\begin{gathered}W_{1}=\int_{0}^{2}kh\,dh=2k\\W_{2}=\frac{k}{2}\left[(2+h_{0})^{2}-4\right]=2k\\(2+h_{0})^{2}=8\implies h_{0}=2(\sqrt{2}-1)\,\text{cm}\end{gathered}`,
+    explanation:
+      "越往深处阻力越大，所以做同样多的功，第二次能推进的新深度必然比第一次短得多。",
+    commonMistake: "把第二次的积分区间错写成 [0, h₀]，忽略了木桩已经处在深度 2 cm 处。",
+    hints: [
+      "先算出第一次锤击在深度 [0, 2] 上克服阻力做的功 W₁ = 2k。",
+      "设第二次又推进 h₀ cm，则积分区间为 [2, 2 + h₀]。",
+      "令 W₂ = W₁ 解出正根 h₀。",
+    ],
+    steps: [
+      "第一次做功 W₁ = ∫₀² kh dh = (1/2)k·4 = 2k。",
+      "第二次从深度 2 到 2+h₀ 做功 W₂ = (k/2)[(2+h₀)² − 4]。",
+      "由 W₂ = W₁ 得 (2+h₀)² = 8，因 h₀ > 0，故 h₀ = 2(√2 − 1) cm。",
+    ],
+  },
+  {
+    id: "jc935-6-3-6",
+    source: "上册习题 6-3 第 6 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "倒圆锥形水池抽干做功",
+    prompt:
+      "一倒圆锥形水池深 12 m，顶面口径 16 m，池内盛满密度为 ρ 的水。求将池中水全部抽至池口边缘所需做的功（保留 π、ρ、g）。",
+    formula: math`\begin{gathered}r(y)=\frac{8}{12}y=\frac{2}{3}y,\quad y\in[0,12]\\W=\int_{0}^{12}\rho g\pi r(y)^{2}(12-y)\,dy\end{gathered}`,
+    solution: math`\begin{gathered}W=\frac{4}{9}\pi\rho g\int_{0}^{12}\left(12y^{2}-y^{3}\right)dy\\=\frac{4}{9}\pi\rho g\left[4y^{3}-\frac{1}{4}y^{4}\right]_{0}^{12}\\=\frac{4}{9}\pi\rho g\cdot 1728=768\pi\rho g\end{gathered}`,
+    explanation:
+      "把满池水切成无数水平薄圆盘：越靠近锥顶圆盘越小但要提得越高，两者相乘再逐层累加就是总功。",
+    commonMistake: "容易把口径 16 m 当成半径，或者把距锥顶高度 y 错当成抽水提升高度。",
+    hints: [
+      "以锥底顶点为 y = 0 向上建轴，则顶面半径 8 m，y 处截面半径 r(y) = (2/3)y。",
+      "位于 y 处的薄水层厚度 dy，体积 πr(y)² dy，提升至池口的距离为 12 − y。",
+      "在 [0, 12] 上对多项式 12y² − y³ 积分化简。",
+    ],
+    steps: [
+      "由相似三角形得高度 y 处水层半径 r(y) = (8/12)y = (2/3)y。",
+      "该薄层重力微元 dG = (4/9)πρg y² dy，需提升高度 12 − y。",
+      "积分得 W = (4/9)πρg [4y³ − y⁴/4]₀¹² = 768πρg。",
+    ],
+  },
+  {
+    id: "jc935-6-3-7",
+    source: "上册习题 6-3 第 7 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "证明题",
+    difficulty: "applied",
+    title: "矩形闸门对角线两侧水压力之比",
+    prompt:
+      "一宽为 w、高为 H 的矩形闸门铅直放置，其顶边与水面齐平。一条对角线将闸门分为上三角形 T₁ 与下三角形 T₂，证明 T₂ 所受水压力是 T₁ 的 2 倍。",
+    formula: math`\begin{gathered}P_{1}=\int_{0}^{H}\rho gy\cdot w\!\left(1-\frac{y}{H}\right)dy\\P_{2}=\int_{0}^{H}\rho gy\cdot w\frac{y}{H}\,dy\end{gathered}`,
+    solution: math`\begin{gathered}P_{1}=\rho gw\left[\frac{y^{2}}{2}-\frac{y^{3}}{3H}\right]_{0}^{H}=\frac{1}{6}\rho gwH^{2}\\P_{2}=\rho gw\left[\frac{y^{3}}{3H}\right]_{0}^{H}=\frac{1}{3}\rho gwH^{2}=2P_{1}\end{gathered}`,
+    explanation:
+      "两块三角形面积一样大，但下面那块重心更深、水压更大，精确积分表明它的总水压力正好是上面那块的两倍。",
+    commonMistake: "把上三角形和下三角形在深度 y 处的水平宽度写反，导致算得 P₁ > P₂。",
+    hints: [
+      "以水面为 y = 0 向下建轴，深度 y ∈ [0, H] 处压强为 ρgy。",
+      "由相似比知上三角形在深度 y 处宽 w(1 − y/H)，下三角形宽 w(y/H)。",
+      "分别积分算出 P₁ 与 P₂ 并比较比值。",
+    ],
+    steps: [
+      "取深度 y ∈ [0, H] 为积分变量，水压强 p(y) = ρgy。",
+      "计算上三角形压力 P₁ = ∫₀ᴴ ρgy·w(1−y/H) dy = (1/6)ρgwH²。",
+      "计算下三角形压力 P₂ = ∫₀ᴴ ρgy·w(y/H) dy = (1/3)ρgwH² = 2P₁。",
+    ],
+  },
+  {
+    id: "jc935-6-3-8",
+    source: "上册习题 6-3 第 8 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "等腰梯形闸门单侧水压力",
+    prompt:
+      "一铅直放置的等腰梯形闸门，上底长 12 m 且与水面相齐，下底长 8 m，高 10 m。求闸门一侧所受的水压力（用 ρg 表示，并给出 ρ = 1000 kg/m³、g = 9.8 m/s² 时的近似值）。",
+    formula: math`\begin{gathered}L(y)=12-\frac{12-8}{10}y=12-0.4y\\F=\int_{0}^{10}\rho gy(12-0.4y)\,dy\end{gathered}`,
+    solution: math`\begin{gathered}F=\rho g\left[6y^{2}-\frac{2}{15}y^{3}\right]_{0}^{10}\\=\rho g\left(600-\frac{400}{3}\right)=\frac{1400}{3}\rho g\\\approx 4.573\times 10^{6}\,\text{N}\end{gathered}`,
+    explanation:
+      "把梯形切成许多水平细条，细条宽度随深度线性变窄，而水压随深度线性增大，相乘积分即可得总压力。",
+    commonMistake: "把梯形宽度 L(y) 的斜率算错（例如用 8−12 漏除高度 10，或误把较短底边放在水面）。",
+    hints: [
+      "以水面为 y = 0 向下建轴，y = 0 时宽 12 m，y = 10 时宽 8 m。",
+      "线性插值写出深度 y 处的水平宽度 L(y) = 12 − 0.4y。",
+      "在 [0, 10] 上积分 ∫ ρg y L(y) dy。",
+    ],
+    steps: [
+      "建立深度 y ∈ [0, 10] 处的宽度函数 L(y) = 12 − 0.4y。",
+      "写出水压力微元 dF = ρgy(12 − 0.4y) dy。",
+      "积分得 F = (1400/3)ρg ≈ 4.573×10⁶ N。",
+    ],
+  },
+  {
+    id: "jc935-6-3-9",
+    source: "上册习题 6-3 第 9 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "沉没等腰三角形薄片水压力",
+    prompt:
+      "一底为 10 cm、高为 9 cm 的等腰三角形薄片铅直沉没水中，顶点在上、底边水平在下，且顶点距水面 6 cm。求薄片单面所受水压力（ρ = 1000 kg/m³，g = 9.8 m/s²）。",
+    formula: math`\begin{gathered}L(x)=\frac{10}{9}x,\quad p(x)=\rho g(x+0.06)\\F=\int_{0}^{0.09}\rho g(x+0.06)\frac{10}{9}x\,dx\end{gathered}`,
+    solution: math`\begin{gathered}F=\frac{10}{9}\rho g\left[\frac{x^{3}}{3}+0.03x^{2}\right]_{0}^{0.09}\\=\frac{10}{9}\rho g\cdot 0.000486=\frac{27}{50000}\rho g\\=0.54g=5.292\,\text{N}\end{gathered}`,
+    explanation:
+      "三角形顶点在水面以下 6 cm，所以距离顶点 x 处的实际水深是 x + 0.06 m，把水压乘上窄条面积积分即得压力。",
+    commonMistake: "容易忘记把 6 cm、9 cm、10 cm 统一换算成米，或漏加顶点的初始水深 0.06 m。",
+    hints: [
+      "全部长度换算为米：底 0.10 m、高 0.09 m、顶点水深 0.06 m。",
+      "以顶点为 x = 0 向下建轴，x ∈ [0, 0.09] 处宽度为 (10/9)x，实际水深 x + 0.06。",
+      "对 ρg(x + 0.06)(10/9)x 在 [0, 0.09] 上积分并代入 ρg = 9800。",
+    ],
+    steps: [
+      "设 x ∈ [0, 0.09] m 为到顶点的竖直距离，相似比得水平宽 L(x) = (10/9)x。",
+      "该处压强 p(x) = ρg(x + 0.06)，面积微元 dS = (10/9)x dx。",
+      "积分得 F = (27/50000)ρg = 0.54×9.8 = 5.292 N。",
+    ],
+  },
+  {
+    id: "jc935-6-3-10",
+    source: "上册习题 6-3 第 10 题",
+    lessonId: "economic-integrals",
+    errorTag: "definite_substitution",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "均匀细棒对端外质点的万有引力",
+    prompt:
+      "一长为 L、线密度为 λ 的均匀细直棒置于 y 轴区间 [0, L] 上，在点 (d, 0)（d > 0）处有一质量为 m 的质点。求细棒对该质点的万有引力分量 (F_x, F_y)。",
+    formula: math`\begin{gathered}F_{x}=\int_{0}^{L}\frac{-Gm\lambda d}{(d^{2}+y^{2})^{\frac{3}{2}}}\,dy\\F_{y}=\int_{0}^{L}\frac{Gm\lambda y}{(d^{2}+y^{2})^{\frac{3}{2}}}\,dy\end{gathered}`,
+    solution: math`\begin{gathered}F_{x}=-\frac{Gm\lambda}{d}\left[\frac{y}{\sqrt{d^{2}+y^{2}}}\right]_{0}^{L}=-\frac{Gm\lambda L}{d\sqrt{d^{2}+L^{2}}}\\F_{y}=Gm\lambda\left[-\frac{1}{\sqrt{d^{2}+y^{2}}}\right]_{0}^{L}\\=Gm\lambda\!\left(\frac{1}{d}-\frac{1}{\sqrt{d^{2}+L^{2}}}\right)\end{gathered}`,
+    explanation:
+      "棒上不同小段拉质点的方向各不相同，不能直接把引力大小相加，必须先正交分解到 x、y 两个方向再分别积分。",
+    commonMistake: "忘记力是矢量，直接对 dF = Gmλ dy/(d²+y²) 标量积分；或写错 F_x 的负号方向。",
+    hints: [
+      "棒上 y 处微元质量 λ dy，到质点距离 r = √(d² + y²)，引力指向棒元 (−d/r, y/r)。",
+      "计算 F_x 时可作三角换元 y = d tan t；计算 F_y 时直接凑微分 d(d² + y²)。",
+      "代入上下限 y = 0 与 y = L 化简两个分量。",
+    ],
+    steps: [
+      "写出引力微元分量：dF_x = −Gmλ d dy/(d²+y²)^(3/2)，dF_y = Gmλ y dy/(d²+y²)^(3/2)。",
+      "对 F_x 令 y = d tan t 积分得 F_x = −GmλL / (d√(d²+L²))。",
+      "对 F_y 凑微分 u = d²+y² 积分得 F_y = Gmλ(1/d − 1/√(d²+L²))。",
+    ],
+  },
+  {
+    id: "jc935-6-3-11",
+    source: "上册习题 6-3 第 11 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "均匀圆弧细棒对圆心质点的引力",
+    prompt:
+      "一半径为 r、圆心角为 2α（0 < α < π）、线密度为常数 λ 的均匀圆弧细棒，在圆心处有一质量为 m 的质点。求细棒对该质点的引力大小与方向。",
+    formula: math`\begin{gathered}F_{x}=\int_{-\alpha}^{\alpha}\frac{Gm\lambda r\,d\theta}{r^{2}}\cos\theta\\F_{y}=\int_{-\alpha}^{\alpha}\frac{Gm\lambda r\,d\theta}{r^{2}}\sin\theta\end{gathered}`,
+    solution: math`\begin{gathered}F_{y}=0\quad(\text{对称性})\\F_{x}=\frac{Gm\lambda}{r}\left[\sin\theta\right]_{-\alpha}^{\alpha}=\frac{2Gm\lambda}{r}\sin\alpha\\\text{方向由圆心指向圆弧中点}\end{gathered}`,
+    explanation:
+      "把圆弧关于 x 轴对称摆放后，上下两半的竖直拉力正好互相抵消，只剩沿对称轴指向弧中点的水平合力。",
+    commonMistake: "把圆心角 2α 错当成积分限 [0, 2α] 却仍按对称性只算 cosθ，导致结果少算或符号出错。",
+    hints: [
+      "以圆心为原点、弧的角平分线为 x 轴正半轴建系，弧对应 θ ∈ [−α, α]。",
+      "弧微元长 r dθ，质量 λr dθ，到圆心距离恒为 r。",
+      "由奇偶对称知 F_y = 0，只需对 cosθ 在 [−α, α] 上积分求 F_x。",
+    ],
+    steps: [
+      "对称建系，使圆弧对应极角 θ ∈ [−α, α]，弧元质量 dm = λr dθ。",
+      "引力竖直分量因 sinθ 为奇函数在对称区间积分为 0。",
+      "水平分量 F_x = (Gmλ/r)∫_(−α)^α cosθ dθ = (2Gmλ/r)sinα，指向圆弧中点。",
+    ],
+  },
+
+  // ==================== 总习题六 ====================
+  {
+    id: "jc935-6-review-1-1",
+    source: "上册总习题六 第 1 题（1）",
+    lessonId: "integral-area",
+    errorTag: "area_split",
+    kind: "推导题",
+    difficulty: "basic",
+    title: "三次曲线与横轴所围面积",
+    prompt: "求曲线 y = x³ − 5x² + 4x 与 x 轴所围成的封闭图形的总面积 A。",
+    formula: math`\begin{gathered}y=x^{3}-5x^{2}+4x=x(x-1)(x-4)\\A=\int_{0}^{1}y\,dx-\int_{1}^{4}y\,dx\end{gathered}`,
+    solution: math`\begin{gathered}\int_{0}^{1}y\,dx=\left[\frac{x^{4}}{4}-\frac{5x^{3}}{3}+2x^{2}\right]_{0}^{1}=\frac{7}{12}\\-\int_{1}^{4}y\,dx=-\left(-\frac{32}{3}-\frac{7}{12}\right)=\frac{135}{12}\\A=\frac{7}{12}+\frac{135}{12}=\frac{71}{6}\end{gathered}`,
+    explanation:
+      "曲线先在 x 轴上方鼓起，过了 x = 1 又钻到 x 轴下方；算面积必须把下方那块取正号再加起来。",
+    commonMistake: "直接从 0 积到 4 而不分段取绝对值，导致上下两块面积相互抵消。",
+    hints: [
+      "先因式分解 x³ − 5x² + 4x = x(x−1)(x−4) 找出全部零点。",
+      "判别 [0, 1] 上 y ≥ 0，而 [1, 4] 上 y ≤ 0。",
+      "分别求两段积分并取正值相加。",
+    ],
+    steps: [
+      "解 x(x−1)(x−4) = 0 得交点 x = 0, 1, 4。",
+      "写出原函数 F(x) = x⁴/4 − 5x³/3 + 2x²，算得 F(1)−F(0) = 7/12，F(4)−F(1) = −135/12。",
+      "总面积 A = 7/12 + 135/12 = 71/6。",
+    ],
+  },
+  {
+    id: "jc935-6-review-1-2",
+    source: "上册总习题六 第 1 题（2）",
+    lessonId: "integral-arc",
+    errorTag: "arc_integrand",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "配成完全平方的曲线弧长",
+    prompt: "求曲线 y = (√x / 6)(12 − x) 上相应于 1 ≤ x ≤ 4 的一段弧的长度 s。",
+    formula: math`\begin{gathered}y=\frac{\sqrt{x}}{6}(12-x)=2x^{\frac{1}{2}}-\frac{1}{6}x^{\frac{3}{2}}\\s=\int_{1}^{4}\sqrt{1+y'^{2}}\,dx\end{gathered}`,
+    solution: math`\begin{gathered}y'=x^{-\frac{1}{2}}-\frac{1}{4}x^{\frac{1}{2}}\\1+y'^{2}=\left(x^{-\frac{1}{2}}+\frac{1}{4}x^{\frac{1}{2}}\right)^{2}\\s=\int_{1}^{4}\!\left(x^{-\frac{1}{2}}+\frac{1}{4}x^{\frac{1}{2}}\right)dx\\=\left[2x^{\frac{1}{2}}+\frac{1}{6}x^{\frac{3}{2}}\right]_{1}^{4}=\frac{19}{6}\end{gathered}`,
+    explanation:
+      "求导后平方加 1，正好把中间的减号翻成加号，变成一个完全平方，开根号后就能直接用幂函数积分。",
+    commonMistake: "把 y'² 展开后的常数项 −1/2 加 1 错算成 −3/2，导致无法配成完全平方。",
+    hints: [
+      "先展开 y = 2x^(1/2) − (1/6)x^(3/2) 再求导。",
+      "计算 1 + y'² 时观察 (a − b)² + 4ab = (a + b)² 的配平结构。",
+      "在 [1, 4] 上开根号并逐项积分。",
+    ],
+    steps: [
+      "求导得 y' = x^(−1/2) − (1/4)x^(1/2)。",
+      "化简 1 + y'² = x^(−1) + 1/2 + x/16 = (x^(−1/2) + (1/4)x^(1/2))²。",
+      "积分得 s = [2√x + (1/6)x^(3/2)]₁⁴ = (4 + 4/3) − (2 + 1/6) = 19/6。",
+    ],
+  },
+  {
+    id: "jc935-6-review-2-1",
+    source: "上册总习题六 第 2 题（1）",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "basic",
+    title: "共线细棒对质点引力的积分表达",
+    prompt:
+      "一长为 L、线密度为常数 λ 的均匀细棒沿 x 轴放置于区间 [0, L] 上，在 x = L + d（d > 0）处有一质量为 m 的质点。写出细棒与质点间引力大小的定积分表达式并求值。",
+    formula: math`\begin{gathered}x\in[0,L],\quad r(x)=L+d-x\\F=\int_{0}^{L}\frac{Gm\lambda}{(L+d-x)^{2}}\,dx\end{gathered}`,
+    solution: math`\begin{gathered}F=Gm\lambda\left[\frac{1}{L+d-x}\right]_{0}^{L}\\=Gm\lambda\left(\frac{1}{d}-\frac{1}{L+d}\right)=\frac{Gm\lambda L}{d(L+d)}\end{gathered}`,
+    explanation:
+      "棒上各段都在质点左侧、方向完全一致，只需把距离写成 L+d−x，沿 [0, L] 直接累加即可。",
+    commonMistake: "把棒元到质点的距离错写成 x + d（忽略了质点位于棒的右端外侧 L+d 处）。",
+    hints: [
+      "在 [0, L] 内任取坐标 x，微元到质点 L + d 的距离为 L + d − x。",
+      "写出引力微元 dF = Gmλ dx / (L + d − x)²。",
+      "利用 ∫ du/u² = −1/u 求出定积分并通分。",
+    ],
+    steps: [
+      "确定棒元 [x, x+dx] 到质点的距离 r = L + d − x。",
+      "列写引力积分 F = ∫₀ᴸ [Gmλ/(L+d−x)²] dx。",
+      "积分得 Gmλ[1/(L+d−x)]₀ᴸ = GmλL / [d(L+d)]。",
+    ],
+  },
+  {
+    id: "jc935-6-review-2-2",
+    source: "上册总习题六 第 2 题（2）",
+    lessonId: "integral-area",
+    errorTag: "area_bounds",
+    kind: "证明题",
+    difficulty: "applied",
+    title: "单调下凸函数的积分与梯形比较",
+    prompt:
+      "设在区间 [a, b]（a < b）上，f(x) > 0，f'(x) < 0，f''(x) > 0。记 I₁ = ∫_a^b f(x) dx，I₂ = f(b)(b − a)，I₃ = (1/2)[f(a) + f(b)](b − a)。证明：I₂ < I₁ < I₃。",
+    formula: math`\begin{gathered}I_{1}=\int_{a}^{b}f(x)\,dx,\;I_{2}=f(b)(b-a)\\I_{3}=\frac{1}{2}\left[f(a)+f(b)\right](b-a)\end{gathered}`,
+    solution: math`\begin{gathered}f'(x)<0\implies f(x)>f(b)\;\text{于}\;[a,b)\\\implies I_{1}>I_{2}\\f''(x)>0\implies f(x)<\text{弦线}\;\text{于}\;(a,b)\\\implies I_{1}<I_{3},\quad\text{故}\;I_{2}<I_{1}<I_{3}\end{gathered}`,
+    explanation:
+      "曲线一路下降且向下凹（像碗底），因此它始终高于右端水平矩形，却低于连接两端点的直梯形顶边。",
+    commonMistake: "把 f''(x) > 0（下凸/凹向上）和 f''(x) < 0（上凸）对应的弦线位置记反。",
+    hints: [
+      "由 f'(x) < 0 知 f 在 [a, b] 严格单调递减，比较 f(x) 与 f(b)。",
+      "写出连接 (a, f(a)) 与 (b, f(b)) 的弦线方程 g(x)。",
+      "由 f''(x) > 0 得 (a, b) 上 f(x) < g(x)，两边在 [a, b] 上积分即得 I₁ < I₃。",
+    ],
+    steps: [
+      "因 f'(x) < 0，在 [a, b) 上恒有 f(x) > f(b)，积分得 I₁ > f(b)(b−a) = I₂。",
+      "因 f''(x) > 0，曲线在 [a, b] 下凸，故在 (a, b) 上 f(x) 严格小于端点连线 g(x)。",
+      "对 f(x) < g(x) 在 [a, b] 积分得 I₁ < ∫_a^b g(x) dx = I₃，合即 I₂ < I₁ < I₃。",
+    ],
+  },
+  {
+    id: "jc935-6-review-2-3",
+    source: "上册总习题六 第 2 题（3）",
+    lessonId: "integral-volume",
+    errorTag: "volume_washer",
+    kind: "证明题",
+    difficulty: "applied",
+    title: "球环体积与球半径无关（餐巾环问题）",
+    prompt:
+      "在半径为 R 的实心球体中心沿直径钻出一个半径为 r（0 < r < R）的圆柱形通孔，使剩余球环的高为 H = 2√(R² − r²)。证明球环体积为 V = (π/6)H³，仅与 H 有关而与 R 无关。",
+    formula: math`\begin{gathered}R^{2}-r^{2}=\frac{H^{2}}{4},\quad y\in\left[-\frac{H}{2},\frac{H}{2}\right]\\V=\int_{-\frac{H}{2}}^{\frac{H}{2}}\pi\left[(R^{2}-y^{2})-r^{2}\right]dy\end{gathered}`,
+    solution: math`\begin{gathered}V=\pi\int_{-\frac{H}{2}}^{\frac{H}{2}}\left(\frac{H^{2}}{4}-y^{2}\right)dy\\=2\pi\left[\frac{H^{2}}{4}y-\frac{y^{3}}{3}\right]_{0}^{\frac{H}{2}}=\frac{\pi}{6}H^{3}\end{gathered}`,
+    explanation:
+      "不管原来的球有多大，只要钻完孔后剩下的环高 H 相同，每一层水平垫片的面积都恰好等于 π(H²/4 − y²)，体积完全一样。",
+    commonMistake: "垫片截面积漏掉内孔面积 πr²，或忘记把 R² − r² 整体替换成 H²/4。",
+    hints: [
+      "以球心为原点、孔轴为 y 轴，高度 y 处球截面外半径 √(R² − y²)，内半径 r。",
+      "写出垫片面积 A(y) = π[(R² − y²) − r²] = π(R² − r² − y²)。",
+      "代入几何关系 R² − r² = H²/4 并在 [−H/2, H/2] 上积分。",
+    ],
+    steps: [
+      "在高度 y ∈ [−H/2, H/2] 处作水平切片，圆环面积 A(y) = π(R² − r² − y²)。",
+      "由勾股定理 R² − r² = (H/2)² = H²/4，故 A(y) = π(H²/4 − y²) 与 R 无关。",
+      "利用偶函数对称性积分得 V = 2π(H³/8 − H³/24) = (π/6)H³。",
+    ],
+  },
+  {
+    id: "jc935-6-review-3",
+    source: "上册总习题六 第 3 题",
+    lessonId: "economic-integrals",
+    errorTag: "marginal_accumulation",
+    kind: "推导题",
+    difficulty: "basic",
+    title: "变密度金属棒的半质量分割点",
+    prompt:
+      "一根长 8 m 的金属棒，离左端 x m 处的线密度为 ρ(x) = 1 / √(1 + x)（kg/m）。问 x 为何值时，[0, x] 一段的质量恰好等于全棒质量的一半？",
+    formula: math`\begin{gathered}m(x)=\int_{0}^{x}\frac{dt}{\sqrt{1+t}}\\m(x)=\frac{1}{2}m(8)\end{gathered}`,
+    solution: math`\begin{gathered}m(x)=\left[2\sqrt{1+t}\right]_{0}^{x}\\=2(\sqrt{1+x}-1)\\m(8)=2(3-1)=4\\2(\sqrt{1+x}-1)=2\implies\sqrt{1+x}=2\\\implies x=3\,\text{m}\end{gathered}`,
+    explanation:
+      "棒子左端更密实、右端更轻，所以不需要走到中点 4 m，走到 3 m 时就已经凑够了一半的质量。",
+    commonMistake: "把原函数 2√(1+x) 在下限 t = 0 处的值漏减，误把 m(x) 写成 2√(1+x)。",
+    hints: [
+      "用变上限积分求出 [0, x] 段的质量函数 m(x) = 2(√(1+x) − 1)。",
+      "代入 x = 8 算出全棒总质量 m(8) = 4 kg。",
+      "解方程 m(x) = 2 得到分割点 x。",
+    ],
+    steps: [
+      "积分得质量函数 m(x) = ∫₀ˣ (1+t)^(−1/2) dt = 2(√(1+x) − 1)。",
+      "令 x = 8 得总质量 m(8) = 2(√9 − 1) = 4 kg。",
+      "由 m(x) = 2 解得 √(1+x) = 2，从而 x = 3 m。",
+    ],
+  },
+  {
+    id: "jc935-6-review-4",
+    source: "上册总习题六 第 4 题",
+    lessonId: "integral-area",
+    errorTag: "area_split",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "两极坐标圆的公共部分面积",
+    prompt:
+      "求极坐标曲线 ρ = 2a cosθ 与 ρ = 2a(cosθ + sinθ)（a > 0）所围图形公共部分的面积。",
+    formula: math`\begin{gathered}A=\frac{1}{2}\int_{-\frac{\pi}{4}}^{0}\left[2a(\cos\theta+\sin\theta)\right]^{2}d\theta\\+\frac{1}{2}\int_{0}^{\frac{\pi}{2}}(2a\cos\theta)^{2}\,d\theta\end{gathered}`,
+    solution: math`\begin{gathered}A=2a^{2}\int_{-\frac{\pi}{4}}^{0}(1+\sin 2\theta)\,d\theta+\frac{\pi a^{2}}{2}\\=2a^{2}\left[\theta-\frac{1}{2}\cos 2\theta\right]_{-\frac{\pi}{4}}^{0}+\frac{\pi a^{2}}{2}\\=2a^{2}\!\left(\frac{\pi}{4}-\frac{1}{2}\right)+\frac{\pi a^{2}}{2}=a^{2}(\pi-1)\end{gathered}`,
+    explanation:
+      "公共部分由射线 θ = 0 切成两瓣：第一象限里内边界是圆 ρ = 2a cosθ（半圆），第四象限里内边界换成另一条圆。",
+    commonMistake: "没有按交点射线 θ = 0 分段取较小极径，或漏掉极坐标面积公式里的系数 1/2。",
+    hints: [
+      "联立 2a cosθ = 2a(cosθ + sinθ) 得交点射线 θ = 0，且两圆均过极点。",
+      "在 [−π/4, 0] 上 sinθ ≤ 0，较小极径为 2a(cosθ + sinθ)；在 [0, π/2] 上较小极径为 2a cosθ。",
+      "利用 (cosθ + sinθ)² = 1 + sin 2θ 分别积分相加。",
+    ],
+    steps: [
+      "联立求交点得 θ = 0；分别令 ρ = 0 得极点切线 θ = −π/4 与 θ = π/2。",
+      "分两段积分：第一段 2a²∫_(−π/4)^0 (1+sin2θ)dθ = a²(π/2 − 1)。",
+      "第二段为半径 a 的半圆面积 πa²/2，相加得 A = a²(π − 1)。",
+    ],
+  },
+  {
+    id: "jc935-6-review-5",
+    source: "上册总习题六 第 5 题",
+    lessonId: "integral-area",
+    errorTag: "area_bounds",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "由等面积条件反求未知曲线方程",
+    prompt:
+      "在第一象限从下到上依次有曲线 y = x²、y = 4x² 与过原点的曲线 C：x = f(y)。若对 y = 4x² 上任一点 P，由 C、y = 4x² 及过 P 的水平线围成的面积 A，恒等于由 y = x²、y = 4x² 及过 P 的竖直线围成的面积 B，求曲线 C 的方程。",
+    formula: math`\begin{gathered}A(y)=\int_{0}^{y}\left[\frac{\sqrt{t}}{2}-f(t)\right]dt\\B(y)=\int_{0}^{\frac{\sqrt{y}}{2}}(4x^{2}-x^{2})\,dx\end{gathered}`,
+    solution: math`\begin{gathered}B(y)=\left[x^{3}\right]_{0}^{\frac{\sqrt{y}}{2}}=\frac{1}{8}y^{\frac{3}{2}}\\A'(y)=B'(y)\implies\frac{\sqrt{y}}{2}-f(y)=\frac{3}{16}\sqrt{y}\\f(y)=\frac{5}{16}\sqrt{y}\iff y=\frac{256}{25}x^{2}\;(x\ge 0)\end{gathered}`,
+    explanation:
+      "把两个面积都写成点 P 纵坐标 y 的函数，令它们恒等后两边对 y 求导，积分号立刻脱掉，直接解出 f(y)。",
+    commonMistake: "对变上限积分 B(y) 求导时忘记链式法则（上限是 √y/2 而非 y），导致系数出错。",
+    hints: [
+      "设 P 点坐标为 (√y/2, y)，分别写出水平切片面积 A(y) 和竖直切片面积 B(y)。",
+      "先算出 B(y) = (√y/2)³ = y^(3/2)/8。",
+      "对恒等式 A(y) = B(y) 两边关于 y 求导，直接解出 f(y)。",
+    ],
+    steps: [
+      "记 P(√y/2, y)，得 A(y) = ∫₀ʸ [√t/2 − f(t)] dt，B(y) = ∫₀^(√y/2) 3x² dx = y^(3/2)/8。",
+      "由 A(y) ≡ B(y) 对 y 求导：√y/2 − f(y) = (3/16)√y。",
+      "解得 f(y) = (5/16)√y，即曲线 C 为 y = (256/25)x²（x ≥ 0）。",
+    ],
+  },
+  {
+    id: "jc935-6-review-6",
+    source: "上册总习题六 第 6 题",
+    lessonId: "integral-volume",
+    errorTag: "volume_slices",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "定面积抛物线旋转体体积最小化",
+    prompt:
+      "设抛物线 y = ax² + bx + c（a ≠ 0）过原点 (0, 0)，且在 [0, 1] 上 y ≥ 0。若该抛物线与 x = 1、y = 0 所围面积为 2/3，确定 a, b, c 使该图形绕 x 轴旋转的体积最小。",
+    formula: math`\begin{gathered}c=0,\quad\int_{0}^{1}(ax^{2}+bx)\,dx=\frac{a}{3}+\frac{b}{2}=\frac{2}{3}\\V=\pi\int_{0}^{1}(ax^{2}+bx)^{2}\,dx\end{gathered}`,
+    solution: math`\begin{gathered}a=2-\frac{3}{2}b\\V(b)=\pi\left(\frac{a^{2}}{5}+\frac{ab}{2}+\frac{b^{2}}{3}\right)\\=\frac{\pi}{30}(b-3)^{2}+\frac{\pi}{2}\\b=3,\;a=-\frac{5}{2},\;c=0\quad\left(V_{\min}=\frac{\pi}{2}\right)\end{gathered}`,
+    explanation:
+      "面积固定后，a 和 b 只剩一个自由度；把旋转体体积写成 b 的二次函数，配方立刻看出顶点就是最小体积。",
+    commonMistake: "算出最优参数后忘记验证在 [0, 1] 上是否满足 y ≥ 0。",
+    hints: [
+      "由过原点得 c = 0，再由面积等于 2/3 把 a 用 b 表示为 a = 2 − 3b/2。",
+      "计算 V = π∫₀¹ (ax²+bx)² dx = π(a²/5 + ab/2 + b²/3)。",
+      "代入 a(b) 化为关于 b 的二次函数求极小值，并检验 y(x) 在 [0, 1] 非负。",
+    ],
+    steps: [
+      "由 y(0) = 0 得 c = 0；由 ∫₀¹ (ax²+bx)dx = a/3 + b/2 = 2/3 得 a = 2 − 3b/2。",
+      "代入体积积分并化简：V(b) = (π/30)(b − 3)² + π/2。",
+      "当 b = 3、a = −5/2 时体积最小为 π/2，此时 y = x(6 − 5x)/2 ≥ 0 于 [0, 1]，合题意。",
+    ],
+  },
+  {
+    id: "jc935-6-review-7-1",
+    source: "上册总习题六 第 7 题（1）",
+    lessonId: "integral-area",
+    errorTag: "area_bounds",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "过原点切线与对数曲线所围面积",
+    prompt:
+      "过坐标原点作曲线 y = ln(2x) 的切线，该切线与曲线 y = ln(2x) 及 x 轴围成平面图形 D。求图形 D 的面积 A。",
+    formula: math`\begin{gathered}y=\ln(2x)\iff x=\frac{1}{2}e^{y},\quad\text{切线}\;x=\frac{e}{2}y\\A=\int_{0}^{1}\left(\frac{1}{2}e^{y}-\frac{e}{2}y\right)dy\end{gathered}`,
+    solution: math`\begin{gathered}\ln(2x_{0})=1\implies x_{0}=\frac{e}{2},\;y_{0}=1\\A=\left[\frac{1}{2}e^{y}-\frac{e}{4}y^{2}\right]_{0}^{1}\\=\left(\frac{e}{2}-\frac{e}{4}\right)-\frac{1}{2}=\frac{e}{4}-\frac{1}{2}\end{gathered}`,
+    explanation:
+      "先确定切点纵坐标为 1，再用 y 做积分变量水平切片，就不用把区域按 x 拆成三角形和曲边梯形两段。",
+    commonMistake: "对 y = ln(2x) 求导错写成 2/x（正确导数仍为 1/x），或漏减 y = 0 处 e⁰/2 = 1/2。",
+    hints: [
+      "设切点 (x₀, ln(2x₀))，由切线过原点得 ln(2x₀) = x₀·(1/x₀) = 1。",
+      "解得切点 (e/2, 1)，切线方程 y = (2/e)x 即 x = (e/2)y。",
+      "沿 y ∈ [0, 1] 用右边界 eʸ/2 减左边界 ey/2 积分。",
+    ],
+    steps: [
+      "切线方程 y − ln(2x₀) = (1/x₀)(x − x₀) 过原点，得 ln(2x₀) = 1，即切点 (e/2, 1)。",
+      "反解曲线与切线：x_右 = eʸ/2，x_左 = ey/2，y ∈ [0, 1]。",
+      "积分得 A = ∫₀¹ (eʸ/2 − ey/2) dy = e/4 − 1/2。",
+    ],
+  },
+  {
+    id: "jc935-6-review-7-2",
+    source: "上册总习题六 第 7 题（2）",
+    lessonId: "integral-volume",
+    errorTag: "volume_washer",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "对数切线区域绕竖直线旋转体积",
+    prompt:
+      "将上题中由切线 y = (2/e)x、曲线 y = ln(2x) 及 x 轴围成的平面图形 D 绕竖直线 x = e/2 旋转一周，求所得旋转体的体积 V。",
+    formula: math`\begin{gathered}R(y)=\frac{e}{2}-\frac{e}{2}y,\quad r(y)=\frac{e}{2}-\frac{1}{2}e^{y}\\V=\pi\int_{0}^{1}\left[R(y)^{2}-r(y)^{2}\right]dy\end{gathered}`,
+    solution: math`\begin{gathered}V=\frac{\pi}{4}\int_{0}^{1}\left[e^{2}(1-y)^{2}-(e-e^{y})^{2}\right]dy\\=\frac{\pi}{4}\left[\frac{e^{2}}{3}-\left(e^{2}-2e(e-1)+\frac{e^{2}-1}{2}\right)\right]\\=\frac{\pi}{24}\left(5e^{2}-12e+3\right)\end{gathered}`,
+    explanation:
+      "旋转轴在区域最右侧 x = e/2，所以越靠左的切线离轴越远是外半径，对数曲线离轴更近是内半径，用垫片法相减即得体积。",
+    commonMistake: "把内外半径错写成直接对 x 平方相减，而忘记旋转轴是 x = e/2 而非 y 轴。",
+    hints: [
+      "在高度 y ∈ [0, 1] 处，外半径 R(y) = e/2 − (e/2)y，内半径 r(y) = e/2 − eʸ/2。",
+      "也可看作圆锥体积 (1/3)π(e/2)²·1 减去内侧曲边旋转体体积。",
+      "展开 (e − eʸ)² = e² − 2e·eʸ + e^(2y) 逐项积分化简。",
+    ],
+    steps: [
+      "确定到旋转轴 x = e/2 的外半径 R(y) = (e/2)(1−y) 与内半径 r(y) = (e − eʸ)/2。",
+      "算得外锥体体积 πe²/12，内侧体积 (π/4)∫₀¹(e−eʸ)²dy = (π/8)(−e² + 4e − 1)。",
+      "相减通分得 V = (π/24)(5e² − 12e + 3)。",
+    ],
+  },
+  {
+    id: "jc935-6-review-8",
+    source: "上册总习题六 第 8 题",
+    lessonId: "integral-area",
+    errorTag: "area_bounds",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "拐点切线与衰减曲线的无界区域面积",
+    prompt:
+      "设曲线 C 为 y = x e^(−2x)（x ≥ 0），M 为 C 的拐点，MT 为 C 在点 M 处的切线。求由曲线 C、切线 MT 和 x 轴围成的向右无限延伸的平面图形的面积 A。",
+    formula: math`\begin{gathered}y=xe^{-2x},\quad M\!\left(1,e^{-2}\right)\\MT:\;y=e^{-2}(2-x)\\A=\int_{1}^{+\infty}xe^{-2x}\,dx-\frac{1}{2}(2-1)e^{-2}\end{gathered}`,
+    solution: math`\begin{gathered}y'=(1-2x)e^{-2x},\quad y''=(4x-4)e^{-2x}\\x=1\implies M(1,e^{-2}),\;y'(1)=-e^{-2}\\\int_{1}^{+\infty}xe^{-2x}\,dx=\left[-\frac{2x+1}{4}e^{-2x}\right]_{1}^{+\infty}=\frac{3}{4e^{2}}\\A=\frac{3}{4e^{2}}-\frac{1}{2e^{2}}=\frac{1}{4e^{2}}\end{gathered}`,
+    explanation:
+      "拐点右侧曲线向上弯（下凸），因此切线始终在曲线下方并于 x = 2 处扎进横轴；总面积就是曲线右侧反常积分减去这个小直角三角形。",
+    commonMistake: "把分部积分 ∫ x e^(−2x) dx 的系数 1/4 算错，或忘记减去切线与横轴围成的三角形面积。",
+    hints: [
+      "求二阶导数 y'' = 4(x−1)e^(−2x) 找出拐点 M(1, e⁻²) 及切线斜率 −e⁻²。",
+      "写出切线 MT 方程 y = e⁻²(2 − x)，它在 x = 2 处与 x 轴相交。",
+      "用无穷限反常积分 ∫₁^(+∞) x e^(−2x) dx 减去底为 1、高为 e⁻² 的三角形面积。",
+    ],
+    steps: [
+      "求导得 y'' = 4(x−1)e^(−2x)，故拐点 M(1, e⁻²)，切线 MT 为 y = e⁻²(2 − x)，横截距为 2。",
+      "分部积分得 ∫₁^(+∞) x e^(−2x) dx = [−(2x+1)e^(−2x)/4]₁^(+∞) = 3/(4e²)。",
+      "减去切线三角形面积 (1/2)·1·e⁻² = 1/(2e²)，得 A = 1/(4e²)。",
+    ],
+  },
+  {
+    id: "jc935-6-review-9",
+    source: "上册总习题六 第 9 题",
+    lessonId: "integral-volume",
+    errorTag: "volume_slices",
+    kind: "推导题",
+    difficulty: "basic",
+    title: "柱壳法求绕纵轴旋转体体积",
+    prompt: "求由曲线 y = 3x^(3/2)、直线 x = 1 及 x 轴所围图形绕 y 轴旋转而成的旋转体的体积 V。",
+    formula: math`\begin{gathered}y=3x^{\frac{3}{2}},\quad x\in[0,1]\\V=\int_{0}^{1}2\pi x\cdot 3x^{\frac{3}{2}}\,dx\end{gathered}`,
+    solution: math`\begin{gathered}V=6\pi\int_{0}^{1}x^{\frac{5}{2}}\,dx\\=6\pi\left[\frac{2}{7}x^{\frac{7}{2}}\right]_{0}^{1}=\frac{12}{7}\pi\end{gathered}`,
+    explanation:
+      "把绕 y 轴转出来的立体像卷纸一样剥成一圈圈薄圆柱壳，每圈半径 x、高 3x^(3/2)，周长乘高乘厚度直接积分。",
+    commonMistake: "柱壳法容易把 2πx 错写成 πx²，或者忘记把 x 与 x^(3/2) 的指数相加得到 x^(5/2)。",
+    hints: [
+      "选 x ∈ [0, 1] 为积分变量，应用绕 y 轴的柱壳法公式 V = ∫ 2πx f(x) dx。",
+      "合并幂次得到被积函数 6π x^(5/2)。",
+      "用幂函数积分公式求出结果。",
+    ],
+    steps: [
+      "在 x ∈ [0, 1] 处取柱壳，半径 x、高 y = 3x^(3/2)、厚 dx。",
+      "微元体积 dV = 2πx·3x^(3/2) dx = 6π x^(5/2) dx。",
+      "积分得 V = 6π·(2/7) = 12π/7。",
+    ],
+  },
+  {
+    id: "jc935-6-review-10",
+    source: "上册总习题六 第 10 题",
+    lessonId: "integral-volume",
+    errorTag: "volume_washer",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "偏心圆盘绕纵轴旋转的环面体积",
+    prompt: "求圆盘 (x − 3)² + y² ≤ 4 绕 y 轴旋转一周而成的旋转体（圆环体）的体积 V。",
+    formula: math`\begin{gathered}x_{\text{外}}=3+\sqrt{4-y^{2}},\;x_{\text{内}}=3-\sqrt{4-y^{2}}\\V=\pi\int_{-2}^{2}\left(x_{\text{外}}^{2}-x_{\text{内}}^{2}\right)dy\end{gathered}`,
+    solution: math`\begin{gathered}x_{\text{外}}^{2}-x_{\text{内}}^{2}=12\sqrt{4-y^{2}}\\V=12\pi\int_{-2}^{2}\sqrt{4-y^{2}}\,dy\\=12\pi\cdot\left(\frac{1}{2}\pi\cdot 2^{2}\right)=24\pi^{2}\end{gathered}`,
+    explanation:
+      "水平切一刀得到同心圆环，外内半径平方差一展开就消掉了常数和 y²，只剩半圆面积积分，立刻得到甜甜圈体积 24π²。",
+    commonMistake: "直接展开积分时把半圆面积 ∫_(−2)^2 √(4−y²) dy 错算成整圆面积 4π。",
+    hints: [
+      "反解左右半圆边界：x_外 = 3 + √(4−y²)，x_内 = 3 − √(4−y²)，y ∈ [−2, 2]。",
+      "利用平方差化简 x_外² − x_内² = 12√(4 − y²)。",
+      "识别 ∫_(−2)^2 √(4 − y²) dy 为半径 2 的半圆面积 2π。",
+    ],
+    steps: [
+      "在高度 y ∈ [−2, 2] 处用垫片法，外半径 3+√(4−y²)，内半径 3−√(4−y²)。",
+      "平方差化简得 V = 12π ∫_(−2)^2 √(4 − y²) dy。",
+      "利用半圆几何面积 2π，得 V = 12π·2π = 24π²。",
+    ],
+  },
+  {
+    id: "jc935-6-review-11",
+    source: "上册总习题六 第 11 题",
+    lessonId: "integral-arc",
+    errorTag: "arc_slope",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "圆截抛物线所得有限弧长",
+    prompt: "求抛物线 y = x² 被圆 x² + y² = 2 所截下的有限部分的弧长 s。",
+    formula: math`\begin{gathered}\begin{cases}y=x^{2}\\x^{2}+y^{2}=2\end{cases}\implies x\in[-1,1]\\s=\int_{-1}^{1}\sqrt{1+4x^{2}}\,dx\end{gathered}`,
+    solution: math`\begin{gathered}s=2\int_{0}^{1}\sqrt{1+4x^{2}}\,dx\;\;(u=2x)\\=\int_{0}^{2}\sqrt{1+u^{2}}\,du\\=\left[\frac{u}{2}\sqrt{1+u^{2}}+\frac{1}{2}\ln\!\left(u+\sqrt{1+u^{2}}\right)\right]_{0}^{2}\\=\sqrt{5}+\frac{1}{2}\ln(2+\sqrt{5})\end{gathered}`,
+    explanation:
+      "先联立找出圆和抛物线的两个交点 x = ±1，再用对称性和换元 u = 2x 套用标准根式积分公式。",
+    commonMistake: "令 u = 2x 换元时忘记 dx = du/2，或者漏把积分上限 1 同步换算成 2。",
+    hints: [
+      "把 x² = y 代入圆方程得 y² + y − 2 = 0，由 y ≥ 0 解得 y = 1，x = ±1。",
+      "求导 y' = 2x，利用偶函数对称性写为 2∫₀¹ √(1 + 4x²) dx。",
+      "令 u = 2x 化为 ∫₀² √(1 + u²) du，套用标准积分公式。",
+    ],
+    steps: [
+      "联立解得交点 (−1, 1) 与 (1, 1)，故积分区间为 [−1, 1]。",
+      "利用对称性与换元 u = 2x，s = 2∫₀¹ √(1+4x²) dx = ∫₀² √(1+u²) du。",
+      "代入原函数 (u/2)√(1+u²) + (1/2)ln(u+√(1+u²)) 得 √5 + (1/2)ln(2+√5)。",
+    ],
+  },
+  {
+    id: "jc935-6-review-12",
+    source: "上册总习题六 第 12 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "等密度沉没球体提离水面做功",
+    prompt:
+      "一半径为 R、密度 ρ 与水相同的实心球沉入水中，球的顶端恰与水面相切。现将球完整地从水中垂直取出，求需做的功 W。",
+    formula: math`\begin{gathered}dV=\pi(R^{2}-x^{2})\,dx,\quad x\in[-R,R]\\W=\int_{-R}^{R}\rho g\pi(R^{2}-x^{2})(R+x)\,dx\end{gathered}`,
+    solution: math`\begin{gathered}W=\pi\rho gR\int_{-R}^{R}(R^{2}-x^{2})\,dx\\+\pi\rho g\int_{-R}^{R}x(R^{2}-x^{2})\,dx\\=2\pi\rho gR\left[R^{2}x-\frac{x^{3}}{3}\right]_{0}^{R}+0=\frac{4}{3}\pi\rho gR^{4}\end{gathered}`,
+    explanation:
+      "球和水一样密，在水面以下浮力正好抵消重力不费力；只需算每层薄片露出水面后继续抬高 R+x 所克服的重力功。",
+    commonMistake: "把薄片在水面以上移动的距离错写成 R − x，或在水下阶段也额外计入重力功。",
+    hints: [
+      "以初始球心为原点、竖直向上为 x 轴，薄片位于 x ∈ [−R, R]，体积 π(R² − x²) dx。",
+      "球底刚离开水面时，该薄片比水面高出 R + x，故在空气中克服重力上升距离为 R + x。",
+      "展开后利用奇偶对称性消去奇函数项 x(R² − x²)。",
+    ],
+    steps: [
+      "在 x ∈ [−R, R] 处取水平薄片，重力 dG = πρg(R² − x²) dx。",
+      "水下浮力与重力平衡不做功，出水后上升距离为 R + x，故 dW = (R+x) dG。",
+      "奇函数项积分为 0，余项积分得 W = 2πρgR(R³ − R³/3) = (4/3)πρgR⁴。",
+    ],
+  },
+  {
+    id: "jc935-6-review-13",
+    source: "上册总习题六 第 13 题",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "倾斜沉没矩形薄板的液体压力",
+    prompt:
+      "一宽为 a、长为 b 的矩形薄板与液面成 θ 角（0 < θ ≤ π/2）斜沉于密度为 ρ 的液体中，宽为 a 的上边平行于液面且位于深 d 处。求薄板单面所受液体压力 F。",
+    formula: math`\begin{gathered}h(x)=d+x\sin\theta,\quad x\in[0,b]\\F=\int_{0}^{b}\rho g(d+x\sin\theta)\,a\,dx\end{gathered}`,
+    solution: math`\begin{gathered}F=\rho ga\left[dx+\frac{1}{2}x^{2}\sin\theta\right]_{0}^{b}\\=\rho gab\left(d+\frac{b}{2}\sin\theta\right)\end{gathered}`,
+    explanation:
+      "沿斜板每往下滑距离 x，垂直水深就增加 x sinθ；积分结果正好等于板面积 ab 乘以几何中心处的液体压强。",
+    commonMistake: "把垂直深度增量错写成 x cosθ，或忘记薄板窄条面积应乘以水平边宽 a。",
+    hints: [
+      "以斜板上边为 x = 0 沿板面向下建轴，x ∈ [0, b]。",
+      "板面上距离上边 x 处的实际液深为 d + x sinθ，细条面积为 a dx。",
+      "在 [0, b] 上对 ρga(d + x sinθ) 积分并提取公因式 ρgab。",
+    ],
+    steps: [
+      "沿板面向下取坐标 x ∈ [0, b]，细条面积 dS = a dx，水深 h(x) = d + x sinθ。",
+      "写出压力微元 dF = ρga(d + x sinθ) dx。",
+      "积分得 F = ρgab(d + (b/2)sinθ)。",
+    ],
+  },
+  {
+    id: "jc935-6-review-14",
+    source: "上册总习题六 第 14 题",
+    lessonId: "economic-integrals",
+    errorTag: "definite_substitution",
+    kind: "推导题",
+    difficulty: "challenge",
+    title: "变密度星形线弧对原点质点的引力",
+    prompt:
+      "设星形线 x = R cos³t、y = R sin³t（0 ≤ t ≤ π/2）上每点处的线密度为 k r³（k > 0，r 为该点到原点距离）。求第一象限弧段对原点 O 处单位质点的引力。",
+    formula: math`\begin{gathered}ds=3R\cos t\sin t\,dt,\quad dm=kr^{3}\,ds\\dF_{x}=\frac{x}{r}\cdot G\frac{dm}{r^{2}}=Gkx\,ds\end{gathered}`,
+    solution: math`\begin{gathered}F_{x}=\int_{0}^{\frac{\pi}{2}}3GkR^{2}\cos^{4}t\sin t\,dt=\frac{3}{5}GkR^{2}\\F_{y}=\int_{0}^{\frac{\pi}{2}}3GkR^{2}\sin^{4}t\cos t\,dt=\frac{3}{5}GkR^{2}\\|\vec{F}|=\frac{3\sqrt{2}}{5}GkR^{2},\quad\text{方向角}\;\frac{\pi}{4}\end{gathered}`,
+    explanation:
+      "密度里的 r³ 正好和万有引力分母 r² 以及方向余弦分母 r 全部约掉，复杂的根式奇迹般地消成极简单的三角凑微分。",
+    commonMistake: "没有先约去 r³/(r²·r) = 1，导致盲目展开 √(cos⁶t + sin⁶t) 卡住。",
+    hints: [
+      "先算第一象限弧微分 ds = √(x'² + y'²) dt = 3R cos t sin t dt。",
+      "写出分量 dF_x = (x/r)·G(k r³ ds)/r² = G k x ds，发现 r 恰好全部抵消。",
+      "对 cos⁴t sin t 与 sin⁴t cos t 在 [0, π/2] 上凑微分积分。",
+    ],
+    steps: [
+      "求弧微元 ds = 3R cos t sin t dt（0 ≤ t ≤ π/2），质量微元 dm = kr³ ds。",
+      "引力分量 dF_x = (x/r)G(kr³ ds)/r² = 3GkR² cos⁴t sin t dt，积分得 F_x = (3/5)GkR²。",
+      "同理 F_y = (3/5)GkR²，合力大小 (3√2/5)GkR²，方向沿角平分线 θ = π/4。",
+    ],
+  },
+  {
+    id: "jc935-6-review-15-1",
+    source: "上册总习题六 第 15 题（1）",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "等比做功打桩 4 次后的入土深度",
+    prompt:
+      "汽锤打桩克服土层阻力 R = k x（k > 0，x 为入土深度）。第一次击打将桩打入地下 d m，此后每次做功均为前一次的 q 倍（0 < q < 1）。求击打 4 次后桩入土的总深度 x₄。",
+    formula: math`\begin{gathered}W_{n}=\int_{x_{n-1}}^{x_{n}}kx\,dx=\frac{k}{2}\left(x_{n}^{2}-x_{n-1}^{2}\right)\\W_{n}=q^{n-1}W_{1}\implies x_{4}=\,?\end{gathered}`,
+    solution: math`\begin{gathered}W_{1}=\frac{k}{2}d^{2},\quad x_{n}^{2}-x_{n-1}^{2}=q^{n-1}d^{2}\\x_{4}^{2}=d^{2}\left(1+q+q^{2}+q^{3}\right)\\x_{4}=d\sqrt{1+q+q^{2}+q^{3}}\,\text{m}\end{gathered}`,
+    explanation:
+      "由于阻力与深度成正比，每次新增的功就正比于深度平方的增量，把 4 次的等比增量累加再开根号即得总深度。",
+    commonMistake: "误把每次推进的深度（而非深度平方增量）当成等比数列直接相加。",
+    hints: [
+      "计算第 n 次击打的功 W_n = ∫_(x_{n−1})^(x_n) kx dx = (k/2)(x_n² − x_{n−1}²)。",
+      "由 W_n = q^(n−1)W₁ 推出深度平方的递推差 x_n² − x_{n−1}² = q^(n−1)d²。",
+      "累加 n = 1, 2, 3, 4 的平方增量再开方得 x₄。",
+    ],
+    steps: [
+      "首次做功 W₁ = ∫₀ᵈ kx dx = kd²/2；第 n 次做功 W_n = (k/2)(x_n² − x_{n−1}²)。",
+      "由 W_n = q^(n−1)W₁ 得 x_n² − x_{n−1}² = q^(n−1)d²。",
+      "累加前 4 项得 x₄² = d²(1 + q + q² + q³)，故 x₄ = d√(1 + q + q² + q³) m。",
+    ],
+  },
+  {
+    id: "jc935-6-review-15-2",
+    source: "上册总习题六 第 15 题（2）",
+    lessonId: "economic-integrals",
+    errorTag: "integral_work",
+    kind: "推导题",
+    difficulty: "applied",
+    title: "无限次等比打桩的极限深度",
+    prompt:
+      "接上题条件（土层阻力 R = k x，首次入土深度 d m，每次做功为前一次的 q 倍且 0 < q < 1）。若击打次数不限，汽锤至多能将桩打入地下多深？",
+    formula: math`\begin{gathered}x_{n}=d\sqrt{1+q+\cdots+q^{n-1}}=d\sqrt{\frac{1-q^{n}}{1-q}}\\x_{\max}=\lim_{n\to\infty}x_{n}\end{gathered}`,
+    solution: math`\begin{gathered}0<q<1\implies\lim_{n\to\infty}q^{n}=0\\\lim_{n\to\infty}x_{n}=\lim_{n\to\infty}d\sqrt{\frac{1-q^{n}}{1-q}}=\frac{d}{\sqrt{1-q}}\,\text{m}\end{gathered}`,
+    explanation:
+      "每次做功按比例 q 衰减，累积总功趋近一个有限上限，因此桩永远打不到无穷深，而是稳稳停在极限深度 d/√(1−q) 之前。",
+    commonMistake: "忘记结果外层有根号，把极限深度错写成 d/(1 − q)。",
+    hints: [
+      "用等比数列求和公式写出第 n 次后的深度 x_n = d√((1 − qⁿ)/(1 − q))。",
+      "利用 0 < q < 1 时 qⁿ → 0 求极限。",
+      "得出最终极限深度并保留单位 m。",
+    ],
+    steps: [
+      "由等比求和得 x_n² = d²(1 − qⁿ)/(1 − q)，即 x_n = d√((1 − qⁿ)/(1 − q))。",
+      "因 0 < q < 1，当 n → ∞ 时 qⁿ → 0。",
+      "取极限得最大深度 lim x_n = d / √(1 − q) m。",
+    ],
+  },
+] satisfies Omit<WrittenProblem, "errorLabel">[];
