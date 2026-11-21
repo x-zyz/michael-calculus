@@ -39,7 +39,7 @@ export const tongjiWrittenPractice = [
   {
     id: "p206", lessonId: "limit", errorTag: "one_sided", kind: "证明题", difficulty: "challenge",
     title: "从左右两边看绝对值极限",
-    formula: math`\lim_{x\to 3}\frac{`,
+    formula: math`\lim_{x\to 3}\frac{|2x-6|}{x-3}`,
     prompt: "判断极限是否存在并说明原因。",
     explanation: "绝对值把负数翻成正数，所以分母换号时，两侧结果会不同。",
     hints: ["把分子改成 2|x−3|。","分别判断 x−3 的正负。","比较左右极限。"],

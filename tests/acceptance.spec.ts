@@ -46,7 +46,10 @@ test.describe('phone layout', () => {
     await page.goto('/#/practice');
     for (let i = 1; i <= problems.length; i++) {
       await chooseProblem(page,i);
-      if ("kind" in problems[i - 1]) await page.getByRole("button", { name: "查看分步解析" }).click();
+      if ("kind" in problems[i - 1]) {
+        await page.getByRole("button", { name: "查看分步解析" }).click();
+        await expect(page.locator(".practice-question .katex-error")).toHaveCount(0);
+      }
       issues.push(...(await layoutProblems(page)).map(p => `problem ${i} ${p}`));
     }
     expect(issues).toEqual([]);
