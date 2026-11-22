@@ -18,7 +18,7 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 | ELI5 教学系统 | 新版四状态已适配第一章实际注册的 41 道题。P8 已通过人工验收 | ui/eli5-chapter-one | Sol 负责交互，Gemini 已有教学内容沿用 | 对其它代表题和真机执行验收 |
 | 学习记录与掌握度 | 原记录与备份兼容。试点区分提示辅助、独立和延迟复习，普通练习全局汇总及 Formula Mastery 沿用原逻辑 | `main`，试点扩展在 `eli5/ch1-pilot` | Sol 负责教学证据；全局改造负责人待核实 | 等用户授权及跨题迁移证据，再讨论全局评分 |
 | PWA | 候选分支包含冷启动缓存匹配修复和旧版本缓存迁移回归 | release/v1.0.0-rc | Sol | 核对候选包及真机离线重开 |
-| Android | 正式 v0.31.0 / 42，候选元数据 1.0.0 / 43 | release/v1.0.0-rc | Sol 负责检查，用户授权正式发布 | 在真实设备验证同签名覆盖安装、数据保留、离线重开 |
+| Android | GitHub 正式版 0.31.0 / 42，固定签名候选 1.0.0 / 43。ByteVirt 稳定清单经签名复核为 0.28.0 / 37 | build/android-v1-rc | Sol 负责检查，用户授权正式发布 | 按[真机清单](https://github.com/x-zyz/michael-calculus/blob/build/android-v1-rc/docs/android-v1-candidate.md)验收覆盖安装、数据保留、离线重开和更新 |
 | 测试与构建 | 浏览器、数学及安卓验收见[候选报告](https://github.com/x-zyz/michael-calculus/blob/release/v1.0.0-rc/docs/v1.0.0-candidate.md) | release/v1.0.0-rc | Sol | 留意有意跳过的全题库扫描及真机缺口 |
 
 ## 3. Agent 协作分工
@@ -34,6 +34,7 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 | --- | --- | --- | --- | --- |
 | ELI5-01 第一章试点 | Sol / `eli5/ch1-pilot` | DONE | 分类、P8 与十题试点已完成，用户已确认启动全章制作 | [分类报告](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-pilot/docs/eli5-chapter-one-classification.md)、[试点记录](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-pilot/docs/eli5-chapter-one-pilot.md)；`0279d5a`，65 项单测与 26 项浏览器测试通过 |
 | ELI5-02 第一章量产 | Sol + Gemini | TODO | 已注册 41 道，尚缺 303 道完整 ELI5，本轮任务仅适配已注册题 | [生产清单](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-production/docs/eli5-production/README.md) |
+| ANDROID-RC-01 Android 候选验收 | Sol / `build/android-v1-rc` | REVIEW | 固定签名候选构建与校验完成，待真实 Android 覆盖安装、数据和断网验收 | [构建记录](https://github.com/x-zyz/michael-calculus/actions/runs/45082750318)；源码 `0d2ca98`、工作流 `cd5db51` |
 | BANK-01 第二章逐步提示与课程数学渲染 | Gemini / main | DONE | 已进入 v0.31.0 | 基线 a08419f |
 | BANK-02 题库待复核 | Gemini / 分支待确定 | TODO | 清单已有 1,170 条 symbolic、157 条 manual、111 条 pending；exam-2/3 未盘点，exam-5 需要外部来源 | [题库说明](bank/README.md)、[机器清单](bank/inventory.json)；基线 `f3c5363`，待复核条目无新验证记录 |
 
@@ -51,21 +52,22 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 - 第一章还有 303 道未配完整 ELI5，题库另有需要数学复核的条目。v1.0.0 候选界面覆盖的 41 道不扩大此范围。
 - 同题重做、同一组迁移题答对都不足以证明长期迁移。试点尚无批量用户验收；自动化绿灯也不能替代内容人工复核。
 - 当前合作工作树有未提交修改。共享组件和测试可能冲突。未经协调保持只读，切勿切换或重置那个工作树。
-- 线上实际安装、覆盖升级和更新通道状态未在交接任务中复验。已完成的 Actions 不等于设备验收。
+- 0.31.0 正式安装只支持 JSON 导入；旧导出工具依赖可调试 WebView。没有已核实备份时，主力机保留原安装，在备用真机上使用预先建立的数据验收。覆盖安装后不保证能直接降级。
 
 ## 7. 下一步执行计划
 
 | 优先 | 接手动作与入口 | 预计修改 | 完成标准与边界 |
 | --- | --- | --- | --- |
 | 1 | **新 Agent 第一步**先运行 `git status -sb`、`git worktree list`、`git log -5 --oneline`，并用 `git ls-remote --heads origin` 核对目标分支。读 [试点记录](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-pilot/docs/eli5-chapter-one-pilot.md) 和第 8 节。 | 仅在证据变化时更新本文 | 确认任务、负责人、分支和用户授权后才改代码。未经当前授权不扩展内容，不从别人的脏工作树提交 |
-| 2 | 读[界面推广报告](https://github.com/x-zyz/michael-calculus/blob/ui/eli5-chapter-one/docs/eli5-interface-rollout.md)和[候选验收](https://github.com/x-zyz/michael-calculus/blob/release/v1.0.0-rc/docs/v1.0.0-candidate.md)，在真机复验离线重开及旧记录 | 候选报告 | 真实设备记录版本、签名、数据与离线表现 |
+| 2 | 读[界面推广报告](https://github.com/x-zyz/michael-calculus/blob/ui/eli5-chapter-one/docs/eli5-interface-rollout.md)和[固定签名候选 Android 验收](https://github.com/x-zyz/michael-calculus/blob/build/android-v1-rc/docs/android-v1-candidate.md)，在真机复验离线重开及旧记录 | 验收记录 | 真实设备记录版本、签名、数据与离线表现 |
 | 3 | 收集候选质量验收与用户明确发布授权 | 正式发布前才执行标签和签名流程 | 当前只允许测试候选，主线和稳定渠道不动 |
 
 ## 8. 最近一次工作检查点
 
 - 主线及正式标签 v0.31.0 为 a08419f。已验收 P8 界面 6f9e1c4，离线修复 4f65fec，第一章默认推广 cf86885。
 - [第一章推广结果](https://github.com/x-zyz/michael-calculus/blob/ui/eli5-chapter-one/docs/eli5-interface-rollout.md)包含 29 道数值题与 12 道书写题。现有数学数据及备份协议保持不变。
-- [v1.0.0 候选](https://github.com/x-zyz/michael-calculus/blob/release/v1.0.0-rc/docs/v1.0.0-candidate.md)提交 0d2ca98，已通过 134 项单元／组件、212 项浏览器、5 项签名／旧备份协议测试与 Android 调试构建。仍待固定签名候选包、真机验收与正式发布授权。
+- [v1.0.0 候选](https://github.com/x-zyz/michael-calculus/blob/release/v1.0.0-rc/docs/v1.0.0-candidate.md)提交 0d2ca98，已通过 134 项单元／组件、212 项浏览器、5 项签名／旧备份协议测试与 Android 调试构建。固定签名构建 `45082750318` 已通过；远端产物回下载复核结果与 SHA-256 见[真机清单](https://github.com/x-zyz/michael-calculus/blob/build/android-v1-rc/docs/android-v1-candidate.md)。
+- 2026-11-22 检查点。构建分支 `build/android-v1-rc` 的签名工作流提交 `cd5db51`；`docs/calculus-v1-handoff` 通过仅含交接文档的 PR #4 记录状态，主线仍为 `a08419f`。电脑未检测到 Android 真机。下一步按清单覆盖安装 42 → 43，验证旧数据与断网重新打开。正式包应使用 44 或高于已分发候选的构建号。发布需待所有门槛完成及用户明确授权。
 - 本地预览如已停止，在对应分支运行 `npm run dev`。断网回归使用 `npm run build` + `npm run preview`，再设置 `PLAYWRIGHT_BASE_URL` 与 `ELI5_OFFLINE_TEST=1` 运行对应测试。
 
 ### 检查点维护约定
