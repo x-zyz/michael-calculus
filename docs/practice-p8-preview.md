@@ -26,3 +26,5 @@
 在本分支运行 `npm ci`、`npm run build` 和 `npm run preview -- --host 127.0.0.1 --port 4193 --strictPort`。端到端回归使用 `PLAYWRIGHT_BASE_URL=http://127.0.0.1:4193` 和 `ELI5_OFFLINE_TEST=1`，覆盖 `practice-focus.spec.ts`、`teaching.spec.ts`、`teaching-chapter-one.spec.ts` 及 `teaching-production.spec.ts`。用户验收后再设计书写题的同一套视图并决定默认入口。正式版本号和发布流程沿用原基线。
 
 本轮验收于 2026-11-22 记录。生产网页构建、类型检查、Lint、CSS 校验、131 项单元与组件测试及 96 项在线浏览器检查通过。P8 新样板在桌面和手机浏览器模拟中均通过生产缓存离线交互。旧版桌面离线烟测出现过间歇性脚本和样式加载失败，另一次独立运行通过；需将该问题与本次界面评审区分。
+
+桌面 Chromium 额外重复冷开离线新标签测试。基线通过 9/10，样板分支的旧界面通过 8/10，新样板通过 5/10。失败时页面 HTML 已由 Service Worker 返回，随后脚本或样式请求报告 net::ERR_FAILED。正式基线可复现，根因尚未确认，这轮保留原离线实现。
