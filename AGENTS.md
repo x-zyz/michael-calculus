@@ -12,6 +12,12 @@
 
 # Michael calculus — Agent Harness Guide (Codex / DeepSeek / Claude / Gemini)
 
+## AI 协作与交接
+
+- 开始开发前先读 [AI_HANDOFF.md](docs/AI_HANDOFF.md)，核对任务状态、分支和文件所有权。合并前检查双方的实际差异。
+- 完成实质性代码修改后，把任务状态、文件、提交和实际验证交给集成负责人，由其更新交接文档。中断时记录恢复检查点。
+- 如果交接文档与 Git 或源码冲突，按实际证据工作，并请集成负责人修正文档。
+
 ## Standing Delivery & Release Instructions
 
 - After completing and validating any app change in a turn, commit the relevant source changes and push them to the configured GitHub repository, `x-zyz/michael-calculus` (`https://github.com/x-zyz/michael-calculus`). The user has given standing authorization for this project.
