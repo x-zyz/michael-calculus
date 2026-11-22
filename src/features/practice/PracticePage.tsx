@@ -8,6 +8,7 @@ import StudyHeading from "../../components/StudyHeading";
 import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
 import FocusedPractice from "./FocusedPractice";
+import { p8FocusContent } from "./p8FocusContent";
 import { teachingByProblem } from "../../data/teaching";
 export default function PracticePage() {
   const { pathname, search } = useLocation();
@@ -70,7 +71,7 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
   if (pilot && current?.id === "p8" && "answer" in current && teachingByProblem.p8) {
     const next = list[index + 1];
-    return <FocusedPractice problem={current} lesson={teachingByProblem.p8}
+    return <FocusedPractice problem={current} lesson={teachingByProblem.p8} content={p8FocusContent}
       onNext={next ? () => {
         const nextQuery = new URLSearchParams(query);
         nextQuery.delete("ui");

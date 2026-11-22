@@ -5,15 +5,26 @@ import { Link } from "react-router-dom";
 import Formula from "../../components/Formula";
 import { Button, Card } from "../../components/ui";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type NumericProblem } from "../../data/learning";
-import { initialTeachingProgress, p8Diagnostic, teachingEvidence, type TeachingLesson, type TeachingProgress } from "../../data/teaching";
+import { initialTeachingProgress, teachingEvidence, type TeachingLesson, type TeachingProgress } from "../../data/teaching";
 import { useLearning } from "../../db/learning";
 import TeachingSession from "./TeachingSession";
 
 type View = "question" | "guide" | "solution" | "result";
 
-export default function FocusedPractice({ problem, lesson, onNext }: {
+export interface FocusedPracticeContent {
+  contextLabel: string;
+  solutionIntro?: string;
+  diagnostic?: {
+    describe: (answer: number) => string;
+    prompt: string;
+    choices: readonly { label: string; feedback: string }[];
+  };
+}
+
+export default function FocusedPractice({ problem, lesson, content, onNext }: {
   problem: NumericProblem;
   lesson: TeachingLesson;
+  content: FocusedPracticeContent;
   onNext?: () => void;
 }) {
   const { state, save } = useLearning();
@@ -27,6 +38,7 @@ export default function FocusedPractice({ problem, lesson, onNext }: {
   const [diagnosticOpen, setDiagnosticOpen] = useState(false);
   const [diagnosticAnswer, setDiagnosticAnswer] = useState<number>();
   const heading = useRef<HTMLHeadingElement>(null);
+  const diagnostic = content.diagnostic;
 
   useEffect(() => {
     heading.current?.focus({ preventScroll: true });
@@ -94,7 +106,7 @@ export default function FocusedPractice({ problem, lesson, onNext }: {
         {view === "guide"
           ? <Button variant="ghost" aria-expanded={originalOpen} aria-controls="focused-original"
               onClick={() => setOriginalOpen(!originalOpen)}>{originalOpen ? "收起原题" : "查看原题"}</Button>
-          : <span>第一章 · 重要极限</span>}
+          : <span>{content.contextLabel}</span>}
       </header>
       <Card className="practice-focus-paper">
         <header className="practice-focus-header">
@@ -134,7 +146,7 @@ export default function FocusedPractice({ problem, lesson, onNext }: {
         )}
         {view === "solution" && (
           <section aria-label="完整解析" className="practice-focus-solution">
-            <p>先在指数里配出底数中那一小项的倒数，再用第二个重要极限求括号里的值。</p>
+            {content.solutionIntro && <p>{content.solutionIntro}</p>}
             <Formula value={lesson.solution} />
             <div className="practice-focus-actions">
               <Button variant="primary" onClick={() => setView(correct === undefined ? "question" : "result")}>
@@ -147,24 +159,22 @@ export default function FocusedPractice({ problem, lesson, onNext }: {
         {view === "result" && (
           <div className="practice-focus-result">
             <p role="status">{correct ? "回答正确。" : "这次答案还不对，题目已加入错题。"}</p>
-            {!correct && (
+            {!correct && diagnostic && (
               <section aria-label="错因小检查">
                 <Button variant="ghost" aria-expanded={diagnosticOpen} onClick={() => {
                   if (!diagnosticOpen) setAssisted(true);
                   setDiagnosticOpen(!diagnosticOpen);
                 }}>{diagnosticOpen ? "收起错因检查" : "看看我可能卡在哪"}</Button>
                 {diagnosticOpen && <>
-                  <p>{p8Diagnostic(parseAnswer(answer) ?? 0)}</p>
-                  <p>把 2/5 的分母改成 −15，分子是哪一个？</p>
+                  <p>{diagnostic.describe(parseAnswer(answer) ?? 0)}</p>
+                  <p>{diagnostic.prompt}</p>
                   <div className="practice-focus-actions">
-                    {[-6, 6, -3].map((choice) => (
-                      <Button key={choice} aria-pressed={diagnosticAnswer === choice}
-                        onClick={() => setDiagnosticAnswer(choice)}>{choice}</Button>
+                    {diagnostic.choices.map((choice, index) => (
+                      <Button key={choice.label} aria-pressed={diagnosticAnswer === index}
+                        onClick={() => setDiagnosticAnswer(index)}>{choice.label}</Button>
                     ))}
                   </div>
-                  {diagnosticAnswer !== undefined && <p role="status">{diagnosticAnswer === -6
-                    ? "对。分子分母都乘 −3。"
-                    : "先看 5 要乘哪个数才会变成 −15，再让分子乘同一个数。"}</p>}
+                  {diagnosticAnswer !== undefined && <p role="status">{diagnostic.choices[diagnosticAnswer].feedback}</p>}
                 </>}
               </section>
             )}

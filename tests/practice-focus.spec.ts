@@ -149,3 +149,20 @@ test("desktop dark mode keeps the full solution and return action separate", asy
   await page.getByRole("button", { name: "回去作答" }).click();
   await expect(page.getByRole("button", { name: "检查答案" })).toBeVisible();
 });
+
+test("P8 diagnostic preserves its existing feedback and counts as assistance on retry", async ({ page }) => {
+  await page.goto(url);
+  await page.getByRole("textbox").fill("6");
+  await page.getByRole("button", { name: "检查答案" }).click();
+  await page.getByRole("button", { name: "看看我可能卡在哪" }).click();
+  const diagnostic = page.getByRole("region", { name: "错因小检查" });
+  await expect(diagnostic.getByText(/把 2\/5 的分母改成/)).toBeVisible();
+  await diagnostic.getByRole("button", { name: "6", exact: true }).click();
+  await expect(diagnostic.getByRole("status")).toHaveText(/分子乘同一个数/);
+  await diagnostic.getByRole("button", { name: "-6", exact: true }).click();
+  await expect(diagnostic.getByRole("status")).toHaveText(/分子分母都乘/);
+  await page.getByRole("button", { name: "重新练习" }).click();
+  await page.getByRole("textbox").fill("-6");
+  await page.getByRole("button", { name: "检查答案" }).click();
+  await expect(page.getByRole("heading", { name: "提示辅助完成" })).toBeVisible();
+});
