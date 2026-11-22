@@ -7,6 +7,7 @@ import { Button, Card } from "../../components/ui";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem } from "../../data/learning";
 import { initialTeachingProgress, teachingEvidence, type TeachingLesson, type TeachingProgress } from "../../data/teaching";
 import { useLearning } from "../../db/learning";
+import { StuckButton } from "../formulas/FormulaActions";
 import ReferenceGraph from "./ReferenceGraph";
 import TeachingSession, { type TeachingStepPresentation } from "./TeachingSession";
 
@@ -62,6 +63,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
   }
 
   function record(result: boolean, response: string) {
+    if (correct !== undefined) return;
     setCorrect(result);
     setWrongStreak((previous) => result ? 0 : previous + 1);
     save({
@@ -166,6 +168,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
               <Button variant="ghost" onClick={openSolution}>
                 <BookOpen size={18} aria-hidden="true" /> 查看完整解法
               </Button>
+              <StuckButton problemId={problem.id} />
             </div>
           </>
         )}
@@ -234,7 +237,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
             </div>
             <div className="practice-focus-help">
               <Button variant="ghost" onClick={openSolution}>查看完整解法</Button>
-              {!correct && <Link to="/practice/mistakes">查看错题</Link>}
+              <Link to="/practice/mistakes">查看错题</Link>
             </div>
           </div>
         )}

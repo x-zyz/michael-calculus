@@ -56,8 +56,8 @@ test("P8 keeps the draft answer and runs all four steps without early reveal", a
   await page.getByRole("button", { name: "检查答案" }).click();
   await expect(page.getByRole("heading", { name: "提示辅助完成" })).toBeVisible();
   await page.getByRole("button", { name: "下一题" }).click();
-  await expect(page).toHaveURL(/problem=p9$/);
-  await expect(page.getByRole("button", { name: "ELI5 教学" })).toBeVisible();
+  await expect(page).toHaveURL(/[?&]problem=p9(?:&|$)/);
+  await expect(page.getByRole("button", { name: "一步一步教我" })).toBeVisible();
 });
 
 test("viewing a solution before trying counts as assistance even after retry", async ({ page }) => {

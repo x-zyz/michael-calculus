@@ -13,7 +13,7 @@ async function expectFormulasToFit(page: Page) {
 for (const [id, [, , answer]] of Object.entries(cases)) {
   test(`${id} delays worked formulas and grades its transfer at 360px`, async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 780 });
-    await page.goto(`/#/practice?problem=${id}`);
+    await page.goto(`/#/practice?ui=classic&problem=${id}`);
     await page.getByRole("button", { name: "查看完整解析" }).click();
     await expectFormulasToFit(page);
     await page.getByRole("button", { name: "ELI5 教学" }).click();
@@ -40,7 +40,7 @@ for (const [id, [, , answer]] of Object.entries(cases)) {
 }
 
 test("skipping a pilot transfer never reveals the transfer answer", async ({ page }) => {
-  await page.goto("/#/practice?problem=p9");
+  await page.goto("/#/practice?ui=classic&problem=p9");
   await page.getByRole("button", { name: "ELI5 教学" }).click();
   await page.getByRole("button", { name: "跳过检查" }).click();
   await page.getByRole("button", { name: "下一步", exact: true }).click();

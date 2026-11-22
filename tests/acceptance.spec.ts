@@ -43,7 +43,7 @@ test.describe('phone layout', () => {
         issues.push(...(await layoutProblems(page)).map(p => `${lesson}/${tab} ${p}`));
       }
     }
-    await page.goto('/#/practice');
+    await page.goto('/#/practice?ui=classic');
     for (let i = 1; i <= problems.length; i++) {
       if (i > 1) await page.getByRole("button", { name: "下一题", exact: true }).click();
       if ("kind" in problems[i - 1]) {
@@ -56,7 +56,7 @@ test.describe('phone layout', () => {
   });
 
   test('guided algebra hints fit at 360px and explain every change', async ({ page }) => {
-    await page.goto('/#/practice?problem=p128');
+    await page.goto('/#/practice?ui=classic&problem=p128');
     const next = page.getByRole('button', { name: /看下一步/ });
     const hints = page.getByRole('list', { name: '已展开的提示' });
     for (let step = 1; step <= 6; step++) {
@@ -100,21 +100,20 @@ test('full learning loop persists across reloads', async ({ page }) => {
 
   await page.getByRole('tab', { name: '练习' }).click();
   await page.getByRole('link', { name: /完成阅读，开始练习/ }).click();
-  await expect(page.getByRole('heading', { level: 2, name: '约分后再求极限' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '约分后再求极限', exact: true })).toBeVisible();
 
   // Invalid input is rejected without recording an attempt.
   await page.getByLabel('请输入数值或分数').fill('x+1');
   await page.getByRole('button', { name: '检查答案' }).click();
   await expect(page.getByRole('alert')).toContainText('请输入有效的数值或分数');
 
-  await page.getByRole('button', { name: /看下一步/ }).click();
-  await expect(page.getByText(/这是 0\/0 型未定式/)).toBeVisible();
+  await page.getByRole('button', { name: '一步一步教我' }).click();
+  await page.getByRole('button', { name: '返回题目' }).click();
   await page.getByLabel('请输入数值或分数').fill('0');
   await page.getByRole('button', { name: '检查答案' }).click();
-  await expect(page.getByRole('status')).toContainText('此题已加入待复习');
-
+  await expect(page.getByRole('status')).toContainText('已加入错题');
+  await page.getByRole('link', { name: '查看错题' }).click();
   await page.reload();
-  await page.getByRole('tab', { name: '错题 (1)' }).click();
   await expect(page).toHaveURL(/#\/practice\/mistakes$/);
   await expect(page.getByText('累计作答 1 次 · 答对 0 次 · 待复习 1 题')).toBeVisible();
   await page.getByRole('button',{name:'最近 20 次作答',exact:true}).click();
@@ -123,7 +122,7 @@ test('full learning loop persists across reloads', async ({ page }) => {
   await page.getByRole('link', { name: '重新练习' }).click();
   await page.getByLabel('请输入数值或分数').fill('4/2');
   await page.getByRole('button', { name: '检查答案' }).click();
-  await expect(page.getByRole('status')).toContainText('✓ 回答正确');
+  await expect(page.getByRole('status')).toContainText('回答正确');
 
   await page.reload();
   await page.goto('/#/review');

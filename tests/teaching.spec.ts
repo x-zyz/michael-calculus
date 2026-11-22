@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("P8 teaching and standard solution fit a 360px phone", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 360, height: 740 });
-  await page.goto("/#/practice?problem=p8");
+  await page.goto("/#/practice?ui=classic&problem=p8");
   await page.getByRole("button", { name: "查看完整解析" }).click();
   const solution = page.getByLabel("完整解析");
   await expect(solution.locator(".katex-error")).toHaveCount(0);
@@ -38,7 +38,7 @@ test("P8 teaching and standard solution fit a 360px phone", async ({ page }, tes
 
 test("P8 ELI5 loads from the production cache after going offline", async ({ page, context }) => {
   test.skip(!process.env.ELI5_OFFLINE_TEST, "Run with the built PWA served by Vite preview.");
-  await page.goto("/#/practice?problem=p8");
+  await page.goto("/#/practice?ui=classic&problem=p8");
   await expect(page.getByRole("button", { name: "ELI5 教学" })).toBeVisible();
   await page.waitForFunction(() => Boolean(navigator.serviceWorker?.controller));
   const exerciseUrl = page.url();

@@ -9,13 +9,14 @@ import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
 import FocusedPractice from "./FocusedPractice";
 import { p8FocusContent } from "./p8FocusContent";
-import { focusedPracticeLesson, firstFocusedPracticeBatch } from "./focusedPracticeRollout";
+import { focusedPracticeLesson } from "./focusedPracticeRollout";
 export default function PracticePage() {
   const { pathname, search } = useLocation();
   const showMistakes = pathname === "/practice/mistakes";
   const query = new URLSearchParams(search);
-  const pilot = !showMistakes && query.get("ui") === "study" && firstFocusedPracticeBatch.has(query.get("problem") ?? "");
-  return pilot ? <div className="page focus-layout"><PracticeQuestions key={search} pilot /></div>
+  const requested = problems.find((problem) => problem.id === query.get("problem"));
+  const compact = !showMistakes && query.get("ui") !== "classic" && requested && focusedPracticeLesson(requested);
+  return compact ? <div className="page focus-layout"><PracticeQuestions key={search} compact /></div>
     : <PracticeOverview showMistakes={showMistakes} search={search} />;
 }
 
@@ -42,15 +43,17 @@ function PracticeOverview({ showMistakes, search }: { showMistakes: boolean; sea
   );
 }
 
-function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
+function PracticeQuestions({ compact = false }: { compact?: boolean }) {
   const navigate = useNavigate();
   const { state } = useLearning();
   const [query] = useSearchParams();
   const [open, setOpen] = useState(false);
   const [chapter, setChapter] = useState(Number(query.get("chapter")) || 0);
   const [tag, setTag] = useState(query.get("tag") || "");
-  const [difficulty, setDifficulty] = useState<PracticeDifficulty | "">("");
-  const [kind, setKind] = useState<WrittenProblem["kind"] | "数值题" | "">("");
+  const [difficulty, setDifficulty] = useState<PracticeDifficulty | "">(() =>
+    (Object.keys(practiceDifficultyLabels).find((key) => key === query.get("difficulty")) as PracticeDifficulty | undefined) ?? "");
+  const [kind, setKind] = useState<WrittenProblem["kind"] | "数值题" | "">(() =>
+    (["数值题", ...writtenProblemKinds] as const).find((value) => value === query.get("kind")) ?? "");
   const lesson = query.get("lesson");
   const list = problems.filter(
     (p) =>
@@ -69,18 +72,24 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
   const current = list[index];
   const currentChapter = lessons.find((l) => l.id === current?.lessonId)?.chapter;
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
-  const focusedLesson = current && focusedPracticeLesson(current);
-  if (pilot && current && focusedLesson) {
-    const next = list[index + 1];
-    return <FocusedPractice problem={current} lesson={focusedLesson}
-      content={current.id === "p8" ? p8FocusContent : { contextLabel: currentChapter ? "第 " + currentChapter + " 章" : "练习中心" }}
-      onNext={next ? () => {
-        const nextQuery = new URLSearchParams(query);
-        if (!firstFocusedPracticeBatch.has(next.id)) nextQuery.delete("ui");
-        nextQuery.set("problem", next.id);
-        navigate({ pathname: "/practice", search: nextQuery.toString() });
-      } : undefined} />;
+  function openProblem(nextId: string) {
+    const nextQuery = new URLSearchParams(query);
+    nextQuery.set("problem", nextId);
+    for (const [name, value] of Object.entries({ chapter, tag, difficulty, kind })) {
+      if (value) nextQuery.set(name, String(value));
+      else nextQuery.delete(name);
+    }
+    navigate({ pathname: "/practice", search: nextQuery.toString() });
   }
+
+  const focusedLesson = query.get("ui") !== "classic" && current && focusedPracticeLesson(current);
+  const next = list[index + 1];
+  const focused = current && focusedLesson ? (
+    <FocusedPractice key={current.id} problem={current} lesson={focusedLesson}
+      content={current.id === "p8" ? p8FocusContent : { contextLabel: "第一章 · 函数、极限与连续" }}
+      onNext={next ? () => openProblem(next.id) : undefined} />
+  ) : null;
+  if (compact && focused) return focused;
   return (
     <>
       <div className="practice-toolbar">
@@ -88,6 +97,7 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
           {current ? `第 ${index + 1} / ${list.length} 题 · 第${currentChapter}章` : "0 道匹配题目"}
         </span>
         <div className="practice-nav">
+          {!focused && <>
           <Button
             className="icon-button"
             variant="ghost"
@@ -106,6 +116,7 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
           >
             <ChevronRight size={24} />
           </Button>
+          </>}
           <Button
             className="icon-button"
             aria-label="题目列表"
@@ -115,9 +126,9 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
           </Button>
         </div>
       </div>
-      {current ? <Question key={current.id} problem={current} /> : (
+      {focused ?? (current ? <Question key={current.id} problem={current} /> : (
         <EmptyState title="没有匹配的题目" description="可以在题目列表中调整筛选条件。" />
-      )}
+      ))}
       <Sheet title="题目列表" open={open} onClose={() => setOpen(false)}>
         <section data-testid="chapter-mastery">
           <ChipRow label="按难度筛选">
@@ -187,8 +198,9 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
                             : ""
                       }
                       onClick={() => {
-                        setId(p.id);
                         setOpen(false);
+                        if (query.get("ui") !== "classic" && focusedPracticeLesson(p)) openProblem(p.id);
+                        else setId(p.id);
                       }}
                     >
                       <strong>

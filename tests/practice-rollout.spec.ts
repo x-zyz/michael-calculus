@@ -3,7 +3,8 @@ import { expect, test, type Page } from "@playwright/test";
 import { problems } from "../src/data/learning";
 import { firstFocusedPracticeBatch, focusedPracticeLesson } from "../src/features/practice/focusedPracticeRollout";
 
-const batch = problems.filter((problem) => firstFocusedPracticeBatch.has(problem.id));
+const batch = problems.filter((problem) => focusedPracticeLesson(problem));
+const firstBatch = batch.filter((problem) => firstFocusedPracticeBatch.has(problem.id));
 
 async function checkFormulas(page: Page) {
   await expect(page.locator(".katex-error:visible")).toHaveCount(0);
@@ -14,16 +15,17 @@ async function checkFormulas(page: Page) {
 }
 
 test("first rollout batch contains six numerical and four written registered lessons", () => {
-  expect(batch).toHaveLength(10);
-  expect(batch.filter((problem) => "answer" in problem)).toHaveLength(6);
-  expect(batch.every((problem) => focusedPracticeLesson(problem))).toBe(true);
+  expect(firstBatch).toHaveLength(10);
+  expect(firstBatch.filter((problem) => "answer" in problem)).toHaveLength(6);
+  expect(batch).toHaveLength(41);
+  expect(batch.filter((problem) => "answer" in problem)).toHaveLength(29);
 });
 
 for (const problem of batch) {
   const lesson = focusedPracticeLesson(problem)!;
   test(problem.id + " completes the four-state flow at 360px", async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 740 });
-    await page.goto("/#/practice?ui=study&problem=" + problem.id);
+    await page.goto("/#/practice?problem=" + problem.id);
     const paper = page.locator(".practice-focus-paper");
     const initialFormula = await paper.locator(".formula annotation").first().textContent();
     await checkFormulas(page);
@@ -67,7 +69,7 @@ for (const problem of batch) {
 }
 
 test("written self-assessment can be independent or record a review without numeric grading", async ({ page }) => {
-  await page.goto("/#/practice?ui=study&problem=jc935-1-5-1-5");
+  await page.goto("/#/practice?problem=jc935-1-5-1-5");
   const paper = page.locator(".practice-focus-paper");
   await expect(paper.getByRole("textbox")).toHaveCount(0);
   await paper.getByRole("button", { name: "我独立完成了" }).click();

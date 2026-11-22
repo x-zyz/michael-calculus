@@ -12,7 +12,7 @@ async function checkVisibleMath(page: Page) {
 for (const [id, lesson] of Object.entries(chapterOneProductionTeaching)) {
   test(id + " keeps each reveal and transfer usable at 360px", async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 780 });
-    await page.goto("/#/practice?problem=" + id);
+    await page.goto("/#/practice?ui=classic&problem=" + id);
     await page.getByRole("button", { name: "ELI5 教学", exact: true }).click();
     const region = page.getByRole("region", { name: "ELI5 教学步骤" });
     const formula = region.getByLabel("本步完整算式");

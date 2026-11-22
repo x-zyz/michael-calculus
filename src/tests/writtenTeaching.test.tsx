@@ -38,7 +38,7 @@ function openWrittenLesson() {
       },
     }],
   };
-  render(<MemoryRouter initialEntries={["/practice?problem=" + id]}><App /></MemoryRouter>);
+  render(<MemoryRouter initialEntries={["/practice?ui=classic&problem=" + id]}><App /></MemoryRouter>);
 }
 
 function click(name: string) {

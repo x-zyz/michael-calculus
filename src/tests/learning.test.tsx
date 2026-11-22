@@ -21,7 +21,7 @@ function mount(path: string) {
 }
 describe("limit and derivative learning", () => {
   it("reveals each algebra step separately and records all six hints", () => {
-    mount("/practice?problem=p128");
+    mount("/practice?ui=classic&problem=p128");
     const next = () => screen.getByRole("button", { name: /看下一步/ });
     expect(screen.queryByRole("list", { name: "已展开的提示" })).toBeNull();
     for (let step = 1; step <= 6; step++) {
@@ -40,7 +40,7 @@ describe("limit and derivative learning", () => {
   });
 
   it("filters challenge questions without falling back to unrelated lessons", () => {
-    mount("/practice?lesson=continuity");
+    mount("/practice?ui=classic&lesson=continuity");
     fireEvent.click(screen.getByRole("button", { name: "题目列表" }));
     const sheet = screen.getByRole("dialog");
     fireEvent.click(within(sheet).getByRole("button", { name: "挑战" }));
@@ -270,7 +270,7 @@ describe("limit and derivative learning", () => {
     rev.unmount();
   }, 20000);
   it("grades new second-important-limit, infinitesimal, and derivative problems", () => {
-    const v = mount("/practice?problem=p8");
+    const v = mount("/practice?ui=classic&problem=p8");
     fireEvent.change(screen.getByLabelText("请输入指数 k 的数值或分数"), {
       target: { value: "-6" },
     });
@@ -297,7 +297,7 @@ describe("limit and derivative learning", () => {
     );
   });
   it("records mistakes, restores them after reopening, and resolves them after a correct retry", () => {
-    const v = mount("/practice?problem=p3");
+    const v = mount("/practice?ui=classic&problem=p3");
     fireEvent.change(screen.getByLabelText("角度使用弧度；请输入数值或分数"), {
       target: { value: "5/3" },
     });
@@ -317,11 +317,7 @@ describe("limit and derivative learning", () => {
       target: { value: "3/5" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
-    fireEvent.click(
-      within(screen.getByRole("status")).getByRole("link", {
-        name: /查看错题/,
-      }),
-    );
+    fireEvent.click(screen.getByRole("link", { name: "查看错题" }));
     expect(
       screen.queryByRole("link", { name: "重新练习" }),
     ).not.toBeInTheDocument();
@@ -338,8 +334,10 @@ describe("limit and derivative learning", () => {
     expect(screen.getByRole("alert")).toBeVisible();
     expect(localStorage.getItem(learningKey)).toBeNull();
     fireEvent.change(input, { target: { value: "2" } });
-    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
-    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    const submit = screen.getByRole("button", { name: "检查答案" });
+    fireEvent.click(submit);
+    fireEvent.click(submit);
+    expect(screen.queryByRole("button", { name: "检查答案" })).not.toBeInTheDocument();
     expect(
       JSON.parse(localStorage.getItem(learningKey)!).attempts,
     ).toHaveLength(1);

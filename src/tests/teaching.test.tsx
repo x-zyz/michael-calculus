@@ -7,7 +7,7 @@ import { learningKey } from "../db/learning";
 import { parseBackup } from "../db/backup";
 
 function open() {
-  return render(<MemoryRouter initialEntries={["/practice?problem=p8"]}><App /></MemoryRouter>);
+  return render(<MemoryRouter initialEntries={["/practice?ui=classic&problem=p8"]}><App /></MemoryRouter>);
 }
 
 function click(name: string) {
