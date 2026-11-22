@@ -13,6 +13,7 @@ import { formulas } from "../../data/formulas";
 import { useLearning } from "../../db/learning";
 import ChapterPainting from "../../components/ChapterPainting";
 import Formula from "../../components/Formula";
+import MathText from "../../components/MathText";
 import {
   Accordion,
   Button,
@@ -170,12 +171,12 @@ function Lesson({
           {state.completed.includes(lesson.id) ? "已完成阅读" : "学习中"}
         </small>
         <article className="lesson-copy" data-testid="lesson-content">
-          {currentStep === "直觉" && <p>{lesson.intuition}</p>}
+          {currentStep === "直觉" && <p><MathText text={lesson.intuition} /></p>}
           {currentStep === "定义" && (
             <>
-              <p>{lesson.definitionExplanation}</p>
+              <p><MathText text={lesson.definitionExplanation} /></p>
               <Formula value={lesson.definition} />
-              <p>{lesson.condition}</p>
+              <p><MathText text={lesson.condition} /></p>
               {formulas.some((formula) => formula.lessonId === lesson.id) && (
                 <Link className="about-link" to={`/review/formulas?lesson=${lesson.id}`}>
                   背这节的公式 →
@@ -188,10 +189,10 @@ function Lesson({
               <Formula value={lesson.example} />
               <ol>
                 {lesson.steps.map((s) => (
-                  <li key={s}>{s}</li>
+                  <li key={s}><MathText text={s} /></li>
                 ))}
               </ol>
-              <p className="learning-tip">{lesson.takeaway}</p>
+              <p className="learning-tip"><MathText text={lesson.takeaway} /></p>
             </>
           )}
           {currentStep === "练习" && (

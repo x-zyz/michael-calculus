@@ -7,6 +7,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../app/App";
+import { asciiMathToLatex } from "../components/MathText";
 import { checkAnswer, computeMastery, derivativeAppState, experimentValue, lessons, linearApprox, problems, secantSlope } from "../data/learning";
 import { textbookSections } from "../data/textbookSections";
 import { formulas } from "../data/formulas";
@@ -484,12 +485,18 @@ it("reconciles the calculus bank inventory with the installed bank and KaTeX out
   expect(integrated.filter(({ section }) => section === "exam-4")).toHaveLength(25);
 });
 
-it("covers every Chapter 1 problem with strict KaTeX step-by-step guidedHints", () => {
+it("covers every Chapter 1 and Chapter 2 problem with strict KaTeX step-by-step guidedHints", () => {
   const ch1Lessons = new Set(lessons.filter(({ chapter }) => chapter === 1).map(({ id }) => id));
   const ch1Problems = problems.filter(({ lessonId }) => ch1Lessons.has(lessonId));
   expect(ch1Problems.length).toBeGreaterThanOrEqual(344);
   for (const p of ch1Problems) {
     expect(p.guidedHints?.length ?? 0, p.id).toBeGreaterThanOrEqual(2);
+  }
+  const ch2Lessons = new Set(lessons.filter(({ chapter }) => chapter === 2).map(({ id }) => id));
+  const ch2Problems = problems.filter(({ lessonId }) => ch2Lessons.has(lessonId));
+  expect(ch2Problems.length).toBeGreaterThanOrEqual(258);
+  for (const p of ch2Problems) {
+    expect(p.guidedHints?.length ?? 0, p.id).toBeGreaterThanOrEqual(3);
   }
   for (const p of problems) {
     if (!p.guidedHints) continue;
@@ -502,6 +509,22 @@ it("covers every Chapter 1 problem with strict KaTeX step-by-step guidedHints", 
       ).not.toThrow();
     }
   }
+});
+
+it("renders inline ASCII math fractions and powers cleanly as KaTeX in curriculum lessons", () => {
+  const samples = ["3/x", "1/(2x)", "1^∞", "[(1 + 2x)^(1/(2x))]⁶", "[1/u(x)] · k", "e^k"];
+  for (const sample of samples) {
+    const latex = asciiMathToLatex(sample);
+    expect(latex, sample).not.toContain("/");
+    expect(latex, sample).not.toMatch(/\^[^{]/);
+    expect(() => katex.renderToString(latex, { displayMode: false, throwOnError: true, strict: "ignore" }), sample).not.toThrow();
+  }
+  const view = mount("/curriculum/euler");
+  fireEvent.click(screen.getByRole("tab", { name: "例题" }));
+  const content = screen.getByTestId("lesson-content");
+  expect(content.querySelectorAll(".math-inline .katex").length).toBeGreaterThan(3);
+  expect(content.querySelectorAll(".katex-error")).toHaveLength(0);
+  view.unmount();
 });
 
 it("forbids third-party textbook brand names anywhere in tracked repository files", () => {
