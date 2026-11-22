@@ -3,6 +3,21 @@
 // During production build, vite.config.ts replaces __PRECACHE_ASSETS__ and __CACHE_VERSION__.
 const CACHE_NAME = "michael-calculus-v__CACHE_VERSION__";
 const PRECACHE_ASSETS = ["__PRECACHE_ASSETS__"];
+const builtAssetUrls = new Set(
+  PRECACHE_ASSETS.filter((asset) => asset.startsWith("./assets/"))
+    .map((asset) => new URL(asset, self.registration.scope).href),
+);
+
+async function matchOfflineAsset(request) {
+  const cached = await caches.match(request);
+  if (cached || !builtAssetUrls.has(request.url)) return cached;
+
+  // A same-origin module or stylesheet can send Origin while precaching did not.
+  // Only build output is invariant across that header. Leave other Vary keys intact.
+  const cache = await caches.open(CACHE_NAME);
+  const asset = await cache.match(request, { ignoreVary: true });
+  return asset?.headers.get("vary")?.trim().toLowerCase() === "origin" ? asset : undefined;
+}
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -51,7 +66,7 @@ self.addEventListener("fetch", (event) => {
   }
 
   event.respondWith(
-    caches.match(request).then(
+    matchOfflineAsset(request).then(
       (cached) =>
         cached ||
         fetch(request).then((response) => {
