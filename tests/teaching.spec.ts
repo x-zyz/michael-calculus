@@ -14,6 +14,15 @@ test("P8 teaching and standard solution fit a 360px phone", async ({ page }, tes
   const region = page.getByRole("region", { name: "ELI5 教学步骤" });
   for (let step = 1; step <= 4; step++) {
     await expect(region.getByText(`第 ${step} 步，共 4 步`)).toBeVisible();
+    await expect(region.getByLabel("本步完整算式")).toHaveCount(0);
+    await region.getByRole("button", { name: "跳过检查" }).click();
+    if (step === 2) {
+      const transfer = region.getByRole("form", { name: "迁移小题" });
+      await expect(region.getByLabel("本步完整算式")).toHaveCount(0);
+      await transfer.getByRole("textbox").fill("-8");
+      await transfer.getByRole("button", { name: "检查迁移题" }).click();
+      await expect(transfer.getByText(/答对了/)).toBeVisible();
+    }
     const clipped = await page.locator(".formula:visible").evaluateAll((nodes) =>
       nodes.filter((node) => node.scrollWidth > node.clientWidth + 1).map((node) => node.textContent),
     );
@@ -22,7 +31,7 @@ test("P8 teaching and standard solution fit a 360px phone", async ({ page }, tes
     if (step === 2 && process.env.ELI5_SCREENSHOTS) {
       await region.screenshot({ path: testInfo.outputPath("p8-eli5.png"), style: ".topbar, .mobile-nav { visibility: hidden }" });
     }
-    await region.getByRole("button", { name: "跳过检查" }).click();
+    await region.getByRole("button", { name: step === 4 ? "结束教学" : "下一步", exact: true }).click();
   }
   await expect(region.getByText(/教学步骤已结束/)).toBeVisible();
 });

@@ -9,4 +9,5 @@ for side in ("-", "+"):
     assert limit((1 - 3 * x) ** (1 / (-3 * x)), x, 0, dir=side) == exp(1)
     assert limit((1 - 3 * x) ** (2 / x), x, 0, dir=side) == exp(-6)
 assert log(exp(-6)) == -6
+assert simplify(4 / x - (-8) / (-2 * x)) == 0
 print("P8: both one-sided limits verified; k = -6")

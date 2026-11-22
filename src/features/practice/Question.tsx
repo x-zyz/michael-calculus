@@ -16,6 +16,17 @@ export default function Question({ problem }: { problem: Problem }) {
     : <WrittenQuestion problem={problem} />;
 }
 
+type ExplanationMode = "standard" | "eli5";
+const explanationModeKey = "mc-explanation-mode-v1";
+
+function readExplanationMode(): ExplanationMode {
+  try {
+    return localStorage.getItem(explanationModeKey) === "eli5" ? "eli5" : "standard";
+  } catch {
+    return "standard";
+  }
+}
+
 function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const { state, save } = useLearning();
   const [answer, setAnswer] = useState("");
@@ -25,12 +36,29 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const [invalid, setInvalid] = useState(false);
   const submitted = result !== null;
   const teaching = teachingByProblem[p.id];
-  const [mode, setMode] = useState<"standard" | "eli5">("standard");
+  const [defaultMode, setDefaultMode] = useState(readExplanationMode);
+  const [mode, setMode] = useState<ExplanationMode>(() => teaching ? defaultMode : "standard");
+  const [modeSaveError, setModeSaveError] = useState(false);
   const [progress, setProgress] = useState<TeachingProgress>();
   const [showSolution, setShowSolution] = useState(false);
   const [solutionSeen, setSolutionSeen] = useState(false);
   const [diagnosticAnswer, setDiagnosticAnswer] = useState<number>();
   const hintUsage = Math.max(hints, progress?.stepsSeen ?? 0, Number(solutionSeen));
+  function startTeaching() {
+    setMode("eli5");
+    setProgress(progress ?? initialTeachingProgress);
+  }
+
+  function saveDefaultMode() {
+    try {
+      localStorage.setItem(explanationModeKey, mode);
+      setDefaultMode(mode);
+      setModeSaveError(false);
+    } catch {
+      setModeSaveError(true);
+    }
+  }
+
   return (
     <Card className="practice-question">
       <small className="learning-note">{practiceDifficultyLabels[p.difficulty ?? "basic"]}</small>
@@ -105,11 +133,15 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
       {teaching && (
         <div className="learning-actions" role="group" aria-label="解析模式">
           <Button type="button" aria-pressed={mode === "standard"} onClick={() => setMode("standard")}>标准解析</Button>
-          <Button type="button" aria-pressed={mode === "eli5"} onClick={() => {
-            setMode("eli5");
-            setProgress(progress ?? initialTeachingProgress);
-          }}>ELI5 教学</Button>
+          <Button type="button" aria-pressed={mode === "eli5"} onClick={startTeaching}>ELI5 教学</Button>
+          <Button type="button" disabled={defaultMode === mode} onClick={saveDefaultMode}>
+            {defaultMode === mode ? "当前模式已是默认" : "设为默认解析模式"}
+          </Button>
+          {modeSaveError && <p role="alert">无法保存默认解析模式。</p>}
         </div>
+      )}
+      {teaching && mode === "eli5" && !progress && (
+        <Button type="button" onClick={startTeaching}>开始 ELI5 教学</Button>
       )}
       {teaching && progress && (
         <div hidden={mode !== "eli5"}>
