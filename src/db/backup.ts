@@ -54,9 +54,8 @@ export function parseBackup(text: string): Backup {
               typeof a.at === "string" &&
               Number.isFinite(Date.parse(a.at)) &&
               typeof a.hints === "number" &&
-              Number.isInteger(a.hints) &&
-              a.hints >= 0 &&
-              a.hints <= 3,
+              Number.isSafeInteger(a.hints) &&
+              a.hints >= 0,
           )
         )
           throw Error("课程备份损坏或来自更新的应用，请不要卸载旧版。");

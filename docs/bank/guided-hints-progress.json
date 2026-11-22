@@ -1,0 +1,2476 @@
+{
+  "schemaVersion": 1,
+  "scope": "chapter-1-complete",
+  "batches": {
+    "pilot-p128": {
+      "status": "reviewed",
+      "file": "src/data/expandedPractice.ts",
+      "verifier": "src/tests/learning.test.tsx",
+      "count": 1
+    },
+    "ch1-1": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Sec1.ts",
+      "verifier": "scripts/check-guided-ch1-1.py",
+      "count": 57
+    },
+    "ch1-2-3": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Sec2to3.ts",
+      "verifier": "scripts/check-guided-ch1-2-3.py",
+      "count": 54
+    },
+    "ch1-4": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Sec4.ts",
+      "verifier": "scripts/check-guided-ch1-4.py",
+      "count": 32
+    },
+    "ch1-5": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Sec5.ts",
+      "verifier": "scripts/check-guided-ch1-5.py",
+      "count": 29
+    },
+    "ch1-6-7": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Sec6to7.ts",
+      "verifier": "scripts/check-guided-ch1-6-7.py",
+      "count": 30
+    },
+    "ch1-8-10": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Sec8to10.ts",
+      "verifier": "scripts/check-guided-ch1-8-10.py",
+      "count": 48
+    },
+    "ch1-core": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Core.ts",
+      "verifier": "scripts/check-guided-ch1-core.py",
+      "count": 35
+    },
+    "ch1-exam": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Exam.ts",
+      "verifier": "scripts/check-guided-ch1-exam.py",
+      "count": 23
+    },
+    "ch1-review": {
+      "status": "reviewed",
+      "file": "src/data/guidedHints/ch1Review.ts",
+      "verifier": "scripts/check-guided-ch1-review.py",
+      "count": 35
+    }
+  },
+  "items": {
+    "p128": {
+      "batchId": "pilot-p128",
+      "pattern": "lim-rationalize",
+      "steps": 6,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-1": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-2": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-3": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-4": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-5": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-6": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-7": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-8": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-9": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-1-10": {
+      "batchId": "ch1-1",
+      "pattern": "domain-algebraic",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-2-1": {
+      "batchId": "ch1-1",
+      "pattern": "function-equality",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-2-2": {
+      "batchId": "ch1-1",
+      "pattern": "function-equality",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-2-3": {
+      "batchId": "ch1-1",
+      "pattern": "function-equality",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-2-4": {
+      "batchId": "ch1-1",
+      "pattern": "function-equality",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-3": {
+      "batchId": "ch1-1",
+      "pattern": "piecewise-eval-graph",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-4-1": {
+      "batchId": "ch1-1",
+      "pattern": "boundedness-proof",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-4-2": {
+      "batchId": "ch1-1",
+      "pattern": "boundedness-proof",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-5-1": {
+      "batchId": "ch1-1",
+      "pattern": "monotonicity-proof",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-5-2": {
+      "batchId": "ch1-1",
+      "pattern": "monotonicity-proof",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-6-1": {
+      "batchId": "ch1-1",
+      "pattern": "monotonicity-parameter",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-1-6-2": {
+      "batchId": "ch1-1",
+      "pattern": "monotonicity-parameter",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-7": {
+      "batchId": "ch1-1",
+      "pattern": "odd-monotonicity-proof",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-1-8-1": {
+      "batchId": "ch1-1",
+      "pattern": "parity-algebra-proof",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-1-8-2": {
+      "batchId": "ch1-1",
+      "pattern": "parity-algebra-proof",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-1-9-1": {
+      "batchId": "ch1-1",
+      "pattern": "parity-classification",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-9-2": {
+      "batchId": "ch1-1",
+      "pattern": "parity-classification",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-9-3": {
+      "batchId": "ch1-1",
+      "pattern": "parity-classification",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-9-4": {
+      "batchId": "ch1-1",
+      "pattern": "parity-classification",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-9-5": {
+      "batchId": "ch1-1",
+      "pattern": "parity-classification",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-9-6": {
+      "batchId": "ch1-1",
+      "pattern": "parity-classification",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-10-1": {
+      "batchId": "ch1-1",
+      "pattern": "periodicity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-10-2": {
+      "batchId": "ch1-1",
+      "pattern": "periodicity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-10-3": {
+      "batchId": "ch1-1",
+      "pattern": "periodicity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-10-4": {
+      "batchId": "ch1-1",
+      "pattern": "periodicity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-10-5": {
+      "batchId": "ch1-1",
+      "pattern": "periodicity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-11-1": {
+      "batchId": "ch1-1",
+      "pattern": "inverse-function",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-11-2": {
+      "batchId": "ch1-1",
+      "pattern": "inverse-function",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-11-3": {
+      "batchId": "ch1-1",
+      "pattern": "inverse-function",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-11-4": {
+      "batchId": "ch1-1",
+      "pattern": "inverse-function",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-11-5": {
+      "batchId": "ch1-1",
+      "pattern": "inverse-function",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-11-6": {
+      "batchId": "ch1-1",
+      "pattern": "inverse-function",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-12-1": {
+      "batchId": "ch1-1",
+      "pattern": "composite-eval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-12-2": {
+      "batchId": "ch1-1",
+      "pattern": "composite-eval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-12-3": {
+      "batchId": "ch1-1",
+      "pattern": "composite-eval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-12-4": {
+      "batchId": "ch1-1",
+      "pattern": "composite-eval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-12-5": {
+      "batchId": "ch1-1",
+      "pattern": "composite-eval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-13-1": {
+      "batchId": "ch1-1",
+      "pattern": "composite-domain",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-13-2": {
+      "batchId": "ch1-1",
+      "pattern": "composite-domain",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-1-13-3": {
+      "batchId": "ch1-1",
+      "pattern": "composite-domain",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-13-4": {
+      "batchId": "ch1-1",
+      "pattern": "composite-domain",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-14-1": {
+      "batchId": "ch1-1",
+      "pattern": "piecewise-composite",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-14-2": {
+      "batchId": "ch1-1",
+      "pattern": "piecewise-composite",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-15": {
+      "batchId": "ch1-1",
+      "pattern": "applied-modeling",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-16": {
+      "batchId": "ch1-1",
+      "pattern": "applied-modeling",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-17-1": {
+      "batchId": "ch1-1",
+      "pattern": "applied-modeling",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-17-2": {
+      "batchId": "ch1-1",
+      "pattern": "applied-modeling",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-1-18": {
+      "batchId": "ch1-1",
+      "pattern": "applied-modeling",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-geometric-monotone",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-alternating-abs",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-constant-plus-tail",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-rational-split",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-5": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-subsequence-diverge",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-6": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-geometric-squeeze",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-7": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-lower-bound-infty",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-1-8": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-subsequence-diverge",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-2-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-proof-boundedness",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-2-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-proof-contradiction",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-2-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-counterexample-bounded",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-2-3-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-def-counterexample",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-3-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-def-counterexample",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-3-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-def-rescaling",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-3-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-def-archimedean",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-eps-N-bound",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-2-5-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-eps-N-direct",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-2-5-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-eps-N-rational",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-2-5-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-eps-N-rationalize",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-2-5-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-eps-N-log",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-2-6": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-abs-limit-and-counterexample",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-2-7": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-bounded-times-zero",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-2-8": {
+      "batchId": "ch1-2-3",
+      "pattern": "seq-even-odd-subsequences",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-3-1-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-two-sided-hole",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-1-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-two-sided-corner",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-1-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-two-sided-jump",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-2-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-isolated-point-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-2-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-isolated-point-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-2-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-isolated-point-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-2-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-jump-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-2-5": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-jump-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-2-6": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-interval-existence-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-one-sided-endpoint",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-domain-boundary-dne",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-isolated-point-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-isolated-point-tf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-5": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-one-sided-left",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-6": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-one-sided-right",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-7": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-one-sided-endpoint",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-3-8": {
+      "batchId": "ch1-2-3",
+      "pattern": "graph-domain-boundary-dne",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-3-4-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "func-cancel-removable",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-4-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "func-abs-one-sided",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-5-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-delta-linear",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-5-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-delta-linear",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-5-3": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-delta-cancel",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-5-4": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-delta-cancel",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-6-1": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-X-rational",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-6-2": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-X-squeeze",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-7": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-delta-quadratic-restrict",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-3-8": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-X-rational-bound",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-3-9": {
+      "batchId": "ch1-2-3",
+      "pattern": "eps-delta-abs-linear",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-3-10": {
+      "batchId": "ch1-2-3",
+      "pattern": "func-infty-two-ends",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-3-11": {
+      "batchId": "ch1-2-3",
+      "pattern": "func-two-sided-iff-one-sided",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-3-12": {
+      "batchId": "ch1-2-3",
+      "pattern": "func-local-boundedness-infty",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-1": {
+      "batchId": "ch1-4",
+      "pattern": "infinitesimal-quotient-cancel",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-4-2-1": {
+      "batchId": "ch1-4",
+      "pattern": "epsilon-delta-factor-cancel",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-4-2-2": {
+      "batchId": "ch1-4",
+      "pattern": "epsilon-delta-bounded-oscillation",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-4-3": {
+      "batchId": "ch1-4",
+      "pattern": "infinite-limit-reverse-triangle",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-4-4-1": {
+      "batchId": "ch1-4",
+      "pattern": "infinity-split-constant-tail",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-4-4-2": {
+      "batchId": "ch1-4",
+      "pattern": "factor-cancel-direct-sub",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-1": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-2": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-3": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-4": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-5": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-6": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-7": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-8": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-9": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-10": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-11": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-12": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-13": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-14": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-15": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-16": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-17": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-18": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-19": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-20": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-21": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-22": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-23": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-5-24": {
+      "batchId": "ch1-4",
+      "pattern": "limit-def-quantifier-translation",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-4-6": {
+      "batchId": "ch1-4",
+      "pattern": "unbounded-vs-infinite-two-sequences",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-4-7": {
+      "batchId": "ch1-4",
+      "pattern": "unbounded-vs-infinite-reciprocal-trig",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-1": {
+      "batchId": "ch1-5",
+      "pattern": "direct-substitution-quotient",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-2": {
+      "batchId": "ch1-5",
+      "pattern": "direct-substitution-zero-numerator",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-3": {
+      "batchId": "ch1-5",
+      "pattern": "factor-cancel-0-over-0",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-4": {
+      "batchId": "ch1-5",
+      "pattern": "factor-cancel-common-x",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-5": {
+      "batchId": "ch1-5",
+      "pattern": "expand-difference-quotient",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-6": {
+      "batchId": "ch1-5",
+      "pattern": "reciprocal-decay-at-infinity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-7": {
+      "batchId": "ch1-5",
+      "pattern": "divide-highest-power-same-deg",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-8": {
+      "batchId": "ch1-5",
+      "pattern": "divide-highest-power-lower-num",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-9": {
+      "batchId": "ch1-5",
+      "pattern": "factor-quadratics-cancel",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-10": {
+      "batchId": "ch1-5",
+      "pattern": "product-limit-law",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-11": {
+      "batchId": "ch1-5",
+      "pattern": "geometric-sum-limit",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-12": {
+      "batchId": "ch1-5",
+      "pattern": "arithmetic-sum-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-13": {
+      "batchId": "ch1-5",
+      "pattern": "distribute-n-powers-product",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-1-14": {
+      "batchId": "ch1-5",
+      "pattern": "common-denom-inf-minus-inf",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-2-1": {
+      "batchId": "ch1-5",
+      "pattern": "infinite-limit-positive-square-denom",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-5-2-2": {
+      "batchId": "ch1-5",
+      "pattern": "infinite-limit-lower-bound-at-inf",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-5-2-3": {
+      "batchId": "ch1-5",
+      "pattern": "infinite-limit-leading-term-abs",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-5-3-1": {
+      "batchId": "ch1-5",
+      "pattern": "squeeze-bounded-oscillation",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-5-3-2": {
+      "batchId": "ch1-5",
+      "pattern": "squeeze-bounded-arctan",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-5-4-1": {
+      "batchId": "ch1-5",
+      "pattern": "counterexample-initial-order",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-4-2": {
+      "batchId": "ch1-5",
+      "pattern": "counterexample-initial-order-inf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-4-3": {
+      "batchId": "ch1-5",
+      "pattern": "counterexample-zero-times-inf",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-4-4": {
+      "batchId": "ch1-5",
+      "pattern": "proof-positive-lower-bound-times-inf",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-5-5-1": {
+      "batchId": "ch1-5",
+      "pattern": "proof-by-contradiction-sum-limit",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-5-5-2": {
+      "batchId": "ch1-5",
+      "pattern": "counterexample-oscillating-sum-cancels",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-5-3": {
+      "batchId": "ch1-5",
+      "pattern": "counterexample-product-cancels-pole",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-5-4": {
+      "batchId": "ch1-5",
+      "pattern": "counterexample-reciprocal-oscillation",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-5-6": {
+      "batchId": "ch1-5",
+      "pattern": "proof-order-preservation-limit",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-5-7": {
+      "batchId": "ch1-5",
+      "pattern": "proof-epsilon-delta-product-law",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-6-1-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "first-important-limit-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-1-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "first-important-limit-tan",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-1-3": {
+      "batchId": "ch1-6-7",
+      "pattern": "first-important-limit-ratio",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-1-4": {
+      "batchId": "ch1-6-7",
+      "pattern": "first-important-limit-cot",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-1-5": {
+      "batchId": "ch1-6-7",
+      "pattern": "first-important-limit-half-angle",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-1-6": {
+      "batchId": "ch1-6-7",
+      "pattern": "first-important-limit-seq-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-2-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "second-important-limit-zero",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-2-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "second-important-limit-zero",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-2-3": {
+      "batchId": "ch1-6-7",
+      "pattern": "second-important-limit-inf",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-2-4": {
+      "batchId": "ch1-6-7",
+      "pattern": "second-important-limit-inf-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-6-3": {
+      "batchId": "ch1-6-7",
+      "pattern": "squeeze-theorem-eps-delta",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-6-4-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "squeeze-theorem-radical",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-6-4-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "squeeze-theorem-sum",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-6-4-3": {
+      "batchId": "ch1-6-7",
+      "pattern": "squeeze-theorem-two-sided-root",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-6-4-4": {
+      "batchId": "ch1-6-7",
+      "pattern": "squeeze-theorem-floor",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-6-5": {
+      "batchId": "ch1-6-7",
+      "pattern": "monotone-bounded-recurrence",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-6-6": {
+      "batchId": "ch1-6-7",
+      "pattern": "monotone-squeeze-sine-recurrence",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-7-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-order-poly",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-order-trig",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-3-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-same-order",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-3-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-equivalent",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-4-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-equiv-proof-sub",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-4-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-equiv-proof-sec",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-5-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-replace-factor",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-5-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-replace-param-power",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-5-3": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-factor-then-replace",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-5-4": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-factor-then-replace-roots",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-7-6-1": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-equiv-reflexive",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-7-6-2": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-equiv-symmetric",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-7-6-3": {
+      "batchId": "ch1-6-7",
+      "pattern": "infinitesimal-equiv-transitive",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-8-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "graph-discontinuity-classification",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-8-2-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "piecewise-seam-continuity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-2-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "piecewise-seam-continuity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-3-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "rational-discontinuity-classification",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-3-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "trig-discontinuity-classification",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-3-3": {
+      "batchId": "ch1-8-10",
+      "pattern": "oscillating-discontinuity-sequences",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-3-4": {
+      "batchId": "ch1-8-10",
+      "pattern": "piecewise-jump-one-sided",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-4": {
+      "batchId": "ch1-8-10",
+      "pattern": "pointwise-limit-discontinuities",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-5-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "eps-delta-abs-continuity",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-8-5-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "abs-continuity-counterexample",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-8-6": {
+      "batchId": "ch1-8-10",
+      "pattern": "continuity-local-sign-preservation",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-8-7-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "dirichlet-like-continuity-at-origin",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-8-7-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "dirichlet-like-discontinuity-nonzero",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-8-8": {
+      "batchId": "ch1-8-10",
+      "pattern": "functional-equation-global-continuity",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-9-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "rational-continuity-intervals-limits",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "max-min-continuity-identity",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "composite-radical-continuity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "composite-trig-power-continuity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-3": {
+      "batchId": "ch1-8-10",
+      "pattern": "composite-log-continuity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-4": {
+      "batchId": "ch1-8-10",
+      "pattern": "rationalize-single-sqrt-zero",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-5": {
+      "batchId": "ch1-8-10",
+      "pattern": "rationalize-two-sqrts-finite",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-6": {
+      "batchId": "ch1-8-10",
+      "pattern": "sum-to-product-fundamental-trig",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-7": {
+      "batchId": "ch1-8-10",
+      "pattern": "rationalize-infinity-minus-infinity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-3-8": {
+      "batchId": "ch1-8-10",
+      "pattern": "equivalent-infinitesimals-power-log",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "composite-exp-infinity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "composite-log-sin-over-x",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-3": {
+      "batchId": "ch1-8-10",
+      "pattern": "one-to-infinity-e-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-4": {
+      "batchId": "ch1-8-10",
+      "pattern": "one-to-infinity-trig-e-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-5": {
+      "batchId": "ch1-8-10",
+      "pattern": "one-to-infinity-rational-e-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-6": {
+      "batchId": "ch1-8-10",
+      "pattern": "double-rationalize-cubic-infinitesimal",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-7": {
+      "batchId": "ch1-8-10",
+      "pattern": "log-difference-substitution",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-8": {
+      "batchId": "ch1-8-10",
+      "pattern": "exp-grouping-equivalent-infinitesimal",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-9": {
+      "batchId": "ch1-8-10",
+      "pattern": "reciprocal-substitution-exp-limit",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-4-10": {
+      "batchId": "ch1-8-10",
+      "pattern": "one-sided-exp-essential-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-5-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "composite-range-misses-discontinuity",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-5-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "square-erases-dirichlet-discontinuity",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-9-5-3": {
+      "batchId": "ch1-8-10",
+      "pattern": "outer-merges-jump-values",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-9-5-4": {
+      "batchId": "ch1-8-10",
+      "pattern": "quotient-discontinuity-contradiction",
+      "steps": 3,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-9-6": {
+      "batchId": "ch1-8-10",
+      "pattern": "piecewise-parameter-continuity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-10-1": {
+      "batchId": "ch1-8-10",
+      "pattern": "ivt-fixed-point",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-10-2": {
+      "batchId": "ch1-8-10",
+      "pattern": "ivt-polynomial-root-interval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-10-3": {
+      "batchId": "ch1-8-10",
+      "pattern": "ivt-trig-equation-positive-root",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-10-4": {
+      "batchId": "ch1-8-10",
+      "pattern": "ivt-odd-degree-polynomial",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-10-5": {
+      "batchId": "ch1-8-10",
+      "pattern": "ivt-exact-three-cubic-roots",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-10-6": {
+      "batchId": "ch1-8-10",
+      "pattern": "ivt-weighted-average-value",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-10-7": {
+      "batchId": "ch1-8-10",
+      "pattern": "lipschitz-continuity-then-ivt",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-10-8": {
+      "batchId": "ch1-8-10",
+      "pattern": "global-boundedness-tails-and-compact",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-10-9": {
+      "batchId": "ch1-8-10",
+      "pattern": "uniform-continuity-endpoint-limits-iff",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "p1": {
+      "batchId": "ch1-core",
+      "pattern": "factor-cancel",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p2": {
+      "batchId": "ch1-core",
+      "pattern": "direct-substitution",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p3": {
+      "batchId": "ch1-core",
+      "pattern": "first-important-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p4": {
+      "batchId": "ch1-core",
+      "pattern": "first-important-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p5": {
+      "batchId": "ch1-core",
+      "pattern": "continuity-point-match",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p6": {
+      "batchId": "ch1-core",
+      "pattern": "one-sided-limit",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p7": {
+      "batchId": "ch1-core",
+      "pattern": "second-important-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p8": {
+      "batchId": "ch1-core",
+      "pattern": "second-important-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p9": {
+      "batchId": "ch1-core",
+      "pattern": "infinitesimal-replace",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p10": {
+      "batchId": "ch1-core",
+      "pattern": "infinitesimal-replace",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p37": {
+      "batchId": "ch1-core",
+      "pattern": "composite-evaluation",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p38": {
+      "batchId": "ch1-core",
+      "pattern": "limit-laws-quotient",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p39": {
+      "batchId": "ch1-core",
+      "pattern": "squeeze-theorem",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "p124": {
+      "batchId": "ch1-core",
+      "pattern": "composite-domain",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p125": {
+      "batchId": "ch1-core",
+      "pattern": "rationalize-cancel",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p126": {
+      "batchId": "ch1-core",
+      "pattern": "piecewise-continuity-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p127": {
+      "batchId": "ch1-core",
+      "pattern": "first-important-limit",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p164": {
+      "batchId": "ch1-core",
+      "pattern": "domain-sqrt",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p165": {
+      "batchId": "ch1-core",
+      "pattern": "domain-denom-sqrt",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p166": {
+      "batchId": "ch1-core",
+      "pattern": "domain-arcsin",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p167": {
+      "batchId": "ch1-core",
+      "pattern": "one-sided-limit",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p168": {
+      "batchId": "ch1-core",
+      "pattern": "factor-cancel",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p169": {
+      "batchId": "ch1-core",
+      "pattern": "infinity-divide-highest-power",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p170": {
+      "batchId": "ch1-core",
+      "pattern": "sequence-sum-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p171": {
+      "batchId": "ch1-core",
+      "pattern": "infinitesimal-replace",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p172": {
+      "batchId": "ch1-core",
+      "pattern": "factor-cancel",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p173": {
+      "batchId": "ch1-core",
+      "pattern": "piecewise-continuity-param",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p174": {
+      "batchId": "ch1-core",
+      "pattern": "ivt-endpoint-eval",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p204": {
+      "batchId": "ch1-core",
+      "pattern": "squeeze-proof",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "p205": {
+      "batchId": "ch1-core",
+      "pattern": "subsequence-divergence",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "p206": {
+      "batchId": "ch1-core",
+      "pattern": "abs-one-sided-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "p207": {
+      "batchId": "ch1-core",
+      "pattern": "squeeze-sum-proof",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "p208": {
+      "batchId": "ch1-core",
+      "pattern": "monotone-bounded-recursion",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "p209": {
+      "batchId": "ch1-core",
+      "pattern": "case-split-limit-discontinuity",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "p210": {
+      "batchId": "ch1-core",
+      "pattern": "ivt-root-counting",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-1": {
+      "batchId": "ch1-exam",
+      "pattern": "seq-limit-monotonic-uniqueness",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-2": {
+      "batchId": "ch1-exam",
+      "pattern": "inf-taylor-param-solve",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-3": {
+      "batchId": "ch1-exam",
+      "pattern": "piecewise-continuity-equiv",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-4": {
+      "batchId": "ch1-exam",
+      "pattern": "taylor-infinitesimal-order",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-5": {
+      "batchId": "ch1-exam",
+      "pattern": "var-upper-integral-order",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-6": {
+      "batchId": "ch1-exam",
+      "pattern": "one-to-inf-taylor-param",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-7": {
+      "batchId": "ch1-exam",
+      "pattern": "var-upper-integral-ranking",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-8": {
+      "batchId": "ch1-exam",
+      "pattern": "piecewise-sum-continuity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-9": {
+      "batchId": "ch1-exam",
+      "pattern": "discontinuity-classification",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-10": {
+      "batchId": "ch1-exam",
+      "pattern": "one-to-inf-trig-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-11": {
+      "batchId": "ch1-exam",
+      "pattern": "inf-minus-inf-taylor",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-12": {
+      "batchId": "ch1-exam",
+      "pattern": "mvt-squeeze-limit",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-13": {
+      "batchId": "ch1-exam",
+      "pattern": "seq-limit-defined-piecewise",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-14": {
+      "batchId": "ch1-exam",
+      "pattern": "piecewise-continuity-equiv",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-15": {
+      "batchId": "ch1-exam",
+      "pattern": "oblique-asymptote-arctan",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-16": {
+      "batchId": "ch1-exam",
+      "pattern": "one-to-inf-exp-base",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-17": {
+      "batchId": "ch1-exam",
+      "pattern": "split-limit-taylor-integral",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-18": {
+      "batchId": "ch1-exam",
+      "pattern": "oblique-asymptote-exp-taylor",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-19": {
+      "batchId": "ch1-exam",
+      "pattern": "euler-remainder-infinitesimal",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-20": {
+      "batchId": "ch1-exam",
+      "pattern": "two-sided-limit-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-21": {
+      "batchId": "ch1-exam",
+      "pattern": "piecewise-cont-vs-removable",
+      "steps": 5,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-22": {
+      "batchId": "ch1-exam",
+      "pattern": "monotone-bounded-radical-rec",
+      "steps": 5,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-exam-1-23": {
+      "batchId": "ch1-exam",
+      "pattern": "monotone-bounded-implicit-mvt",
+      "steps": 5,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-1-1": {
+      "batchId": "ch1-review",
+      "pattern": "convergence-boundedness-implication",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-1-2": {
+      "batchId": "ch1-review",
+      "pattern": "local-boundedness-counterexample",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-1-3": {
+      "batchId": "ch1-review",
+      "pattern": "unbounded-vs-infinite-limit",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-1-4": {
+      "batchId": "ch1-review",
+      "pattern": "two-sided-limit-iff",
+      "steps": 4,
+      "verification": "manual",
+      "status": "reviewed"
+    },
+    "jc935-1-review-2": {
+      "batchId": "ch1-review",
+      "pattern": "power-exp-continuity-param",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-3-1": {
+      "batchId": "ch1-review",
+      "pattern": "infinitesimal-order-compare",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-3-2": {
+      "batchId": "ch1-review",
+      "pattern": "exp-reciprocal-discontinuity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-4-1": {
+      "batchId": "ch1-review",
+      "pattern": "composite-domain-exp",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-4-2": {
+      "batchId": "ch1-review",
+      "pattern": "composite-domain-log",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-4-3": {
+      "batchId": "ch1-review",
+      "pattern": "composite-domain-arctan",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-4-4": {
+      "batchId": "ch1-review",
+      "pattern": "composite-domain-periodic-cos",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-5-1": {
+      "batchId": "ch1-review",
+      "pattern": "piecewise-composition-self",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-5-2": {
+      "batchId": "ch1-review",
+      "pattern": "piecewise-composition-zero",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-5-3": {
+      "batchId": "ch1-review",
+      "pattern": "piecewise-composition-zero",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-5-4": {
+      "batchId": "ch1-review",
+      "pattern": "piecewise-composition-noncommute",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-6-1": {
+      "batchId": "ch1-review",
+      "pattern": "graph-outer-abs-trig",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-6-2": {
+      "batchId": "ch1-review",
+      "pattern": "graph-inner-abs-even",
+      "steps": 3,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-6-3": {
+      "batchId": "ch1-review",
+      "pattern": "graph-amplitude-period-trig",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-7": {
+      "batchId": "ch1-review",
+      "pattern": "geometry-modeling-cone-volume",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-8": {
+      "batchId": "ch1-review",
+      "pattern": "epsilon-delta-factor-cancel",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-1": {
+      "batchId": "ch1-review",
+      "pattern": "infinite-limit-sign-analysis",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-2": {
+      "batchId": "ch1-review",
+      "pattern": "rationalize-infinity-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-3": {
+      "batchId": "ch1-review",
+      "pattern": "second-important-limit-rational",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-4": {
+      "batchId": "ch1-review",
+      "pattern": "trig-factor-infinitesimal",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-5": {
+      "batchId": "ch1-review",
+      "pattern": "one-to-infinity-log-mean",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-6": {
+      "batchId": "ch1-review",
+      "pattern": "one-to-infinity-log-infinitesimal",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-7": {
+      "batchId": "ch1-review",
+      "pattern": "log-difference-substitution",
+      "steps": 3,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-9-8": {
+      "batchId": "ch1-review",
+      "pattern": "rationalize-infinitesimal-cancel",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-10": {
+      "batchId": "ch1-review",
+      "pattern": "piecewise-continuity-squeeze",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-11": {
+      "batchId": "ch1-review",
+      "pattern": "limit-defined-function-discontinuity",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-12": {
+      "batchId": "ch1-review",
+      "pattern": "squeeze-sum-proof",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-13": {
+      "batchId": "ch1-review",
+      "pattern": "ivt-root-existence",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-14-1": {
+      "batchId": "ch1-review",
+      "pattern": "oblique-asymptote-iff-proof",
+      "steps": 4,
+      "verification": "hybrid",
+      "status": "reviewed"
+    },
+    "jc935-1-review-14-2": {
+      "batchId": "ch1-review",
+      "pattern": "oblique-asymptote-exp-limit",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    },
+    "jc935-1-review-14-3": {
+      "batchId": "ch1-review",
+      "pattern": "vertical-and-oblique-asymptotes",
+      "steps": 4,
+      "verification": "symbolic",
+      "status": "reviewed"
+    }
+  }
+}

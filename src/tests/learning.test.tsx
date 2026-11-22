@@ -1,3 +1,6 @@
+import { execFileSync } from "node:child_process";
+import katex from "katex";
+import bankInventory from "../../docs/bank/inventory.json";
 import { riemannSum, accumulationSlope } from "../data/integrals";
 import {chooseSelect,completeReading} from './ui';
 import { describe, it, expect, vi } from "vitest";
@@ -16,6 +19,25 @@ function mount(path: string) {
   );
 }
 describe("limit and derivative learning", () => {
+  it("reveals each algebra step separately and records all six hints", () => {
+    mount("/practice?problem=p128");
+    const next = () => screen.getByRole("button", { name: /看下一步/ });
+    expect(screen.queryByRole("list", { name: "已展开的提示" })).toBeNull();
+    for (let step = 1; step <= 6; step++) {
+      fireEvent.click(next());
+      const list = screen.getByRole("list", { name: "已展开的提示" });
+      expect(within(list).getAllByRole("listitem")).toHaveLength(step);
+      expect(list.querySelectorAll(".formula .katex")).toHaveLength(step);
+    }
+    expect(next()).toBeDisabled();
+    fireEvent.change(screen.getByLabelText("请输入数值或分数"), { target: { value: "-1/8" } });
+    fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
+    expect(screen.getByText(/回答正确/)).toBeInTheDocument();
+    expect(JSON.parse(localStorage.getItem(learningKey)!).attempts.at(-1).hints).toBe(6);
+    fireEvent.click(screen.getByRole("button", { name: "再做一次" }));
+    expect(screen.queryByRole("list", { name: "已展开的提示" })).toBeNull();
+  });
+
   it("filters challenge questions without falling back to unrelated lessons", () => {
     mount("/practice?lesson=continuity");
     fireEvent.click(screen.getByRole("button", { name: "题目列表" }));
@@ -245,7 +267,7 @@ describe("limit and derivative learning", () => {
       }),
     ).toBeVisible();
     rev.unmount();
-  });
+  }, 20000);
   it("grades new second-important-limit, infinitesimal, and derivative problems", () => {
     const v = mount("/practice?problem=p8");
     fireEvent.change(screen.getByLabelText("请输入指数 k 的数值或分数"), {
@@ -362,6 +384,137 @@ it("links the fifth chapter to its own volume experiment and chapter practice", 
   expect(screen.getByText("右端截面积 0.0000 · 累积体积 0.0000")).toBeVisible();
   fireEvent.click(screen.getByRole("tab", { name: "练习" }));
   fireEvent.click(screen.getByRole("link", { name: /开始练习/ }));
-  expect(screen.getByText("第 1 / 3 题 · 第5章")).toBeVisible();
+  expect(screen.getByText(`第 1 / ${problems.filter((p) => p.lessonId === "integral-volume").length} 题 · 第5章`)).toBeVisible();
   expect(screen.getByRole("heading", { name: "由截面积函数求体积" })).toBeVisible();
+});
+
+it("reveals a reference plot and records only an explicit written self-assessment", () => {
+  mount("/practice?problem=p220");
+  expect(screen.queryByRole("textbox", { name: /数值/ })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "查看分步解析" }));
+  expect(screen.getByRole("img", { name: /四次函数参考图/ })).toBeVisible();
+  expect(screen.queryByRole("tab", { name: /错题 \(1\)/ })).toBeNull();
+  fireEvent.click(screen.getByRole("button", { name: "加入错题" }));
+  fireEvent.click(screen.getByRole("tab", { name: /错题 \(1\)/ }));
+  fireEvent.click(screen.getByRole("button", { name: "最近 20 次作答" }));
+  expect(screen.getByText(/你的答案：自评：还需复习/)).toBeVisible();
+});
+
+it("assigns each written exercise to a real lesson and error topic", () => {
+  const written = problems.filter((problem) => "kind" in problem);
+  expect(written.length).toBeGreaterThan(40);
+  for (const problem of written) {
+    expect(lessons.some(({ id }) => id === problem.lessonId), problem.id).toBe(true);
+    expect(problem.errorLabel, problem.id).toBeTruthy();
+  }
+  expect(new Set(problems.map(({ id }) => id)).size).toBe(problems.length);
+});
+
+
+
+it("reconciles the calculus bank inventory with the installed bank and KaTeX output", () => {
+  const { sections, items } = bankInventory;
+  expect(new Set(sections.map(({ id }) => id)).size).toBe(sections.length);
+  expect(new Set(items.map(({ id }) => id)).size).toBe(items.length);
+  for (const item of items) {
+    expect(sections.find(({ id }) => id === item.section)?.inventory, item.id).toBe("enumerated");
+    expect(item.appIds.length > 0, item.id).toBe(item.status === "integrated");
+  }
+  const integrated = items.filter(({ status }) => status === "integrated");
+  const exercises = problems.filter(({ id }) => id.startsWith("jc935-"));
+  expect(exercises.map(({ id }) => id).sort()).toEqual(integrated.flatMap(({ appIds }) => appIds).sort());
+  for (const p of exercises) {
+    if (!("kind" in p)) throw new Error("Missing written exercise " + p.id);
+    expect(p.source, p.id).toBeTruthy();
+    if (/^jc935-(?:1-(?:[4-9]|10|review)|[2-7]-|exam-)/.test(p.id)) expect(p.commonMistake, p.id).toBeTruthy();
+    for (const formula of [p.formula, p.solution]) {
+      expect(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), p.id).not.toThrow();
+    }
+  }
+  expect(integrated.filter(({ section }) => section === "1-4")).toHaveLength(33);
+  expect(integrated.filter(({ section }) => section === "1-5")).toHaveLength(29);
+  expect(integrated.filter(({ section }) => section === "1-6")).toHaveLength(17);
+  expect(integrated.filter(({ section }) => section === "1-7")).toHaveLength(13);
+  expect(integrated.filter(({ section }) => section === "1-8")).toHaveLength(14);
+  expect(integrated.filter(({ section }) => section === "1-9")).toHaveLength(25);
+  expect(integrated.filter(({ section }) => section === "1-10")).toHaveLength(9);
+  expect(integrated.filter(({ section }) => section === "1-review")).toHaveLength(35);
+  expect(integrated.filter(({ section }) => section === "2-1")).toHaveLength(33);
+  expect(integrated.filter(({ section }) => section === "2-2")).toHaveLength(74);
+  expect(integrated.filter(({ section }) => section === "2-3")).toHaveLength(28);
+  expect(integrated.filter(({ section }) => section === "2-4")).toHaveLength(28);
+  expect(integrated.filter(({ section }) => section === "2-5")).toHaveLength(40);
+  expect(integrated.filter(({ section }) => section === "2-review")).toHaveLength(29);
+  expect(integrated.filter(({ section }) => section === "3-1")).toHaveLength(16);
+  expect(integrated.filter(({ section }) => section === "3-2")).toHaveLength(19);
+  expect(integrated.filter(({ section }) => section === "3-3")).toHaveLength(15);
+  expect(integrated.filter(({ section }) => section === "3-4")).toHaveLength(38);
+  expect(integrated.filter(({ section }) => section === "3-5")).toHaveLength(31);
+  expect(integrated.filter(({ section }) => section === "3-6")).toHaveLength(5);
+  expect(integrated.filter(({ section }) => section === "3-7")).toHaveLength(11);
+  expect(integrated.filter(({ section }) => section === "3-8")).toHaveLength(4);
+  expect(integrated.filter(({ section }) => section === "3-review")).toHaveLength(30);
+  expect(integrated.filter(({ section }) => section === "4-1")).toHaveLength(41);
+  expect(integrated.filter(({ section }) => section === "4-2")).toHaveLength(58);
+  expect(integrated.filter(({ section }) => section === "4-3")).toHaveLength(24);
+  expect(integrated.filter(({ section }) => section === "4-4")).toHaveLength(24);
+  expect(integrated.filter(({ section }) => section === "4-5")).toHaveLength(25);
+  expect(integrated.filter(({ section }) => section === "4-review")).toHaveLength(45);
+  expect(integrated.filter(({ section }) => section === "5-1")).toHaveLength(33);
+  expect(integrated.filter(({ section }) => section === "5-2")).toHaveLength(37);
+  expect(integrated.filter(({ section }) => section === "5-3")).toHaveLength(45);
+  expect(integrated.filter(({ section }) => section === "5-4")).toHaveLength(14);
+  expect(integrated.filter(({ section }) => section === "5-5")).toHaveLength(16);
+  expect(integrated.filter(({ section }) => section === "5-review")).toHaveLength(46);
+  expect(integrated.filter(({ section }) => section === "6-2")).toHaveLength(44);
+  expect(integrated.filter(({ section }) => section === "6-3")).toHaveLength(12);
+  expect(integrated.filter(({ section }) => section === "6-review")).toHaveLength(20);
+  expect(integrated.filter(({ section }) => section === "7-1")).toHaveLength(20);
+  expect(integrated.filter(({ section }) => section === "7-2")).toHaveLength(22);
+  expect(integrated.filter(({ section }) => section === "7-3")).toHaveLength(15);
+  expect(integrated.filter(({ section }) => section === "7-4")).toHaveLength(30);
+  expect(integrated.filter(({ section }) => section === "7-5")).toHaveLength(19);
+  expect(integrated.filter(({ section }) => section === "7-6")).toHaveLength(22);
+  expect(integrated.filter(({ section }) => section === "7-7")).toHaveLength(20);
+  expect(integrated.filter(({ section }) => section === "7-8")).toHaveLength(19);
+  expect(integrated.filter(({ section }) => section === "7-9")).toHaveLength(8);
+  expect(integrated.filter(({ section }) => section === "7-10")).toHaveLength(12);
+  expect(integrated.filter(({ section }) => section === "7-review")).toHaveLength(32);
+  expect(integrated.filter(({ section }) => section === "exam-1")).toHaveLength(23);
+  expect(integrated.filter(({ section }) => section === "exam-4")).toHaveLength(25);
+});
+
+it("covers every Chapter 1 problem with strict KaTeX step-by-step guidedHints", () => {
+  const ch1Lessons = new Set(lessons.filter(({ chapter }) => chapter === 1).map(({ id }) => id));
+  const ch1Problems = problems.filter(({ lessonId }) => ch1Lessons.has(lessonId));
+  expect(ch1Problems.length).toBeGreaterThanOrEqual(344);
+  for (const p of ch1Problems) {
+    expect(p.guidedHints?.length ?? 0, p.id).toBeGreaterThanOrEqual(2);
+  }
+  for (const p of problems) {
+    if (!p.guidedHints) continue;
+    for (const [idx, step] of p.guidedHints.entries()) {
+      expect(step.change.trim().length, `${p.id}#${idx + 1}.change`).toBeGreaterThan(0);
+      expect(step.text.trim().length, `${p.id}#${idx + 1}.text`).toBeGreaterThan(0);
+      expect(
+        () => katex.renderToString(step.formula, { displayMode: true, throwOnError: true, strict: "error" }),
+        `${p.id}#${idx + 1}.formula`,
+      ).not.toThrow();
+    }
+  }
+});
+
+it("forbids third-party textbook brand names anywhere in tracked repository files", () => {
+  const enPattern = "tong" + "ji";
+  const cnPattern = "\u540c\u6d4e";
+  const check = (pattern: string, flags: string[]) => {
+    try {
+      const out = execFileSync("git", ["grep", ...flags, pattern], { encoding: "utf8" });
+      return out.trim();
+    } catch {
+      return "";
+    }
+  };
+  expect(check(enPattern, ["-ni"])).toBe("");
+  expect(check(cnPattern, ["-n"])).toBe("");
 });

@@ -6,6 +6,46 @@ import { seriesLessons, seriesProblems } from "./series";
 import { differentialEquationsLessons, differentialEquationsProblems } from "./differentialEquations";
 export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 import { expandedPractice } from "./expandedPractice";
+import { bankPractice } from "./bankPractice";
+import { bankWrittenPractice } from "./bankWrittenPractice";
+import { bankChapterOneReview } from "./bankChapterOneReview";
+import { bankDerivativeConcept } from "./bankDerivativeConcept";
+import { bankDerivativeRules } from "./bankDerivativeRules";
+import { bankHigherDerivatives } from "./bankHigherDerivatives";
+import { bankImplicitParam } from "./bankImplicitParam";
+import { bankDifferentials } from "./bankDifferentials";
+import { bankChapterTwoReview } from "./bankChapterTwoReview";
+import { bankMvtAndLhopital } from "./bankMvtAndLhopital";
+import { bankTaylorFormula } from "./bankTaylorFormula";
+import { bankMonotonicityConcavity } from "./bankMonotonicityConcavity";
+import { bankExtremaAndOpt } from "./bankExtremaAndOpt";
+import { bankCurveCurvatureRoot } from "./bankCurveCurvatureRoot";
+import { bankChapterThreeReview } from "./bankChapterThreeReview";
+import { bankAntiderivatives } from "./bankAntiderivatives";
+import { bankIntegralSubstitution } from "./bankIntegralSubstitution";
+import { bankIntegralPartsRational } from "./bankIntegralPartsRational";
+import { bankChapterFourTail } from "./bankChapterFourTail";
+import { bankDefiniteIntroFtc } from "./bankDefiniteIntroFtc";
+import { bankDefiniteMethods } from "./bankDefiniteMethods";
+import { bankImproperAndCh5Review } from "./bankImproperAndCh5Review";
+import { bankIntegralGeometry } from "./bankIntegralGeometry";
+import { bankIntegralPhysicsReview } from "./bankIntegralPhysicsReview";
+import { bankOdeFirstOrderBasics } from "./bankOdeFirstOrderBasics";
+import { bankOdeLinearAndReducible } from "./bankOdeLinearAndReducible";
+import { bankOdeHigherHomog } from "./bankOdeHigherHomog";
+import { bankOdeNonhomog } from "./bankOdeNonhomog";
+import { bankOdeEulerSystems } from "./bankOdeEulerSystems";
+import { bankChapterSevenReview } from "./bankChapterSevenReview";
+import { bankExamLimits } from "./bankExamLimits";
+import { bankExamOdes } from "./bankExamOdes";
+import { bankClosedContinuity, bankDiscontinuities } from "./bankContinuity";
+import { bankContinuousOperations } from "./bankContinuousOperations";
+import { bankImportantLimits } from "./bankImportantLimits";
+import { bankLimitLaws } from "./bankLimitLaws";
+import { bankInfinitesimals } from "./bankInfinitesimals";
+import { bankFunctionLimits } from "./bankFunctionLimits";
+import { bankFunctionsAndSequences } from "./bankFunctionsAndSequences";
+import { guidedHintsById } from "./guidedHints";
 
 export interface Lesson {
   definitionExplanation: string;
@@ -274,20 +314,46 @@ export const practiceDifficultyLabels = {
 } as const;
 export type PracticeDifficulty = keyof typeof practiceDifficultyLabels;
 
-export interface Problem {
+export interface GuidedHint {
+  change: string;
+  text: string;
+  formula: string;
+}
+
+interface ProblemDetails {
+  guidedHints?: GuidedHint[];
   difficulty?: PracticeDifficulty;
   formulaIds?: string[];
   id: string;
   lessonId: string;
   title: string;
   formula: string;
-  answer: number;
-  unit: string;
   hints: string[];
   explanation: string;
   errorTag: string;
   errorLabel: string;
 }
+export type NumericProblem = ProblemDetails & { answer: number; unit: string };
+export const writtenProblemKinds = ["证明题", "作图题", "推导题"] as const;
+export type WrittenProblem = ProblemDetails & {
+  kind: (typeof writtenProblemKinds)[number];
+  prompt: string;
+  source?: string;
+  commonMistake?: string;
+  steps: [string, string, string];
+  solution: string;
+  graph?: PracticeGraph;
+  questionGraph?: PracticeGraph;
+};
+export type PracticeGraph = {
+  bounds: [number, number, number, number];
+  branches: [start: number, end: number, fn: (x: number) => number][];
+  points?: [x: number, y: number, included: boolean][];
+  ticks?: { x: number[]; y: number[]; xLabels?: Record<number, string> };
+  description: string;
+};
+export type Problem = NumericProblem | WrittenProblem;
+
 const baseProblems: Problem[] = [
   {
     id: "p1",
@@ -721,10 +787,30 @@ const baseProblems: Problem[] = [
 const topicLabels = new Map(baseProblems.map(({ errorTag, errorLabel }) => [errorTag, errorLabel]));
 topicLabels.set("improper_integrals", "反常积分的截断与极限");
 topicLabels.set("rationalization", "根式有理化");
+topicLabels.set("higher_derivative", "高阶导数");
+topicLabels.set("implicit_derivative", "隐函数求导");
+topicLabels.set("integral_work", "力随位移变化时的功");
+topicLabels.set("inverse_functions", "反函数与定义域");
+topicLabels.set("function_composition", "复合顺序与函数值");
+topicLabels.set("piecewise_modeling", "分段建模与解的范围");
+topicLabels.set("function_properties", "有界、单调、奇偶与周期");
+topicLabels.set("sequence_limit_definition", "数列极限定义与证明");
+topicLabels.set("sequence_convergence", "数列收敛与发散");
+topicLabels.set("function_limit_definition", "函数极限定义与误差估计");
+topicLabels.set("infinite_limits", "无穷小、无穷大与极限定义");
+topicLabels.set("intermediate_value", "介值定理与零点定理");
+topicLabels.set("derivative_tangent", "切线、法线与斜率");
+topicLabels.set("one_sided_derivative", "左右导数与可导性");
+topicLabels.set("marginal_cost", "边际成本与实际增量");
+
 export const problems: Problem[] = [
-  ...baseProblems,
-  ...expandedPractice.map((problem) => ({
+  ...baseProblems.map((problem) => ({
     ...problem,
+    guidedHints: ("guidedHints" in problem ? problem.guidedHints : undefined) ?? guidedHintsById[problem.id],
+  })),
+  ...[...expandedPractice, ...bankPractice, ...bankWrittenPractice, ...bankFunctionsAndSequences, ...bankFunctionLimits, ...bankInfinitesimals, ...bankLimitLaws, ...bankImportantLimits, ...bankDiscontinuities, ...bankContinuousOperations, ...bankClosedContinuity, ...bankChapterOneReview, ...bankDerivativeConcept, ...bankDerivativeRules, ...bankHigherDerivatives, ...bankImplicitParam, ...bankDifferentials, ...bankChapterTwoReview, ...bankMvtAndLhopital, ...bankTaylorFormula, ...bankMonotonicityConcavity, ...bankExtremaAndOpt, ...bankCurveCurvatureRoot, ...bankChapterThreeReview, ...bankAntiderivatives, ...bankIntegralSubstitution, ...bankIntegralPartsRational, ...bankChapterFourTail, ...bankDefiniteIntroFtc, ...bankDefiniteMethods, ...bankImproperAndCh5Review, ...bankIntegralGeometry, ...bankIntegralPhysicsReview, ...bankOdeFirstOrderBasics, ...bankOdeLinearAndReducible, ...bankOdeHigherHomog, ...bankOdeNonhomog, ...bankOdeEulerSystems, ...bankChapterSevenReview, ...bankExamLimits, ...bankExamOdes].map((problem) => ({
+    ...problem,
+    guidedHints: ("guidedHints" in problem ? problem.guidedHints : undefined) ?? guidedHintsById[problem.id],
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
 ];

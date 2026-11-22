@@ -1,12 +1,12 @@
-import type { Problem } from "./learning";
+import type { NumericProblem } from "./learning";
 
 const math = String.raw;
 
-function exercise(
-  id: string, lessonId: string, difficulty: NonNullable<Problem["difficulty"]>,
+export function exercise(
+  id: string, lessonId: string, difficulty: NonNullable<NumericProblem["difficulty"]>,
   title: string, formula: string, answer: number, errorTag: string,
   hints: [string, string, string], explanation: string,
-): Omit<Problem, "errorLabel"> {
+): Omit<NumericProblem, "errorLabel"> {
   return { id, lessonId, difficulty, title, formula, answer, errorTag, hints, explanation, unit: "请输入数值或分数" };
 }
 
@@ -33,11 +33,47 @@ export const expandedPractice = [
     math`\lim_{x\to0}\frac{\sin(5x)}{\tan(2x)}`, 5/2, "sine_coefficients",
     ["把正切写成正弦除以余弦。", "分别配出 sin(5x)/(5x) 和 sin(2x)/(2x)。", "余弦趋 1，留下角度系数之比。"],
     "两个正弦归一化后都趋 1，cos(2x) 也趋 1，剩下 5/2。"),
-  exercise("p128", "infinitesimal", "challenge",
+  { ...exercise("p128", "infinitesimal", "challenge",
     "求分子相消后的首项",
     math`\lim_{x\to0}\frac{\sqrt{1+x}-1-\frac{x}{2}}{x^2}`, -1/8, "infinitesimal_replace",
     ["先把 √(1+x)−1 有理化。", "提取 x，合并 1/(√(1+x)+1)−1/2。", "再次有理化可得到 −1/[2(√(1+x)+1)²]。"],
     "两次有理化得 −1/[2(√(1+x)+1)²]，极限为 −1/8。"),
+    guidedHints: [
+      {
+        change: "把根号差换成一个分式",
+        text: "先只改分子里的根号差。乘上共轭，分子就变成 (1+x)−1，也就是 x。原式里的 −x/2 先照抄。",
+        formula: math`\begin{gathered}
+          \sqrt{1+x}-1=\frac{x}{\sqrt{1+x}+1}\\[6pt]
+          \lim_{x\to0}\frac{\frac{x}{\sqrt{1+x}+1}-\frac{x}{2}}{x^2}
+        \end{gathered}`,
+      },
+      {
+        change: "分母的 x² 约掉一份 x",
+        text: "分子两项都带 x。把 x 提出来，再和分母的 x² 约掉一个。因为是在求极限，约分时只考虑 x 接近 0 但还不等于 0 的点。",
+        formula: math`\lim_{x\to0}\frac{1}{x}\left(\frac{1}{\sqrt{1+x}+1}-\frac12\right)`,
+      },
+      {
+        change: "括号里的两个分数合成一项",
+        text: "先只通分括号里的两个分数。左边分子乘 2，右边分子乘 √(1+x)+1。两个分子相减后只剩 1−√(1+x)。",
+        formula: math`\lim_{x\to0}\frac{1-\sqrt{1+x}}{2x(\sqrt{1+x}+1)}`,
+      },
+      {
+        change: "分子的根号差变成 −x",
+        text: "现在根号差的顺序反过来了。给分子乘共轭，算出 1−(1+x)=−x，分母也同时多乘了一份共轭。",
+        formula: math`\lim_{x\to0}\frac{-x}{2x(\sqrt{1+x}+1)^2}`,
+      },
+      {
+        change: "最后一份 x 约掉，留下 −1",
+        text: "上下都带 x，再约掉这个 x。分子留下的是 −1。",
+        formula: math`\lim_{x\to0}\frac{-1}{2(\sqrt{1+x}+1)^2}`,
+      },
+      {
+        change: "把 x 换成 0，只剩数字运算",
+        text: "分母现在不会变成 0，可以让 x 直接取 0。试着算出分母，再把结果填进答案框。",
+        formula: math`\frac{-1}{2(1+1)^2}=\;?`,
+      },
+    ],
+  },
   // Chapter 2
   exercise("p129", "chain", "applied",
     "复合多项式在 1 的斜率",

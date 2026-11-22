@@ -1,0 +1,248 @@
+import { exercise } from "./expandedPractice";
+
+const math = String.raw;
+
+// 上册大学数学科学学院《高等数学习题全解指导（配第八版）上册》
+// 注释中的页码是纸书页码，题干与解析按本应用的课时和数值判分方式改编。
+export const bankPractice = [
+  // 1-1 第1(1)题·p3
+  exercise("p164", "functions", "basic",
+    "求根号函数的定义域左端",
+    math`\sqrt{4x+12}`, -3, "composite_domain",
+    ["先看根号里面。", "里面不能小于 0。", "解 4x+12≥0。"],
+    "把根号想成一道门，里面是负数就进不去。4x+12 最少要等于 0，所以 x 最小可以是 −3。"),
+  // 1-1 第1(4)题·p3
+  exercise("p165", "functions", "applied",
+    "求分母带根号的定义域长度",
+    math`\frac{1}{\sqrt{25-x^2}}`, 10, "composite_domain",
+    ["根号在分母。", "根号里面必须大于 0。", "找出两个端点，再相减。"],
+    "25−x² 要大于 0，只有 −5<x<5 才行。两端都不能取，但从 −5 到 5 的长度仍然是 10。"),
+  // 1-1 第1(7)题·p3
+  exercise("p166", "functions", "applied",
+    "求反正弦定义域的右端",
+    math`\arcsin(x-5)`, 6, "composite_domain",
+    ["正弦值只在 −1 和 1 之间。", "反过来找角度，输入也必须在这段里。", "右端对应 x−5＝1。"],
+    "反正弦是在问「哪个角的正弦是这个数」。正弦最大是 1，因此 x−5 最大为 1，右端是 6。"),
+  // 1-3 第1题·p16
+  exercise("p167", "limit", "applied",
+    "同一点两边走来的高度差",
+    math`\begin{gathered}f(x)=\begin{cases}x-4,&x<2\\3,&x=2\\x+3,&x>2\end{cases}\\\lim_{x\to2^+}f(x)-\lim_{x\to2^-}f(x)=?\end{gathered}`, 7, "one_sided",
+    ["分别用左右两条规则。", "右边靠近 5，左边靠近 −2。", "右减左，点值 3 不参与。"],
+    "像从两侧走到台阶边。右边走到高度 5，左边走到 −2，相差 5−(−2)＝7。站在正中那个点的高度和两边的走法无关。"),
+  // 1-4 第2(1)题·p20
+  exercise("p168", "limit", "basic",
+    "约掉一项后看极限",
+    math`\lim_{x\to4}\frac{x^2-16}{x+4}`, 0, "factorization",
+    ["16 是 4 的平方。", "把分子拆成 (x−4)(x+4)。", "约掉 x+4，剩 x−4。"],
+    "像把两边都有的一份消掉。靠近 4 时 x+4 不为 0，可以约掉。只剩 x−4，它越来越接近 0。"),
+  // 1-5 第1(7)题·p23
+  exercise("p169", "limit-laws", "applied",
+    "分子分母一样高次时的极限",
+    math`\lim_{x\to\infty}\frac{3x^2-5}{7x^2+2}`, 3/7, "limit_algebra",
+    ["找分子、分母里最大的那一项。", "上下同时除以 x²。", "5/x² 和 2/x² 都趋 0。"],
+    "x 很大时，和 x² 比起来，5 和 2 几乎看不见。上下除以 x² 后，剩下的主角是 3 和 7，所以比值靠近 3/7。"),
+  // 1-5 第1(12)题·p23
+  exercise("p170", "limit-laws", "applied",
+    "首尾配对后求数列极限",
+    math`\lim_{n\to\infty}\frac{1+2+\cdots+(n-1)}{3n^2}`, 1/6, "limit_algebra",
+    ["把整数从头和尾配对。", "分子等于 n(n−1)/2。", "把比值写成 (1−1/n)/6。"],
+    "最小的和最大的相加，每对都是 n。整个和是 n(n−1)/2。除以 3n² 后，1/n 那一点越来越小，最后留下 1/6。"),
+  // 1-6 第1(5)题·p27
+  exercise("p171", "sine", "challenge",
+    "把余弦差换成正弦的平方",
+    math`\lim_{x\to0}\frac{1-\cos(6x)}{x\sin(2x)}`, 9, "sine_coefficients",
+    ["先用倍角公式改写分子。", "1−cos(6x)＝2sin²(3x)。", "分子约是 18x²，分母约是 2x²。"],
+    "靠近 0 时，sin(3x) 像 3x，sin(2x) 像 2x。改写后的分子约等于 18x²，分母约等于 2x²。两边共同缩小的 x² 抵消，留下 9。"),
+  // 1-7 第3(1)题·p30
+  exercise("p172", "infinitesimal", "applied",
+    "比较两个趋零量的大小",
+    math`\lim_{x\to1}\frac{1-x}{1-x^4}`, 1/4, "infinitesimal_replace",
+    ["两边都趋近 0，别直接做除法。", "把 1−x⁴ 拆成 (1−x)(1+x+x²+x³)。", "剩下四项，每一项都趋近 1。"],
+    "分母里藏着和分子一样的一块。约掉 1−x 后，分母是 1+x+x²+x³。x 越靠近 1，它就越靠近 4，因此比值靠近 1/4。"),
+  // 1-9 第6题·p40
+  exercise("p173", "continuity", "applied",
+    "让左右两段在接缝处接上",
+    math`\begin{gathered}f(x)=\begin{cases}3e^{x},&x<0\\a+2x,&x\ge0\end{cases}\\ f\text{ 在 }0\text{ 连续，求 }a\end{gathered}`, 3, "continuity_value",
+    ["接缝在 x＝0。", "左边靠近 3，右边靠近 a。", "两块要接上，得一样高。"],
+    "把两条线想成两段滑梯。左边到接缝时高度是 3，右边的起点高度是 a。让两段接上，就要选 a＝3。"),
+  // 1-10 第2题·p40
+  exercise("p174", "continuity", "applied",
+    "算出用于夹住零点的右端值",
+    math`\begin{gathered}f(x)=x^5-4x-2\\ f(1)=-5,\quad f(2)=?\end{gathered}`, 22, "continuity_value",
+    ["把 2 代进每一项。", "2⁵＝32，4×2＝8。", "右边算完后判断和左边是否异号。"],
+    "右端是 32−8−2＝22。一路连着的曲线，从负高度走到正高度，中途一定经过高度 0，所以在 1 和 2 之间有根。"),
+  // 2-1 第1题·p51
+  exercise("p175", "derivative", "basic",
+    "读出转盘两秒时的角速度",
+    math`\begin{gathered}\theta(t)=2t^2+t\\\theta'(2)=?\end{gathered}`, 9, "derivative_definition",
+    ["角速度就是转过的角度对时间的导数。", "2t² 变成 4t，t 变成 1。", "把 t＝2 代入。"],
+    "想知道这一刻转得多快，就看转角的变化速度。导数是 4t+1，两秒时等于 4×2+1＝9。"),
+  // 2-1 第18题·p57
+  exercise("p176", "derivative", "applied",
+    "只从左边算拐角的斜率",
+    math`\begin{gathered}f(x)=\begin{cases}-3x,&x<0\\2x^2,&x\ge0\end{cases}\\f'_-(0)=?\end{gathered}`, -3, "derivative_definition",
+    ["只走左边那一条。", "f(0)＝0；左边用 −3x。", "用高度变化除以横向变化 x。"],
+    "左侧就是一条直线，x 每增加 1，高度就减少 3，所以左导数是 −3。右边的斜率趋于 0，两边在此接成尖角。"),
+  // 2-2 第1题·p57
+  exercise("p177", "chain", "applied",
+    "余切套上线性函数后的斜率",
+    math`\begin{gathered}f(x)=\cot(4x)\\ f'(\pi/8)=?\end{gathered}`, -4, "chain_rule",
+    ["外层余切，内层是 4x。", "余切对角度的导数是 −1/sin²(角度)。", "角度是 π/2，内层还要乘 4。"],
+    "角度先跟着 x 以四倍速度变化，余切再跟着角度变。π/2 时 sin 是 1，所以两份变化率乘起来得到 −4。"),
+  // 2-3 第1(1)题·p65
+  exercise("p178", "advanced-derivatives", "applied",
+    "给二次项和对数连续求两次导数",
+    math`\begin{gathered}f(x)=3x^2+2\ln x\\ f''(2)=?\end{gathered}`, 11/2, "higher_derivative",
+    ["先求一次斜率。", "f′(x)＝6x+2/x。", "再求一次得 6−2/x²。"],
+    "第一次问「走得多快」，第二次问「这个速度变得多快」。第二次的式子是 6−2/x²，代 x＝2 得 11/2。"),
+  // 2-4 第1(1)题·p70
+  exercise("p179", "advanced-derivatives", "challenge",
+    "藏在式子里的 y 怎么求斜率",
+    math`\begin{gathered}y^2-2xy+8=0\\(x,y)=(3,2),\quad y'=?\end{gathered}`, -2, "implicit_derivative",
+    ["把 y 当成随 x 一起变。", "两边求导得到 2yy′−2y−2xy′＝0。", "把写有 y′ 的项放在一起。"],
+    "x 动时，y 也会跟着动，所以求 y² 的导数会带出 y′。整理得 (y−x)y′＝y。此点 y−x＝−1，y＝2，所以斜率是 −2。"),
+  // 2-5 第1题·p78
+  exercise("p180", "differential", "applied",
+    "求真实变化比切线预测多多少",
+    math`\begin{gathered}y=x^3-2x,\quad x=1,\quad \Delta x=1/2\\\Delta y-dy=?\end{gathered}`, 7/8, "linear_approximation",
+    ["算真实高度的前后差。", "用斜率乘步长求切线预测。", "真实变化是 11/8，预测是 1/2。"],
+    "真实变化是 f(1.5)−f(1)＝11/8。用起点斜率 1 预测，走半步应升高 1/2。实际比预测多 11/8−1/2＝7/8。"),
+  // 3-1 第1题·p91
+  exercise("p181", "mvt", "applied",
+    "找同高区间里切线放平的位置",
+    math`\begin{gathered}f(x)=\ln(\sin(2x))\\ x\in[\pi/12,5\pi/12],\quad f'(c)=0\\ c/\pi=?\end{gathered}`, 1/4, "mean_value_theorem",
+    ["两端的正弦值一样。", "导数为 2cos(2x)/sin(2x)。", "余弦在这个范围内何时等于 0？"],
+    "两端同高，中间能找到切线放平的地方。在这个区间里 sin(2x) 大于零，只有 cos(2x)＝0 才会放平。2c＝π/2，所以 c/π＝1/4。"),
+  // 3-2 第1(2)题·p96
+  exercise("p182", "lhopital", "applied",
+    "比较指数差和正弦缩小的速度",
+    math`\lim_{x\to0}\frac{e^{3x}-e^{-3x}}{\sin(2x)}`, 3, "lhopital_rule",
+    ["代入会得到 0/0。", "分子分母各自求导。", "在 0 附近，分子导数靠近 6，分母导数靠近 2。"],
+    "原来两边都快缩成零。用洛必达比它们变得有多快，分子速度是 3e³ˣ+3e⁻³ˣ，分母是 2cos(2x)。代入 0 就是 6/2＝3。"),
+  // 3-3 第1题·p99
+  exercise("p183", "taylor-series", "challenge",
+    "求四次多项式按 x−2 展开后的平方项系数",
+    math`\begin{gathered}f(x)=x^4-3x^3+2x^2-5x+1\\\text{求按 }(x-2)\text{ 展开时的二次项系数}\end{gathered}`, 8, "taylor_series",
+    ["展开点移到 2。", "二次系数是 f″(2)/2。", "f″(2)＝48−36+4。"],
+    "把 x＝2 当作新起点。一次项管斜率，二次项管斜率怎么变。二阶导数在 2 的值是 16，除以 2 就得到二次项系数 8。"),
+  // 3-5 第1(3)题·p115
+  exercise("p184", "extrema", "applied",
+    "求负四次曲线到达的最高值",
+    math`\max_{x\in\mathbb R}(-x^4+8x^2)`, 16, "monotonicity_extrema",
+    ["可以把 x² 当作一个数 u。", "原式变成 −u²+8u。", "配方得到 16−(u−4)²。"],
+    "最后被减掉的是一个平方，最少是 0。x²＝4 时刚好减掉 0，所以最高值就是 16。"),
+  // 3-5 第17题·p123
+  exercise("p185", "economic-optimization", "challenge",
+    "涨租会空房，月净收入最高时的租金",
+    math`\begin{gathered}x=3000+100k,\quad k=0,1,\ldots,40\\P(x)=(40-k)(x-600)\\\max P\text{ 时 }x=?\end{gathered}`, 3800, "economic_optimum",
+    ["用租出去的套数乘每套净收入。", "得到 P＝(40−k)(2400+100k)。", "配方找抛物线的顶点。"],
+    "涨租让每套多赚钱，却少租出几套。展开得到 96000+1600k−100k²。最高点在整数 k＝8，所以租金是 3000+800＝3800。"),
+  // 4-1 第5题·p149
+  exercise("p186", "antiderivative", "applied",
+    "用指定点找原函数里的常数",
+    math`\begin{gathered}F'(x)=2/x,\ x>0,\quad F(e^3)=10\\F(1)=?\end{gathered}`, 4, "integral_constant",
+    ["2/x 的原函数是 2ln x 加常数。", "ln(e³)＝3，已知点给出 C。", "ln 1＝0。"],
+    "导数只告诉我们曲线有多斜，没告诉曲线放得多高。用 F(e³)＝6+C＝10 把曲线摆好，C 就是 4。因此 F(1)＝4。"),
+  // 4-2 第1题例·p149
+  exercise("p187", "substitution", "basic",
+    "换元后一个 dx 要分成几份",
+    math`\begin{gathered}u=7x+9,\quad dx=k\,du\\ k=?\end{gathered}`, 1/7, "substitution",
+    ["x 每多走 1，u 多走多少？", "u 的改变量是 x 改变量的 7 倍。", "把 du＝7dx 倒过来。"],
+    "用 u 这把尺量，x 的一小格等于 u 的七小格。反过来，一个 u 小格只占原来一个 x 小格的七分之一，所以 k＝1/7。"),
+  // 4-3 第1题·p157
+  exercise("p188", "integration-by-parts", "challenge",
+    "分部积分后原函数里正弦项的系数",
+    math`\begin{gathered}F'(x)=x\sin(3x)\\F(x)=Ax\cos(3x)+B\sin(3x)+C\\B=?\end{gathered}`, 1/9, "parts",
+    ["先让 x 求导，让 sin(3x) 积分。", "sin(3x) 的原函数是 −cos(3x)/3。", "余下的是 ∫cos(3x)dx/3。"],
+    "先把 x 这一层变简单，留下一个更短的余项。第一次积分带来一个 1/3，余下的余弦再积分又带来一个 1/3。两次乘起来，B＝1/9。"),
+  // 4-4 第1题·p161
+  exercise("p189", "rational-integrals", "challenge",
+    "先做除法，求原函数的对数系数",
+    math`\begin{gathered}F'(x)=x^3/(x+2),\quad x>-2\\F(x)=P(x)+A\ln(x+2)+C,\quad A=?\end{gathered}`, -8, "partial_fractions",
+    ["分子次数高，先做多项式除法。", "余数可用 x＝−2 代进分子得到。", "多项式部分只积成多项式。"],
+    "把 x³ 除以 x+2 后，只有余数那一小份会变成对数。余数是 (−2)³＝−8，所以对数的系数就是 −8。"),
+  // 5-1 第1题·p183
+  exercise("p190", "riemann", "challenge",
+    "把窄条无限细分后的总面积",
+    math`\begin{gathered}y=2x^2+3,\quad 0\le x\le3\\\text{求曲线下方到横轴的面积}\end{gathered}`, 27, "riemann_sample",
+    ["每份宽是 3/n，右端是 3i/n。", "常数 3 铺出的长方形面积是 9。", "平方部分用 1²+⋯+n² 的求和式。"],
+    "先铺一张长 3、高 3 的纸，面积是 9。上面弯起来的部分切成小条，面积和是 54(1²+⋯+n²)/n³，越切越细越接近 18。两块加起来是 27。"),
+  // 5-2 第2题·p189
+  exercise("p191", "fundamental-theorem", "applied",
+    "用两个累积量求曲线斜率",
+    math`\begin{gathered}x(t)=\int_0^t\cos u\,du\\ y(t)=\int_0^t3\sin u\,du\\ t=\pi/4,\quad dy/dx=?\end{gathered}`, 3, "integral_endpoints",
+    ["累积量现在加得多快，只看上端的值。", "dx/dt＝cos t，dy/dt＝3sin t。", "在 π/4，正弦与余弦一样大。"],
+    "像同时看小车往右和往上跑得多快。每往右走一单位会上升多少，要用往上的速度除以往右的速度。这里比值是 3。"),
+  // 5-3 第1(2)题·p196
+  exercise("p192", "definite-methods", "applied",
+    "换元后计算带三次分母的积分",
+    math`\int_0^1\frac{dx}{(2+2x)^3}`, 3/64, "definite_substitution",
+    ["给 2+2x 取名 u。", "dx 换成 du/2，端点变成 2 和 4。", "对 1/(2u³) 找原函数 −1/(4u²)。"],
+    "把长分母整块换成 u，算式缩短了。代上端得到 −1/64，代下端得到 −1/16。上端减下端就是 3/64。"),
+  // 5-4 第1(3)题·p205
+  exercise("p193", "improper-integrals", "applied",
+    "算无限长尾巴下的面积",
+    math`\int_0^\infty e^{-5x}\,dx`, 1/5, "improper_integrals",
+    ["先假装只算到 b。", "原函数是 −e⁻⁵ˣ/5。", "b 变很大时，指数那一项接近 0。"],
+    "这条曲线伸得很远，但尾巴越来越薄。先积到 b 得到 (1−e⁻⁵ᵇ)/5。把 b 越推越远，少掉的那块越来越小，面积靠近 1/5。"),
+  // 5-4 第4题·p207
+  exercise("p194", "improper-integrals", "challenge",
+    "用分部积分递推算指数尾部",
+    math`\int_0^\infty x^4e^{-x}\,dx`, 24, "gamma_function",
+    ["分部积分，让 x⁴ 求导。", "两端的乘积项都是 0。", "每次降一次幂，依次乘 4、3、2、1。"],
+    "像一层层剥掉 x。第一次留下 4 倍的三次幂积分，下一次留下 3 倍的二次幂积分。最后只剩指数积分 1，总数是 4×3×2×1＝24。"),
+  // 6-2 第1(1)题·p222
+  exercise("p195", "integral-area", "applied",
+    "开根号曲线和直线围出多大",
+    math`\begin{gathered}y=\sqrt{x},\quad y=x/2\\ \text{求两曲线围成的面积}\end{gathered}`, 4/3, "area_bounds",
+    ["先找两条线碰在一起的地方。", "交点横坐标为 0 和 4。", "在里面根号曲线在上，用上减下。"],
+    "每根竖直窄条的高度是 √x−x/2。在 0 到 4 把它们加起来，根号下面的面积是 16/3，直线下面的三角形面积是 4，相减得 4/3。"),
+  // 6-3 第1题·p235
+  exercise("p196", "definite-methods", "applied",
+    "拉长弹簧需要做多少功",
+    math`\begin{gathered}F(s)=80s\\ 0\le s\le1/5\ \text{米，求功（焦耳）}\end{gathered}`, 8/5, "integral_work",
+    ["越拉长，需要的力越大。", "每小段的功约等于力乘小段距离。", "力从 0 增到 16，画出来是一个三角形。"],
+    "把拉伸分成小步，每步的功是这一小步的力乘距离。所有小步加起来，就是力—距离图上三角形的面积：底 1/5，高 16，得到 8/5。"),
+  // 7-1 第1(3)题·p248
+  exercise("p197", "ode-basics", "basic",
+    "从方程中认出最高求导次数",
+    math`\begin{gathered}2xy'''+5y''+3x^2y=0\\ \text{求方程的阶数}\end{gathered}`, 3, "ode_basics",
+    ["找写了最多撇号的 y。", "x² 的平方不是求导。", "y‴ 表示求了三次导。"],
+    "「阶」数的是最多求了几次导。y‴ 有三撇，所以阶数是 3；x² 即使写了平方，也不算求导。"),
+  // 7-2 第1(9)题·p251
+  exercise("p198", "separable-odes", "challenge",
+    "两边分开之后求一个初值解的读数",
+    math`\begin{gathered}(y+2)^2y'=-6x,\quad y(0)=0\\(y(1/2)+2)^3=?\end{gathered}`, 23/4, "separable_odes",
+    ["左边是 (y+2)³ 的导数的三分之一。", "把方程整体乘 3 得到新量的变化率 −18x。", "新量在 0 时是 8，走到 1/2 时少了 9/4。"],
+    "直接追 y 不方便，就追 (y+2)³。它从 8 出发，变化率是 −18x。把这份变化加到 x＝1/2，一共少了 9/4，因此新读数是 8−9/4＝23/4。"),
+  // 7-4 第1(1)题·p266
+  exercise("p199", "linear-first-order", "applied",
+    "乘上积分因子后求 y 的加权值",
+    math`\begin{gathered}y'+2y=4e^{-2x},\quad y(0)=1\\ e^2y(1)=?\end{gathered}`, 5, "linear_first_order",
+    ["用 e²ˣ 乘方程两边。", "左边正好变成 (e²ˣy)′。", "新量每走一单位增加 4，从 1 走到 5。"],
+    "把 e²ˣ 和 y 绑在一起以后，整包的变化速度固定是 4。它起初是 1，走到 x＝1 又加了 4，所以读数是 5。"),
+  // 7-5 第1(1)题·p275
+  exercise("p200", "ode-order-reduction", "applied",
+    "先从加速度找速度，再找位置",
+    math`\begin{gathered}y''=12x+\sin x\\y(0)=1,\quad y'(0)=0\\\frac{y(\pi)-\pi-1}{\pi^3}=?\end{gathered}`, 2, "ode_order_reduction",
+    ["先积一次得到 y′。", "用 y′(0)＝0 定常数。", "再积一次，再用 y(0) 定常数。"],
+    "先把加速度加起来得到速度 y′＝6x²−cos x+1，再把速度加起来得到位置 y＝2x³−sin x+x+1。x＝π 时正弦是零，扣掉 π+1 再除以 π³，只剩 2。"),
+  // 7-7 第2(1)题·p289
+  exercise("p201", "homogeneous-second-order", "applied",
+    "找二阶方程的较大特征根",
+    math`\begin{gathered}y''+2y'-8y=0\\ \text{求较大的特征根}\end{gathered}`, 2, "homogeneous_second_order",
+    ["把 y 换成 eʳˣ 来试。", "导一次多一个 r，导两次多一个 r²。", "解 (r+4)(r−2)＝0。"],
+    "像用一个试钥匙插进方程。指数函数每求一次导就多乘一个 r，于是留下 r²+2r−8。两把能开的钥匙是 −4 和 2，较大的是 2。"),
+  // 7-8 第1(1)题·p294
+  exercise("p202", "nonhomogeneous-second-order", "challenge",
+    "右端和齐次解重合时求特解系数",
+    math`\begin{gathered}y''+y'-6y=10e^{2x}\\ y_p=Axe^{2x},\quad A=?\end{gathered}`, 2, "nonhomogeneous_second_order",
+    ["e²ˣ 已经是齐次解，要多乘一个 x。", "两次求导后把同类项合并。", "只剩 5Ae²ˣ，要等于 10e²ˣ。"],
+    "单用 e²ˣ 代进去会全抵消。前面加上 x 后，导数会多留下几项。最后带 x 的部分仍抵消，留下 5Ae²ˣ，因此 A＝2。"),
+  // 5-4 第1(9)题·p205
+  exercise("p203", "improper-integrals", "challenge",
+    "积分在左端变得很大时怎么办",
+    math`\int_2^6\frac{x}{\sqrt{x-2}}\,dx`, 40/3, "improper_integrals",
+    ["先别往原函数里直接塞左端。", "令 u＝√(x−2)，x＝u²+2。", "dx＝2u du，约掉 u 后从 0 积到 2。"],
+    "刚靠近左端时，被积函数长得很高。换尺子后每小格也变窄了，两边的 u 刚好约掉。剩下 2u²+4，从 0 加到 2 得 16/3+8＝40/3。"),
+];

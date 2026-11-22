@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { problems, checkAnswer, practiceDifficultyLabels } from "../../data/learning";
+import { checkAnswer, practiceDifficultyLabels, type Problem, type NumericProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
+import PracticeHints from "./PracticeHints";
 import { StuckButton } from "../formulas/FormulaActions";
 import { Button, Card, InfoTip } from "../../components/ui";
-export default function Question({
-  problem: p,
-}: {
-  problem: (typeof problems)[number];
-}) {
+import WrittenQuestion from "./WrittenQuestion";
+
+export default function Question({ problem }: { problem: Problem }) {
+  return "answer" in problem
+    ? <NumericQuestion problem={problem} />
+    : <WrittenQuestion problem={problem} />;
+}
+
+function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const { state, save } = useLearning();
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState(0);
+  const hintCount = (p.guidedHints ?? p.hints).length;
   const [result, setResult] = useState<boolean | null>(null);
   const [invalid, setInvalid] = useState(false);
   const submitted = result !== null;
@@ -72,10 +78,10 @@ export default function Question({
           </Button>
           <Button
             type="button"
-            disabled={hints === 3 || submitted}
+            disabled={hints === hintCount || submitted}
             onClick={() => setHints(hints + 1)}
           >
-            给我提示（{hints}/3）
+            {p.guidedHints ? "看下一步" : "给我提示"}（{hints}/{hintCount}）
           </Button>
         </div>
       </form>
@@ -85,11 +91,7 @@ export default function Question({
         </p>
       )}
       {hints > 0 && (
-        <ol className="learning-tip">
-          {p.hints.slice(0, hints).map((h) => (
-            <li key={h}>{h}</li>
-          ))}
-        </ol>
+        <PracticeHints problem={p} count={hints} />
       )}
       {submitted && (
         <div role="status" className="answer-feedback">

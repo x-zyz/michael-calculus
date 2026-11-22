@@ -1,0 +1,67 @@
+{
+  "id": "./",
+  "name": "Michael calculus · 让数学看得见",
+  "short_name": "Michael calculus",
+  "description": "面向大学生的离线交互式高等数学学习平台，让极限、导数、积分与微分方程看得见、练得会、记得住。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f8fa",
+  "theme_color": "#22334b",
+  "categories": ["education", "books"],
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./pwa-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "课程中心",
+      "short_name": "课程",
+      "url": "./#/curriculum",
+      "icons": [{ "src": "./pwa-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "练习中心",
+      "short_name": "练习",
+      "url": "./#/practice",
+      "icons": [{ "src": "./pwa-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "公式记忆",
+      "short_name": "公式",
+      "url": "./#/formulas",
+      "icons": [{ "src": "./pwa-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "错题复习",
+      "short_name": "错题",
+      "url": "./#/review",
+      "icons": [{ "src": "./pwa-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
