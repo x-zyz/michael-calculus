@@ -60,7 +60,7 @@ function verifyLesson(id: string, lesson: TeachingLesson) {
   for (const transfer of transfers) {
     expect(Number.isFinite(transfer.answer), id).toBe(true);
     expect(transfer.answer, id).not.toBe(lesson.referenceAnswer);
-    expect(transfer.prompt, id + " use promptFormula for displayed TeX").not.toMatch(/\\[a-zA-Z]+|\^\{|_\{/);
+    expect.soft(transfer.prompt, id + " use promptFormula for displayed TeX").not.toMatch(/\\[a-zA-Z]+|\^\{|_\{/);
     for (const value of [transfer.prompt, transfer.remediation, transfer.signFeedback, transfer.solution]) {
       expect(value?.trim(), id).toBeTruthy();
     }
@@ -74,21 +74,24 @@ function verifyLesson(id: string, lesson: TeachingLesson) {
     if (!check) continue;
     expect(new Set(check.choices).size, label).toBe(check.choices.length);
     expect(check.choices.length, label).toBeGreaterThanOrEqual(2);
-    expect(Number.isInteger(check.correct) && Boolean(check.choices[check.correct]), label).toBe(true);
-    expect(Array.isArray(check.feedback), label).toBe(true);
-    expect(check.feedback, label).toHaveLength(check.choices.length);
-    expect(new Set(check.feedback).size, label).toBe(check.choices.length);
-    expect(check.feedback.every((text) => text.trim()), label).toBe(true);
+    const correctChoice = check.choices[check.correct];
+    expect.soft(Number.isInteger(check.correct) && Boolean(correctChoice), label + " correct choice index").toBe(true);
+    expect.soft(Array.isArray(check.feedback), label + " ordered choice feedback").toBe(true);
+    if (Array.isArray(check.feedback)) {
+      expect.soft(check.feedback, label).toHaveLength(check.choices.length);
+      expect.soft(new Set(check.feedback).size, label).toBe(check.choices.length);
+      expect.soft(check.feedback.every((text) => text.trim()), label).toBe(true);
+    }
     expect(check.prerequisite.trim(), label).toBeTruthy();
-    const normalize = (value: string) => value.normalize("NFKC").replace(/\s+/g, "");
-    const correct = normalize(check.choices[check.correct]);
+    const normalize = (value: string) => value.normalize("NFKC").replace(/\s+/g, "").replace(/[−–]/g, "-");
+    const correct = normalize(correctChoice ?? "");
     if (correct.length >= 8) {
-      const beforeReveal = [lesson.target ?? "", step.goal, step.plain, check.prompt];
-      expect(beforeReveal.some((value) => normalize(value).includes(correct)), label + " direct answer overlap").toBe(false);
+      const beforeReveal = [lesson.target ?? "", ...(lesson.prerequisites ?? []), step.goal, step.plain, check.prompt, check.prerequisite];
+      expect.soft(beforeReveal.some((value) => normalize(value).includes(correct)), label + " direct answer overlap").toBe(false);
     }
   }
   for (const formula of [lesson.solution, ...lesson.steps.map((step) => step.formula), ...transfers.flatMap((t) => [t.solution!, ...(t.promptFormula ? [t.promptFormula] : [])])]) {
-    expect(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), id).not.toThrow();
+    expect.soft(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), id).not.toThrow();
   }
 }
 
