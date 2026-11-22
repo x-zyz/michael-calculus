@@ -320,6 +320,17 @@
   display: inline-flex; min-height: var(--touch); align-items: center; gap: var(--space-2); color: var(--muted);
 }
 .practice-focus-nav .btn { padding-inline: var(--space-1); }
+.practice-focus-nav-sticky {
+  position: sticky; top: calc(var(--space-8) * 2); z-index: 5;
+  display: grid; grid-template-columns: 1fr auto; gap: 0 var(--space-2);
+  padding-inline: var(--space-2); background: var(--surface);
+  border-bottom: 1px solid var(--line-soft);
+}
+.practice-focus-nav-sticky .btn { justify-self: start; }
+.practice-focus-original { grid-column: 1 / -1; min-width: 0; }
+.practice-focus-original .formula { font-size: var(--text-md); padding-block: var(--space-1) var(--space-3); }
+.practice-focus-guide > .learning-note { scroll-margin-top: calc(var(--space-12) * 4); }
+.practice-focus-guide [aria-label="结构示意"] .formula { font-size: var(--text-md); padding-block: var(--space-2); }
 .practice-focus .practice-focus-paper {
   padding: clamp(var(--space-4), 5vw, var(--space-12)); border: 0; box-shadow: none;
   background: var(--surface); overflow-wrap: anywhere;
@@ -329,6 +340,7 @@
   font-family: var(--painting-type); font-size: clamp(var(--text-xl), 5vw, var(--text-xxl)); line-height: 1.3;
   scroll-margin-top: calc(var(--touch) + var(--space-6));
 }
+.practice-focus .practice-focus-paper[data-view="guide"] { padding-top: var(--space-3); }
 .practice-focus-header h1:focus { outline: none; }
 .practice-focus-header small { display: block; color: var(--muted); margin-bottom: var(--space-2); }
 .practice-focus-paper > .formula, .practice-focus-solution > .formula {
@@ -352,6 +364,7 @@
 .practice-focus-guide progress::-webkit-progress-bar { background: var(--line-soft); border-radius: var(--radius-pill); }
 .practice-focus-guide progress::-webkit-progress-value { background: var(--primary); border-radius: var(--radius-pill); }
 .practice-focus-guide progress::-moz-progress-bar { background: var(--primary); border-radius: var(--radius-pill); }
+.practice-focus-guide [role="status"][tabindex="-1"]:focus { outline: none; }
 .practice-focus-guide h3 { font-size: var(--text-lg); margin-block: var(--space-4) var(--space-2); line-height: 1.4; }
 .practice-focus-guide div[aria-label="理解检查"], .practice-focus-guide form[aria-label="迁移小题"] {
   margin-top: var(--space-4); padding: var(--space-3); border-radius: var(--radius-sm); background: var(--surface-2);

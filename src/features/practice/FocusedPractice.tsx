@@ -7,13 +7,14 @@ import { Button, Card } from "../../components/ui";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type NumericProblem } from "../../data/learning";
 import { initialTeachingProgress, teachingEvidence, type TeachingLesson, type TeachingProgress } from "../../data/teaching";
 import { useLearning } from "../../db/learning";
-import TeachingSession from "./TeachingSession";
+import TeachingSession, { type TeachingStepPresentation } from "./TeachingSession";
 
 type View = "question" | "guide" | "solution" | "result";
 
 export interface FocusedPracticeContent {
   contextLabel: string;
   solutionIntro?: string;
+  stepPresentation?: Readonly<Record<string, TeachingStepPresentation>>;
   diagnostic?: {
     describe: (answer: number) => string;
     prompt: string;
@@ -32,15 +33,16 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
   const [answer, setAnswer] = useState("");
   const [invalid, setInvalid] = useState(false);
   const [correct, setCorrect] = useState<boolean>();
+  const [wrongStreak, setWrongStreak] = useState(0);
   const [assisted, setAssisted] = useState(false);
   const [progress, setProgress] = useState<TeachingProgress>();
-  const [originalOpen, setOriginalOpen] = useState(false);
   const [diagnosticOpen, setDiagnosticOpen] = useState(false);
   const [diagnosticAnswer, setDiagnosticAnswer] = useState<number>();
   const heading = useRef<HTMLHeadingElement>(null);
   const diagnostic = content.diagnostic;
 
   useEffect(() => {
+    if (view === "guide") return;
     heading.current?.focus({ preventScroll: true });
     heading.current?.scrollIntoView?.({ block: "start" });
   }, [view]);
@@ -48,7 +50,6 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
   function openGuide() {
     setAssisted(true);
     setProgress(progress ?? initialTeachingProgress);
-    setOriginalOpen(false);
     setView("guide");
   }
 
@@ -65,6 +66,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
       return;
     }
     setCorrect(result);
+    setWrongStreak((previous) => result ? 0 : previous + 1);
     save({
       ...state,
       attempts: [...state.attempts, {
@@ -88,6 +90,8 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
     setView("question");
   }
 
+  const guideFirst = correct === false && wrongStreak >= 2;
+  const retryPrimary = correct ? !onNext : !guideFirst;
   const title = {
     question: problem.title,
     guide: "一步一步教我",
@@ -97,22 +101,26 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
 
   return (
     <div className="practice-focus">
-      <header className="practice-focus-nav">
+      <header className={view === "guide" ? "practice-focus-nav practice-focus-nav-sticky" : "practice-focus-nav"}>
         {view === "question"
           ? <Link to="/practice"><ArrowLeft size={18} aria-hidden="true" /> 练习中心</Link>
           : <Button variant="ghost" onClick={() => setView(view === "result" || correct === undefined ? "question" : "result")}>
             <ArrowLeft size={18} aria-hidden="true" /> {view !== "result" && correct !== undefined ? "返回结果" : "返回题目"}
           </Button>}
-        {view === "guide"
-          ? <Button variant="ghost" aria-expanded={originalOpen} aria-controls="focused-original"
-              onClick={() => setOriginalOpen(!originalOpen)}>{originalOpen ? "收起原题" : "查看原题"}</Button>
-          : <span>{content.contextLabel}</span>}
+        <span>{view === "guide" ? "原题" : content.contextLabel}</span>
+        {view === "guide" && (
+          <div className="practice-focus-original" role="region" aria-label="原题">
+            <Formula value={problem.formula} />
+          </div>
+        )}
       </header>
-      <Card className="practice-focus-paper">
-        <header className="practice-focus-header">
-          {view === "question" && <small>{practiceDifficultyLabels[problem.difficulty ?? "basic"]}</small>}
-          <h1 tabIndex={-1} ref={heading}>{title}</h1>
-        </header>
+      <Card className="practice-focus-paper" data-view={view}>
+        {view !== "guide" && (
+          <header className="practice-focus-header">
+            {view === "question" && <small>{practiceDifficultyLabels[problem.difficulty ?? "basic"]}</small>}
+            <h1 tabIndex={-1} ref={heading}>{title}</h1>
+          </header>
+        )}
         {view === "question" && (
           <>
             <Formula value={problem.formula} />
@@ -139,9 +147,8 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
         )}
         {progress && (
           <div hidden={view !== "guide"}>
-            <div id="focused-original" hidden={!originalOpen}><Formula value={problem.formula} /></div>
             <TeachingSession lesson={lesson} active={view === "guide"} locked={false} onProgress={setProgress}
-              focused onFinish={() => { if (correct === false) retry(); else setView("question"); }} />
+              focused presentation={content.stepPresentation} onFinish={() => { if (correct === false) retry(); else setView("question"); }} />
           </div>
         )}
         {view === "solution" && (
@@ -180,8 +187,10 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
             )}
             <div className="practice-focus-actions">
               {correct && onNext && <Button variant="primary" onClick={onNext}>下一题 <ArrowRight size={18} aria-hidden="true" /></Button>}
-              {!correct && <Button variant="primary" onClick={openGuide}>一步一步教我</Button>}
-              <Button variant={correct && !onNext ? "primary" : "ghost"} onClick={retry}>重新练习</Button>
+              {guideFirst && <Button variant="primary" onClick={openGuide}>一步一步教我</Button>}
+              <Button variant={retryPrimary ? "primary" : "ghost"}
+                onClick={retry}>{correct ? "重新练习" : "我再试一次"}</Button>
+              {!correct && !guideFirst && <Button variant="ghost" onClick={openGuide}>一步一步教我</Button>}
               {!correct && onNext && <Button variant="ghost" onClick={onNext}>下一题</Button>}
             </div>
             <div className="practice-focus-help">

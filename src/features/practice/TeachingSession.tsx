@@ -1,16 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Formula from "../../components/Formula";
 import { parseAnswer } from "../../data/learning";
 import { Button } from "../../components/ui";
 import { initialTeachingProgress, type TeachingLesson, type TeachingStep, type TeachingProgress, type TeachingTransfer } from "../../data/teaching";
 
-export default function TeachingSession({ lesson, onProgress, locked, active, focused = false, onFinish, finishMessage = "教学步骤已结束。现在试着在答案框填入结果。" }: {
+export interface TeachingStepPresentation {
+  plain: string;
+  referenceFormula?: string;
+}
+
+export default function TeachingSession({ lesson, onProgress, locked, active, focused = false, presentation, onFinish, finishMessage = "教学步骤已结束。现在试着在答案框填入结果。" }: {
   lesson: TeachingLesson;
   onProgress: (progress: TeachingProgress) => void;
   locked: boolean;
   active: boolean;
   finishMessage?: string;
   focused?: boolean;
+  presentation?: Readonly<Record<string, TeachingStepPresentation>>;
   onFinish?: () => void;
 }) {
   const [index, setIndex] = useState(0);
@@ -64,6 +70,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active, fo
           <p ref={stepStart} tabIndex={-1} className="learning-note" role="status">第 {index + 1} 步，共 {lesson.steps.length} 步</p>
           {focused && <progress aria-label="教学进度" value={index + 1} max={lesson.steps.length} />}
           <Step key={step.id} step={step} locked={locked} last={index === lesson.steps.length - 1} focused={focused}
+            presentation={presentation?.[step.id]}
             onAttempt={(correct) => record({
               ...progress,
               checksPassed: progress.checksPassed + Number(correct),
@@ -90,7 +97,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active, fo
                 onClick={() => setHistoryStep(historyStep === i ? null : i)}>
                 第 {i + 1} 步 · {item.goal}
               </Button>
-              {historyStep === i && <><Formula value={item.formula} /><p>{item.plain}</p></>}
+              {historyStep === i && <><Formula value={item.formula} /><p>{presentation?.[item.id]?.plain ?? item.plain}</p></>}
             </li>
           ))}
         </ol>
@@ -99,7 +106,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active, fo
   );
 }
 
-function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, focused }: {
+function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, focused, presentation }: {
   step: TeachingStep;
   onAttempt: (correct: boolean) => void;
   onSkip: () => void;
@@ -108,6 +115,7 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
   locked: boolean;
   last: boolean;
   focused: boolean;
+  presentation?: TeachingStepPresentation;
 }) {
   const [detailOpen, setDetailOpen] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
@@ -118,19 +126,22 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
   const passed = check != null && selected === check.correct;
   const checkFinished = !check || passed || skipped;
   const revealed = checkFinished && (!step.transfer || transferFinished);
-  const workedFormula = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (focused && revealed) workedFormula.current?.focus();
-  }, [focused, revealed]);
+  const checkFeedback = useRef<HTMLParagraphElement>(null);
+  useLayoutEffect(() => {
+    if (focused && checkFinished) checkFeedback.current?.focus({ preventScroll: true });
+  }, [focused, checkFinished]);
 
   return (
     <>
       <h3>{step.goal}</h3>
-      <p>{step.plain}</p>
+      <p>{presentation?.plain ?? step.plain}</p>
+      {presentation?.referenceFormula && (
+        <div aria-label="结构示意"><Formula value={presentation.referenceFormula} /></div>
+      )}
       {check && (
         <div role="group" aria-label="理解检查">
+          {(!focused || !skipped) && <p>{check.prompt}</p>}
           {(!focused || !checkFinished) && <>
-            <p>{check.prompt}</p>
             <div className="learning-actions">
               {check.choices.map((choice, i) => (
                 <Button key={choice} type="button" disabled={locked || checkFinished} aria-pressed={selected === i}
@@ -144,9 +155,9 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
               ))}
             </div>
           </>}
-          {selected !== null && (!focused || !skipped) && <p role="status">{check.feedback[selected]}</p>}
+          {selected !== null && (!focused || !skipped) && <p ref={checkFeedback} tabIndex={focused ? -1 : undefined} role="status">{check.feedback[selected]}</p>}
           {!checkFinished && mistakes >= 2 && <p>{check.prerequisite}</p>}
-          {skipped && <p role="status">已跳过本步检查。</p>}
+          {skipped && <p ref={checkFeedback} tabIndex={focused ? -1 : undefined} role="status">已跳过本步检查。</p>}
           {!locked && !checkFinished && <Button type="button" variant={focused ? "ghost" : undefined} onClick={() => {
             setSkipped(true);
             onSkip();
@@ -161,7 +172,7 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
           }} />
       )}
       {revealed && (
-        <div ref={workedFormula} tabIndex={focused ? -1 : undefined} aria-label="本步完整算式">
+        <div aria-label="本步完整算式">
           <Formula value={step.formula} />
           <Button type="button" aria-expanded={detailOpen} onClick={() => setDetailOpen(!detailOpen)}>
             {detailOpen ? "收起详细原理" : "查看详细原理"}
@@ -186,6 +197,11 @@ function TransferCheck({ transfer, locked, finished, focused, onResult }: {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState("");
   const [solved, setSolved] = useState(false);
+  const transferFeedback = useRef<HTMLParagraphElement>(null);
+  useLayoutEffect(() => {
+    if (focused && finished) transferFeedback.current?.focus({ preventScroll: true });
+  }, [focused, finished]);
+
   return (
     <form aria-label="迁移小题" onSubmit={(event) => {
       event.preventDefault();
@@ -218,7 +234,7 @@ function TransferCheck({ transfer, locked, finished, focused, onResult }: {
           }}>跳过迁移题</Button>}
         </div>
       </>}
-      {feedback && <p role="status">{feedback}</p>}
+      {feedback && <p ref={transferFeedback} tabIndex={focused ? -1 : undefined} role="status">{feedback}</p>}
       {solved && transfer.solution && <div aria-label="迁移题解式"><Formula value={transfer.solution} /></div>}
     </form>
   );
