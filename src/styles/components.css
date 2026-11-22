@@ -312,3 +312,59 @@
   .study-heading .page-header { padding: var(--space-2) var(--space-3); }
   .study-heading h1 { font-size: var(--text-xl); }
 }
+
+.practice-focus { max-width: var(--read-width); margin-inline: auto; min-width: 0; }
+.practice-focus-nav { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-3); }
+.practice-focus-nav > span { color: var(--muted); font-size: var(--text-xs); text-align: end; }
+.practice-focus-nav > a, .practice-focus-help > a {
+  display: inline-flex; min-height: var(--touch); align-items: center; gap: var(--space-2); color: var(--muted);
+}
+.practice-focus-nav .btn { padding-inline: var(--space-1); }
+.practice-focus .practice-focus-paper {
+  padding: clamp(var(--space-4), 5vw, var(--space-12)); border: 0; box-shadow: none;
+  background: var(--surface); overflow-wrap: anywhere;
+}
+.practice-focus-header { margin-bottom: var(--space-6); }
+.practice-focus-header h1 {
+  font-family: var(--painting-type); font-size: clamp(var(--text-xl), 5vw, var(--text-xxl)); line-height: 1.3;
+  scroll-margin-top: calc(var(--touch) + var(--space-6));
+}
+.practice-focus-header h1:focus { outline: none; }
+.practice-focus-header small { display: block; color: var(--muted); margin-bottom: var(--space-2); }
+.practice-focus-paper > .formula, .practice-focus-solution > .formula {
+  margin-block: var(--space-4) var(--space-6); padding-block: var(--space-6); border-block: 1px solid var(--line-soft);
+  font-size: clamp(var(--text-md), 5vw, var(--text-xl));
+}
+.practice-focus-answer { display: grid; gap: var(--space-3); }
+.practice-focus-answer input, .practice-focus-guide input { min-width: 0; min-height: var(--touch); font-size: var(--text-md); }
+.practice-focus-answer .btn { justify-self: start; }
+.practice-focus-answer [role="alert"] { color: var(--danger); margin: 0; }
+.practice-focus-help, .practice-focus-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-4);
+}
+.practice-focus-help { padding-top: var(--space-3); border-top: 1px solid var(--line-soft); }
+.practice-focus-help .btn { padding-inline: var(--space-1); color: var(--nav-text); }
+.practice-focus-result p, .practice-focus-solution p, .practice-focus-guide p { line-height: 1.65; }
+.practice-focus-guide progress {
+  display: block; width: 100%; height: var(--space-1); margin-block: var(--space-2) var(--space-4);
+  appearance: none; border: 0; background: var(--line-soft); border-radius: var(--radius-pill);
+}
+.practice-focus-guide progress::-webkit-progress-bar { background: var(--line-soft); border-radius: var(--radius-pill); }
+.practice-focus-guide progress::-webkit-progress-value { background: var(--primary); border-radius: var(--radius-pill); }
+.practice-focus-guide progress::-moz-progress-bar { background: var(--primary); border-radius: var(--radius-pill); }
+.practice-focus-guide h3 { font-size: var(--text-lg); margin-block: var(--space-4) var(--space-2); line-height: 1.4; }
+.practice-focus-guide div[aria-label="理解检查"], .practice-focus-guide form[aria-label="迁移小题"] {
+  margin-top: var(--space-4); padding: var(--space-3); border-radius: var(--radius-sm); background: var(--surface-2);
+}
+.practice-focus-guide div[aria-label="理解检查"] .learning-actions { margin-block: var(--space-2); }
+.practice-focus-guide div[aria-label="理解检查"] .btn { box-shadow: none; }
+.practice-focus-guide form[aria-label="迁移小题"] input { width: 100%; margin-top: var(--space-2); }
+.practice-focus-guide div[aria-label="本步完整算式"] { margin-top: var(--space-4); border-top: 1px solid var(--line-soft); }
+.practice-focus-guide > .btn, .practice-focus-guide .btn[aria-expanded] { margin-block: var(--space-2); }
+.practice-focus-guide [aria-label="历史步骤"] { padding-inline-start: var(--space-4); }
+@media (max-width: 540px) {
+  .practice-focus-answer .btn { width: 100%; }
+  .practice-focus-help { gap: var(--space-1) var(--space-2); }
+  .practice-focus-guide .learning-actions { gap: var(--space-2); }
+  .practice-focus-guide div[aria-label="本步完整算式"] .learning-actions > .btn { flex: 1; }
+}

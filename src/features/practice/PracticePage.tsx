@@ -7,10 +7,19 @@ import { Button, Sheet, ChipRow, Chip, Tabs, EmptyState } from "../../components
 import StudyHeading from "../../components/StudyHeading";
 import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
+import FocusedPractice from "./FocusedPractice";
+import { teachingByProblem } from "../../data/teaching";
 export default function PracticePage() {
   const { pathname, search } = useLocation();
-  const navigate = useNavigate();
   const showMistakes = pathname === "/practice/mistakes";
+  const query = new URLSearchParams(search);
+  const pilot = !showMistakes && query.get("problem") === "p8" && query.get("ui") === "study";
+  return pilot ? <div className="page focus-layout"><PracticeQuestions key={search} pilot /></div>
+    : <PracticeOverview showMistakes={showMistakes} search={search} />;
+}
+
+function PracticeOverview({ showMistakes, search }: { showMistakes: boolean; search: string }) {
+  const navigate = useNavigate();
   const { state } = useLearning();
   const latest = new Map(state.attempts.map(({ problemId, correct }) => [problemId, correct]));
   const wrong = problems.filter(({ id }) => latest.get(id) === false).length;
@@ -32,7 +41,8 @@ export default function PracticePage() {
   );
 }
 
-function PracticeQuestions() {
+function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
+  const navigate = useNavigate();
   const { state } = useLearning();
   const [query] = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -58,6 +68,16 @@ function PracticeQuestions() {
   const current = list[index];
   const currentChapter = lessons.find((l) => l.id === current?.lessonId)?.chapter;
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
+  if (pilot && current?.id === "p8" && "answer" in current && teachingByProblem.p8) {
+    const next = list[index + 1];
+    return <FocusedPractice problem={current} lesson={teachingByProblem.p8}
+      onNext={next ? () => {
+        const nextQuery = new URLSearchParams(query);
+        nextQuery.delete("ui");
+        nextQuery.set("problem", next.id);
+        navigate({ pathname: "/practice", search: nextQuery.toString() });
+      } : undefined} />;
+  }
   return (
     <>
       <div className="practice-toolbar">
