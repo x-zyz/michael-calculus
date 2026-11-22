@@ -103,10 +103,10 @@ def verify_sympy_math() -> dict[str, dict[str, object]]:
     assert orig_11 == 4 * a and trans_11 == 12
     results["jc935-1-5-1-5"] = {"original": str(orig_11), "transfer": int(trans_11)}
 
-    # 12. p168: lim_{x->4}(x^2-16)/(x+4) ; transfer: lim_{x->4}(x^2-16)/(x-4)
+    # 12. p168: lim_{x->4}(x^2-16)/(x+4) ; transfer: lim_{x->5}(x^2-9)/(x+3)
     orig_12 = sp.limit((x**2 - 16) / (x + 4), x, 4)
-    trans_12 = sp.limit((x**2 - 16) / (x - 4), x, 4)
-    assert orig_12 == 0 and trans_12 == 8
+    trans_12 = sp.limit((x**2 - 9) / (x + 3), x, 5)
+    assert orig_12 == 0 and trans_12 == 2
     results["p168"] = {"original": int(orig_12), "transfer": int(trans_12)}
 
     # 13. jc935-1-5-1-3: lim_{x->3}(x-3)^2/(x^2-9) ; transfer: lim_{x->2}(x-2)^2/(x^2-4)
