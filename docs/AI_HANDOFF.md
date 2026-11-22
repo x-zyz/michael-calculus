@@ -14,8 +14,8 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 
 | 模块 | 当前状态 | 相关分支 | 负责人 | 下一步 |
 | --- | --- | --- | --- | --- |
-| 高数题库 | 运行时 1,693 题，清单已有 1,438 条入库，第一章 344 题均有旧版逐步提示 | `main`；本地内容工作树 `formula-keyboard` | Gemini 负责内容；活跃会话状态待核实 | 确认现有第二章提示工作的接手点和验证记录 |
-| ELI5 教学系统 | P8 与十题试点通过体验确认。首批 30 道进入制作与验收 | `eli5/ch1-production` | Sol 负责集成与独立复核，Gemini 负责数学内容 | 检查首批固定候选提交和逐题验收证据 |
+| 高数题库 | 运行时 1,693 题，清单已有 1,438 条入库；第一章 344 题与第二章 258 题均已完成全量逐步提示（`guidedHints`） | `main`；`formula-keyboard`（`69a6bfa`） | Gemini 负责内容与数学验证 | 待合入 `formula-keyboard`（含第二章提示与课程页行内 KaTeX 渲染修复） |
+| ELI5 教学系统 | P8 与十题试点 + 第一批（Batch 1）30 道题（18 数值 + 12 书写）已全部通过验收并集成（共 41/344 题已集成） | `eli5/ch1-production`（`f8f6620`）；`eli5/ch1-content-b01`（`284b060`） | Sol 负责集成与独立复核，Gemini 负责数学内容 | 启动第二批（Batch 2，50 题）内容生产与验收 |
 | 学习记录与掌握度 | 原记录与备份兼容。试点区分提示辅助、独立和延迟复习，普通练习全局汇总及 Formula Mastery 沿用原逻辑 | `main`，试点扩展在 `eli5/ch1-pilot` | Sol 负责教学证据；全局改造负责人待核实 | 等用户授权及跨题迁移证据，再讨论全局评分 |
 | PWA | `main` 的 Pages 最近部署成功。试点已通过生产版断网测试 | `main`、`eli5/ch1-pilot` | Sol 负责试点回归；线上运维负责人待核实 | 用生产构建复验断网和缓存更新 |
 | Android | v0.30.1 正式 APK 与 PWA ZIP 均已发布，对应的 ByteVirt 工作流成功。当前设备端渠道状态待核实 | `main`、`v0.30.1` | 发布负责人待核实 | 当前任务暂停打包与发布；另行授权后走固定签名流程 |
@@ -33,8 +33,8 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 | ID / 任务 | Agent / 分支 | 状态 | 已完成与尚未完成 | 关联文件、最近提交与验证 |
 | --- | --- | --- | --- | --- |
 | ELI5-01 第一章试点 | Sol / `eli5/ch1-pilot` | DONE | 分类、P8 与十题试点已完成，用户已确认启动全章制作 | [分类报告](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-pilot/docs/eli5-chapter-one-classification.md)、[试点记录](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-pilot/docs/eli5-chapter-one-pilot.md)；`0279d5a`，65 项单测与 26 项浏览器测试通过 |
-| ELI5-02 第一章量产 | Sol / eli5/ch1-production；Gemini / eli5/ch1-content-b01 | IN_PROGRESS | 共 344 题，已有 11 道试点。余下 333 道分 30、50、100、153 批；首批原题 30 道已复算，教学验收待内容交付 | [生产清单与检查点](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-production/docs/eli5-production/README.md)、[首批独立复核](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-production/docs/eli5-production/sol-batch-01-review.md)；集成准备提交 39638e3 |
-| BANK-01 第二章逐步提示 | Gemini / 本地 `formula-keyboard` | IN_PROGRESS | 只确认已有未提交的内容和脚本。覆盖率、是否仍在运行及推送状态待核实 | `src/data/guidedHints/ch2*.ts`、`scripts/check-guided-ch2-*.py` 为本地草稿；最近已核实基线 `f3c5363`，本批测试待核实 |
+| ELI5-02 第一章量产 | Sol / `eli5/ch1-production`；Gemini / `eli5/ch1-content-b01` | IN_PROGRESS | 共 344 题：11 道试点 + Batch 1（30 题：18 数值 + 12 书写）已全部通过数学、结构与测试验收并集成（共 41 题）；余下 Batch 2/3/4（50/100/153 题）待开始 | [生产清单与检查点](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-production/docs/eli5-production/README.md)、[首批独立复核](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-production/docs/eli5-production/sol-batch-01-review.md)、[Batch 1 审核记录](https://github.com/x-zyz/michael-calculus/blob/eli5/ch1-production/docs/eli5-production/batch-01-review.md)；内容提交 `284b060`，集成提交 `f8f6620`（130 项 Vitest 全绿） |
+| BANK-01 第二章逐步提示与课程数学渲染 | Gemini / `formula-keyboard` | REVIEW | 第二章全部 258 道题（913 个步骤）`guidedHints` 及 5 个 SymPy 校验脚本、课程页行内 KaTeX 渲染组件 `MathText.tsx` 已全部完成并通过校验，已推送至远端 | `src/data/guidedHints/ch2*.ts`、`scripts/check-guided-ch2-*.py`、`src/components/MathText.tsx`；提交 `69a6bfa`（49 项 Vitest、`tsc -b`、`eslint` 与全部 SymPy 脚本通过） |
 | BANK-02 题库待复核 | Gemini / 分支待确定 | TODO | 清单已有 1,170 条 symbolic、157 条 manual、111 条 pending；exam-2/3 未盘点，exam-5 需要外部来源 | [题库说明](bank/README.md)、[机器清单](bank/inventory.json)；基线 `f3c5363`，待复核条目无新验证记录 |
 
 状态只用 `TODO / IN_PROGRESS / BLOCKED / REVIEW / DONE`。任务移交时核对提交与验收后再改状态。
@@ -63,10 +63,10 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 
 ## 8. 最近一次工作检查点
 
-- 2026-11-22（America/Los_Angeles）。主线文档基线 7634ac7，第一章生产分支 eli5/ch1-production 的集成准备提交 39638e3，试点功能提交 0279d5a。
-- 书写题教学组件、逐题结构与审核门槛已就绪。第一批 30 道原题已用 SymPy 与条件推理复算。集成准备未注册新增教学。分支代码与内容验收结果见生产检查点。
-- 下一操作是读取内容分支固定提交，重新执行结构、数学与浏览器检查。初稿仍有接口及教学问题待修；其他工作树的未提交内容留给原负责人。
-- 本地预览如已停止，在试点分支运行 `npm run dev` 并打开 `/#/practice?problem=p8`。断网回归使用 `npm run build` + `npm run preview`，再设置 `PLAYWRIGHT_BASE_URL` 与 `ELI5_OFFLINE_TEST=1` 运行对应测试。
+- 2026-11-22（America/Los_Angeles）。主线文档基线 `7634ac7`，第一章生产集成分支 `eli5/ch1-production` 最新提交 `f8f6620`（Batch 1 内容分支 `eli5/ch1-content-b01` 最新提交 `284b060`），第二章提示与课程数学渲染分支 `formula-keyboard` 最新提交 `69a6bfa`。所有活跃工作树均已清空未提交改动并推送到远端。
+- **方案 A（第一章 ELI5 Batch 1 终审与集成）**：Batch 1 全部 30 道题（18 数值 + 12 书写）已按 `sol-batch-01-review.md` 与 `teachingProduction.test.ts` 完成修订，通过 `scripts/check-eli5-batch-one-originals.py` 与 `scripts/verify-ch01-batch01.py` SymPy 确定性复算，注册入 `src/data/teachingProduction.ts` 并在 `docs/eli5-production/chapter-one.json` 标记为 `integrated`（`eli5/ch1-production` 上 10 个测试文件 / 130 项 Vitest、`tsc -b`、`eslint` 全部通过）。
+- **方案 B（第二章 `guidedHints` 与课程页行内 KaTeX 渲染）**：`formula-keyboard` 分支已完成第二章全部 258 道题（共 913 步，每题 ≥ 3 步）的逐步提示编写与接入，以及 `MathText.tsx` 课程页行内公式 KaTeX 渲染修复（消除 `3/x`、`1^∞` 等纯文本斜杠与幂次显示问题），5 个 SymPy 脚本、49 项 Vitest、`tsc -b`、`eslint` 全部通过并已推送 `origin/formula-keyboard`（`69a6bfa`）。
+- 本地预览如已停止，在对应分支运行 `npm run dev`。断网回归使用 `npm run build` + `npm run preview`，再设置 `PLAYWRIGHT_BASE_URL` 与 `ELI5_OFFLINE_TEST=1` 运行对应测试。
 
 ### 检查点维护约定
 
