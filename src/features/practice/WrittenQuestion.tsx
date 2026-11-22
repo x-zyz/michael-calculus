@@ -4,6 +4,8 @@ import { practiceDifficultyLabels, type WrittenProblem, type PracticeGraph } fro
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
 import PracticeHints from "./PracticeHints";
+import TeachingSession from "./TeachingSession";
+import { initialTeachingProgress, teachingByProblem, teachingEvidence, type TeachingProgress } from "../../data/teaching";
 import { Button, Card } from "../../components/ui";
 import { StuckButton } from "../formulas/FormulaActions";
 
@@ -14,6 +16,11 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
   const [revealed, setRevealed] = useState(false);
   const [result, setResult] = useState<boolean | null>(null);
 
+  const lesson = teachingByProblem[problem.id];
+  const [progress, setProgress] = useState<TeachingProgress>();
+  const [teachingOpen, setTeachingOpen] = useState(false);
+  const hintUsage = Math.max(hints, progress?.stepsSeen ?? 0, Number(Boolean(lesson && revealed)));
+
   function assess(correct: boolean) {
     if (result !== null) return;
     setResult(correct);
@@ -22,9 +29,10 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
       attempts: [...state.attempts, {
         problemId: problem.id,
         correct,
-        answer: correct ? "自评：独立做对" : "自评：还需复习",
+        answer: correct ? (hintUsage > 0 ? "自评：辅助完成" : "自评：独立做对") : "自评：还需复习",
         at: new Date().toISOString(),
-        hints,
+        hints: hintUsage,
+        ...(progress ? { teaching: progress } : {}),
       }].slice(-500),
     });
   }
@@ -38,13 +46,30 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
       {problem.questionGraph && <ReferenceGraph graph={problem.questionGraph} />}
       <StuckButton key={problem.id} problemId={problem.id} />
       <p>{problem.kind === "作图题" ? "先在纸上画草图，再对照参考图。" : "先在纸上写出思路，再对照解析自评。"}</p>
+      {lesson && <p className="learning-note">练习记录 · {teachingEvidence(state.attempts, problem.id)}</p>}
       <div className="learning-actions">
-        {!revealed && <Button variant="primary" onClick={() => setRevealed(true)}>查看分步解析</Button>}
-        {!revealed && <Button disabled={hints === hintCount} onClick={() => setHints(hints + 1)}>
+        {lesson && result === null && !revealed && hintUsage === 0 && (
+          <Button onClick={() => assess(true)}>我独立完成了</Button>
+        )}
+        {lesson && result === null && (
+          <Button aria-expanded={teachingOpen} onClick={() => {
+            if (!teachingOpen) setProgress(progress ?? initialTeachingProgress);
+            setTeachingOpen(!teachingOpen);
+            setRevealed(false);
+          }}>{teachingOpen ? "收起 ELI5 教学" : "ELI5 教学"}</Button>
+        )}
+        {!revealed && <Button variant="primary" onClick={() => { setRevealed(true); setTeachingOpen(false); }}>查看分步解析</Button>}
+        {!revealed && !teachingOpen && result === null && <Button disabled={hints === hintCount} onClick={() => setHints(hints + 1)}>
           {problem.guidedHints ? "看下一步" : "给我提示"}（{hints}/{hintCount}）
         </Button>}
       </div>
-      {hints > 0 && !revealed && (
+      {lesson && progress && (
+        <div hidden={!teachingOpen}>
+          <TeachingSession lesson={lesson} onProgress={setProgress} locked={result !== null}
+            active={teachingOpen} finishMessage="教学步骤已结束。试着在纸上从头写一遍，再核对参考解析。" />
+        </div>
+      )}
+      {hints > 0 && !revealed && !teachingOpen && (
         <PracticeHints problem={problem} count={hints} />
       )}
       {revealed && (
@@ -55,21 +80,28 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
           <Formula value={problem.solution} />
           {problem.commonMistake && <p><strong>易错点</strong>{' '}{problem.commonMistake}</p>}
           {problem.graph && <ReferenceGraph graph={problem.graph} />}
-          {result === null ? (
+          {result === null && (
             <div className="learning-actions">
-              <Button onClick={() => assess(true)}>我独立做对了</Button>
+              <Button onClick={() => assess(true)}>{lesson ? "核对后确认完成" : "我独立做对了"}</Button>
               <Button onClick={() => assess(false)}>加入错题</Button>
             </div>
-          ) : (
-            <>
-              <p role="status">{result ? "已记录自评通过。" : "已加入错题，稍后可以重练。"}</p>
-              <div className="learning-actions">
-                <Button onClick={() => { setHints(0); setRevealed(false); setResult(null); }}>再做一次</Button>
-                <Link to="/practice/mistakes">查看错题 →</Link>
-              </div>
-            </>
           )}
         </div>
+      )}
+      {result !== null && (
+        <>
+          <p role="status">{result ? "已记录自评通过。" : "已加入错题，稍后可以重练。"}</p>
+          <div className="learning-actions">
+            <Button onClick={() => {
+              setHints(0);
+              setRevealed(false);
+              setResult(null);
+              setProgress(undefined);
+              setTeachingOpen(false);
+            }}>再做一次</Button>
+            <Link to="/practice/mistakes">查看错题 →</Link>
+          </div>
+        </>
       )}
     </Card>
   );

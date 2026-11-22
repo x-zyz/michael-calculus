@@ -1,12 +1,14 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { lessons, problems } from "../data/learning";
 import { firstLessonId } from "../data/textbookSections";
+import type { TeachingProgress } from "../data/teaching";
 export interface Attempt {
   problemId: string;
   correct: boolean;
   answer: string;
   at: string;
   hints: number;
+  teaching?: TeachingProgress;
 }
 export interface LearningState {
   completed: string[];
