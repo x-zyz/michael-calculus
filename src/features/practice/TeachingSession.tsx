@@ -4,11 +4,12 @@ import { parseAnswer } from "../../data/learning";
 import { Button } from "../../components/ui";
 import { initialTeachingProgress, type TeachingLesson, type TeachingStep, type TeachingProgress, type TeachingTransfer } from "../../data/teaching";
 
-export default function TeachingSession({ lesson, onProgress, locked, active }: {
+export default function TeachingSession({ lesson, onProgress, locked, active, finishMessage = "教学步骤已结束。现在试着在答案框填入结果。" }: {
   lesson: TeachingLesson;
   onProgress: (progress: TeachingProgress) => void;
   locked: boolean;
   active: boolean;
+  finishMessage?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(initialTeachingProgress);
@@ -70,7 +71,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active }: 
             })}
             onAdvance={advance} />
         </>
-      ) : <p ref={stepStart} tabIndex={-1} role="status">教学步骤已结束。现在试着在答案框填入结果。</p>}
+      ) : <p ref={stepStart} tabIndex={-1} role="status">{finishMessage}</p>}
       {(index > 0 || finished) && (
         <Button type="button" aria-expanded={historyOpen} onClick={() => setHistoryOpen(!historyOpen)}>
           {historyOpen ? "收起历史步骤" : "查看历史步骤"}
@@ -188,7 +189,11 @@ function TransferCheck({ transfer, locked, finished, onResult }: {
     }}>
       <h4>迁移小题</h4>
       <label htmlFor="eli5-transfer-answer">{transfer.prompt}</label>
-      <input id="eli5-transfer-answer" value={answer} autoComplete="off" maxLength={64}
+      {transfer.promptFormula && <div id="eli5-transfer-formula" aria-label="迁移题题面">
+        <Formula value={transfer.promptFormula} />
+      </div>}
+      <input id="eli5-transfer-answer" aria-describedby={transfer.promptFormula ? "eli5-transfer-formula" : undefined}
+        value={answer} autoComplete="off" maxLength={64}
         disabled={locked || finished} onChange={(event) => setAnswer(event.target.value)} />
       <div className="learning-actions">
         <Button type="submit" disabled={locked || finished}>检查迁移题</Button>

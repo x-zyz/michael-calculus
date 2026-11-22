@@ -1,4 +1,5 @@
 import { chapterOnePilotTeaching } from "./teachingChapterOne";
+import { chapterOneProductionTeaching } from "./teachingProduction";
 
 const math = String.raw;
 
@@ -24,6 +25,7 @@ export interface TeachingCheck {
 
 export interface TeachingTransfer {
   prompt: string;
+  promptFormula?: string;
   answer: number;
   signFeedback: string;
   remediation: string;
@@ -50,6 +52,7 @@ export interface TeachingLesson {
 }
 
 export const teachingByProblem: Partial<Record<string, TeachingLesson>> = {
+  ...chapterOneProductionTeaching,
   ...chapterOnePilotTeaching,
   p8: {
     solution: math`\begin{gathered}
