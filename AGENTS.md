@@ -6,18 +6,25 @@
 - 新功能必须放进已有结构（新路由 / Tabs / Sheet / Accordion），禁止往页面底部继续追加区块；禁止使用原生 select / details / number 控件和字面样式值；只能使用 `src/components/ui` 组件和 tokens。数学图形坐标、SVG 路径和动态百分比是几何数据。
 - 样式入口 `src/styles.css` 只导入 tokens / base / layout / components；组件/页面 TSX 不超过 300 行。字体最小 12px，触控目标至少 44px，每页最多一个可见 primary；手机主任务必须首屏可见。
 - 课程在 `features/curriculum`，答题在 `practice`，掌握度在 `review`，三个独立实验在 `experiments`；`LearningPages.tsx` 仅兼容导出。公式设置放 Sheet，数据备份放 `/settings`。
-- 必须跑 typecheck、lint、test、check:css、test:signing、Playwright 和 Android sync / lint。发布使用固定证书的 release APK；assembleDebug 仅验证 `.dev` 调试构建。
+- 按改动范围运行 typecheck、lint、test、check:css 和 Playwright。签名路径变更或正式发布时运行 test:signing；涉及 Android 的任务按授权执行 sync / lint。assembleDebug 仅验证 .dev 调试构建。
 - `src/data/*.ts`、公式 engine 和所有持久化/备份格式在此次 UI 重构中保持原样。后续不得以界面调整名义修改数学或调度行为。
 - 交接与前后图见 `HANDOFF.md`、`docs/ui-before`、`docs/ui-after`，本轮原始方案见 `docs/superpowers/specs/2026-11-16-ui-redesign.md`。
 
 # Michael calculus — Agent Harness Guide (Codex / DeepSeek / Claude / Gemini)
 
-## Standing Delivery & Release Instructions
+## AI 协作与交接
 
-- After completing and validating any app change in a turn, commit the relevant source changes and push them to the configured GitHub repository, `x-zyz/michael-calculus` (`https://github.com/x-zyz/michael-calculus`). The user has given standing authorization for this project.
-- For validated app changes, increment the app version and Android versionCode, push the release tag, and use the GitHub Actions `release.yml` workflow to build with the permanent signing identity. The owner has authorized automatic signed releases for this project. Wait for the workflow to finish and verify the APK download link.
-- Keep account credentials, signing keystores (`*.jks`, `*.keystore`, `signing.properties`), and local test reports out of the public repository.
-- If the user requests a local-only change for a specific task, follow that request.
+1. 先读本文件，再读 [AI_HANDOFF.md](docs/AI_HANDOFF.md)。旧工作树里的同名文件视为历史快照，使用 [main 上的固定地址](https://github.com/x-zyz/michael-calculus/blob/main/docs/AI_HANDOFF.md)读取最新交接。
+2. 检查 Git 分支、工作树和未提交改动，确认任务模块和负责人。之后只读本任务需要的源码和测试。以 Git、源码和实际验证核对交接信息。
+3. 日常状态、实际改动、提交 SHA、验证结果和接手动作交给集成负责人。任务结束或中断时保留检查点。集成负责人通过仅含文档的 PR 更新 main 上的交接文档。
+
+## 开发交付与正式发布
+
+- **优先级**：先遵守本次任务明确的范围和发布限制。永久签名规则适用于所有获授权的正式 Android 发布。日常提交和测试通过本身不构成发布授权。
+- **日常开发**：在独立分支完成变更和必要验证，提交并推送源码，更新交接状态，按范围提供可操作的预览或测试交付物。不得因提交自动改正式版版本号、推送发布标签或发 Release。合并主线按当前任务的授权执行。
+- **正式发布**：仅在任务明确要求正式发布或得到对应授权时执行。依现有约定更新应用版本和递增 Android versionCode，使用固定证书及 GitHub Actions release.yml 构建，核验正式 APK 的签名、包名和版本后再对外交付。等待工作流结束并核对 Release 和下载附件。应用内更新按已授权的发布范围走现有流程。
+- **明确不发布的任务**：包括 ELI5 教学试点。未经本次授权不得自动合并主线、增加版本号、构建正式 APK、推送 v* 标签或创建 Release。可以提供经授权的独立网页预览或测试交付物。main 的推送会触发 Pages 部署，须纳入合并决策。
+- 凭据、签名私钥与 keystore、signing.properties 和本地测试报告不得提交到公共仓库。
 
 ---
 
