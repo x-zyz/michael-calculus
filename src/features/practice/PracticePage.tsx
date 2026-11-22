@@ -9,12 +9,12 @@ import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
 import FocusedPractice from "./FocusedPractice";
 import { p8FocusContent } from "./p8FocusContent";
-import { teachingByProblem } from "../../data/teaching";
+import { focusedPracticeLesson, firstFocusedPracticeBatch } from "./focusedPracticeRollout";
 export default function PracticePage() {
   const { pathname, search } = useLocation();
   const showMistakes = pathname === "/practice/mistakes";
   const query = new URLSearchParams(search);
-  const pilot = !showMistakes && query.get("problem") === "p8" && query.get("ui") === "study";
+  const pilot = !showMistakes && query.get("ui") === "study" && firstFocusedPracticeBatch.has(query.get("problem") ?? "");
   return pilot ? <div className="page focus-layout"><PracticeQuestions key={search} pilot /></div>
     : <PracticeOverview showMistakes={showMistakes} search={search} />;
 }
@@ -69,12 +69,14 @@ function PracticeQuestions({ pilot = false }: { pilot?: boolean } = {}) {
   const current = list[index];
   const currentChapter = lessons.find((l) => l.id === current?.lessonId)?.chapter;
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
-  if (pilot && current?.id === "p8" && "answer" in current && teachingByProblem.p8) {
+  const focusedLesson = current && focusedPracticeLesson(current);
+  if (pilot && current && focusedLesson) {
     const next = list[index + 1];
-    return <FocusedPractice problem={current} lesson={teachingByProblem.p8} content={p8FocusContent}
+    return <FocusedPractice problem={current} lesson={focusedLesson}
+      content={current.id === "p8" ? p8FocusContent : { contextLabel: currentChapter ? "第 " + currentChapter + " 章" : "练习中心" }}
       onNext={next ? () => {
         const nextQuery = new URLSearchParams(query);
-        nextQuery.delete("ui");
+        if (!firstFocusedPracticeBatch.has(next.id)) nextQuery.delete("ui");
         nextQuery.set("problem", next.id);
         navigate({ pathname: "/practice", search: nextQuery.toString() });
       } : undefined} />;

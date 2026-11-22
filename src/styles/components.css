@@ -376,6 +376,8 @@
 .practice-focus-guide > .btn, .practice-focus-guide .btn[aria-expanded] { margin-block: var(--space-2); }
 .practice-focus-guide [aria-label="历史步骤"] { padding-inline-start: var(--space-4); }
 @media (max-width: 540px) {
+  .practice-focus[data-original-wide] .practice-focus-paper > .formula,
+  .practice-focus[data-original-wide] .practice-focus-original .formula { font-size: var(--text-sm); }
   .practice-focus-answer .btn { width: 100%; }
   .practice-focus-help { gap: var(--space-1) var(--space-2); }
   .practice-focus-guide .learning-actions { gap: var(--space-2); }

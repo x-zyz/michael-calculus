@@ -4,9 +4,10 @@ import { ArrowLeft, ArrowRight, BookOpen, Compass } from "lucide-react";
 import { Link } from "react-router-dom";
 import Formula from "../../components/Formula";
 import { Button, Card } from "../../components/ui";
-import { checkAnswer, parseAnswer, practiceDifficultyLabels, type NumericProblem } from "../../data/learning";
+import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem } from "../../data/learning";
 import { initialTeachingProgress, teachingEvidence, type TeachingLesson, type TeachingProgress } from "../../data/teaching";
 import { useLearning } from "../../db/learning";
+import ReferenceGraph from "./ReferenceGraph";
 import TeachingSession, { type TeachingStepPresentation } from "./TeachingSession";
 
 type View = "question" | "guide" | "solution" | "result";
@@ -23,7 +24,7 @@ export interface FocusedPracticeContent {
 }
 
 export default function FocusedPractice({ problem, lesson, content, onNext }: {
-  problem: NumericProblem;
+  problem: Problem;
   lesson: TeachingLesson;
   content: FocusedPracticeContent;
   onNext?: () => void;
@@ -40,6 +41,8 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
   const [diagnosticAnswer, setDiagnosticAnswer] = useState<number>();
   const heading = useRef<HTMLHeadingElement>(null);
   const diagnostic = content.diagnostic;
+  const written = "answer" in problem ? undefined : problem;
+  const hintUsage = Math.max(Number(assisted), progress?.stepsSeen ?? 0);
 
   useEffect(() => {
     if (view === "guide") return;
@@ -58,13 +61,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
     setView("solution");
   }
 
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const result = checkAnswer(answer, problem.answer);
-    if (result === null) {
-      setInvalid(true);
-      return;
-    }
+  function record(result: boolean, response: string) {
     setCorrect(result);
     setWrongStreak((previous) => result ? 0 : previous + 1);
     save({
@@ -72,13 +69,29 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
       attempts: [...state.attempts, {
         problemId: problem.id,
         correct: result,
-        answer,
+        answer: response,
         at: new Date().toISOString(),
-        hints: Math.max(Number(assisted), progress?.stepsSeen ?? 0),
+        hints: hintUsage,
         ...(progress ? { teaching: progress } : {}),
       }].slice(-500),
     });
     setView("result");
+  }
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!("answer" in problem)) return;
+    const result = checkAnswer(answer, problem.answer);
+    if (result === null) {
+      setInvalid(true);
+      return;
+    }
+    record(result, answer);
+  }
+
+  function assess(result: boolean) {
+    const response = !result ? "自评：还需复习" : hintUsage ? "自评：辅助完成" : "自评：独立做对";
+    record(result, response);
   }
 
   function retry() {
@@ -100,7 +113,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
   }[view];
 
   return (
-    <div className="practice-focus">
+    <div className="practice-focus" data-original-wide={problem.formula.includes("\\quad") || undefined}>
       <header className={view === "guide" ? "practice-focus-nav practice-focus-nav-sticky" : "practice-focus-nav"}>
         {view === "question"
           ? <Link to="/practice"><ArrowLeft size={18} aria-hidden="true" /> 练习中心</Link>
@@ -123,10 +136,21 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
         )}
         {view === "question" && (
           <>
+            {written && <p>{written.prompt}</p>}
             <Formula value={problem.formula} />
-            {correct === undefined ? (
+            {written?.questionGraph && <ReferenceGraph graph={written.questionGraph} />}
+            {correct !== undefined ? (
+              <Button variant="primary" onClick={() => setView("result")}>查看作答结果</Button>
+            ) : written ? (
+              <>
+                <p>先在纸上写出推导，再自评完成情况。</p>
+                <Button variant="primary" onClick={() => assess(true)}>
+                  {hintUsage ? "我完成了（自评）" : "我独立完成了"}
+                </Button>
+              </>
+            ) : (
               <form className="practice-focus-answer" onSubmit={submit}>
-                <label htmlFor="focus-answer">{problem.unit || "请输入数值或分数"}</label>
+                <label htmlFor="focus-answer">{("unit" in problem && problem.unit) || "请输入数值或分数"}</label>
                 <input id="focus-answer" value={answer} autoComplete="off" maxLength={64}
                   aria-invalid={invalid || undefined} aria-describedby={invalid ? "focus-answer-error" : undefined}
                   placeholder="例如 0.25 或 1/4"
@@ -134,7 +158,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
                 {invalid && <p role="alert" id="focus-answer-error">请输入有效的数值或分数。分母不能为 0。</p>}
                 <Button variant="primary" type="submit">检查答案</Button>
               </form>
-            ) : <Button variant="primary" onClick={() => setView("result")}>查看作答结果</Button>}
+            )}
             <div className="practice-focus-help">
               <Button variant="ghost" onClick={openGuide}>
                 <Compass size={18} aria-hidden="true" /> {progress ? "继续引导教学" : "一步一步教我"}
@@ -148,24 +172,39 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
         {progress && (
           <div hidden={view !== "guide"}>
             <TeachingSession lesson={lesson} active={view === "guide"} locked={false} onProgress={setProgress}
-              focused presentation={content.stepPresentation} onFinish={() => { if (correct === false) retry(); else setView("question"); }} />
+              focused presentation={content.stepPresentation}
+              finishMessage={written ? "教学步骤已结束。试着在纸上从头写一遍，再核对参考解析。" : undefined} onFinish={() => { if (correct === false) retry(); else setView("question"); }} />
           </div>
         )}
         {view === "solution" && (
           <section aria-label="完整解析" className="practice-focus-solution">
             {content.solutionIntro && <p>{content.solutionIntro}</p>}
             <Formula value={lesson.solution} />
+            {written?.commonMistake && <p>{written.commonMistake}</p>}
+            {written?.graph && <ReferenceGraph graph={written.graph} />}
             <div className="practice-focus-actions">
-              <Button variant="primary" onClick={() => setView(correct === undefined ? "question" : "result")}>
-                {correct === undefined ? "回去作答" : "回到作答结果"}
-              </Button>
-              <Button variant="ghost" onClick={retry}>重新练习</Button>
+              {written && correct === undefined ? (
+                <>
+                  <Button variant="primary" onClick={() => assess(true)}>核对后确认完成</Button>
+                  <Button variant="ghost" onClick={() => assess(false)}>还需复习</Button>
+                  <Button variant="ghost" onClick={() => setView("question")}>返回作答</Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="primary" onClick={() => setView(correct === undefined ? "question" : "result")}>
+                    {correct === undefined ? "回去作答" : "回到作答结果"}
+                  </Button>
+                  <Button variant="ghost" onClick={retry}>重新练习</Button>
+                </>
+              )}
             </div>
           </section>
         )}
         {view === "result" && (
           <div className="practice-focus-result">
-            <p role="status">{correct ? "回答正确。" : "这次答案还不对，题目已加入错题。"}</p>
+            <p role="status">{written
+              ? (correct ? "已记录自评完成。" : "已记录为需要复习，并加入错题。")
+              : (correct ? "回答正确。" : "这次答案还不对，题目已加入错题。")}</p>
             {!correct && diagnostic && (
               <section aria-label="错因小检查">
                 <Button variant="ghost" aria-expanded={diagnosticOpen} onClick={() => {
