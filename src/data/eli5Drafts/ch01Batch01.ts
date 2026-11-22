@@ -113,13 +113,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "composite-domain",
     referenceAnswer: 3,
     solution:
-      "\\begin{gathered}9-t^2\\ge0\\implies -3\\le t\\le3\\\\ -3\\le2x-1\\le3\\implies -1\\le x\\le2\\\\ L=2-(-1)=3\\end{gathered}",
+      "\\begin{gathered}9-t^2\\ge0,\\;-3\\le t\\le3\\\\ -3\\le2x-1\\le3\\\\ -1\\le x\\le2,\\;L=2-(-1)=3\\end{gathered}",
     steps: [
       step(
         "p124-1",
         "第一步：先看外层根号机器能接收什么样的中间输入 t",
         "要让复合函数 f(g(x)) 有意义，外层函数 f(t)=√(9−t²) 首先不能报错。实数范围内根号底下不能是负数，这意味着 9−t² 必须大于或等于 0，也就是说 t² 不能超过 9。",
-        "9-t^2\\ge0\\iff t^2\\le9\\iff -3\\le t\\le3",
+        "\\begin{gathered}9-t^2\\ge0,\\quad t^2\\le9\\\\ -3\\le t\\le3\\end{gathered}",
         "只要中间变量 t 落在闭区间 [−3, 3] 里，9−t² 就是非负数，外层根号就能正常算出实数。",
         {
           prompt: "要保证外层函数 f(t)=√(9−t²) 的根号下非负，中间变量 t 允许取值的闭区间是什么？",
@@ -138,7 +138,7 @@ export const chapterOneBatch01Drafts = {
         "p124-2",
         "第二步：把内层表达式 g(x)=2x−1 放进外层允许的区间，反解出 x 的左右端点",
         "复合函数里真正扮演中间变量 t 的是内层输出 g(x)=2x−1。既然 t 必须夹在第一步求出的左右边界之间，那 2x−1 也必须夹在这两个边界之间。把不等式三边同时先加 1、再除以 2，就能解出 x 的范围。",
-        "-3\\le2x-1\\le3\\iff -2\\le2x\\le4\\iff -1\\le x\\le2",
+        "\\begin{gathered}-3\\le2x-1\\le3\\\\ -2\\le2x\\le4,\\quad -1\\le x\\le2\\end{gathered}",
         "三边同时加 1 消去常数项 −1，得到 −2≤2x≤4；再同时除以正数 2，不等号方向不变，得到 x 的定义域为 [−1, 2]。",
         {
           prompt: "把 t=2x−1 代入上一问的范围后，解出的自变量 x 的定义域区间是哪一个？",
@@ -176,7 +176,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的策略求解：设 f(t)=√(16−t²)，g(x)=2x+1，求复合函数 f(g(x)) 定义域的区间长度。",
           answer: 4,
           solution:
-            "\\begin{gathered}16-t^2\\ge0\\implies -4\\le t\\le4\\\\ -4\\le2x+1\\le4\\implies -\\frac{5}{2}\\le x\\le\\frac{3}{2}\\\\ L=\\frac{3}{2}-\\left(-\\frac{5}{2}\\right)=4\\end{gathered}",
+            "\\begin{gathered}-4\\le2x+1\\le4\\\\ -\\frac{5}{2}\\le x\\le\\frac{3}{2},\\;L=4\\end{gathered}",
           remediation:
             "先由 16−t²≥0 找出 t 的闭区间（总长度为 8），再令 2x+1 落在这个闭区间里解出 x 的左右端点，最后用右端点减去左端点（或者用 t 的区间长度除以 x 的系数 2）。",
           signFeedback:
@@ -195,7 +195,7 @@ export const chapterOneBatch01Drafts = {
     strategy: "radical-domain",
     referenceAnswer: -3,
     solution:
-      "\\begin{gathered}4x+12\\ge0\\implies 4x\\ge-12\\implies x\\ge-3\\end{gathered}",
+      "\\begin{gathered}4x+12\\ge0\\\\ 4x\\ge-12,\\quad x\\ge-3\\end{gathered}",
     steps: [
       step(
         "p164-1",
@@ -220,7 +220,7 @@ export const chapterOneBatch01Drafts = {
         "p164-2",
         "第二步：移项并除以 x 的系数，算出定义域区间的左端点",
         "列好不等式后，就像解方程一样把常数项移到右边（记得移项要变号），再把两边同时除以 x 前面的正系数 4。解出来的下界就是数轴上定义域最左边的起点。",
-        "4x\\ge-12\\implies x\\ge-3",
+        "4x\\ge-12,\\quad x\\ge-3",
         "因为 x 可以取从 −3 开始往右的所有实数，写成区间就是 [−3, +∞)，所以它的左端点是 −3。",
         {
           prompt: "解出上一问的不等式后，该根号函数定义域的左端点 x 是多少？",
@@ -239,7 +239,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的策略求解：函数 y=√(3x+15) 的定义域左端点是多少？",
           answer: -5,
           solution:
-            "\\begin{gathered}3x+15\\ge0\\implies 3x\\ge-15\\implies x\\ge-5\\end{gathered}",
+            "\\begin{gathered}3x+15\\ge0\\\\ 3x\\ge-15,\\quad x\\ge-5\\end{gathered}",
           remediation:
             "先列出根号内部大于或等于 0 的不等式 3x+15≥0，把 +15 移到右边变成 −15，再除以 x 的系数 3 即可得到左端点。",
           signFeedback:
@@ -258,13 +258,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "denominator-radical-domain",
     referenceAnswer: 10,
     solution:
-      "\\begin{gathered}25-x^2>0\\implies x^2<25\\implies -5<x<5\\\\ L=5-(-5)=10\\end{gathered}",
+      "\\begin{gathered}25-x^2>0,\\;-5<x<5\\\\ L=5-(-5)=10\\end{gathered}",
     steps: [
       step(
         "p165-1",
         "第一步：把“根号在分母上”的两条安全规则合并成一个严格不等式",
         "观察式子 1/√(25−x²)，这里同时亮着两盏警示灯：第一，25−x² 在根号底下，不能是负数；第二，整个根号在分母上，不能等于 0。把“≥ 0”和“≠ 0”合在一起，就意味着根号里面的 25−x² 必须严格大于 0。",
-        "25-x^2>0\\iff x^2<25",
+        "25-x^2>0,\\quad x^2<25",
         "如果 x²=25，分母就会变成 √0=0 导致除零错误；如果 x²>25，根号下就会变成负数。所以只能让 x² 严格小于 25。",
         {
           prompt: "因为根号 √(25−x²) 处在分母位置，被开方数 25−x² 必须满足哪一个条件？",
@@ -302,7 +302,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的策略求解：函数 y=1/√(36−x²) 的定义域区间长度是多少？",
           answer: 12,
           solution:
-            "\\begin{gathered}36-x^2>0\\implies x^2<36\\implies -6<x<6\\\\ L=6-(-6)=12\\end{gathered}",
+            "\\begin{gathered}36-x^2>0,\\;-6<x<6\\\\ L=6-(-6)=12\\end{gathered}",
           remediation:
             "先列分母根号下严格大于 0 的条件 36−x²>0，即 x²<36；对 36 开平方找到左右对称边界 ±6，再用右边界 6 减去左边界 −6。",
           signFeedback:
@@ -321,7 +321,7 @@ export const chapterOneBatch01Drafts = {
     strategy: "arcsin-domain",
     referenceAnswer: 6,
     solution:
-      "\\begin{gathered}-1\\le x-5\\le1\\implies 4\\le x\\le6\\end{gathered}",
+      "\\begin{gathered}-1\\le x-5\\le1\\\\ 4\\le x\\le6\\end{gathered}",
     steps: [
       step(
         "p166-1",
@@ -346,7 +346,7 @@ export const chapterOneBatch01Drafts = {
         "p166-2",
         "第二步：不等式三边同时加 5，解出定义域区间的右端点",
         "现在要把中间的 x−5 还原成单独的 x。只要在不等式的左、中、右三边同时加上 5，就能消去 −5，直接读出 x 能取到的最小值（左端点）和最大值（右端点）。",
-        "-1+5\\le x\\le1+5\\implies 4\\le x\\le6",
+        "\\begin{gathered}-1+5\\le x\\le1+5\\\\ 4\\le x\\le6\\end{gathered}",
         "由此得到定义域是闭区间 [4, 6]，数轴上最右边的端点就是 6。",
         {
           prompt: "解出双边不等式后，函数 arcsin(x−5) 定义域的右端点是多少？",
@@ -365,7 +365,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的策略求解：函数 y=arcsin(x−8) 的定义域右端点是多少？",
           answer: 9,
           solution:
-            "\\begin{gathered}-1\\le x-8\\le1\\implies 7\\le x\\le9\\end{gathered}",
+            "\\begin{gathered}-1\\le x-8\\le1\\\\ 7\\le x\\le9\\end{gathered}",
           remediation:
             "先写出反正弦函数对括号内整体的要求 −1 ≤ x−8 ≤ 1，然后三边同时加 8，取右边算出的上界即可。",
           signFeedback:
@@ -384,13 +384,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "direct-limit",
     referenceAnswer: 10,
     solution:
-      "\\begin{gathered}\\lim_{x\\to2}(x^2+3x)=2^2+3\\times2=4+6=10\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to2}(x^2+3x)\\\\ =2^2+3\\times2=10\\end{gathered}",
     steps: [
       step(
         "p2-1",
         "第一步：检查在目标点 x=2 处有没有除零等计算障碍，确定能否直接代入",
         "求极限是在看“当 x 无限靠近 2 时，x²+3x 会无限靠近哪个数”。因为多项式 x²+3x 是一条平滑连贯的曲线，既没有分母会变成 0，也没有根号或对数禁区，所以曲线在 x=2 附近的趋势就等于它在 x=2 这一点的真实高度。",
-        "f(x)=x^2+3x\\text{ 在 }x=2\\text{ 处连续}\\implies\\lim_{x\\to2}f(x)=f(2)",
+        "\\begin{gathered}f(x)=x^2+3x\\\\ \\lim_{x\\to2}f(x)=f(2)\\end{gathered}",
         "只要初等函数在目标点有定义且不触发除零，求极限就可以直接转化成求该点的函数值。",
         {
           prompt: "对于多项式极限 lim_{x→2}(x²+3x)，为什么可以直接把 x=2 代入式子求极限？",
@@ -435,7 +435,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的直接代入法计算：当 x 趋近 3 时，x²+2x 的极限是多少？",
           answer: 15,
           solution:
-            "\\begin{gathered}\\lim_{x\\to3}(x^2+2x)=3^2+2\\times3=9+6=15\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to3}(x^2+2x)\\\\ =3^2+2\\times3=15\\end{gathered}",
           remediation:
             "x²+2x 也是处处连续的多项式，直接把 x=3 代入：先算 3²，再算 2×3，最后把两个数加起来。",
           signFeedback:
@@ -454,7 +454,7 @@ export const chapterOneBatch01Drafts = {
     strategy: "quotient-direct-limit",
     referenceAnswer: 2,
     solution:
-      "\\begin{gathered}\\lim_{x\\to2}(x+1)=3\\ne0\\\\ \\lim_{x\\to2}\\frac{x^2+2}{x+1}=\\frac{2^2+2}{2+1}=\\frac{6}{3}=2\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to2}(x+1)=3\\ne0\\\\ \\lim_{x\\to2}\\frac{x^2+2}{x+1}=\\frac{6}{3}=2\\end{gathered}",
     steps: [
       step(
         "p38-1",
@@ -498,7 +498,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的策略计算分式极限：当 x 趋近 3 时，(x²+3)/(x+1) 的极限是多少？",
           answer: 3,
           solution:
-            "\\begin{gathered}\\lim_{x\\to3}(x+1)=4\\ne0\\\\ \\lim_{x\\to3}\\frac{x^2+3}{x+1}=\\frac{3^2+3}{3+1}=\\frac{12}{4}=3\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to3}(x+1)=4\\ne0\\\\ \\lim_{x\\to3}\\frac{x^2+3}{x+1}=\\frac{12}{4}=3\\end{gathered}",
           remediation:
             "先把 x=3 代入分母 x+1 确认不为 0，再把 x=3 代入分子 x²+3 算出分子，最后用分子除以分母。",
           signFeedback:
@@ -516,13 +516,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "quotient-direct-limit",
     solution:
-      "\\begin{gathered}\\lim_{x\\to2}(x-6)=-4\\ne0\\\\ \\lim_{x\\to2}\\frac{x^2+8}{x-6}=\\frac{2^2+8}{2-6}=\\frac{12}{-4}=-3\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to2}(x-6)=-4\\ne0\\\\ \\lim_{x\\to2}\\frac{x^2+8}{x-6}=\\frac{12}{-4}=-3\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-1-1",
         "第一步：分别计算 x→2 时分母与分子各自的趋向值",
         "写推导题时，要先交代“为什么可以直接代入”。把 x=2 分别送进分母 x−6 和分子 x²+8，尤其看清分母是不是非零常数、带什么正负号。",
-        "\\lim_{x\\to2}(x-6)=2-6=-4\\ne0,\\quad\\lim_{x\\to2}(x^2+8)=2^2+8=12",
+        "\\begin{gathered}\\lim_{x\\to2}(x-6)=-4\\ne0\\\\ \\lim_{x\\to2}(x^2+8)=12\\end{gathered}",
         "分母趋于 −4≠0，满足商的极限运算法则的使用条件；分子趋于正数 12。",
         {
           prompt: "当 x→2 时，本题的分子 x²+8 与分母 x−6 分别趋于哪两个数？",
@@ -567,7 +567,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的直接代入法计算：当 x 趋近 1 时，(x²+9)/(x−6) 的极限是多少？",
           answer: -2,
           solution:
-            "\\begin{gathered}\\lim_{x\\to1}(x-6)=-5\\ne0\\\\ \\lim_{x\\to1}\\frac{x^2+9}{x-6}=\\frac{1^2+9}{1-6}=\\frac{10}{-5}=-2\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to1}(x-6)=-5\\ne0\\\\ \\lim_{x\\to1}\\frac{x^2+9}{x-6}=\\frac{10}{-5}=-2\\end{gathered}",
           remediation:
             "先把 x=1 代入分母 x−6 算出负数分母，再代入分子 x²+9 算出正数分子，最后用分子除以分母并保留负号。",
           signFeedback:
@@ -585,13 +585,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "zero-numerator-limit",
     solution:
-      "\\begin{gathered}\\lim_{x\\to2}(x^2-4)=0,\\quad\\lim_{x\\to2}(x^2+5)=9\\ne0\\\\ \\lim_{x\\to2}\\frac{x^2-4}{x^2+5}=\\frac{0}{9}=0\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to2}(x^2-4)=0\\\\ \\lim_{x\\to2}(x^2+5)=9\\ne0\\\\ \\lim_{x\\to2}\\frac{x^2-4}{x^2+5}=\\frac{0}{9}=0\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-2-1",
         "第一步：把 x=2 代入分子和分母，看清是谁趋于 0、谁保持非零",
         "很多同学一看到分子里有 x²−4 和 x→2，就条件反射想去做因式分解约分。但别急！先看一眼分母 x²+5：当 x=2 时，分母并不是 0。只要分母稳稳地停在一个非零正数上，这就根本不是 0/0 型未定式。",
-        "\\lim_{x\\to2}(x^2-4)=2^2-4=0,\\quad\\lim_{x\\to2}(x^2+5)=2^2+5=9\\ne0",
+        "\\begin{gathered}\\lim_{x\\to2}(x^2-4)=0\\\\ \\lim_{x\\to2}(x^2+5)=9\\ne0\\end{gathered}",
         "分子趋于 0，而分母趋于 9≠0。分母没有除零危机，商的极限法则直接生效。",
         {
           prompt: "当 x→2 时，分式 (x²−4)/(x²+5) 的分子和分母分别属于哪种情况？",
@@ -636,7 +636,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的先验分母再代入策略计算：当 x 趋近 3 时，(x²−9)/(x²+1) 的极限是多少？",
           answer: 0,
           solution:
-            "\\begin{gathered}\\lim_{x\\to3}(x^2-9)=0,\\quad\\lim_{x\\to3}(x^2+1)=10\\ne0\\\\ \\lim_{x\\to3}\\frac{x^2-9}{x^2+1}=\\frac{0}{10}=0\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to3}(x^2-9)=0\\\\ \\lim_{x\\to3}(x^2+1)=10\\ne0\\\\ \\lim_{x\\to3}\\frac{x^2-9}{x^2+1}=\\frac{0}{10}=0\\end{gathered}",
           remediation:
             "先把 x=3 代入分母 x²+1 得 10≠0，再代入分子 x²−9 得 0，最后用 0÷10 得出结果。",
           signFeedback:
@@ -654,13 +654,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "common-factor-x-limit",
     solution:
-      "\\begin{gathered}\\lim_{x\\to0}\\frac{5x^3-x^2+3x}{4x^2+2x}=\\lim_{x\\to0}\\frac{x(5x^2-x+3)}{x(4x+2)}=\\lim_{x\\to0}\\frac{5x^2-x+3}{4x+2}=\\frac{3}{2}\\end{gathered}",
+      "\\begin{gathered}\\frac{5x^3-x^2+3x}{4x^2+2x}=\\frac{5x^2-x+3}{4x+2}\\\\ \\lim_{x\\to0}\\frac{5x^2-x+3}{4x+2}=\\frac{3}{2}\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-4-1",
         "第一步：把分子和分母里每一项都共有的公因式 x 提出来并约掉",
         "如果直接把 x=0 代入原式，分子和分母都会变成 0，形成 0/0 型僵局。仔细看式子：分子的每一项（5x³、−x²、3x）和分母的每一项（4x²、2x）都至少带有一个 x。既然求 x→0 的极限时 x 只是无限靠近 0 而不等于 0，我们就可以把上下共有的这一个 x 提出来直接约掉。",
-        "\\frac{5x^3-x^2+3x}{4x^2+2x}=\\frac{x(5x^2-x+3)}{x(4x+2)}=\\frac{5x^2-x+3}{4x+2}\\quad(x\\ne0)",
+        "\\begin{gathered}\\frac{5x^3-x^2+3x}{4x^2+2x}=\\frac{x(5x^2-x+3)}{x(4x+2)}\\\\ =\\frac{5x^2-x+3}{4x+2}\\end{gathered}",
         "约掉公因式 x 后，原本让分子分母同时归零的“罪魁祸首”就被消除了，分子和分母里都露出了不含 x 的常数项。",
         {
           prompt: "对 x≠0，将原分式的分子和分母同时提取并约去公因式 x 后，化简得到的分式是什么？",
@@ -686,7 +686,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-5-1-4-2",
         "第二步：把 x=0 代入约分后的式子，只保留留下的常数项之比",
         "现在看约分后的新分式：当 x→0 时，所有还带着 x 或 x² 的项都会变成 0，只剩下分子末尾的常数项和分母末尾的常数项。因为分母的常数项不为 0，直接代入就能读出极限。",
-        "\\lim_{x\\to0}\\frac{5x^2-x+3}{4x+2}=\\frac{5(0)^2-0+3}{4(0)+2}=\\frac{3}{2}",
+        "\\lim_{x\\to0}\\frac{5x^2-x+3}{4x+2}=\\frac{3}{2}",
         "这也是一个很实用的规律：当 x→0 时，有理分式的值由分子分母的“最低次项”主导，3x 与 2x 的系数之比就是 3/2。",
         {
           prompt: "令 x→0 代入上一问约分后的分式，最终求得的极限值是多少？",
@@ -705,7 +705,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的提取公因式 x 策略计算：当 x 趋近 0 时，(3x³+2x²+6x)/(5x²+2x) 的极限是多少？",
           answer: 3,
           solution:
-            "\\begin{gathered}\\lim_{x\\to0}\\frac{3x^3+2x^2+6x}{5x^2+2x}=\\lim_{x\\to0}\\frac{3x^2+2x+6}{5x+2}=\\frac{6}{2}=3\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to0}\\frac{3x^2+2x+6}{5x+2}=\\frac{6}{2}=3\\end{gathered}",
           remediation:
             "先把分子分母每一项都除以 x，消去 0/0 型公因子，再把 x=0 代入，只看留下来的常数项 6÷2。",
           signFeedback:
@@ -723,13 +723,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "difference-quotient-limit",
     solution:
-      "\\begin{gathered}\\frac{(a+2h)^2-a^2}{h}=\\frac{a^2+4ah+4h^2-a^2}{h}=\\frac{h(4a+4h)}{h}=4a+4h\\\\ \\lim_{h\\to0}(4a+4h)=4a\\end{gathered}",
+      "\\begin{gathered}\\frac{(a+2h)^2-a^2}{h}=\\frac{4ah+4h^2}{h}\\\\ =4a+4h\\to4a\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-5-1",
         "第一步：把分子中的 (a+2h)² 按完全平方公式展开，并与后面的 −a² 抵消",
         "在这道题里，a 是固定的常数，真正趋于 0 的自变量是小步长 h。如果直接令 h=0，分子 (a+0)²−a²=0，分母也是 0。破局的第一步是把分子的括号 (a+2h)² 展开成三项，让开头的 a² 和后面的 −a² 正好消掉。",
-        "(a+2h)^2-a^2=(a^2+4ah+4h^2)-a^2=4ah+4h^2",
+        "\\begin{gathered}(a+2h)^2-a^2\\\\ =a^2+4ah+4h^2-a^2=4ah+4h^2\\end{gathered}",
         "注意交叉项是 2·a·(2h)=4ah，平方项是 (2h)²=4h²。消去 a² 后，分子剩下来的每一项都含有因式 h。",
         {
           prompt: "将分子 (a+2h)² − a² 展开并消去 a² 后，分子化简为什么式子？",
@@ -748,7 +748,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-5-1-5-2",
         "第二步：分子分母同除以非零步长 h，再令 h→0 得到极限",
         "现在分子里的两项都带着 h，刚好可以和分母上的 h 约分（因为 h→0 时 h≠0）。约完分母后，再把 h=0 代进去，含有 h 的高阶小项就会消失，只留下不含 h 的主项。",
-        "\\lim_{h\\to0}\\frac{4ah+4h^2}{h}=\\lim_{h\\to0}(4a+4h)=4a+4(0)=4a",
+        "\\begin{gathered}\\lim_{h\\to0}\\frac{4ah+4h^2}{h}\\\\ =\\lim_{h\\to0}(4a+4h)=4a\\end{gathered}",
         "从变化率的角度看，当自变量从 a 发生 2h 的微小偏移时，平方函数的首阶变化量是 4ah，除以 h 后留下的系数就是 4a。",
         {
           prompt: "把上一问的分子除以分母 h 并令 h→0 后，最终极限是多少？",
@@ -767,7 +767,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的展开消元策略计算具体数值下的差商极限：当 a=3 且 h 趋近 0 时，[(3+2h)²−3²]/h 的极限是多少？",
           answer: 12,
           solution:
-            "\\begin{gathered}\\frac{(3+2h)^2-9}{h}=\\frac{9+12h+4h^2-9}{h}=12+4h\\\\ \\lim_{h\\to0}(12+4h)=12\\end{gathered}",
+            "\\begin{gathered}\\frac{(3+2h)^2-9}{h}=12+4h\\\\ \\lim_{h\\to0}(12+4h)=12\\end{gathered}",
           remediation:
             "可以直接把 (3+2h)² 展开成 9+12h+4h²，减去 9 后除以 h 得到 12+4h，再令 h=0（或者直接把 a=3 代入刚才推导出的通解 4a）。",
           signFeedback:
@@ -786,13 +786,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "cancel",
     referenceAnswer: 0,
     solution:
-      "\\begin{gathered}\\frac{x^2-16}{x+4}=\\frac{(x-4)(x+4)}{x+4}=x-4\\quad(x\\ne-4)\\\\ \\lim_{x\\to4}\\frac{x^2-16}{x+4}=\\lim_{x\\to4}(x-4)=4-4=0\\end{gathered}",
+      "\\begin{gathered}\\frac{x^2-16}{x+4}=x-4\\quad(x\\ne-4)\\\\ \\lim_{x\\to4}(x-4)=4-4=0\\end{gathered}",
     steps: [
       step(
         "p168-1",
         "第一步：先检查目标点 x=4 处分母是否为 0，并用平方差公式分解分子约去 (x+4)",
         "遇到分式极限，先看分母 x+4 在 x=4 处等于 4+4=8≠0（并不等于 0！），这意味着原式在 x=4 处其实可以直接代入算得 0/8=0。同时，按照本题约分视角，分子 x²−16=x²−4² 可以按平方差公式拆成 (x−4)(x+4)；因为 x→4 时 x≠−4，把上下共有的 (x+4) 约掉后，式子就化简成了最简单的一次式。",
-        "\\frac{x^2-16}{x+4}=\\frac{(x-4)(x+4)}{x+4}=x-4\\quad(x\\ne-4)",
+        "\\begin{gathered}\\frac{x^2-16}{x+4}=\\frac{(x-4)(x+4)}{x+4}\\\\ =x-4\\quad(x\\ne-4)\\end{gathered}",
         "既养成“先看分母是否为零”的习惯，又掌握平方差约分，两种方法在这道题上殊途同归。",
         {
           prompt: "在 x=4 附近（x≠−4），分母 x+4 趋于 8≠0；把分子 x²−16 按平方差分解并与分母 x+4 约分后，剩下的整式是什么？",
@@ -830,7 +830,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的策略（先确认分母非零，或将分子平方差分解约去 x+3 后化为 x−3 代入）计算：当 x 趋近 5 时，(x²−9)/(x+3) 的极限是多少？",
           answer: 2,
           solution:
-            "\\begin{gathered}\\lim_{x\\to5}\\frac{x^2-9}{x+3}=\\lim_{x\\to5}\\frac{(x-3)(x+3)}{x+3}=\\lim_{x\\to5}(x-3)=5-3=2\\end{gathered}",
+            "\\begin{gathered}\\frac{x^2-9}{x+3}=x-3\\quad(x\\ne-3)\\\\ \\lim_{x\\to5}(x-3)=5-3=2\\end{gathered}",
           remediation:
             "在 x→5 时分母 x+3→8≠0；把分子 x²−9 拆成 (x−3)(x+3)，与分母约掉 (x+3) 后剩下 x−3，代入 x=5 得 5−3=2（直接代入也是 (25−9)/(5+3)=16/8=2）。",
           signFeedback:
@@ -848,13 +848,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "cancel-remaining-zero",
     solution:
-      "\\begin{gathered}\\lim_{x\\to3}\\frac{(x-3)^2}{x^2-9}=\\lim_{x\\to3}\\frac{(x-3)^2}{(x-3)(x+3)}=\\lim_{x\\to3}\\frac{x-3}{x+3}=\\frac{0}{6}=0\\end{gathered}",
+      "\\begin{gathered}\\frac{(x-3)^2}{x^2-9}=\\frac{x-3}{x+3}\\\\ \\lim_{x\\to3}\\frac{x-3}{x+3}=\\frac{0}{6}=0\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-3-1",
         "第一步：把分母按平方差公式拆开，与分子约去一个公因式 (x−3)",
         "当 x→3 时，分子 (x−3)² 和分母 x²−9 都趋近于 0，属于 0/0 型。观察发现，分子里有两份 (x−3) 相乘，而分母 x²−9 用平方差公式拆开后有一份 (x−3) 和一份 (x+3)。在 x→3（x≠3）的过程中，把上下共有的一份 (x−3) 约掉，分母上导致除零的那一份就消失了。",
-        "\\frac{(x-3)^2}{x^2-9}=\\frac{(x-3)(x-3)}{(x-3)(x+3)}=\\frac{x-3}{x+3}\\quad(x\\ne3)",
+        "\\begin{gathered}\\frac{(x-3)^2}{x^2-9}=\\frac{(x-3)^2}{(x-3)(x+3)}\\\\ =\\frac{x-3}{x+3}\\quad(x\\ne3)\\end{gathered}",
         "注意分子原本是平方，约掉一份 (x−3) 后，分子上还留着另一份 (x−3)，并没有变成 1。",
         {
           prompt: "对 x≠3，将 (x−3)² / (x²−9) 的分母分解并与分子约去一个 (x−3) 后，剩下的分式是什么？",
@@ -880,7 +880,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-5-1-3-2",
         "第二步：把 x=3 代入约分后的新分式，分别算出分子与分母的值并求商",
         "现在看约分后的新分式：把 x=3 分别代入剩下的分子和分母。此时分母已经是一个非零正数，不再有除零障碍；再看分子留下的那一份因式在 x=3 处等于多少，用分子除以分母就能得出最终极限。",
-        "\\lim_{x\\to3}\\frac{x-3}{x+3}=\\frac{3-3}{3+3}=\\frac{0}{6}=0",
+        "\\lim_{x\\to3}\\frac{x-3}{x+3}=\\frac{0}{6}=0",
         "这也说明：分子趋于 0 的“速度”（二次方）比分母趋于 0 的“速度”（一次方）更快，约掉一层后分子仍然归零，0÷6=0。",
         {
           prompt: "将 x=3 代入上一问约分后的分式，最终求得的极限值是多少？",
@@ -899,7 +899,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的因式分解约分策略计算：当 x 趋近 2 时，(x−2)²/(x²−4) 的极限是多少？",
           answer: 0,
           solution:
-            "\\begin{gathered}\\lim_{x\\to2}\\frac{(x-2)^2}{x^2-4}=\\lim_{x\\to2}\\frac{x-2}{x+2}=\\frac{0}{4}=0\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to2}\\frac{x-2}{x+2}=\\frac{0}{4}=0\\end{gathered}",
           remediation:
             "把分母 x²−4 拆成 (x−2)(x+2)，和分子 (x−2)² 约掉一个 (x−2)，再把 x=2 代入剩下的 (x−2)/(x+2)。",
           signFeedback:
@@ -917,13 +917,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "quadratic-factor-cancel",
     solution:
-      "\\begin{gathered}\\lim_{x\\to5}\\frac{x^2-7x+10}{x^2-6x+5}=\\lim_{x\\to5}\\frac{(x-5)(x-2)}{(x-5)(x-1)}=\\lim_{x\\to5}\\frac{x-2}{x-1}=\\frac{3}{4}\\end{gathered}",
+      "\\begin{gathered}\\frac{x^2-7x+10}{x^2-6x+5}=\\frac{x-2}{x-1}\\\\ \\lim_{x\\to5}\\frac{x-2}{x-1}=\\frac{3}{4}\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-9-1",
         "第一步：抓住零因子线索 (x−5)，把分子和分母两个二次多项式同时分解并约分",
         "把 x=5 代入分子 x²−7x+10 和分母 x²−6x+5，两边都得 0。在代数里，只要 x=5 能让二次多项式变成 0，这个二次多项式里就一定藏着因式 (x−5)！顺着这条线索看常数项：分子的常数项 10=(−5)×(−2)，分母的常数项 5=(−5)×(−1)，一下子就能把上下两个二次式拆开并约去公因式 (x−5)。",
-        "\\frac{x^2-7x+10}{x^2-6x+5}=\\frac{(x-5)(x-2)}{(x-5)(x-1)}=\\frac{x-2}{x-1}\\quad(x\\ne5)",
+        "\\begin{gathered}\\frac{x^2-7x+10}{x^2-6x+5}=\\frac{(x-5)(x-2)}{(x-5)(x-1)}\\\\ =\\frac{x-2}{x-1}\\quad(x\\ne5)\\end{gathered}",
         "约去共同的零因子 (x−5) 后，剩下的分母 x−1 在 x=5 处不再为 0，0/0 型未定式彻底解除。",
         {
           prompt: "对 x≠5，将分子 x²−7x+10 与分母 x²−6x+5 因式分解并约去公因式 (x−5) 后，得到的分式是什么？",
@@ -968,7 +968,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的十字相乘约分策略计算：当 x 趋近 4 时，(x²−7x+12)/(x²−6x+8) 的极限是多少？（可填分数或小数）",
           answer: 0.5,
           solution:
-            "\\begin{gathered}\\lim_{x\\to4}\\frac{x^2-7x+12}{x^2-6x+8}=\\lim_{x\\to4}\\frac{(x-4)(x-3)}{(x-4)(x-2)}=\\lim_{x\\to4}\\frac{x-3}{x-2}=\\frac{1}{2}=0.5\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to4}\\frac{x-3}{x-2}=\\frac{1}{2}=0.5\\end{gathered}",
           remediation:
             "以零因子 (x−4) 为线索：分子常数项 12=(−4)×(−3)，拆成 (x−4)(x−3)；分母常数项 8=(−4)×(−2)，拆成 (x−4)(x−2)。约去 (x−4) 后把 x=4 代入。",
           signFeedback:
@@ -987,13 +987,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "conjugate-second-order",
     referenceAnswer: -0.125,
     solution:
-      "\\begin{gathered}\\frac{\\sqrt{1+x}-1-\\frac{x}{2}}{x^2}=\\frac{(1+x)-\\left(1+\\frac{x}{2}\\right)^2}{x^2\\left(\\sqrt{1+x}+1+\\frac{x}{2}\\right)}=\\frac{-\\frac{1}{4}x^2}{x^2\\left(\\sqrt{1+x}+1+\\frac{x}{2}\\right)}\\\\ \\lim_{x\\to0}\\frac{-\\frac{1}{4}}{\\sqrt{1+x}+1+\\frac{x}{2}}=\\frac{-\\frac{1}{4}}{1+1+0}=-\\frac{1}{8}\\end{gathered}",
+      "\\begin{gathered}(1+x)-\\left(1+\\frac{x}{2}\\right)^2=-\\frac{x^2}{4}\\\\ \\lim_{x\\to0}\\frac{-1/4}{\\sqrt{1+x}+1+x/2}=-\\frac{1}{8}\\end{gathered}",
     steps: [
       step(
         "p128-1",
         "第一步：把分子后面减掉的两项装进括号，找准能配成平方差去掉根号的共轭式",
         "分子里有三个部分：√(1+x) 减去 1 再减去 x/2。想用平方差公式 (√A−B)(√A+B)=A−B² 把根号去掉，必须先把分子整理成“根号减去一整块 B”的两项结构。只要把后面减掉的两项装进括号写成 −(1+x/2)，跟它配对去根号的共轭搭档就一目了然了。",
-        "\\sqrt{1+x}-1-\\frac{x}{2}=\\sqrt{1+x}-\\left(1+\\frac{x}{2}\\right)",
+        "\\begin{gathered}\\sqrt{1+x}-1-\\frac{x}{2}\\\\ =\\sqrt{1+x}-\\left(1+\\frac{x}{2}\\right)\\end{gathered}",
         "给分子和分母同时乘上 √(1+x)+(1+x/2)，分子就会按平方差变成 (1+x)−(1+x/2)²，根号立刻脱掉。",
         {
           prompt: "把分子写成 √(1+x) − (1 + x/2) 后，为了用平方差公式去掉根号，分子分母应当同时乘哪个式子？",
@@ -1019,7 +1019,7 @@ export const chapterOneBatch01Drafts = {
         "p128-2",
         "第二步：把平方差后的分子 (1+x) − (1+x/2)² 展开，抵消常数项与一次项",
         "乘上共轭式后，分子脱掉根号变成了 (1+x) − (1+x/2)²。现在按完全平方公式把括号里的 (1+x/2)² 展开成三项，再注意括号前面是减号，去括号时里面每一项都要变号，看看和前面的 1+x 抵消后还剩什么。",
-        "(1+x)-\\left(1+\\frac{x}{2}\\right)^2=(1+x)-\\left(1+x+\\frac{x^2}{4}\\right)=-\\frac{1}{4}x^2",
+        "\\begin{gathered}(1+x)-\\left(1+\\frac{x}{2}\\right)^2\\\\ =1+x-1-x-\\frac{x^2}{4}=-\\frac{x^2}{4}\\end{gathered}",
         "常数 1 和一次项 x 恰好全部抵消，分子只留下二次项 −x²/4。",
         {
           prompt: "将分子 (1+x) − (1+x/2)² 展开并抵消相同项后，分子剩下哪一项？",
@@ -1041,7 +1041,7 @@ export const chapterOneBatch01Drafts = {
         "p128-3",
         "第三步：约去分子和分母公有的 x²，再把 x=0 代入共轭分母求出极限",
         "现在分子已经化简成了含 x² 的单项式，刚好可以和原分母里的 x² 直接约掉！约完 x² 后，分母只剩下第一步乘进来的共轭式 √(1+x)+1+x/2。把 x=0 代入这个共轭式，就能算出最终极限。",
-        "\\lim_{x\\to0}\\frac{-\\frac{1}{4}x^2}{x^2\\left(\\sqrt{1+x}+1+\\frac{x}{2}\\right)}=\\frac{-\\frac{1}{4}}{\\sqrt{1}+1+0}=\\frac{-\\frac{1}{4}}{2}=-\\frac{1}{8}",
+        "\\begin{gathered}\\lim_{x\\to0}\\frac{-1/4}{\\sqrt{1+x}+1+x/2}\\\\ =\\frac{-1/4}{1+1}=-\\frac{1}{8}\\end{gathered}",
         "当 x→0 时，共轭分母里的 √(1+x)→1，后面的 1+x/2→1，相加得 2。分子系数 −1/4 除以 2 即得 −1/8。",
         {
           prompt: "约掉 x² 并令 x→0 后，共轭分母 √(1+x)+1+x/2 趋于 2，最终极限值是多少？",
@@ -1060,7 +1060,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的共轭有理化策略计算：当 x 趋近 0 时，[√(1+2x)−1−x]/x² 的极限是多少？（可填分数或小数）",
           answer: -0.5,
           solution:
-            "\\begin{gathered}\\frac{\\sqrt{1+2x}-(1+x)}{x^2}=\\frac{(1+2x)-(1+x)^2}{x^2(\\sqrt{1+2x}+1+x)}=\\frac{-x^2}{x^2(\\sqrt{1+2x}+1+x)}\\\\ \\lim_{x\\to0}\\frac{-1}{\\sqrt{1+2x}+1+x}=\\frac{-1}{1+1}=-\\frac{1}{2}=-0.5\\end{gathered}",
+            "\\begin{gathered}(1+2x)-(1+x)^2=-x^2\\\\ \\lim_{x\\to0}\\frac{-1}{\\sqrt{1+2x}+1+x}=-\\frac{1}{2}\\end{gathered}",
           remediation:
             "先把分子写成 √(1+2x)−(1+x)，上下同乘共轭式 √(1+2x)+(1+x)，分子变成 (1+2x)−(1+2x+x²)=−x²；约去 x² 后代入 x=0 得 −1/(1+1)=−1/2。",
           signFeedback:
@@ -1079,13 +1079,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "sine-scale",
     referenceAnswer: 2 / 3,
     solution:
-      "\\begin{gathered}\\lim_{x\\to0}\\frac{\\sin2x}{3x}=\\lim_{x\\to0}\\left(\\frac{\\sin2x}{2x}\\cdot\\frac{2}{3}\\right)=1\\cdot\\frac{2}{3}=\\frac{2}{3}\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to0}\\left(\\frac{\\sin2x}{2x}\\cdot\\frac{2}{3}\\right)=\\frac{2}{3}\\end{gathered}",
     steps: [
       step(
         "p4-1",
         "第一步：把分母配成和正弦内部一模一样的“同角” 2x，提炼出系数比",
         "第一重要极限 lim_{u→0} (sin u)/u = 1 有一个铁律：sin 括号里面的角 u 是什么，分母下面也必须一字不差地放什么。现在分子是 sin(2x)，它最渴望的分母搭档是 2x，可原题分母却是 3x。我们只要把分母先写成 2x，再在旁边乘一个常数分数把被换掉的 3 和新添的 2 平衡回来即可。",
-        "\\frac{\\sin2x}{3x}=\\frac{\\sin2x}{2x}\\cdot\\frac{2x}{3x}=\\frac{\\sin2x}{2x}\\cdot\\frac{2}{3}\\quad(x\\ne0)",
+        "\\frac{\\sin2x}{3x}=\\frac{\\sin2x}{2x}\\cdot\\frac{2}{3}",
         "这样拆开后，左边第一块 (sin 2x)/(2x) 就配成了标准的“同角正弦比同角”结构，右边只剩常数因子 2/3。",
         {
           prompt: "为了把 (sin 2x)/(3x) 配成标准重要极限结构 (sin 2x)/(2x) × k，旁边配出的常数因子 k 是多少？",
@@ -1123,7 +1123,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的配角策略计算：当 x 趋近 0 时，sin(3x)/(4x) 的极限是多少？（可填分数或小数）",
           answer: 0.75,
           solution:
-            "\\begin{gathered}\\lim_{x\\to0}\\frac{\\sin(3x)}{4x}=\\lim_{x\\to0}\\left(\\frac{\\sin(3x)}{3x}\\cdot\\frac{3}{4}\\right)=1\\cdot\\frac{3}{4}=\\frac{3}{4}=0.75\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to0}\\left(\\frac{\\sin 3x}{3x}\\cdot\\frac{3}{4}\\right)=\\frac{3}{4}\\end{gathered}",
           remediation:
             "给 sin(3x) 配上同角分母 3x，同时在旁边乘上系数比 3/4；当 x→0 时 (sin 3x)/(3x)→1，结果就是 3/4。",
           signFeedback:
@@ -1142,13 +1142,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "trig-ratio-scale",
     referenceAnswer: 2.5,
     solution:
-      "\\begin{gathered}\\lim_{x\\to0}\\frac{\\sin(5x)}{\\tan(2x)}=\\lim_{x\\to0}\\left(\\frac{\\sin(5x)}{5x}\\cdot\\frac{2x}{\\tan(2x)}\\cdot\\frac{5}{2}\\right)=1\\cdot1\\cdot\\frac{5}{2}=\\frac{5}{2}\\end{gathered}",
+      "\\begin{gathered}\\frac{\\sin 5x}{\\tan 2x}=\\frac{\\sin 5x}{5x}\\cdot\\frac{2x}{\\tan 2x}\\cdot\\frac{5}{2}\\\\ \\lim_{x\\to0}\\frac{\\sin 5x}{\\tan 2x}=\\frac{5}{2}\\end{gathered}",
     steps: [
       step(
         "p127-1",
         "第一步：分别给分子 sin(5x) 配上分母 5x、给分母 tan(2x) 配上分子 2x，拆出系数比",
         "分子 sin(5x) 和分母 tan(2x) 各自装着不同倍数的角，不能直接相约。办法是找自变量 x 当“中间标尺”：分子 sin(5x) 需要除以 5x 才能趋于 1；分母上的 tan(2x) 需要上面有一个 2x 跟它配成 (2x)/tan(2x) 才能趋于 1。把这两套标准装备同时配齐后，多出来的 5x 除以 2x 正好化简为一个常数分数。",
-        "\\frac{\\sin(5x)}{\\tan(2x)}=\\frac{\\sin(5x)}{5x}\\cdot\\frac{2x}{\\tan(2x)}\\cdot\\frac{5x}{2x}=\\frac{\\sin(5x)}{5x}\\cdot\\frac{2x}{\\tan(2x)}\\cdot\\frac{5}{2}",
+        "\\frac{\\sin 5x}{\\tan 2x}=\\frac{\\sin 5x}{5x}\\cdot\\frac{2x}{\\tan 2x}\\cdot\\frac{5}{2}",
         "用等价无穷小的眼光看更直观：当 x→0 时，分子 sin(5x) 像 5x 一样变化，分母 tan(2x) 像 2x 一样变化，两者同台对比，x 相互抵消。",
         {
           prompt: "将 sin(5x)/tan(2x) 拆分为 [(sin 5x)/(5x)] · [(2x)/(tan 2x)] · k 后，最后一项常数因子 k 是多少？",
@@ -1167,7 +1167,7 @@ export const chapterOneBatch01Drafts = {
         "p127-2",
         "第二步：令 x→0，把两个配好角的三角标准块都代成 1，算出最终比值",
         "当 x→0 时，5x→0 且 2x→0。第一个标准块 (sin 5x)/(5x) 的极限是 1；因为 (tan 2x)/(2x)→1，它的倒数块 (2x)/(tan 2x) 的极限也是 1。两个 1 相乘再乘上常数因子，就得到了答案。",
-        "\\lim_{x\\to0}\\left(\\frac{\\sin(5x)}{5x}\\cdot\\frac{2x}{\\tan(2x)}\\cdot\\frac{5}{2}\\right)=1\\cdot1\\cdot\\frac{5}{2}=\\frac{5}{2}=2.5",
+        "1\\cdot1\\cdot\\frac{5}{2}=\\frac{5}{2}=2.5",
         "由此可见，当 x→0 时，sin(ax) 与 tan(bx) 的比值极限同样等于它们内部角度的系数比 a/b。",
         {
           prompt: "当 x→0 时，两个三角标准块的极限均为 1，原极限的最终结果是多少？",
@@ -1186,7 +1186,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的同角配对策略计算：当 x 趋近 0 时，sin(6x)/tan(3x) 的极限是多少？",
           answer: 2,
           solution:
-            "\\begin{gathered}\\lim_{x\\to0}\\frac{\\sin(6x)}{\\tan(3x)}=\\lim_{x\\to0}\\left(\\frac{\\sin(6x)}{6x}\\cdot\\frac{3x}{\\tan(3x)}\\cdot\\frac{6}{3}\\right)=1\\cdot1\\cdot2=2\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to0}\\frac{\\sin 6x}{\\tan 3x}=\\frac{6}{3}=2\\end{gathered}",
           remediation:
             "分子 sin(6x) 配 6x，分母 tan(3x) 配 3x，极限就等于分子的角度系数 6 除以分母的角度系数 3。",
           signFeedback:
@@ -1205,13 +1205,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "half-angle-sine-square",
     referenceAnswer: 9,
     solution:
-      "\\begin{gathered}1-\\cos(6x)=2\\sin^2(3x)\\\\ \\lim_{x\\to0}\\frac{2\\sin^2(3x)}{x\\sin(2x)}=\\lim_{x\\to0}\\left[2\\cdot\\left(\\frac{\\sin 3x}{3x}\\right)^2\\cdot\\frac{2x}{\\sin 2x}\\cdot\\frac{9x^2}{2x^2}\\right]=2\\cdot1^2\\cdot1\\cdot\\frac{9}{2}=9\\end{gathered}",
+      "\\begin{gathered}1-\\cos 6x=2\\sin^2 3x\\\\ \\lim_{x\\to0}\\frac{2\\sin^2 3x}{x\\sin 2x}=\\frac{2\\cdot3^2}{2}=9\\end{gathered}",
     steps: [
       step(
         "p171-1",
         "第一步：用半角公式把分子中的“余弦差” 1−cos(6x) 换成正弦的平方",
         "在 x→0 时，直接面对 1−cos(6x) 没法立刻套用 (sin u)/u → 1。三角恒等式里有一把专门打开“1−cos(某角)”的万能钥匙：把角劈成一半，1−cos(2α) 恒等于 2sin²(α)。这里括号里的角是 6x，劈成一半就是 3x，分子立刻变成纯正弦的平方项！",
-        "1-\\cos(6x)=2\\sin^2\\left(\\frac{6x}{2}\\right)=2\\sin^2(3x)",
+        "1-\\cos(6x)=2\\sin^2(3x)",
         "这一换非常关键：它不仅把余弦变成了正弦，还清晰地暴露出分子其实是关于 x 的“二阶小量”（因为带有平方），恰好能和分母上的 x·sin(2x)（也是两个一阶小量相乘）平起平坐。",
         {
           prompt: "利用半角公式 1 − cos(2α) = 2 sin²(α)，分子 1 − cos(6x) 可以恒等变形为什么？",
@@ -1230,7 +1230,7 @@ export const chapterOneBatch01Drafts = {
         "p171-2",
         "第二步：给分子的 sin²(3x) 配上 (3x)²，给分母的 sin(2x) 配上 2x，约去 x² 算出极限",
         "现在分子是 2sin²(3x)：因为正弦带了平方，它需要配的分母也必须带平方，即 (3x)²=9x²。分母上是 x·sin(2x)，其中 sin(2x) 需要配 2x，合起来分母相当于 2x²。把标准块 [(sin 3x)/(3x)]² 和 (2x)/sin(2x) 分离出来后，剩下的纯代数比值就是 2·(9x²)/(2x²)。",
-        "\\frac{2\\sin^2(3x)}{x\\sin(2x)}=2\\cdot\\left(\\frac{\\sin 3x}{3x}\\right)^2\\cdot\\frac{2x}{\\sin 2x}\\cdot\\frac{9x^2}{2x^2}\\to 2\\cdot1^2\\cdot1\\cdot\\frac{9}{2}=9",
+        "\\begin{gathered}\\left(\\frac{\\sin 3x}{3x}\\right)^2\\cdot\\frac{2x}{\\sin 2x}\\cdot\\frac{18x^2}{2x^2}\\\\ \\longrightarrow 1^2\\cdot1\\cdot9=9\\end{gathered}",
         "也可以用等价无穷小快速验算：当 x→0 时，2sin²(3x) ∼ 2·(3x)² = 18x²，分母 x·sin(2x) ∼ x·(2x) = 2x²，两者相除 18x²/(2x²) = 9。",
         {
           prompt: "配齐同角并约去 x² 后，令 x→0 求得的最终极限是多少？",
@@ -1249,7 +1249,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的半角转化与配角策略计算：当 x 趋近 0 时，[1−cos(4x)]/[x·sin(2x)] 的极限是多少？",
           answer: 4,
           solution:
-            "\\begin{gathered}1-\\cos(4x)=2\\sin^2(2x)\\\\ \\lim_{x\\to0}\\frac{2\\sin^2(2x)}{x\\sin(2x)}=\\lim_{x\\to0}\\left(2\\cdot\\frac{\\sin 2x}{2x}\\cdot2\\right)=4\\end{gathered}",
+            "\\begin{gathered}1-\\cos 4x=2\\sin^2 2x\\\\ \\lim_{x\\to0}\\frac{2\\sin 2x}{x}=4\\end{gathered}",
           remediation:
             "先把分子 1−cos(4x) 按角减半写成 2sin²(2x)，正好和分母里的 sin(2x) 约掉一个 sin(2x)，剩下 2sin(2x)/x，再配角得 2×2=4。",
           signFeedback:
@@ -1267,13 +1267,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "tan-split-scale",
     solution:
-      "\\begin{gathered}\\lim_{x\\to0}\\frac{\\tan(5x)}{2x}=\\lim_{x\\to0}\\left(\\frac{\\sin(5x)}{5x}\\cdot\\frac{1}{\\cos(5x)}\\cdot\\frac{5}{2}\\right)=1\\cdot1\\cdot\\frac{5}{2}=\\frac{5}{2}\\end{gathered}",
+      "\\begin{gathered}\\frac{\\tan 5x}{2x}=\\frac{\\sin 5x}{5x}\\cdot\\frac{1}{\\cos 5x}\\cdot\\frac{5}{2}\\\\ \\lim_{x\\to0}\\frac{\\tan 5x}{2x}=\\frac{5}{2}\\end{gathered}",
     steps: [
       step(
         "jc935-1-6-1-2-1",
         "第一步：把正切拆成正弦除以余弦，并给正弦配齐同角分母 5x",
         "遇到正切函数 tan(5x) 在 x→0 处的极限，最稳妥的基本功是利用 tan u = (sin u)/(cos u) 把它还原成正弦和余弦。拆开后，分子上的 sin(5x) 需要一个同角分母 5x 才能凑成第一重要极限，分母上多出来的 cos(5x) 单独放成一块 1/cos(5x)，最后把原本的分母 2x 与新配的 5x 换算成常数比。",
-        "\\frac{\\tan(5x)}{2x}=\\frac{\\sin(5x)}{5x}\\cdot\\frac{1}{\\cos(5x)}\\cdot\\frac{5}{2}\\quad(x\\ne0)",
+        "\\frac{\\tan 5x}{2x}=\\frac{\\sin 5x}{5x}\\cdot\\frac{1}{\\cos 5x}\\cdot\\frac{5}{2}",
         "这样原式就被拆成了三个清晰因子的乘积：标准正弦重要极限块、余弦倒数块、以及常数系数比。",
         {
           prompt: "将 tan(5x)/(2x) 按 tan(5x)=sin(5x)/cos(5x) 拆开并配角后，得到的三个乘积因子是什么？",
@@ -1299,7 +1299,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-6-1-2-2",
         "第二步：分别代入 (sin 5x)/(5x)→1 与 cos(5x)→1，算出最终极限",
         "当 x→0 时，角 5x→0。第一块 (sin 5x)/(5x) 由第一重要极限趋于 1；第二块里 cos(0)=1，所以 1/cos(5x) 也趋于 1/1=1。两块都变成 1 后，乘积就等于第三块的常数因子。",
-        "\\lim_{x\\to0}\\left(\\frac{\\sin(5x)}{5x}\\cdot\\frac{1}{\\cos(5x)}\\cdot\\frac{5}{2}\\right)=1\\cdot\\frac{1}{1}\\cdot\\frac{5}{2}=\\frac{5}{2}",
+        "1\\cdot\\frac{1}{1}\\cdot\\frac{5}{2}=\\frac{5}{2}",
         "这也顺带证明了常用推论：当 u→0 时，(tan u)/u 的极限和 (sin u)/u 一样都是 1。",
         {
           prompt: "当 x→0 时，结合 cos(5x)→1 与第一重要极限，原式的极限等于多少？",
@@ -1318,7 +1318,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的拆正切配角策略计算：当 x 趋近 0 时，tan(7x)/(2x) 的极限是多少？（可填分数或小数）",
           answer: 3.5,
           solution:
-            "\\begin{gathered}\\lim_{x\\to0}\\frac{\\tan(7x)}{2x}=\\lim_{x\\to0}\\left(\\frac{\\sin(7x)}{7x}\\cdot\\frac{1}{\\cos(7x)}\\cdot\\frac{7}{2}\\right)=1\\cdot1\\cdot\\frac{7}{2}=3.5\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to0}\\frac{\\tan 7x}{2x}=\\frac{7}{2}=3.5\\end{gathered}",
           remediation:
             "把 tan(7x) 拆成 sin(7x)/cos(7x)，给 sin(7x) 配分母 7x，旁边乘上 7/2；当 x→0 时前两块都趋于 1，极限就是 7/2=3.5。",
           signFeedback:
@@ -1336,13 +1336,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "euler",
     solution:
-      "\\begin{gathered}\\lim_{x\\to0}(1+4x)^{\\frac{2}{x}}=\\lim_{x\\to0}\\left[(1+4x)^{\\frac{1}{4x}}\\right]^8=e^8\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to0}\\left[(1+4x)^{\\frac{1}{4x}}\\right]^8=e^8\\end{gathered}",
     steps: [
       step(
         "jc935-1-6-2-2-1",
         "第一步：锁定底数中趋向 0 的小量 u=4x，在指数上配出它的倒数 1/(4x)",
         "当 x→0 时，底数 1+4x→1，指数 2/x→∞，这是典型的 1^∞ 型指数极限。第二重要极限 lim_{u→0} (1+u)^(1/u) = e 的配对口诀是：“底数一加谁，指数就得先配谁的倒数”。这里底数在 1 后面加的是 4x，所以指数必须先凑出它的倒数 1/(4x)，再算出外面还要乘几才能还原回原来的指数 2/x。",
-        "\\frac{2}{x}=\\frac{1}{4x}\\cdot k\\implies k=4x\\cdot\\frac{2}{x}=8",
+        "\\frac{2}{x}=\\frac{1}{4x}\\cdot8",
         "检验一下：[1/(4x)] × 8 = 8/(4x) = 2/x，指数恒等变形完全等价。",
         {
           prompt: "把原指数 2/x 改写为标准倒数 [1/(4x)] 与常数 k 的乘积时，外层指数常数 k 是多少？",
@@ -1380,7 +1380,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的指数配倒数策略求解：若 x 趋近 0 时 (1+3x)^(5/x) 的极限等于 e^k，则指数 k 的值是多少？",
           answer: 15,
           solution:
-            "\\begin{gathered}\\lim_{x\\to0}(1+3x)^{\\frac{5}{x}}=\\lim_{x\\to0}\\left[(1+3x)^{\\frac{1}{3x}}\\right]^{15}=e^{15}\\implies k=15\\end{gathered}",
+            "\\begin{gathered}\\frac{5}{x}=\\frac{1}{3x}\\cdot15,\\quad k=15\\end{gathered}",
           remediation:
             "底数趋零项是 u=3x，给指数配出倒数 1/(3x)，外层指数 k = (3x)×(5/x) = 3×5。",
           signFeedback:
@@ -1399,13 +1399,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "power-factor-ratio",
     referenceAnswer: 0.25,
     solution:
-      "\\begin{gathered}1-x^4=(1-x)(1+x+x^2+x^3)\\\\ \\lim_{x\\to1}\\frac{1-x}{1-x^4}=\\lim_{x\\to1}\\frac{1}{1+x+x^2+x^3}=\\frac{1}{1+1+1+1}=\\frac{1}{4}\\end{gathered}",
+      "\\begin{gathered}1-x^4=(1-x)(1+x+x^2+x^3)\\\\ \\lim_{x\\to1}\\frac{1}{1+x+x^2+x^3}=\\frac{1}{4}\\end{gathered}",
     steps: [
       step(
         "p172-1",
         "第一步：把分母 1−x⁴ 因式分解，揪出和分子一模一样的趋零因子 (1−x)",
         "当 x→1 时，分子 1−x 和分母 1−x⁴ 都趋于 0。想比较它们谁大谁小，就要把分母里的 (1−x) 拆出来。你可以连用两次平方差公式：先把 1−x⁴ 拆成 (1−x²)(1+x²)，再把 1−x² 拆成 (1−x)(1+x)；把后两个括号 (1+x)(1+x²) 展开，就得到齐整的四项和 1+x+x²+x³。",
-        "1-x^4=(1-x^2)(1+x^2)=(1-x)(1+x)(1+x^2)=(1-x)(1+x+x^2+x^3)",
+        "\\begin{gathered}1-x^4=(1-x^2)(1+x^2)\\\\ =(1-x)(1+x+x^2+x^3)\\end{gathered}",
         "现在分子和分母都有了 (1−x)，在 x→1（x≠1）时把它们约掉，分子变成 1，分母只留下不含零因子的四项。",
         {
           prompt: "对 x≠1，将 (1−x)/(1−x⁴) 约去公因式 (1−x) 后，化简得到的分式是什么？",
@@ -1431,7 +1431,7 @@ export const chapterOneBatch01Drafts = {
         "p172-2",
         "第二步：把 x=1 代入分母留下的四项，求和算出极限比值",
         "约分之后，分母里的 1、x、x²、x³ 在 x→1 时全都趋近于 1！四个 1 加在一起，分母就稳稳地趋于 4，而分子是 1，比值一目了然。",
-        "\\lim_{x\\to1}\\frac{1}{1+x+x^2+x^3}=\\frac{1}{1+1+1+1}=\\frac{1}{4}=0.25",
+        "\\frac{1}{1+1+1+1}=\\frac{1}{4}=0.25",
         "直观来看：在 x=1 附近，1−x⁴ 的变化跨度大约是 1−x 的 4 倍，所以 (1−x) 比上 (1−x⁴) 就趋于 1/4。",
         {
           prompt: "将 x=1 代入上一问约分后的分式，最终求得的极限值是多少？",
@@ -1450,7 +1450,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的因式分解约分策略计算：当 x 趋近 1 时，(1−x)/(1−x⁵) 的极限是多少？（可填分数或小数）",
           answer: 0.2,
           solution:
-            "\\begin{gathered}1-x^5=(1-x)(1+x+x^2+x^3+x^4)\\\\ \\lim_{x\\to1}\\frac{1-x}{1-x^5}=\\lim_{x\\to1}\\frac{1}{1+x+x^2+x^3+x^4}=\\frac{1}{5}=0.2\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to1}\\frac{1}{1+x+x^2+x^3+x^4}\\\\ =\\frac{1}{5}=0.2\\end{gathered}",
           remediation:
             "把分母 1−x⁵ 拆成 (1−x)(1+x+x²+x³+x⁴)，约去 (1−x) 后分母共有 5 项，代入 x=1 得 1/5=0.2。",
           signFeedback:
@@ -1468,13 +1468,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "discontinuity-classify",
     solution:
-      "\\begin{gathered}\\lim_{x\\to3}f(x)=\\lim_{x\\to3}\\frac{x+3}{x-4}=-6\\\\ \\lim_{x\\to4}|f(x)|=+\\infty\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to3}f(x)=-6\\\\ \\lim_{x\\to4}|f(x)|=+\\infty\\end{gathered}",
     steps: [
       step(
         "jc935-1-8-3-1-1",
         "第一步：分解分子 x²−9，在 x≠3 且 x≠4 时约去公共因子，化简邻域表达式",
         "原函数 f(x)=(x²−9)/[(x−3)(x−4)] 的分母在 x=3 和 x=4 处都等于 0，所以这两个点在图像上都是“断掉”的无定义点。为了看清这两个断点附近到底发生了什么，我们先把分子 x²−9 按平方差拆成 (x−3)(x+3)：你会发现 (x−3) 可以和分母约掉，而 (x−4) 则顽固地留在了分母上。",
-        "f(x)=\\frac{(x-3)(x+3)}{(x-3)(x-4)}=\\frac{x+3}{x-4}\\quad(x\\ne3,\\,x\\ne4)",
+        "\\begin{gathered}f(x)=\\frac{(x-3)(x+3)}{(x-3)(x-4)}\\\\ =\\frac{x+3}{x-4}\\quad(x\\ne3,4)\\end{gathered}",
         "千万记住：约掉 (x−3) 只是简化了 x=3 附近的表达式，原函数在 x=3 处依然没有定义（图像上是一个空心小圆洞）。",
         {
           prompt: "对 x≠3 且 x≠4，将 f(x)=(x²−9)/[(x−3)(x−4)] 约去公因式后，邻近点处的简化表达式是什么？",
@@ -1500,7 +1500,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-8-3-1-2",
         "第二步：考察 x→3 时的极限，判定可去间断点并给出补洞的函数值",
         "先看 x=3 这个断点：当 x 无限靠近 3（但不等于 3）时，可以用刚才化简的式子 (x+3)/(x−4) 求极限。此时分母 3−4=−1≠0，算出来是一个有限的实数！这说明图像在 x=3 处只是缺了一个点（空心洞），属于“可去间断点”，只要把 f(3) 补成这个极限值，洞就被填平了。",
-        "\\lim_{x\\to3}f(x)=\\lim_{x\\to3}\\frac{x+3}{x-4}=\\frac{3+3}{3-4}=-6\\implies\\text{可去间断，补 }f(3)=-6",
+        "\\begin{gathered}\\lim_{x\\to3}\\frac{x+3}{x-4}=\\frac{6}{-1}=-6\\\\ f(3)=-6\\end{gathered}",
         "只有当双侧极限存在且为有限数时，才能通过补充定义该点的函数值来消除间断。",
         {
           prompt: "当 x→3 时 f(x) 的极限是多少？据此判断 x=3 属于哪种间断点、应补什么值？",
@@ -1526,7 +1526,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-8-3-1-3",
         "第三步：考察 x→4 时残留分母趋于 0 的行为，判定无穷间断点",
         "再看第二个断点 x=4：在化简后的式子 (x+3)/(x−4) 里，当 x→4 时，分子趋于 4+3=7（非零常数），而残留的分母 x−4 却趋于 0！一个接近 7 的数除以越来越接近 0 的数，绝对值会冲向正无穷大（像竖直渐近线一样往上或往下飞走），这种没有办法靠补一个点接上的断点就叫“无穷间断点”。",
-        "\\lim_{x\\to4}|f(x)|=\\lim_{x\\to4}\\left|\\frac{x+3}{x-4}\\right|=+\\infty\\implies x=4\\text{ 为无穷间断点}",
+        "\\lim_{x\\to4}\\left|\\frac{x+3}{x-4}\\right|=+\\infty",
         "总结对比：被分子约掉零因子的 x=3 是“洞”（可去间断），没被约掉零因子的 x=4 是“极点/竖直渐近线”（无穷间断）。",
         {
           prompt: "当 x→4 时，化简式 (x+3)/(x−4) 的分子趋于 7、分母趋于 0，因此 x=4 是什么类型的间断点？",
@@ -1552,7 +1552,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的约分判别策略求解：设 h(x)=(x²−4)/[(x−2)(x−3)]，它在 x=3 处为无穷间断点，而在可去间断点 x=2 处应当补充定义 h(2) 等于多少才能使 h 在 x=2 处连续？",
           answer: -4,
           solution:
-            "\\begin{gathered}h(x)=\\frac{(x-2)(x+2)}{(x-2)(x-3)}=\\frac{x+2}{x-3}\\quad(x\\ne2,3)\\\\ h(2)=\\lim_{x\\to2}\\frac{x+2}{x-3}=\\frac{2+2}{2-3}=-4\\end{gathered}",
+            "\\begin{gathered}h(x)=\\frac{x+2}{x-3}\\quad(x\\ne2,3)\\\\ h(2)=\\frac{2+2}{2-3}=-4\\end{gathered}",
           remediation:
             "对 h(x)=(x²−4)/[(x−2)(x−3)]，先把分子拆成 (x−2)(x+2)，约去 (x−2) 得 (x+2)/(x−3)，再把 x=2 代入算出需要修补的极限值。",
           signFeedback:
@@ -1570,13 +1570,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "piecewise-jump-check",
     solution:
-      "\\begin{gathered}\\lim_{x\\to2^-}f(x)=2(2)-4=0=f(2)\\\\ \\lim_{x\\to2^+}f(x)=5-2=3\\ne0\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to2^-}f(x)=0=f(2)\\\\ \\lim_{x\\to2^+}f(x)=3\\ne0\\end{gathered}",
     steps: [
       step(
         "jc935-1-8-3-4-1",
         "第一步：分别从左边（x<2）和右边（x>2）走向分界点 x=2，算出左右单侧极限",
         "分段函数在分界点 x=2 两侧走的是两条不同的公式轨道：从左边靠近 2（记作 x→2⁻，此时 x<2）走的是第一段 2x−4；从右边靠近 2（记作 x→2⁺，此时 x>2）走的是第二段 5−x。把 x=2 分别代入这两段公式，就能量出左右两边走到接缝处的各自高度。",
-        "\\lim_{x\\to2^-}f(x)=\\lim_{x\\to2^-}(2x-4)=2(2)-4=0,\\quad\\lim_{x\\to2^+}f(x)=\\lim_{x\\to2^+}(5-x)=5-2=3",
+        "\\begin{gathered}\\lim_{x\\to2^-}f(x)=2(2)-4=0\\\\ \\lim_{x\\to2^+}f(x)=5-2=3\\end{gathered}",
         "左边走到接缝时高度是 0，右边走到接缝时高度是 3，两边都是有限数，但高度差了 3 格。",
         {
           prompt: "当 x 分别从左侧和右侧趋近于分界点 2 时，左极限 f(2⁻) 和右极限 f(2⁺) 分别是多少？",
@@ -1602,7 +1602,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-8-3-4-2",
         "第二步：对比左右极限与点值 f(2)，判定间断类型和单侧连续方向",
         "因为左极限 0 和右极限 3 都是有限常数，但 0≠3，图像在 x=2 处突然往上“跳”了 3 格，这种断点叫做“跳跃间断点”。接着看实心点落在哪一边：等号 x≤2 写在左分支上，所以真实函数值 f(2)=2(2)−4=0，恰好等于左极限！因此函数在 x=2 处是“左连续”的（但不是右连续，因而不连续）。",
-        "\\lim_{x\\to2^-}f(x)=0\\ne\\lim_{x\\to2^+}f(x)=3\\implies\\text{跳跃间断};\\quad f(2)=0=\\lim_{x\\to2^-}f(x)\\implies\\text{左连续}",
+        "\\begin{gathered}f(2^-)=0\\ne f(2^+)=3\\\\ f(2)=0=f(2^-)\\end{gathered}",
         "图像上，左半条直线在 (2, 0) 处以实心点收尾，右半条射线在 (2, 3) 处从空心点出发。",
         {
           prompt: "综合左右极限（0 与 3）以及 f(2)=0，函数在 x=2 处的间断类型与单侧连续情况是什么？",
@@ -1628,7 +1628,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的左右极限分析法计算：设分段函数 g(x) 在 x≤1 时为 3x−1，在 x>1 时为 x+5，求它在跳跃间断点 x=1 处的右极限与左极限之差 g(1⁺)−g(1⁻)。",
           answer: 4,
           solution:
-            "\\begin{gathered}g(1^-)=3(1)-1=2,\\quad g(1^+)=1+5=6\\\\ g(1^+)-g(1^-)=6-2=4\\end{gathered}",
+            "\\begin{gathered}g(1^-)=2,\\quad g(1^+)=6\\\\ g(1^+)-g(1^-)=4\\end{gathered}",
           remediation:
             "先把 x=1 代入左分支 3x−1 算出左极限 g(1⁻)=2，再把 x=1 代入右分支 x+5 算出右极限 g(1⁺)=6，最后用右极限减去左极限算出跳跃高度。",
           signFeedback:
@@ -1647,13 +1647,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "match-branches",
     referenceAnswer: 3,
     solution:
-      "\\begin{gathered}\\lim_{x\\to0^-}f(x)=\\lim_{x\\to0^-}3e^x=3e^0=3\\\\ \\lim_{x\\to0^+}f(x)=f(0)=a+2(0)=a\\implies a=3\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to0^-}3e^x=3e^0=3\\\\ f(0)=a+2(0)=a=3\\end{gathered}",
     steps: [
       step(
         "p173-1",
         "第一步：先沿左半段（x<0）走到接缝 x=0，算出左边轨道的终点高度",
         "把分段函数想象成在 x=0 处拼接的两段滑梯。左边那段（x<0）的公式是 3e^x，不管右边的参数 a 是多少，左边滑梯走到接缝 x=0 时的高度都已经固定了。我们先把 x=0 代入 3e^x，算出左边在接缝处的左极限。",
-        "\\lim_{x\\to0^-}f(x)=\\lim_{x\\to0^-}3e^x=3e^0=3\\times1=3",
+        "\\lim_{x\\to0^-}3e^x=3e^0=3",
         "注意指数小陷阱：e^0 等于 1 而不是 0，所以 3 乘以 e^0 等于 3。",
         {
           prompt: "当 x 从左侧趋近于 0（x→0⁻）时，左分支 3e^x 趋近于多少？",
@@ -1672,7 +1672,7 @@ export const chapterOneBatch01Drafts = {
         "p173-2",
         "第二步：算出右半段（x≥0）在 x=0 处的起点高度，令左右高度相等解出 a",
         "再看右边那段滑梯（x≥0）：公式是 a+2x。把 x=0 代入，右边在接缝 x=0 处的起点高度（也是右极限和函数值 f(0)）就是 a+2×0=a。要让两段滑梯在 x=0 处严丝合缝地接上、不留台阶，右边的高度就必须等于第一步算出的左边高度。",
-        "\\lim_{x\\to0^+}f(x)=f(0)=a+2(0)=a,\\quad\\text{由连续性 }a=\\lim_{x\\to0^-}f(x)=3",
+        "\\begin{gathered}f(0)=a+2(0)=a\\\\ a=\\lim_{x\\to0^-}f(x)=3\\end{gathered}",
         "令左右两侧在 x=0 处的极限相等，立得 a=3。",
         {
           prompt: "把 x=0 代入右分支 a+2x 并令它与左极限相等，解出的参数 a 是多少？",
@@ -1691,7 +1691,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的接缝对齐策略求解：设分段函数 f(x) 在 x<0 时为 5e^x，在 x≥0 时为 a+4x，若 f 在 x=0 处连续，求 a 的值。",
           answer: 5,
           solution:
-            "\\begin{gathered}\\lim_{x\\to0^-}5e^x=5e^0=5,\\quad f(0)=a+4(0)=a\\implies a=5\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to0^-}5e^x=5\\\\ f(0)=a=5\\end{gathered}",
           remediation:
             "先算 x→0⁻ 时左分支 5e^x 的极限 5e^0=5，再算 x=0 时右分支 a+4x 的值 a，令两者相等即可。",
           signFeedback:
@@ -1710,13 +1710,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "ivt-endpoint",
     referenceAnswer: 22,
     solution:
-      "\\begin{gathered}f(2)=2^5-4\\times2-2=32-8-2=22\\\\ f(1)=-5<0,\\;f(2)=22>0\\end{gathered}",
+      "\\begin{gathered}f(2)=2^5-4\\times2-2\\\\ =32-8-2=22\\end{gathered}",
     steps: [
       step(
         "p174-1",
         "第一步：把 x=2 分别代入五次项 x⁵ 与一次项 4x，算出各部分的数值",
         "本题要求直接算出右端点 x=2 处的函数值 f(2)。先把 x=2 代入 f(x)=x⁵−4x−2 的前两项，分别算出五次幂 2⁵ 和一次项 4×2 的值，避免高次幂与乘法混算出错。",
-        "2^5=2\\times2\\times2\\times2\\times2,\\quad 4\\times2",
+        "2^5=32,\\quad 4\\times2=8",
         "五个 2 连乘得到五次项的值，4 乘以 2 得到一次项被减去的数。",
         {
           prompt: "把 x=2 代入 x⁵ 和 4x 时，这两项的值分别是多少？",
@@ -1761,7 +1761,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的端点代入法计算：设 g(x)=x⁴−3x−1（已知 g(1)=−3<0），求 x=2 处的函数值 g(2)。",
           answer: 9,
           solution:
-            "\\begin{gathered}g(2)=2^4-3\\times2-1=16-6-1=9>0\\end{gathered}",
+            "\\begin{gathered}g(2)=2^4-3\\times2-1\\\\ =16-6-1=9\\end{gathered}",
           remediation:
             "把 x=2 代入 g(x)=x⁴−3x−1：先算 2⁴=16，再算 3×2=6，最后算 16−6−1。",
           signFeedback:
@@ -1780,13 +1780,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "squeeze-bounds",
     referenceAnswer: 3,
     solution:
-      "\\begin{gathered}3-\\frac{1}{n}\\le3+\\frac{\\cos n}{n}\\le3+\\frac{1}{n}\\\\ \\lim_{n\\to\\infty}\\left(3\\pm\\frac{1}{n}\\right)=3\\implies\\lim_{n\\to\\infty}\\left(3+\\frac{\\cos n}{n}\\right)=3\\end{gathered}",
+      "\\begin{gathered}3-\\frac{1}{n}\\le3+\\frac{\\cos n}{n}\\le3+\\frac{1}{n}\\\\ \\lim_{n\\to\\infty}\\left(3+\\frac{\\cos n}{n}\\right)=3\\end{gathered}",
     steps: [
       step(
         "p39-1",
         "第一步：利用余弦函数的有界性 [−1, 1]，给整个数列套上显式的下界和上界",
         "当 n→∞ 时，分子上的 cos n 一直在 −1 和 1 之间来回摇摆，本身没有固定极限。但别怕！因为它最矮不会低于 −1、最高不会超过 1，只要除以正整数 n 再加上 3，整个数列就被稳稳地夹在“3 减去 1/n”和“3 加上 1/n”这两条边界轨道之间了。",
-        "-1\\le\\cos n\\le1\\implies 3-\\frac{1}{n}\\le3+\\frac{\\cos n}{n}\\le3+\\frac{1}{n}\\quad(n\\ge1)",
+        "3-\\frac{1}{n}\\le3+\\frac{\\cos n}{n}\\le3+\\frac{1}{n}",
         "这样一来，不管 cos n 怎么晃动，它造成的误差幅度 |(cos n)/n| 都不会超过 1/n。",
         {
           prompt: "利用 −1 ≤ cos n ≤ 1，当 n ≥ 1 时，可以将 3 + (cos n)/n 夹在哪两个上下界之间？",
@@ -1812,7 +1812,7 @@ export const chapterOneBatch01Drafts = {
         "p39-2",
         "第二步：令 n→∞，由下界与上界共同收敛到同一常数得出数列极限",
         "现在看左右两条边界轨道：当 n 越来越大趋向无穷时，误差项 1/n 越来越小趋向于 0。于是左边下界和右边上界都收敛到同一个常数，夹在中间的数列无处可逃，只能跟着收敛到同一个极限。",
-        "\\lim_{n\\to\\infty}\\left(3-\\frac{1}{n}\\right)=3-0=3,\\quad\\lim_{n\\to\\infty}\\left(3+\\frac{1}{n}\\right)=3+0=3",
+        "\\lim_{n\\to\\infty}\\left(3\\pm\\frac{1}{n}\\right)=3",
         "由夹逼定理（或“有界函数乘无穷小量仍是无穷小量”），(cos n)/n→0，整体极限即为 3。",
         {
           prompt: "当 n→∞ 时，上下界中的 1/n → 0，由夹逼定理可知原数列的极限是多少？",
@@ -1831,7 +1831,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的有界夹逼策略计算：当 n 趋向无穷大时，5 + (sin n)/n 的极限是多少？",
           answer: 5,
           solution:
-            "\\begin{gathered}5-\\frac{1}{n}\\le5+\\frac{\\sin n}{n}\\le5+\\frac{1}{n}\\\\ \\lim_{n\\to\\infty}\\left(5\\pm\\frac{1}{n}\\right)=5\\implies\\lim_{n\\to\\infty}\\left(5+\\frac{\\sin n}{n}\\right)=5\\end{gathered}",
+            "\\begin{gathered}5-\\frac{1}{n}\\le5+\\frac{\\sin n}{n}\\le5+\\frac{1}{n}\\\\ \\lim_{n\\to\\infty}\\left(5+\\frac{\\sin n}{n}\\right)=5\\end{gathered}",
           remediation:
             "因为 −1 ≤ sin n ≤ 1，当 n→∞ 时波动项 (sin n)/n 被 ±1/n 夹逼趋于 0，只剩下前面的常数项 5。",
           signFeedback:
@@ -1850,13 +1850,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "leading-term",
     referenceAnswer: 3 / 7,
     solution:
-      "\\begin{gathered}\\lim_{x\\to\\infty}\\frac{3x^2-5}{7x^2+2}=\\lim_{x\\to\\infty}\\frac{3-\\frac{5}{x^2}}{7+\\frac{2}{x^2}}=\\frac{3-0}{7+0}=\\frac{3}{7}\\end{gathered}",
+      "\\begin{gathered}\\lim_{x\\to\\infty}\\frac{3-5/x^2}{7+2/x^2}=\\frac{3}{7}\\end{gathered}",
     steps: [
       step(
         "p169-1",
         "第一步：找出分子和分母共同的最高次幂 x²，把上下每一项都除以 x²",
         "当 x→∞ 时，分子 3x²−5 和分母 7x²+2 都冲向无穷大（∞/∞ 型）。想看清谁占主导，就像把镜头拉远：分子和分母里跑得最快的主角都是二次项 x²。我们给分子和分母同时除以最高次幂 x²，把主角变成常数，把后面的常数 −5 和 +2 变成带分母 x² 的小尾巴。",
-        "\\frac{3x^2-5}{7x^2+2}=\\frac{3-\\frac{5}{x^2}}{7+\\frac{2}{x^2}}\\quad(x\\ne0)",
+        "\\frac{3x^2-5}{7x^2+2}=\\frac{3-5/x^2}{7+2/x^2}",
         "这样变形后，分子和分母都不再趋于无穷大，而是各自变成了“常数 + 无穷小量”的稳定结构。",
         {
           prompt: "对 x≠0，将分式 (3x²−5)/(7x²+2) 的分子和分母同时除以最高次幂 x² 后，得到什么式子？",
@@ -1882,7 +1882,7 @@ export const chapterOneBatch01Drafts = {
         "p169-2",
         "第二步：令 x→∞，把所有分母带 x² 的尾项归零，得出最高次项系数之比",
         "当 x 变得极其巨大（x→∞）时，x² 更是天文数字，固定常数 5 和 2 除以 x² 都会缩成 0。把这些趋于 0 的小尾巴抹掉，画面中央就只剩下分子和分母最高次项的系数之比。",
-        "\\lim_{x\\to\\infty}\\frac{3-\\frac{5}{x^2}}{7+\\frac{2}{x^2}}=\\frac{3-0}{7+0}=\\frac{3}{7}",
+        "\\frac{3-0}{7+0}=\\frac{3}{7}",
         "记住口诀：当 x→∞ 且分子分母最高次数相同时，有理分式的极限就等于“抓大头”——最高次项的系数之比。",
         {
           prompt: "当 x→∞ 时，5/x² → 0 且 2/x² → 0，该分式的最终极限是多少？",
@@ -1901,7 +1901,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的最高次项系数比策略计算：当 x 趋向无穷大时，(4x²−9)/(5x²+1) 的极限是多少？（可填分数或小数）",
           answer: 0.8,
           solution:
-            "\\begin{gathered}\\lim_{x\\to\\infty}\\frac{4x^2-9}{5x^2+1}=\\lim_{x\\to\\infty}\\frac{4-\\frac{9}{x^2}}{5+\\frac{1}{x^2}}=\\frac{4}{5}=0.8\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to\\infty}\\frac{4-9/x^2}{5+1/x^2}=\\frac{4}{5}\\end{gathered}",
           remediation:
             "分子分母同除以最高次幂 x²，当 x→∞ 时 −9/x²→0、1/x²→0，只剩 x² 的系数之比 4/5=0.8。",
           signFeedback:
@@ -1920,13 +1920,13 @@ export const chapterOneBatch01Drafts = {
     strategy: "arithmetic-sum-limit",
     referenceAnswer: 1 / 6,
     solution:
-      "\\begin{gathered}1+2+\\cdots+(n-1)=\\frac{n(n-1)}{2}\\\\ \\lim_{n\\to\\infty}\\frac{n(n-1)}{6n^2}=\\lim_{n\\to\\infty}\\frac{1-\\frac{1}{n}}{6}=\\frac{1}{6}\\end{gathered}",
+      "\\begin{gathered}1+2+\\cdots+(n-1)=\\frac{n(n-1)}{2}\\\\ \\lim_{n\\to\\infty}\\frac{1-1/n}{6}=\\frac{1}{6}\\end{gathered}",
     steps: [
       step(
         "p170-1",
         "第一步：先用高斯首尾配对法把分子的省略号长串和式合并成一个紧凑公式",
         "一个经典的易错点是：看到 1/(3n²)→0、2/(3n²)→0……就误以为加起来也是 0。错在项数 (n−1) 也在跟着 n 变成无穷多项，“无穷多个无穷小加起来”不能直接拆项！正确做法是先把分子 1+2+…+(n−1) 的总和算出来：首项 1 加末项 (n−1) 等于每对的和 n，再乘上总项数 (n−1) 并除以 2，就能写出分子的闭式和。",
-        "1+2+\\cdots+(n-1)=\\frac{[1+(n-1)](n-1)}{2}=\\frac{n(n-1)}{2}",
+        "1+2+\\cdots+(n-1)=\\frac{n(n-1)}{2}",
         "把分子的求和公式代入原分式，分子分母同时消去省略号，变成规整的二次有理式 n(n−1)/(6n²)。",
         {
           prompt: "利用等差数列“（首项+末项）×项数÷2”，分子 1 + 2 + … + (n−1) 的总和等于什么？",
@@ -1952,7 +1952,7 @@ export const chapterOneBatch01Drafts = {
         "p170-2",
         "第二步：把求和后的分式上下同除以 n²，令 1/n→0 算出最终极限",
         "现在把分子 n(n−1)/2 放回分母 3n² 上，整个分式就是 n(n−1)/(6n²)。把分子展开成 n²−n，或者直接上下同除以最高次幂 n²，分式就化成了只含 1/n 的简单式子。当 n→∞ 时，1/n 趋于 0，常数比值就留下来了。",
-        "\\frac{n(n-1)}{2\\cdot3n^2}=\\frac{n^2-n}{6n^2}=\\frac{1-\\frac{1}{n}}{6}\\xrightarrow{n\\to\\infty}\\frac{1-0}{6}=\\frac{1}{6}",
+        "\\frac{n(n-1)}{6n^2}=\\frac{1-1/n}{6}\\to\\frac{1}{6}",
         "看最高次项也很清楚：分子展开后的主项是 (1/2)n²，分母是 3n²，系数相除 (1/2)÷3 = 1/6。",
         {
           prompt: "将求和公式代入原式并令 n→∞ 后，最终求得的极限值是多少？",
@@ -1971,7 +1971,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的先求和再比最高次项策略计算：当 n 趋向无穷大时，[1+2+…+(n−1)]/(2n²) 的极限是多少？（可填分数或小数）",
           answer: 0.25,
           solution:
-            "\\begin{gathered}\\lim_{n\\to\\infty}\\frac{1+2+\\cdots+(n-1)}{2n^2}=\\lim_{n\\to\\infty}\\frac{n(n-1)}{4n^2}=\\lim_{n\\to\\infty}\\frac{1-\\frac{1}{n}}{4}=\\frac{1}{4}=0.25\\end{gathered}",
+            "\\begin{gathered}\\lim_{n\\to\\infty}\\frac{n(n-1)}{4n^2}=\\frac{1}{4}=0.25\\end{gathered}",
           remediation:
             "先把分子求和写成 n(n−1)/2，除以 2n² 后变成 n(n−1)/(4n²) = (1−1/n)/4，令 n→∞ 即得 1/4=0.25。",
           signFeedback:
@@ -1989,13 +1989,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "leading-term",
     solution:
-      "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{5x^2+1}{3x^2+2x-4}=\\lim_{|x|\\to\\infty}\\frac{5+\\frac{1}{x^2}}{3+\\frac{2}{x}-\\frac{4}{x^2}}=\\frac{5}{3}\\end{gathered}",
+      "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{5+1/x^2}{3+2/x-4/x^2}=\\frac{5}{3}\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-7-1",
         "第一步：找出分子和分母共同的最高次幂 x²，上下每一项同除以 x²",
         "在书写推导题时，不能只写一句“抓大头得 5/3”，而要把无穷大量转化为无穷小量来使用极限运算法则。观察分子 5x²+1 和分母 3x²+2x−4，最高次数都是二次（x²）。我们在 |x|→∞（x≠0）时，把分子和分母的每一项都同时除以 x²。",
-        "\\frac{5x^2+1}{3x^2+2x-4}=\\frac{5+\\frac{1}{x^2}}{3+\\frac{2}{x}-\\frac{4}{x^2}}\\quad(x\\ne0)",
+        "\\frac{5x^2+1}{3x^2+2x-4}=\\frac{5+1/x^2}{3+2/x-4/x^2}",
         "注意分母中间的一次项 2x：除以 x² 后约掉一个 x，分母还剩一个 x，变成 2/x。",
         {
           prompt: "对 x≠0，将 (5x²+1)/(3x²+2x−4) 的分子和分母同时除以 x² 后，分母化简为什么？",
@@ -2021,7 +2021,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-5-1-7-2",
         "第二步：令 |x|→∞，说明所有含 1/x 与 1/x² 的项均趋于 0，写出最终商",
         "当 |x|→∞（无论 x 往正无穷还是负无穷跑）时，1/x 和 1/x² 都趋近于 0。此时新分子趋于 5+0=5，新分母趋于 3+0−0=3≠0，满足商的极限法则，直接写出最终比值。",
-        "\\lim_{|x|\\to\\infty}\\frac{5+\\frac{1}{x^2}}{3+\\frac{2}{x}-\\frac{4}{x^2}}=\\frac{5+0}{3+0-0}=\\frac{5}{3}",
+        "\\frac{5+0}{3+0-0}=\\frac{5}{3}",
         "这样书写既展示了清晰的代数变形，又严格交代了商的极限法则成立的条件（分母极限为 3≠0）。",
         {
           prompt: "当 |x|→∞ 时，分子和分母中的 1/x、1/x² 均趋于 0，原极限的值等于多少？",
@@ -2040,7 +2040,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的上下同除最高次幂策略计算：当 |x| 趋向无穷大时，(7x²+3)/(2x²−5x+1) 的极限是多少？（可填分数或小数）",
           answer: 3.5,
           solution:
-            "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{7x^2+3}{2x^2-5x+1}=\\lim_{|x|\\to\\infty}\\frac{7+\\frac{3}{x^2}}{2-\\frac{5}{x}+\\frac{1}{x^2}}=\\frac{7}{2}=3.5\\end{gathered}",
+            "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{7+3/x^2}{2-5/x+1/x^2}=\\frac{7}{2}\\end{gathered}",
           remediation:
             "分子分母同除以最高次幂 x²，当 |x|→∞ 时所有分母含 x 或 x² 的项都趋于 0，只留最高次项系数比 7/2=3.5。",
           signFeedback:
@@ -2058,13 +2058,13 @@ export const chapterOneBatch01Drafts = {
     ],
     strategy: "higher-denominator-degree",
     solution:
-      "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{2x^2-x}{x^4+2x^2+1}=\\lim_{|x|\\to\\infty}\\frac{\\frac{2}{x^2}-\\frac{1}{x^3}}{1+\\frac{2}{x^2}+\\frac{1}{x^4}}=\\frac{0}{1}=0\\end{gathered}",
+      "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{2/x^2-1/x^3}{1+2/x^2+1/x^4}=\\frac{0}{1}=0\\end{gathered}",
     steps: [
       step(
         "jc935-1-5-1-8-1",
         "第一步：以整个分式的最高次幂（分母的 x⁴）为基准，分子分母每一项同除以 x⁴",
         "观察分子 2x²−x（最高 2 次）和分母 x⁴+2x²+1（最高 4 次）：分母的次数比分子整整高出 2 次！很多同学容易只盯着分子的 x² 去同除，那样分母里还会留下趋于无穷的 x²。规范做法是拿“全式真正的老大哥”——分母的最高次幂 x⁴，把分子和分母同时除以 x⁴。",
-        "\\frac{2x^2-x}{x^4+2x^2+1}=\\frac{\\frac{2}{x^2}-\\frac{1}{x^3}}{1+\\frac{2}{x^2}+\\frac{1}{x^4}}\\quad(x\\ne0)",
+        "\\frac{2x^2-x}{x^4+2x^2+1}=\\frac{2/x^2-1/x^3}{1+2/x^2+1/x^4}",
         "这样一除，分母的首项 x⁴÷x⁴ 稳稳地变成了常数 1，而分子因为次数不够高，每一项除完后分母上都还留着 x 的幂次。",
         {
           prompt: "对 x≠0，将 (2x²−x)/(x⁴+2x²+1) 的分子和分母同除以分母最高次幂 x⁴ 后，分子化简为什么？",
@@ -2090,7 +2090,7 @@ export const chapterOneBatch01Drafts = {
         "jc935-1-5-1-8-2",
         "第二步：令 |x|→∞，分别判断新分子与新分母各自的极限并求商",
         "现在看 |x|→∞ 时的走向：凡是分母里还带着 x²、x³ 或 x⁴ 的分式项都会无限缩小；而新分母的开头保留着一个不含 x 的常数项 1。请根据新分子与新分母各自的趋向值，算出整个分式的极限。",
-        "\\lim_{|x|\\to\\infty}\\frac{\\frac{2}{x^2}-\\frac{1}{x^3}}{1+\\frac{2}{x^2}+\\frac{1}{x^4}}=\\frac{0-0}{1+0+0}=0",
+        "\\frac{0-0}{1+0+0}=0",
         "新分子的两项 2/x² 和 1/x³ 都趋于 0，新分母趋于 1+0+0=1≠0，故商的极限为 0÷1=0。这也印证了“上低高下”规律：当 |x|→∞ 且分母最高次数高于分子时，有理分式极限恒为 0。",
         {
           prompt: "当 |x|→∞ 时，对上一问同除以 x⁴ 后的式子取极限，原分式的最终极限是多少？",
@@ -2109,7 +2109,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的上下同除分母最高次幂策略计算：当 |x| 趋向无穷大时，(5x²+3x)/(x⁴+4x²+2) 的极限是多少？",
           answer: 0,
           solution:
-            "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{5x^2+3x}{x^4+4x^2+2}=\\lim_{|x|\\to\\infty}\\frac{\\frac{5}{x^2}+\\frac{3}{x^3}}{1+\\frac{4}{x^2}+\\frac{2}{x^4}}=\\frac{0}{1}=0\\end{gathered}",
+            "\\begin{gathered}\\lim_{|x|\\to\\infty}\\frac{5/x^2+3/x^3}{1+4/x^2+2/x^4}=\\frac{0}{1}=0\\end{gathered}",
           remediation:
             "分子最高是 2 次，分母最高是 4 次。上下同除以 x⁴ 后，分子变成 5/x²+3/x³ → 0，分母变成 1+4/x²+2/x⁴ → 1，商的极限为 0。",
           signFeedback:
