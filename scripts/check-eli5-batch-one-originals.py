@@ -1,5 +1,5 @@
 
-"""Independent checks for batch 1 originals. Run from the repository root with SymPy."""
+"""Independent checks for batch 1 originals and candidate transfer outcomes."""
 import json
 from pathlib import Path
 
@@ -98,3 +98,48 @@ assert {row["id"] for row in plan["items"] if row["batch"] == 1} == numeric.keys
 for problem_id, answer in {**numeric, **written}.items():
     print(problem_id, answer)
 print(f"Checked {len(numeric)} numeric and {len(written)} written originals.")
+
+# Candidate snapshot ef2f25f. A changed prompt requires a new check.
+def interval(expr, expected):
+    assert s.solve_univariate_inequality(expr, x, relational=False) == expected
+    return expected
+
+assert s.log(both_limits((1 + 3*x)**(5/x), x, 0, s.exp(15))) == 15
+assert (x**4 - 3*x - 1).subs(x, 1) == -3
+assert s.limit(5 - 1/n, n, s.oo) == s.limit(5 + 1/n, n, s.oo) == 5
+transfers = {
+    "p2": both_limits(x**2 + 2*x, x, 3, 15),
+    "p4": both_limits(s.sin(3*x) / (4*x), x, 0, s.Rational(3, 4)),
+    "p37": s.sqrt(10 - 1**2),
+    "p38": both_limits((x**2 + 3) / (x + 1), x, 3, 3),
+    "p39": 5,
+    "p124": interval(16 - (2*x + 1)**2 >= 0, s.Interval(-5*half, 3*half)).measure,
+    "p127": both_limits(s.sin(6*x) / s.tan(3*x), x, 0, 2),
+    "p128": both_limits((s.sqrt(1 + 2*x) - 1 - x) / x**2, x, 0, -half),
+    "p164": interval(3*x + 15 >= 0, s.Interval(-5, s.oo)).start,
+    "p165": interval(36 - x**2 > 0, s.Interval.open(-6, 6)).measure,
+    "p166": interval(s.Abs(x - 8) <= 1, s.Interval(7, 9)).end,
+    "p168": both_limits((x**2 - 9) / (x + 3), x, 5, 2),
+    "p169": s.limit((4*x**2 - 9) / (5*x**2 + 1), x, s.oo),
+    "p170": s.limit(s.summation(t, (t, 1, n - 1)) / (2*n**2), n, s.oo),
+    "p171": both_limits((1 - s.cos(4*x)) / (x*s.sin(2*x)), x, 0, 4),
+    "p172": both_limits((1 - x) / (1 - x**5), x, 1, s.Rational(1, 5)),
+    "p173": s.limit(5*s.exp(x), x, 0, dir="-"),
+    "p174": (x**4 - 3*x - 1).subs(x, 2),
+    "jc935-1-5-1-1": both_limits((x**2 + 9) / (x - 6), x, 1, -2),
+    "jc935-1-5-1-2": both_limits((x**2 - 9) / (x**2 + 1), x, 3, 0),
+    "jc935-1-5-1-3": both_limits((x - 2)**2 / (x**2 - 4), x, 2, 0),
+    "jc935-1-5-1-4": both_limits((3*x**3 + 2*x**2 + 6*x) / (5*x**2 + 2*x), x, 0, 3),
+    "jc935-1-5-1-5": both_limits(((3 + 2*h)**2 - 9) / h, h, 0, 12),
+    "jc935-1-5-1-7": ends((7*x**2 + 3) / (2*x**2 - 5*x + 1), x, 7*half),
+    "jc935-1-5-1-8": ends((5*x**2 + 3*x) / (x**4 + 4*x**2 + 2), x, 0),
+    "jc935-1-5-1-9": both_limits((x**2 - 7*x + 12) / (x**2 - 6*x + 8), x, 4, half),
+    "jc935-1-6-1-2": both_limits(s.tan(7*x) / (2*x), x, 0, 7*half),
+    "jc935-1-6-2-2": 15,
+    "jc935-1-8-3-1": both_limits((x**2 - 4) / ((x - 2)*(x - 3)), x, 2, -4),
+    "jc935-1-8-3-4": s.limit(x + 5, x, 1, dir="+") - s.limit(3*x - 1, x, 1, dir="-"),
+}
+assert transfers.keys() == numeric.keys() | written.keys()
+for problem_id, answer in transfers.items():
+    print("transfer", problem_id, answer)
+print("Checked 30 transfer prompts.")
