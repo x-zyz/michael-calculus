@@ -1,3 +1,5 @@
+import { chapterOnePilotTeaching } from "./teachingChapterOne";
+
 const math = String.raw;
 
 export interface TeachingProgress {
@@ -25,6 +27,7 @@ export interface TeachingTransfer {
   answer: number;
   signFeedback: string;
   remediation: string;
+  solution?: string;
 }
 
 export interface TeachingStep {
@@ -40,9 +43,14 @@ export interface TeachingStep {
 export interface TeachingLesson {
   steps: TeachingStep[];
   solution: string;
+  target?: string;
+  prerequisites?: string[];
+  strategy?: string;
+  referenceAnswer?: number;
 }
 
 export const teachingByProblem: Partial<Record<string, TeachingLesson>> = {
+  ...chapterOnePilotTeaching,
   p8: {
     solution: math`\begin{gathered}
       \frac{2}{x}=\frac{1}{-3x}\cdot(-6)\\[4pt]

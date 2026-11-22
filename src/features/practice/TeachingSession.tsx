@@ -13,6 +13,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active }: 
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(initialTeachingProgress);
   const [finished, setFinished] = useState(false);
+  const [prerequisitesOpen, setPrerequisitesOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [historyStep, setHistoryStep] = useState<number | null>(null);
   const step = lesson.steps[index];
@@ -43,6 +44,16 @@ export default function TeachingSession({ lesson, onProgress, locked, active }: 
 
   return (
     <section className="learning-tip" aria-label="ELI5 教学步骤">
+      {index === 0 && !finished && lesson.target && <p>{lesson.target}</p>}
+      {index === 0 && !finished && lesson.prerequisites && (
+        <>
+          <Button type="button" aria-expanded={prerequisitesOpen}
+            onClick={() => setPrerequisitesOpen(!prerequisitesOpen)}>
+            {prerequisitesOpen ? "收起前置知识" : "查看前置知识"}
+          </Button>
+          {prerequisitesOpen && <ul>{lesson.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul>}
+        </>
+      )}
       {!finished ? (
         <>
           <p ref={stepStart} tabIndex={-1} className="learning-note" role="status">第 {index + 1} 步，共 {lesson.steps.length} 步</p>
@@ -159,6 +170,7 @@ function TransferCheck({ transfer, locked, finished, onResult }: {
 }) {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [solved, setSolved] = useState(false);
   return (
     <form aria-label="迁移小题" onSubmit={(event) => {
       event.preventDefault();
@@ -168,7 +180,8 @@ function TransferCheck({ transfer, locked, finished, onResult }: {
         setFeedback("请输入一个数值或分数。");
         return;
       }
-      const correct = value === transfer.answer;
+      const correct = Math.abs(value - transfer.answer) <= 1e-6;
+      setSolved(correct);
       setFeedback(correct ? "答对了。你把同样的方法用到了这组新数字上。"
         : value === -transfer.answer ? transfer.signFeedback : transfer.remediation);
       onResult(correct ? "correct" : "incorrect");
@@ -185,6 +198,7 @@ function TransferCheck({ transfer, locked, finished, onResult }: {
         }}>跳过迁移题</Button>}
       </div>
       {feedback && <p role="status">{feedback}</p>}
+      {solved && transfer.solution && <div aria-label="迁移题解式"><Formula value={transfer.solution} /></div>}
     </form>
   );
 }
