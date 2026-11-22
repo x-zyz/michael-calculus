@@ -68,6 +68,7 @@ Michael Calculus 是离线优先的高数学习 App，提供课程、图像实�
 - [第一章推广结果](https://github.com/x-zyz/michael-calculus/blob/ui/eli5-chapter-one/docs/eli5-interface-rollout.md)包含 29 道数值题与 12 道书写题。现有数学数据及备份协议保持不变。
 - [v1.0.0 候选](https://github.com/x-zyz/michael-calculus/blob/release/v1.0.0-rc/docs/v1.0.0-candidate.md)提交 0d2ca98，已通过 134 项单元／组件、212 项浏览器、5 项签名／旧备份协议测试与 Android 调试构建。固定签名构建 `45082750318` 已通过；远端产物回下载复核结果与 SHA-256 见[真机清单](https://github.com/x-zyz/michael-calculus/blob/build/android-v1-rc/docs/android-v1-candidate.md)。
 - 2026-11-22 检查点。构建分支 `build/android-v1-rc` 的签名工作流提交 `cd5db51`；`docs/calculus-v1-handoff` 通过仅含交接文档的 PR #4 记录状态，主线仍为 `a08419f`。电脑未检测到 Android 真机。下一步按清单覆盖安装 42 → 43，验证旧数据与断网重新打开。正式包应使用 44 或高于已分发候选的构建号。发布需待所有门槛完成及用户明确授权。
+- Android 发布验收阻断（2026-11-22）。[只读排查报告](https://github.com/x-zyz/michael-calculus/blob/a5da5178e1f32f14fd2a0fdee12cc0b6d8d45c10/docs/bytevirt-stable-acceptance.md)确认 Actions 发布序列 42 后，Android 公网入口仍读到有效签名的 37，序列 42 的公网 APK 返回 404。接手时先核对发布目录与 Caddy 实际读取路径。需另获运维变更授权，随后按[真机清单](https://github.com/x-zyz/michael-calculus/blob/a5da5178e1f32f14fd2a0fdee12cc0b6d8d45c10/docs/android-v1-candidate.md)补齐 42 和 43 分别覆盖最终版的实测。
 - 本地预览如已停止，在对应分支运行 `npm run dev`。断网回归使用 `npm run build` + `npm run preview`，再设置 `PLAYWRIGHT_BASE_URL` 与 `ELI5_OFFLINE_TEST=1` 运行对应测试。
 
 ### 检查点维护约定
