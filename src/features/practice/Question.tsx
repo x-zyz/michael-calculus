@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { checkAnswer, practiceDifficultyLabels, type Problem, type NumericProblem } from "../../data/learning";
+import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem, type NumericProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
+import { initialTeachingProgress, p8Diagnostic, teachingByProblem, teachingEvidence, type TeachingProgress } from "../../data/teaching";
+import TeachingSession from "./TeachingSession";
 import PracticeHints from "./PracticeHints";
 import { StuckButton } from "../formulas/FormulaActions";
 import { Button, Card, InfoTip } from "../../components/ui";
@@ -22,10 +24,18 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const [result, setResult] = useState<boolean | null>(null);
   const [invalid, setInvalid] = useState(false);
   const submitted = result !== null;
+  const teaching = teachingByProblem[p.id];
+  const [mode, setMode] = useState<"standard" | "eli5">("standard");
+  const [progress, setProgress] = useState<TeachingProgress>();
+  const [showSolution, setShowSolution] = useState(false);
+  const [solutionSeen, setSolutionSeen] = useState(false);
+  const [diagnosticAnswer, setDiagnosticAnswer] = useState<number>();
+  const hintUsage = Math.max(hints, progress?.stepsSeen ?? 0, Number(solutionSeen));
   return (
     <Card className="practice-question">
       <small className="learning-note">{practiceDifficultyLabels[p.difficulty ?? "basic"]}</small>
       <h2>{p.title}</h2>
+      {teaching && <p className="learning-note">练习记录 · {teachingEvidence(state.attempts, p.id)}</p>}
       <Formula value={p.formula} />
       <StuckButton key={p.id} problemId={p.id} />
       <form
@@ -39,6 +49,7 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
           }
           setInvalid(false);
           setResult(ok);
+          if (teaching && !ok) setSolutionSeen(true);
           save({
             ...state,
             attempts: [
@@ -48,7 +59,8 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
                 correct: ok,
                 answer,
                 at: new Date().toISOString(),
-                hints,
+                hints: hintUsage,
+                ...(progress ? { teaching: progress } : {}),
               },
             ].slice(-500),
           });
@@ -76,13 +88,13 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
           <Button variant="primary" disabled={submitted} type="submit">
             检查答案
           </Button>
-          <Button
+          {mode === "standard" && <Button
             type="button"
             disabled={hints === hintCount || submitted}
             onClick={() => setHints(hints + 1)}
           >
             {p.guidedHints ? "看下一步" : "给我提示"}（{hints}/{hintCount}）
-          </Button>
+          </Button>}
         </div>
       </form>
       {invalid && (
@@ -90,20 +102,60 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
           请输入有效的数值或分数，分母不能为 0。暂不支持符号表达式。
         </p>
       )}
-      {hints > 0 && (
-        <PracticeHints problem={p} count={hints} />
+      {teaching && (
+        <div className="learning-actions" role="group" aria-label="解析模式">
+          <Button type="button" aria-pressed={mode === "standard"} onClick={() => setMode("standard")}>标准解析</Button>
+          <Button type="button" aria-pressed={mode === "eli5"} onClick={() => {
+            setMode("eli5");
+            setProgress(progress ?? initialTeachingProgress);
+          }}>ELI5 教学</Button>
+        </div>
+      )}
+      {teaching && progress && (
+        <div hidden={mode !== "eli5"}>
+          <TeachingSession lesson={teaching} onProgress={setProgress} locked={submitted} active={mode === "eli5"} />
+        </div>
+      )}
+      {mode === "standard" && hints > 0 && <PracticeHints problem={p} count={hints} />}
+      {teaching && mode === "standard" && (
+        <>
+          <Button type="button" aria-expanded={showSolution} onClick={() => {
+            setShowSolution(!showSolution);
+            if (!showSolution) setSolutionSeen(true);
+          }}>{showSolution ? "收起完整解析" : "查看完整解析"}</Button>
+          {showSolution && <div className="learning-tip" aria-label="完整解析"><Formula value={teaching.solution} /><p>{p.explanation}</p></div>}
+        </>
       )}
       {submitted && (
         <div role="status" className="answer-feedback">
           <h3>{result ? "✓ 回答正确" : "这次还不对，看看原因"}</h3>
-          <p>{p.explanation}</p>
+          {!result && p.id === "p8" && (
+            <section aria-label="错因小检查">
+              <p>{p8Diagnostic(parseAnswer(answer) ?? 0)}</p>
+              <p>把 2/5 的分母改成 −15，分子是哪一个？</p>
+              <div className="learning-actions">
+                {[-6, 6, -3].map((choice) => (
+                  <Button key={choice} type="button" aria-pressed={diagnosticAnswer === choice}
+                    onClick={() => setDiagnosticAnswer(choice)}>{choice}</Button>
+                ))}
+              </div>
+              {diagnosticAnswer !== undefined && <p role="status">
+                {diagnosticAnswer === -6
+                  ? "对。上下都乘 −3。把同一条规则用回原题的 2/x。"
+                  : "先看 5 到 −15 是乘哪个数，再让分子 2 乘同一个数。"}
+              </p>}
+            </section>
+          )}
+          {(result || p.id !== "p8") && <p>{p.explanation}</p>}
           {!result && <p>复习方向：{p.errorLabel}。此题已加入待复习。</p>}
           <div className="learning-actions">
             <Button
               onClick={() => {
                 setResult(null);
                 setAnswer("");
+                if (teaching && hintUsage > 0) setSolutionSeen(true);
                 setHints(0);
+                setDiagnosticAnswer(undefined);
               }}
             >
               再做一次
