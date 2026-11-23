@@ -1,22 +1,119 @@
+import type { TeachingLesson } from "../teaching";
 import { createGuidedTeaching, type GuidedTeachingRow } from "./guidedTeaching";
 
-const rows = [
-  [
-    "p17", "differential-at-point",
-    [
-      "dy 的斜率，应取区间 [2,2.1] 的割线斜率还是 x=2 的切线斜率？",
-      "x=2 的切线斜率",
-      "区间割线斜率",
-      "微分是用起点切线预测的变化，真实增量由割线给出。",
-      "先把固定基点与横向步长区分开。",
-    ],
-    [
-      "f(x)=x²，在 x=3 取 dx=0.1，求 dy。",
-      0.6,
-      "dy=f'(3)\\,dx=6\\cdot0.1=0.6",
-      "只在起点 3 代入求斜率。",
-    ],
+const math = String.raw;
+
+const p17Lesson: TeachingLesson = {
+  target: "把题目里的已知条件（位置 x₀ 与步长 Δx）准确对应到微分公式 dy = f'(x₀)dx 中，再完成代入。",
+  strategy: "differential-at-point",
+  prerequisites: [
+    "微分公式 dy = f'(x₀)dx 需要两个数：求导位置和自变量微分。",
+    "对自变量 x 规定 dx = Δx（但因变量的微分 dy 一般不等于真实增量 Δy）。",
   ],
+  referenceAnswer: 0.4,
+  solution: math`\begin{gathered}
+    x_0=2,\quad dx=\Delta x=0.1\\[4pt]
+    f'(x)=2x,\quad f'(2)=4\\[4pt]
+    \left.dy\right|_{x=2}=f'(2)\,dx=4\times 0.1=0.4
+  \end{gathered}`,
+  solutionExplanation: "题目要求在 x=2 处求微分 dy。由自变量微分规定 dx = Δx = 0.1，又 f'(x) = 2x 得 f'(2) = 4，代入微分公式得 dy = f'(2)dx = 4 × 0.1 = 0.4（注意 dy 是沿切线的线性变化量，与曲线真实增量 Δy = 0.41 不同）。",
+  steps: [
+    {
+      id: "p17-read-goal-and-givens",
+      goal: "先翻译题目符号：到底要求什么、给了什么",
+      plain: "记号 dy|_{x=2} 里的竖线下标只表示「在 x=2 这个位置算微分 dy」。题目一共给了三条信息：函数表达式、计算位置，以及自变量的变化量。",
+      formula: math`\begin{gathered}
+        x_0=2,\quad \Delta x=0.1\\[4pt]
+        \left.dy\right|_{x=2}=\,?
+      \end{gathered}`,
+      detail: "不同题目里，计算位置有时写作 x₀=2，有时直接写作 x=2，表达的是同一件事；竖线下标 |_{x=2} 提醒你最后必须把 x=2 代进去算出具体数值。",
+      check: {
+        prompt: "原题给出的 x₀=2 和 Δx=0.1，分别代表什么信息？",
+        choices: [
+          "计算位置是 x=2，自变量增加了 0.1",
+          "函数值是 2，微分结果是 0.1",
+          "要求区间 [0.1, 2] 上的平均变化率",
+        ],
+        correct: 0,
+        feedback: [
+          "对。x₀ 标明在哪一点算微分，Δx 标明自变量 x 往前走了多远。",
+          "x₀ 带下标 0 表示固定起点，Δx 表示自变量的变化量，都不是函数值或答案。",
+          "原题不是求平均变化率，而是在固定点 x=2 处按步长 0.1 求微分。",
+        ],
+        prerequisite: "把符号拆开读：x₀=2 读作「起点位置取 2」；Δ 表示变化量，所以 Δx=0.1 读作「自变量 x 增加了 0.1」。",
+      },
+    },
+    {
+      id: "p17-link-dx-deltax",
+      goal: "打通题目给的 Δx 和公式里的 dx",
+      plain: "你可能已经记得公式 dy = f'(x₀)dx，但题目里出现的是 Δx=0.1。因为 x 是自变量，微积分直接规定自变量的微分 dx 就等于它的增量 Δx，所以题目并没有漏条件。",
+      formula: math`\begin{gathered}
+        dx=\Delta x=0.1\\[4pt]
+        \left.dy\right|_{x=2}=f'(2)\,dx
+      \end{gathered}`,
+      detail: "dx = Δx 只对自变量 x 成立；对因变量 y 而言，微分 dy 是沿切线的线性变化量，通常不等于曲线的真实增量 Δy。本题只求 dy。",
+      check: {
+        prompt: "要把原题条件填进 dy = f'(x₀)dx，公式里的 dx 应该用题目中的哪个数？",
+        choices: [
+          "没法填，题目没有给出 dx",
+          "填 0.1，因为对自变量 x 有 dx = Δx = 0.1",
+          "填 2，因为 x₀ = 2",
+        ],
+        correct: 1,
+        feedback: [
+          "题目没有漏条件。自变量的微分与增量相等，所以 Δx=0.1 就是公式里的 dx。",
+          "对。对自变量 x，题目写 Δx=0.1 和写 dx=0.1 提供的是同一个数值。",
+          "2 是求导位置 x₀，不是自变量的增量。",
+        ],
+        prerequisite: "记住一条对应规则：对自变量 x，dx 和 Δx 是同一个数，只是不同题目的写法习惯不同。",
+      },
+    },
+    {
+      id: "p17-eval-derivative",
+      goal: "算出位置 x₀=2 处的导数，再代入公式",
+      plain: "现在 dx=0.1 已经就位，公式 dy = f'(x₀)dx 只差起点位置 x₀=2 处的导数 f'(2)。先对 f(x)=x² 求导并把位置 2 代入，再和 dx 相乘即可。",
+      formula: math`\begin{gathered}
+        f'(x)=2x,\quad f'(2)=4\\[4pt]
+        \left.dy\right|_{x=2}=4\times 0.1
+      \end{gathered}`,
+      detail: "先算出起点处的切线斜率 f'(2)=4，再乘以横向步长 dx=0.1。不要把 x₀+Δx=2.1 代入导函数，微分始终使用起点处的斜率。",
+      check: {
+        prompt: "由 f(x)=x² 得 f'(x)=2x，在位置 x₀=2 处，要填进公式的 f'(2) 等于多少？",
+        choices: ["2", "0.2", "4"],
+        correct: 2,
+        feedback: [
+          "2 是位置 x₀ 本身，还需要代入导函数 f'(x)=2x 计算。",
+          "0.2 是把步长 0.1 乘了 2。导数 f'(2) 只取决于函数和位置 x₀=2，不代入 Δx。",
+          "对。f'(2)=4，接着把它和 dx=0.1 相乘就能得到原题的 dy。",
+        ],
+        prerequisite: "导函数 f'(x)=2x 的意思是把位置乘 2。把位置 x=2 放进去，先算 2×2。",
+      },
+    },
+    {
+      id: "p17-transfer-notation",
+      goal: "换一种条件写法，验证能否认出同一组信息",
+      plain: "很多题目不会写 x₀ 和 Δx，而是直接写 x 和 dx。下面这道迁移题同时换了数字和符号写法，但辨认「求导位置」与「自变量步长」再代入 dy = f'(x)dx 的逻辑完全相同。",
+      formula: math`\begin{gathered}
+        x_0=2,\;\Delta x=0.1\Rightarrow dx=0.1\\[4pt]
+        x=3,\;dx=0.1\Rightarrow dy=f'(3)\,dx
+      \end{gathered}`,
+      detail: "无论是 (x₀, Δx) 还是 (x, dx)，本质上都给出了「在哪一点求导」和「自变量变化多少」这两条信息。同时记住，这里求的是微分 dy，不是曲线真实增量 Δy。",
+      transfer: {
+        prompt: "迁移题：下面改用了 x 和 dx 的写法。先辨认求导位置与步长，再求 dy。",
+        promptFormula: math`\begin{gathered}
+          f(x)=x^2,\;x=3,\;dx=0.1\\[4pt]
+          dy=\,?
+        \end{gathered}`,
+        answer: 0.6,
+        signFeedback: "大小对了，注意位置 x=3 和步长 dx=0.1 都是正数，所以 dy 为正。",
+        remediation: "把新写法和原题对齐：x=3 对应原来的 x₀（求导位置），dx=0.1 对应原来的 Δx（自变量步长）。先算 f'(3)=2×3，再乘以 dx=0.1。",
+        solution: math`dy=f'(3)\,dx=(2\times 3)\times 0.1=0.6`,
+      },
+    },
+  ],
+};
+
+const rows = [
   [
     "p18", "linear-root-estimate",
     [
@@ -627,4 +724,7 @@ const rows = [
   ],
 ] satisfies readonly GuidedTeachingRow[];
 
-export const chapterTwoDifferentialTeaching = createGuidedTeaching(rows);
+export const chapterTwoDifferentialTeaching: Record<string, TeachingLesson> = {
+  p17: p17Lesson,
+  ...createGuidedTeaching(rows),
+};
