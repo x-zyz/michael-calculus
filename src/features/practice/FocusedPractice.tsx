@@ -145,7 +145,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
               <Button variant="primary" onClick={() => setView("result")}>查看作答结果</Button>
             ) : written ? (
               <>
-                <p>先在纸上写出推导，再自评完成情况。</p>
+                <p>先在纸上完成题目，再自评完成情况。</p>
                 <Button variant="primary" onClick={() => assess(true)}>
                   {hintUsage ? "我完成了（自评）" : "我独立完成了"}
                 </Button>
@@ -183,6 +183,8 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
           <section aria-label="完整解析" className="practice-focus-solution">
             {content.solutionIntro && <p>{content.solutionIntro}</p>}
             <Formula value={lesson.solution} />
+            {lesson.solutionExplanation && <p>{lesson.solutionExplanation}</p>}
+            {lesson.solutionSteps && <ol>{lesson.solutionSteps.map((step, index) => <li key={index}>{step}</li>)}</ol>}
             {written?.commonMistake && <p>{written.commonMistake}</p>}
             {written?.graph && <ReferenceGraph graph={written.graph} />}
             <div className="practice-focus-actions">

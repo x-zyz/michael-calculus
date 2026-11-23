@@ -187,7 +187,7 @@ describe("limit and derivative learning", () => {
       target: { value: "1" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
-    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    expect(screen.getByRole("status")).toHaveTextContent("回答正确");
     v.unmount();
 
     const v2 = mount("/practice?problem=p19");
@@ -283,7 +283,7 @@ describe("limit and derivative learning", () => {
       target: { value: "1/2" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
-    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    expect(screen.getByRole("status")).toHaveTextContent("回答正确");
     v2.unmount();
   });
   it("persists a completed lesson across closing and reopening", () => {

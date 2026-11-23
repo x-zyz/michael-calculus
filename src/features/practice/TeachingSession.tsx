@@ -174,9 +174,9 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
       {revealed && (
         <div aria-label="本步完整算式">
           <Formula value={step.formula} />
-          <Button type="button" aria-expanded={detailOpen} onClick={() => setDetailOpen(!detailOpen)}>
+          {step.detail && <Button type="button" aria-expanded={detailOpen} onClick={() => setDetailOpen(!detailOpen)}>
             {detailOpen ? "收起详细原理" : "查看详细原理"}
-          </Button>
+          </Button>}
           {detailOpen && <p>{step.detail}</p>}
           {!locked && <div className="learning-actions">
             <Button type="button" variant={focused ? "primary" : undefined} onClick={onAdvance}>{last ? "结束教学" : "下一步"}</Button>

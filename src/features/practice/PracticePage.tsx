@@ -86,7 +86,9 @@ function PracticeQuestions({ compact = false }: { compact?: boolean }) {
   const next = list[index + 1];
   const focused = current && focusedLesson ? (
     <FocusedPractice key={current.id} problem={current} lesson={focusedLesson}
-      content={current.id === "p8" ? p8FocusContent : { contextLabel: "第一章 · 函数、极限与连续" }}
+      content={current.id === "p8" ? p8FocusContent : {
+        contextLabel: chapters.find(({ id }) => id === currentChapter)?.title ?? "练习",
+      }}
       onNext={next ? () => openProblem(next.id) : undefined} />
   ) : null;
   if (compact && focused) return focused;

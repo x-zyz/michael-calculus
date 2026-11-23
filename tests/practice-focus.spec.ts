@@ -101,18 +101,18 @@ test("P8 focus preview works offline after loading the production build", async 
 
 test("a Chapter 2 legacy hint and a written proof still use their existing flows", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 780 });
-  await page.goto("/#/practice?problem=p12&ui=study");
+  await page.goto("/#/practice?problem=p12&ui=classic");
   await expect(page.getByRole("button", { name: "一步一步教我" })).toHaveCount(0);
   await page.getByRole("button", { name: /看下一步/ }).click();
   await expect(page.getByText("分子分母同乘共轭根式")).toBeVisible();
   await expectReadable(page);
 
-  await page.goto("/#/practice?problem=p204&ui=study");
+  await page.goto("/#/practice?problem=p204&ui=classic");
   await expect(page.getByText("证明这个数列收敛，并写出极限。")).toBeVisible();
   await page.getByRole("button", { name: "查看分步解析" }).click();
   await expect(page.getByRole("heading", { name: "参考解析" })).toBeVisible();
   await expectReadable(page);
-  await page.getByRole("button", { name: "我独立做对了" }).click();
+  await page.getByRole("button", { name: "核对后确认完成" }).click();
   await expect(page.getByText("已记录自评通过。")).toBeVisible();
 });
 

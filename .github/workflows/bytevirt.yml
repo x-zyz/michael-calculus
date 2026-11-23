@@ -81,3 +81,4 @@ jobs:
           ssh -T -o BatchMode=yes -o StrictHostKeyChecking=yes -o IdentitiesOnly=yes \
             -o ConnectTimeout=15 -o UserKnownHostsFile=../scripts/bytevirt-known-hosts \
             -i "$work/deploy" bytevirt-updates@141.11.138.234 publish-v1 < "$work/release.bvu"
+          node ../scripts/verify-bytevirt-public.mjs "$work/release.bvu"

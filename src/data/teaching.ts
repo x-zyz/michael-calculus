@@ -1,5 +1,11 @@
 import { chapterOnePilotTeaching } from "./teachingChapterOne";
 import { chapterOneProductionTeaching } from "./teachingProduction";
+import { chapterOneFunctionsContinuityTeaching } from "./eli5Drafts/ch01FunctionsContinuity";
+import { chapterOneLimitsTeaching } from "./eli5Drafts/ch01Limits";
+import { chapterTwoAdvancedTeaching } from "./eli5Drafts/ch02Advanced";
+import { chapterTwoDerivativeDefinitionsTeaching } from "./eli5Drafts/ch02DerivativeDefinitions";
+import { chapterTwoDifferentialTeaching } from "./eli5Drafts/ch02Differential";
+import { chapterTwoRulesTeaching } from "./eli5Drafts/ch02Rules";
 
 const math = String.raw;
 
@@ -45,13 +51,25 @@ export interface TeachingStep {
 export interface TeachingLesson {
   steps: TeachingStep[];
   solution: string;
+  solutionExplanation?: string;
+  solutionSteps?: readonly string[];
   target?: string;
   prerequisites?: string[];
   strategy?: string;
   referenceAnswer?: number;
 }
 
+export const expandedTeaching: Readonly<Record<string, TeachingLesson>> = {
+  ...chapterOneFunctionsContinuityTeaching,
+  ...chapterOneLimitsTeaching,
+  ...chapterTwoDerivativeDefinitionsTeaching,
+  ...chapterTwoAdvancedTeaching,
+  ...chapterTwoDifferentialTeaching,
+  ...chapterTwoRulesTeaching,
+};
+
 export const teachingByProblem: Partial<Record<string, TeachingLesson>> = {
+  ...expandedTeaching,
   ...chapterOneProductionTeaching,
   ...chapterOnePilotTeaching,
   p8: {

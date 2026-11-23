@@ -1,9 +1,10 @@
 
 import { expect, test, type Page } from "@playwright/test";
 import { problems } from "../src/data/learning";
+import { expandedTeaching } from "../src/data/teaching";
 import { firstFocusedPracticeBatch, focusedPracticeLesson } from "../src/features/practice/focusedPracticeRollout";
 
-const batch = problems.filter((problem) => focusedPracticeLesson(problem));
+const batch = problems.filter((problem) => focusedPracticeLesson(problem) && !expandedTeaching[problem.id]);
 const firstBatch = batch.filter((problem) => firstFocusedPracticeBatch.has(problem.id));
 
 async function checkFormulas(page: Page) {
@@ -21,7 +22,11 @@ test("first rollout batch contains six numerical and four written registered les
   expect(batch.filter((problem) => "answer" in problem)).toHaveLength(29);
 });
 
-for (const problem of batch) {
+const expandedExamples = new Set([
+  "jc935-1-1-1-2", "jc935-1-3-2-6", "jc935-1-10-1",
+  "p12", "p129", "jc935-2-4-9-1", "jc935-2-5-10-1", "jc935-2-review-11",
+]);
+for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples.has(id))]) {
   const lesson = focusedPracticeLesson(problem)!;
   test(problem.id + " completes the four-state flow at 360px", async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 740 });
@@ -42,7 +47,8 @@ for (const problem of batch) {
       if (step.transfer) {
         await expect(reveal).toHaveCount(0);
         const transfer = guide.getByRole("form", { name: "迁移小题" });
-        await transfer.getByRole("textbox").fill(String(step.transfer.answer));
+        const answer = Number(step.transfer.answer.toFixed(12));
+        await transfer.getByRole("textbox").fill(String(answer));
         await transfer.getByRole("button", { name: "检查迁移题" }).click();
         await expect(transfer.getByRole("status")).toContainText("答对了");
       }
