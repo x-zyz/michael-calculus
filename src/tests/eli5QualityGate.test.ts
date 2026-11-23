@@ -2,12 +2,25 @@ import katex from "katex";
 import { describe, expect, it } from "vitest";
 import { parseAnswer, problems } from "../data/learning";
 import { chapterOneBatch01Drafts } from "../data/eli5Drafts/ch01Batch01";
-import { teachingByProblem } from "../data/teaching";
+import { chapterOnePilotTeaching } from "../data/teachingChapterOne";
+import { initialTeachingProgress, teachingByProblem } from "../data/teaching";
 
 const problemById = new Map(problems.map((problem) => [problem.id, problem]));
 
+const normalizeText = (value: string) => value.normalize("NFKC").replace(/\s+/g, "").trim();
+
+/**
+ * Automated P0 data quality gate.
+ *
+ * Scope & explicit manual-review boundary:
+ * - Automated checks verify structural integrity, deterministic ordering, duplicate choice text,
+ *   missing/blank feedback, affirmative/distractor feedback alignment, and known spoiler patterns.
+ * - Automated checks CANNOT judge the mathematical nuance of distractor explanations or true
+ *   learning effectiveness (balanced choice slots prevent mechanical guessing only; they are NOT
+ *   evidence of learning effectiveness). Those remain flagged for human pedagogical review.
+ */
 describe("ELI5 P0 quality gate", () => {
-  it("distributes correct choice indices evenly across Batch 1 without consecutive repeats", () => {
+  it("keeps deterministic, balanced choice ordering across Batch 1 without polluting TeachingProgress", () => {
     const counts = [0, 0, 0];
     let totalChecks = 0;
 
@@ -28,27 +41,55 @@ describe("ELI5 P0 quality gate", () => {
     }
 
     expect(totalChecks).toBe(63);
-    // No single position may dominate (>= 50%) or starve (< 20%)
+    // Guard against fixed-slot bias (not a claim of learning effectiveness)
     for (const [slot, count] of counts.entries()) {
       const share = count / totalChecks;
       expect(share, `slot ${slot} share (${count}/${totalChecks})`).toBeGreaterThanOrEqual(0.2);
       expect(share, `slot ${slot} share (${count}/${totalChecks})`).toBeLessThanOrEqual(0.5);
     }
+
+    // Legacy learning-record compatibility: TeachingProgress stores no choice-shuffle metadata
+    expect(Object.keys(initialTeachingProgress).sort()).toEqual([
+      "checksPassed",
+      "checksSkipped",
+      "stepsSeen",
+      "wrongChecks",
+    ]);
   });
 
-  it("keeps correct-choice and distractor-feedback mapping aligned after deterministic ordering", () => {
-    for (const [id, lesson] of Object.entries(chapterOneBatch01Drafts)) {
+  it("forbids duplicate choice texts, blank/missing feedback, and misaligned answer-feedback mapping across all 41 Ch1 lessons + p17", () => {
+    const auditedLessons = [
+      ...Object.entries(chapterOneBatch01Drafts),
+      ...Object.entries(chapterOnePilotTeaching),
+      ["p8", teachingByProblem.p8!],
+      ["p17", teachingByProblem.p17!],
+    ] as const;
+
+    const affirmativePrefix = /^(对|找对了)/;
+
+    for (const [id, lesson] of auditedLessons) {
       for (const step of lesson.steps) {
         const check = step.check;
         if (!check) continue;
-        expect(check.feedback).toHaveLength(check.choices.length);
+
+        // No empty or duplicate choice texts (even after NFKC / whitespace normalization)
+        const normalizedChoices = check.choices.map(normalizeText);
+        expect(normalizedChoices.every(Boolean), `${id}/${step.id} has blank choice`).toBe(true);
+        expect(new Set(normalizedChoices).size, `${id}/${step.id} has duplicate choice text`).toBe(check.choices.length);
+
+        // No missing, blank, or duplicate feedback strings
+        expect(check.feedback, `${id}/${step.id} feedback length mismatch`).toHaveLength(check.choices.length);
+        const normalizedFeedback = check.feedback.map(normalizeText);
+        expect(normalizedFeedback.every(Boolean), `${id}/${step.id} has blank feedback`).toBe(true);
+        expect(new Set(normalizedFeedback).size, `${id}/${step.id} has duplicate feedback`).toBe(check.choices.length);
+
+        // Affirmative confirmation must align strictly with the correct choice index
         for (let i = 0; i < check.choices.length; i++) {
           const message = check.feedback[i].trim();
-          expect(message, `${id}/${step.id} choice ${i}`).toBeTruthy();
           if (i === check.correct) {
-            expect(message.startsWith("对"), `${id}/${step.id} correct feedback must confirm`).toBe(true);
+            expect(affirmativePrefix.test(message), `${id}/${step.id} correct feedback must confirm`).toBe(true);
           } else {
-            expect(message.startsWith("对"), `${id}/${step.id} distractor ${i} must not confirm`).toBe(false);
+            expect(affirmativePrefix.test(message), `${id}/${step.id} distractor ${i} must not confirm`).toBe(false);
           }
         }
       }
@@ -97,28 +138,27 @@ describe("ELI5 P0 quality gate", () => {
     }
   });
 
-  it("verifies P0 repaired transfer items are non-degenerate and render cleanly in strict KaTeX", () => {
-    const expectedTransfers: Record<string, number> = {
-      "jc935-1-5-1-2": 2,
-      "jc935-1-5-1-3": 5,
-      "jc935-1-5-1-8": 4,
-      p171: 16,
-    };
+  it("verifies zero-limit transfers stay algebraically authentic with reasoning checks, and p171 stays non-degenerate", () => {
+    const zeroLimitIds = ["jc935-1-5-1-2", "jc935-1-5-1-3", "jc935-1-5-1-8"] as const;
 
-    for (const [id, expectedAnswer] of Object.entries(expectedTransfers)) {
+    for (const id of zeroLimitIds) {
       const lesson = teachingByProblem[id];
       expect(lesson, id).toBeDefined();
-      const transfer = lesson?.steps.find((step) => step.transfer)?.transfer;
+      const lastStep = lesson!.steps.at(-1)!;
+      const transfer = lastStep.transfer;
       expect(transfer, id).toBeDefined();
-      expect(transfer?.answer, id).toBe(expectedAnswer);
-      expect(transfer?.answer, `${id} transfer must not be blind-0`).not.toBe(0);
-      expect(transfer?.solution, id).toBeTruthy();
+      expect(transfer?.answer, id).toBe(0);
+      // No artificial constant padding like "2 + (...)"
+      expect(transfer?.prompt, `${id} should not pad with artificial leading constant`).not.toMatch(/\b\d+\s*\+\s*\(/);
+      // Step 2 must use a reasoning check (not a trivial "0" numeric choice) to prevent blind guessing
+      expect(lastStep.check?.choices[lastStep.check.correct], `${id} step 2 check should test reasoning`).not.toBe("0");
       expect(() => katex.renderToString(transfer!.solution!, { throwOnError: true, strict: "error" })).not.toThrow();
     }
 
-    // Verify p171 transfer preserves non-canceling angles (8x vs 2x)
     const p171Transfer = teachingByProblem.p171?.steps.find((step) => step.transfer)?.transfer;
+    expect(p171Transfer?.answer).toBe(16);
     expect(p171Transfer?.prompt).toContain("cos(8x)");
     expect(p171Transfer?.prompt).toContain("sin(2x)");
+    expect(() => katex.renderToString(p171Transfer!.solution!, { throwOnError: true, strict: "error" })).not.toThrow();
   });
 });
