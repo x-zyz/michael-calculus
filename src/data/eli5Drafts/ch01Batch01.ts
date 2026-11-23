@@ -662,7 +662,7 @@ export const chapterOneBatch01Drafts = {
             "用同样的先验分母再代入策略计算：当 x 趋近 3 时，(x²−9)/(x²+6) 的极限是多少？",
           answer: 0,
           solution:
-            "\\begin{gathered}\\lim_{x\\to3}(x^2-9)=0,\\;\\lim_{x\\to3}(x^2+6)=15\\ne0\\\\ \\lim_{x\\to3}\\frac{x^2-9}{x^2+6}=\\frac{0}{15}=0\\end{gathered}",
+            "\\begin{gathered}\\lim_{x\\to3}(x^2-9)=0\\\\ \\lim_{x\\to3}(x^2+6)=15\\ne0\\\\ \\lim_{x\\to3}\\frac{x^2-9}{x^2+6}=\\frac{0}{15}=0\\end{gathered}",
           remediation:
             "先把 x=3 代入分母 x²+6 确认其极限为 15≠0（不是 0/0 型），再代入分子 x²−9 得 0，最后由商的极限法则算 0÷15。",
           signFeedback:
