@@ -26,8 +26,7 @@ async function layoutProblems(page: Page) {
 test.describe('phone layout', () => {
   test.beforeEach(async ({ page }) => page.setViewportSize({ width: 360, height: 740 }));
 
-  test('pages, all lessons and problems fit a 360px screen with readable text', async ({ page }) => {
-    // Covers every lesson step and exercise, including the revealed written solutions.
+  test('pages and all lesson steps fit a 360px screen with readable text', async ({ page }) => {
     test.setTimeout(600000);
     const issues: string[] = [];
     for (const url of ['/#/', '/#/experiments', '/#/practice', '/#/review', '/#/assistant']) {
@@ -43,17 +42,29 @@ test.describe('phone layout', () => {
         issues.push(...(await layoutProblems(page)).map(p => `${lesson}/${tab} ${p}`));
       }
     }
-    await page.goto('/#/practice?ui=classic');
-    for (let i = 1; i <= problems.length; i++) {
-      if (i > 1) await page.getByRole("button", { name: "下一题", exact: true }).click();
-      if ("kind" in problems[i - 1]) {
-        await page.getByRole("button", { name: "查看分步解析" }).click();
-        await expect(page.locator(".practice-question .katex-error")).toHaveCount(0);
-      }
-      issues.push(...(await layoutProblems(page)).map(p => `problem ${i} ${p}`));
-    }
     expect(issues).toEqual([]);
   });
+
+  const batchSize = 250;
+  for (let start = 0; start < problems.length; start += batchSize) {
+    const batch = problems.slice(start, start + batchSize);
+    test(`problems ${start + 1}–${start + batch.length} fit a 360px screen`, async ({ page }) => {
+      test.setTimeout(180000);
+      const issues: string[] = [];
+      for (const problem of batch) {
+        await page.goto(`/#/practice?ui=classic&problem=${problem.id}`);
+        const exercise = page.locator(".practice-question");
+        await exercise.getByRole("heading", { name: problem.title, exact: true }).waitFor();
+        if ("kind" in problem) {
+          await exercise.getByRole("button", { name: "查看分步解析" }).dispatchEvent("click");
+          await expect(exercise.locator(".answer-feedback")).toBeVisible();
+          await expect(exercise.locator(".katex-error")).toHaveCount(0);
+        }
+        issues.push(...(await layoutProblems(page)).map((issue) => `${problem.id}: ${issue}`));
+      }
+      expect(issues).toEqual([]);
+    });
+  }
 
   test('guided algebra hints fit at 360px and explain every change', async ({ page }) => {
     await page.goto('/#/practice?ui=classic&problem=p128');

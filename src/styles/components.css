@@ -336,12 +336,12 @@
   background: var(--surface); overflow-wrap: anywhere;
 }
 .practice-focus-header { margin-bottom: var(--space-6); }
-.practice-focus-header h1 {
+.practice-focus-header :is(h1, h2) {
   font-family: var(--painting-type); font-size: clamp(var(--text-xl), 5vw, var(--text-xxl)); line-height: 1.3;
   scroll-margin-top: calc(var(--touch) + var(--space-6));
 }
 .practice-focus .practice-focus-paper[data-view="guide"] { padding-top: var(--space-3); }
-.practice-focus-header h1:focus { outline: none; }
+.practice-focus-header :is(h1, h2):focus { outline: none; }
 .practice-focus-header small { display: block; color: var(--muted); margin-bottom: var(--space-2); }
 .practice-focus-paper > .formula, .practice-focus-solution > .formula {
   margin-block: var(--space-4) var(--space-6); padding-block: var(--space-6); border-block: 1px solid var(--line-soft);

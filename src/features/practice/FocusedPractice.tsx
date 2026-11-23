@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Compass } from "lucide-react";
 import { Link } from "react-router-dom";
 import Formula from "../../components/Formula";
-import { Button, Card } from "../../components/ui";
+import { Button, Card, InfoTip } from "../../components/ui";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem } from "../../data/learning";
 import { initialTeachingProgress, teachingEvidence, type TeachingLesson, type TeachingProgress } from "../../data/teaching";
 import { useLearning } from "../../db/learning";
@@ -24,10 +24,11 @@ export interface FocusedPracticeContent {
   };
 }
 
-export default function FocusedPractice({ problem, lesson, content, onNext }: {
+export default function FocusedPractice({ problem, lesson, content, embedded, onNext }: {
   problem: Problem;
   lesson: TeachingLesson;
   content: FocusedPracticeContent;
+  embedded: boolean;
   onNext?: () => void;
 }) {
   const { state, save } = useLearning();
@@ -42,6 +43,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
   const [diagnosticAnswer, setDiagnosticAnswer] = useState<number>();
   const heading = useRef<HTMLHeadingElement>(null);
   const diagnostic = content.diagnostic;
+  const Heading = embedded ? "h2" : "h1";
   const written = "answer" in problem ? undefined : problem;
   const hintUsage = Math.max(Number(assisted), progress?.stepsSeen ?? 0);
 
@@ -133,7 +135,7 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
         {view !== "guide" && (
           <header className="practice-focus-header">
             {view === "question" && <small>{practiceDifficultyLabels[problem.difficulty ?? "basic"]}</small>}
-            <h1 tabIndex={-1} ref={heading}>{title}</h1>
+            <Heading tabIndex={-1} ref={heading}>{title}</Heading>
           </header>
         )}
         {view === "question" && (
@@ -152,8 +154,13 @@ export default function FocusedPractice({ problem, lesson, content, onNext }: {
               </>
             ) : (
               <form className="practice-focus-answer" onSubmit={submit}>
-                <label htmlFor="focus-answer">{("unit" in problem && problem.unit) || "请输入数值或分数"}</label>
-                <input id="focus-answer" value={answer} autoComplete="off" maxLength={64}
+                <div className="section-header">
+                  <label htmlFor="answer">{("unit" in problem && problem.unit) || "请输入数值或分数"}</label>
+                  <InfoTip label="判分说明">
+                    目前只检查预设数值或分数答案，不判断任意推导过程。
+                  </InfoTip>
+                </div>
+                <input id="answer" value={answer} autoComplete="off" maxLength={64}
                   aria-invalid={invalid || undefined} aria-describedby={invalid ? "focus-answer-error" : undefined}
                   placeholder="例如 0.25 或 1/4"
                   onChange={(event) => { setAnswer(event.target.value); setInvalid(false); }} />
