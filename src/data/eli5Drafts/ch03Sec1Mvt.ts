@@ -229,7 +229,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
     ],
     strategy: "lagrange-cubic-target",
     referenceAnswer: 3,
-    solution: math`\begin{gathered}\frac{f(3)-f(0)}{3-0}=\frac{27}{3}=9\\[4pt]3c^2=9\implies c^2=3\ (c=\sqrt{3}\in(0,3))\end{gathered}`,
+    solution: math`\begin{gathered}\frac{f(3)-f(0)}{3-0}=\frac{27}{3}=9\\[4pt]3c^2=9\implies c^2=3\\[4pt]c=\sqrt{3}\in(0,3)\end{gathered}`,
     solutionExplanation: "割线斜率为 9，令 3c²=9 直接得 c²=3，且正根 √3 落在 (0, 3) 内。",
     steps: buildSteps([
       {
@@ -790,7 +790,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "理解「至少 k 个」与「至多 k 个」合起来才是「恰有 k 个」",
     ],
     strategy: "rolle-polynomial-intervals",
-    solution: math`\begin{gathered}(-2,1),\;(1,4),\;(4,7)\text{ 内至少各一实根}\\[4pt]\deg f'=3\implies\text{恰有 }3\text{ 个实根}\end{gathered}`,
+    solution: math`\begin{gathered}(-2,1),\;(1,4),\;(4,7)\\[4pt]\text{各至少有一个实根}\\[4pt]\deg f'=3\implies\text{恰有 }3\text{ 个实根}\end{gathered}`,
     solutionExplanation: "四零点分三段区间得至少 3 根，三次导数至多 3 根，故恰有 3 根。",
     steps: buildSteps([
       {
@@ -1450,7 +1450,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
         id: "jc935-3-1-13-2",
         goal: "第二步：算 Φ(b) 与 Φ(a)，留意列序翻转正好补回负号",
         plain: "代入 x=b，行列式两列完全相同，所以 Φ(b)=0。代入 x=a，得到 u(b)v(a)−v(b)u(a)，刚好是目标左边行列式的相反数，于是 Φ(b)−Φ(a)=0−Φ(a) 负负得正！",
-        formula: math`\Phi(b)=0,\quad \Phi(b)-\Phi(a)=-\Phi(a)=u(a)v(b)-v(a)u(b)`,
+        formula: math`\begin{gathered}\Phi(b)=0\\[4pt]\Phi(b)-\Phi(a)=-\Phi(a)\\[4pt]=u(a)v(b)-v(a)u(b)\end{gathered}`,
         detail: "套用拉格朗日中值定理 Φ(b)−Φ(a)=(b−a)Φ′(ξ)，两边瞬间对齐。",
         check: {
           prompt: "在 Φ(b)−Φ(a) 中，为什么 −Φ(a) 恰好等于以 (u(a), v(a)) 为第一列、(u(b), v(b)) 为第二列的行列式？",
