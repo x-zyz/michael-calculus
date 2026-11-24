@@ -6,10 +6,8 @@ import { chainRuleRemediationModule } from "./chainRuleRemediation";
  * 未来新增罗尔定理前提补救（"rolle-conditions"）、拉格朗日中值定理辅助函数补救（"lagrange-mvt"）等模块时，
  * 只需在此新增注册项，UI（Sheet 容器）与状态管理无需重新开发。
  */
-export type RemediationId = "chain-rule";
-
 export interface RemediationModuleSpec {
-  id: RemediationId;
+  id: string;
   title: string;
   triggerLabel: string;
   durationMinutes: number;
@@ -22,7 +20,7 @@ export interface RemediationModuleSpec {
   lesson: TeachingLesson;
 }
 
-export const remediationModulesById: Readonly<Record<RemediationId, RemediationModuleSpec>> = {
+export const remediationModulesById = {
   "chain-rule": {
     id: "chain-rule",
     title: "链式法则前置速通",
@@ -39,7 +37,9 @@ export const remediationModulesById: Readonly<Record<RemediationId, RemediationM
     courseEntryLessonIds: ["chain", "advanced-derivatives"],
     lesson: chainRuleRemediationModule,
   },
-};
+} as const satisfies Readonly<Record<string, RemediationModuleSpec>>;
+
+export type RemediationId = keyof typeof remediationModulesById;
 
 export interface ObstacleContext {
   stepId?: string;
@@ -52,16 +52,16 @@ export interface ObstacleContext {
  */
 export function resolveRemediationForObstacle(
   context: ObstacleContext,
-): RemediationModuleSpec | undefined {
+): (typeof remediationModulesById)[RemediationId] | undefined {
   const modules = Object.values(remediationModulesById);
   if (context.stepId) {
-    const byStep = modules.find((mod) => mod.triggerStepIds.includes(context.stepId!));
+    const byStep = modules.find((mod) => mod.triggerStepIds.some((id) => id === context.stepId));
     if (byStep) return byStep;
     // 在 ELI5 理解检查中，只有明确标注了对应障碍的 stepId 才触发，不回退到 errorTag 或 lessonId
     return undefined;
   }
   if (context.errorTag) {
-    return modules.find((mod) => mod.triggerErrorTags.includes(context.errorTag!));
+    return modules.find((mod) => mod.triggerErrorTags.some((tag) => tag === context.errorTag));
   }
   return undefined;
 }

@@ -5,6 +5,7 @@ import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
 import ReferenceGraph from "./ReferenceGraph";
 import PracticeHints from "./PracticeHints";
+import { ObstacleRemediation } from "./RemediationEntry";
 import TeachingSession from "./TeachingSession";
 import { initialTeachingProgress, teachingByProblem, teachingEvidence, type TeachingProgress } from "../../data/teaching";
 import { Button, Card } from "../../components/ui";
@@ -16,6 +17,7 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
   const hintCount = (problem.guidedHints ?? problem.hints).length;
   const [revealed, setRevealed] = useState(false);
   const [result, setResult] = useState<boolean | null>(null);
+  const [wrongStreak, setWrongStreak] = useState(0);
 
   const lesson = teachingByProblem[problem.id];
   const [progress, setProgress] = useState<TeachingProgress>();
@@ -25,6 +27,7 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
   function assess(correct: boolean) {
     if (result !== null) return;
     setResult(correct);
+    setWrongStreak((previous) => correct ? 0 : previous + 1);
     save({
       ...state,
       attempts: [...state.attempts, {
@@ -67,6 +70,7 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
       {lesson && progress && (
         <div hidden={!teachingOpen}>
           <TeachingSession lesson={lesson} onProgress={setProgress} locked={result !== null}
+            remediationForStep={ObstacleRemediation}
             active={teachingOpen} finishMessage="教学步骤已结束。试着在纸上从头写一遍，再核对参考解析。" />
         </div>
       )}
@@ -93,6 +97,7 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
         <>
           <p role="status">{result ? "已记录自评通过。" : "已加入错题，稍后可以重练。"}</p>
           <div className="learning-actions">
+            {!result && wrongStreak >= 2 && <ObstacleRemediation errorTag={problem.errorTag} />}
             <Button onClick={() => {
               setHints(0);
               setRevealed(false);

@@ -157,7 +157,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
     ],
     strategy: "rolle-stationary-solve",
     referenceAnswer: 2,
-    solution: math`\begin{gathered}f(1)=0=f(3)\\[4pt]f'(\xi)=2\xi-4=0\implies\xi=2\in(1,3)\end{gathered}`,
+    solution: math`\begin{gathered}f(1)=0=f(3)\\[4pt]f'(\xi)=2\xi-4=0\\[4pt]\implies\xi=2\in(1,3)\end{gathered}`,
     solutionExplanation: "先验证两端高度相同，再令一阶导数为零解出开区间内的驻点。",
     steps: buildSteps([
       {
@@ -301,7 +301,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
     ],
     strategy: "rolle-log-chain",
     referenceAnswer: 0.25,
-    solution: math`\begin{gathered}\sin(2x)\ge\frac{1}{2}>0,\;f\left(\frac{\pi}{12}\right)=f\left(\frac{5\pi}{12}\right)\\[4pt]f'(c)=\frac{2\cos(2c)}{\sin(2c)}=0\implies 2c=\frac{\pi}{2}\implies \frac{c}{\pi}=\frac{1}{4}\end{gathered}`,
+    solution: math`\begin{gathered}\sin(2x)\ge\frac{1}{2}>0\\[4pt]f\left(\frac{\pi}{12}\right)=f\left(\frac{5\pi}{12}\right)\\[4pt]f'(c)=\frac{2\cos(2c)}{\sin(2c)}=0\\[4pt]2c=\frac{\pi}{2}\implies\frac{c}{\pi}=\frac{1}{4}\end{gathered}`,
     solutionExplanation: "先确认区间内 sin(2x)>0 且两端同值，再用链式法则求导令分子 cos(2c)=0。",
     steps: buildSteps([
       {
@@ -372,7 +372,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会求二次多项式的导数与割线斜率",
     ],
     strategy: "lagrange-written-verify",
-    solution: math`\begin{gathered}\frac{f(5)-f(1)}{5-1}=\frac{65-1}{4}=16\\[4pt]f'(c)=6c-2=16\implies c=3\in(1,5)\end{gathered}`,
+    solution: math`\begin{gathered}\frac{f(5)-f(1)}{5-1}=\frac{65-1}{4}=16\\[4pt]f'(c)=6c-2=16\\[4pt]\implies c=3\in(1,5)\end{gathered}`,
     solutionExplanation: "先确认连续可导，再算出平均斜率 16，解 6c−2=16 得 c=3。",
     steps: buildSteps([
       {
@@ -443,7 +443,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道 n 次多项式至多有 n 个实根",
     ],
     strategy: "rolle-root-counting",
-    solution: math`\begin{gathered}\text{罗尔定理给出 }(-3,-1),\;(-1,2),\;(2,4)\text{ 内至少 3 根}\\[4pt]\deg f'=3\implies\text{至多 3 根，故恰有 3 个不同实零点}\end{gathered}`,
+    solution: math`\begin{gathered}\text{罗尔定理给出三个区间}\\[4pt](-3,-1),\;(-1,2),\;(2,4)\\[4pt]\text{各至少有一个零点}\\[4pt] \deg f'=3\implies\text{至多 3 根}\\[4pt]\text{故恰有 3 个不同实零点}\end{gathered}`,
     solutionExplanation: "4 个互异零点构成 3 个相邻闭区间，罗尔定理得至少 3 个导数零点，三次导数至多 3 根。",
     steps: buildSteps([
       {
@@ -510,7 +510,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会用链式法则算 (ln(cos x))′=−tan x",
     ],
     strategy: "rolle-log-cos",
-    solution: math`\begin{gathered}\cos x\ge\frac{1}{2}>0,\;f\left(-\frac{\pi}{3}\right)=f\left(\frac{\pi}{3}\right)\\[4pt]f'(\xi)=-\tan\xi=0\implies\xi=0\in\left(-\frac{\pi}{3},\frac{\pi}{3}\right)\end{gathered}`,
+    solution: math`\begin{gathered}\cos x\ge\frac{1}{2}>0\\[4pt]f\left(-\frac{\pi}{3}\right)=f\left(\frac{\pi}{3}\right)\\[4pt]f'(\xi)=-\tan\xi=0\\[4pt]\implies\xi=0\in\left(-\frac{\pi}{3},\frac{\pi}{3}\right)\end{gathered}`,
     solutionExplanation: "先验证 cos x>0 保证定义域安全，再比对偶函数端点值，最后解 −tan ξ=0 得 ξ=0。",
     steps: buildSteps([
       {
@@ -652,7 +652,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会用半角公式 sin ξ/(1−cos ξ)=cot(ξ/2)",
     ],
     strategy: "cauchy-mvt-verify",
-    solution: math`\begin{gathered}g'(x)=1-\cos x>0,\\[4pt]\frac{-2}{\pi-2}=-\cot\frac{\xi}{2}\implies\xi=2\arctan\frac{\pi-2}{2}\in\left(0,\frac{\pi}{2}\right)\end{gathered}`,
+    solution: math`\begin{gathered}g'(x)=1-\cos x>0\\[4pt]\frac{-2}{\pi-2}=-\cot\frac{\xi}{2}\\[4pt]\implies\xi=2\arctan\frac{\pi-2}{2}\\[4pt]\xi\in\left(0,\frac{\pi}{2}\right)\end{gathered}`,
     solutionExplanation: "先验证 g′(x)=1−cos x>0，再把导数比化为 −cot(ξ/2) 解出 ξ。",
     steps: buildSteps([
       {
@@ -719,7 +719,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道方程两边除以字母系数前必须确认该字母非零",
     ],
     strategy: "parabola-midpoint-proof",
-    solution: math`\begin{gathered}\frac{f(d)-f(c)}{d-c}=\alpha(c+d)+\beta\\[4pt]2\alpha\xi+\beta=\alpha(c+d)+\beta\xrightarrow{\alpha\neq 0}\xi=\frac{c+d}{2}\end{gathered}`,
+    solution: math`\begin{gathered}\frac{f(d)-f(c)}{d-c}=\alpha(c+d)+\beta\\[4pt]2\alpha\xi+\beta=\alpha(c+d)+\beta\\[4pt]\xrightarrow{\alpha\neq 0}\xi=\frac{c+d}{2}\end{gathered}`,
     solutionExplanation: "消去 β 并利用 α≠0 除以 2α，得到唯一中值点 ξ=(c+d)/2。",
     steps: buildSteps([
       {
@@ -999,7 +999,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "理解第一次罗尔得到的中值点 η 可以作为第二次罗尔的新端点",
     ],
     strategy: "double-rolle-second-deriv",
-    solution: math`\begin{gathered}G(-1)=G(2)=0\implies\exists\,\eta\in(-1,2),\;G'(\eta)=0\\[4pt]G'(-1)=0=G'(\eta)\implies\exists\,\xi\in(-1,\eta),\;G''(\xi)=0\end{gathered}`,
+    solution: math`\begin{gathered}G(-1)=G(2)=0\\[4pt]\implies\exists\,\eta\in(-1,2),\;G'(\eta)=0\\[4pt]G'(-1)=0=G'(\eta)\\[4pt]\implies\exists\,\xi\in(-1,\eta),\;G''(\xi)=0\end{gathered}`,
     solutionExplanation: "先对 G 在 [−1, 2] 用罗尔得 G′(η)=0，再由 G′(−1)=0 对 G′ 在 [−1, η] 二次用罗尔。",
     steps: buildSteps([
       {
@@ -1070,7 +1070,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道当指数为负时，幂函数在 (0, +∞) 上严格递减",
     ],
     strategy: "lagrange-power-inequality",
-    solution: math`\begin{gathered}u^p-v^p=p\xi^{p-1}(u-v)\ (\xi\in(v,u))\\[4pt]p-1<0\implies u^{p-1}<\xi^{p-1}<v^{p-1}\\[4pt]pu^{p-1}(u-v)<u^p-v^p<pv^{p-1}(u-v)\end{gathered}`,
+    solution: math`\begin{gathered}u^p-v^p=p\xi^{p-1}(u-v)\\[4pt]\xi\in(v,u),\quad p-1<0\\[4pt]u^{p-1}<\xi^{p-1}<v^{p-1}\\[4pt]pu^{p-1}(u-v)<u^p-v^p\\[4pt]u^p-v^p<pv^{p-1}(u-v)\end{gathered}`,
     solutionExplanation: "先用中值定理把 uᵖ−vᵖ 换成 pξᵖ⁻¹(u−v)，再由 p−1<0 反向放缩 ξᵖ⁻¹。",
     steps: buildSteps([
       {
@@ -1141,7 +1141,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道正数取倒数会反转不等号方向",
     ],
     strategy: "lagrange-log-bounds",
-    solution: math`\begin{gathered}\ln\frac{1+x}{1+y}=\ln(1+x)-\ln(1+y)=\frac{x-y}{1+\xi}\\[4pt]0<1+y<1+\xi<1+x\implies\frac{x-y}{1+x}<\ln\frac{1+x}{1+y}<\frac{x-y}{1+y}\end{gathered}`,
+    solution: math`\begin{gathered}\ln\frac{1+x}{1+y}=\ln(1+x)-\ln(1+y)\\[4pt]\ln\frac{1+x}{1+y}=\frac{x-y}{1+\xi}\\[4pt]0<1+y<1+\xi<1+x\\[4pt]\frac{x-y}{1+x}<\ln\frac{1+x}{1+y}<\frac{x-y}{1+y}\end{gathered}`,
     solutionExplanation: "拆成 ln(1+x)−ln(1+y)，用中值定理化为 (x−y)/(1+ξ)，再确认正性后取倒数。",
     steps: buildSteps([
       {
@@ -1212,7 +1212,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道中值定理要求闭区间非退化（u≠v）",
     ],
     strategy: "lagrange-lipschitz-sine",
-    solution: math`\begin{gathered}u=v\text{ 显然成立；}u\neq v\text{ 时：}\\[4pt]|\sin(2u)-\sin(2v)|=2|\cos(2\xi)||u-v|\le 2|u-v|\end{gathered}`,
+    solution: math`\begin{gathered}u=v\text{ 时显然成立}\\[4pt]u\neq v\text{ 时：}\\[4pt]|\sin(2u)-\sin(2v)|\\[4pt]=2|\cos(2\xi)||u-v|\le 2|u-v|\end{gathered}`,
     solutionExplanation: "先处理 u=v，再对 u≠v 应用中值定理并结合 |cos(2ξ)|≤1 放缩。",
     steps: buildSteps([
       {
@@ -1283,7 +1283,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会通过让不等式两边相等来找切点（区间左端点）",
     ],
     strategy: "lagrange-exp-tangent",
-    solution: math`\begin{gathered}e^x-e^2=e^\xi(x-2)\ (\xi\in(2,x))\\[4pt]e^\xi>e^2\implies e^x>e^2(x-2)+e^2=e^2(x-1)\end{gathered}`,
+    solution: math`\begin{gathered}e^x-e^2=e^\xi(x-2),\quad\xi\in(2,x)\\[4pt]e^\xi>e^2\\[4pt]\implies e^x>e^2(x-2)+e^2=e^2(x-1)\end{gathered}`,
     solutionExplanation: "在 [2, x] 上对 eᵗ 用拉格朗日中值定理，由 e^ξ>e² 放缩后移项整理。",
     steps: buildSteps([
       {
@@ -1350,14 +1350,14 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会用罗尔定理导出与 f′(x)>0 的矛盾",
     ],
     strategy: "ivt-plus-rolle-unique-root",
-    solution: math`\begin{gathered}f(0)=-2<0,\;f(1)=2>0\implies\exists\,x_1\in(0,1),\;f(x_1)=0\\[4pt]f'(x)=3x^2+3\ge 3>0\xrightarrow{\text{罗尔反证}}\text{唯一正根}\end{gathered}`,
+    solution: math`\begin{gathered}f(0)=-2<0,\;f(1)=2>0\\[4pt]\implies\exists\,x_1\in(0,1),\;f(x_1)=0\\[4pt]f'(x)=3x^2+3\ge 3>0\\[4pt]\xrightarrow{\text{罗尔反证}}\text{唯一正根}\end{gathered}`,
     solutionExplanation: "先由零点定理得存在正根，再反设两正根用罗尔定理推出 f′(ξ)=0 与 f′(x)≥3>0 矛盾。",
     steps: buildSteps([
       {
         id: "jc935-3-1-12-1",
         goal: "第一步：零点定理证「存在」（至少有一个正根）",
         plain: "「有且仅有」是两句话：先证「有」。挑两个好算的端点 0 和 1 代进 f(x)=x³+3x−2，一负一正，连续曲线穿过 x 轴就保证了 (0, 1) 里至少有一个正根。",
-        formula: math`f(0)=-2<0,\;f(1)=2>0\implies\exists\,x_1\in(0,1),\;f(x_1)=0`,
+        formula: math`\begin{gathered}f(0)=-2<0,\;f(1)=2>0\\[4pt]\implies\exists\,x_1\in(0,1),\;f(x_1)=0\end{gathered}`,
         detail: "多项式在 [0, 1] 连续，满足零点定理条件。",
         check: {
           prompt: "为什么在第一步已经算出 f′(x)=3x²+3>0 说明严格递增后，仍然必须找 f(0)<0 和 f(1)>0？",
@@ -1379,7 +1379,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
         id: "jc935-3-1-12-2",
         goal: "第二步：用罗尔定理反证法证「唯一」（至多一个正根）",
         plain: "再证「仅有」。假设存在两个不同正根 x₁<x₂，在 [x₁, x₂] 上用罗尔定理，必然存在某个 ξ 使 f′(ξ)=0；但算出来 f′(x)=3x²+3 永远 ≥3>0，直接矛盾！",
-        formula: math`f(x_1)=f(x_2)=0\implies\exists\,\xi,\;f'(\xi)=0\quad\text{与 }3x^2+3>0\text{ 矛盾}`,
+        formula: math`\begin{gathered}f(x_1)=f(x_2)=0\\[4pt]\implies\exists\,\xi,\;f'(\xi)=0\\[4pt]\text{与 }3x^2+3>0\text{ 矛盾}\end{gathered}`,
         detail: "反证成立，正根至多一个。",
         check: {
           prompt: "在用罗尔定理反证唯一性时，矛盾的焦点是什么？",
@@ -1492,7 +1492,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会用零导数推论由 F′(x)≡0 推出 F(x)≡F(0)",
     ],
     strategy: "auxiliary-exp-factor",
-    solution: math`\begin{gathered}F(x)=f(x)e^{-3x},\;F'(x)=[f'(x)-3f(x)]e^{-3x}\equiv 0\\[4pt]F(x)\equiv F(0)=2\implies f(x)=2e^{3x}\end{gathered}`,
+    solution: math`\begin{gathered}F(x)=f(x)e^{-3x}\\[4pt]F'(x)=[f'(x)-3f(x)]e^{-3x}\equiv 0\\[4pt]F(x)\equiv F(0)=2\\[4pt]\implies f(x)=2e^{3x}\end{gathered}`,
     solutionExplanation: "乘上 e⁻³ˣ 构造处处可导的 F(x)，证其导数恒为零，再由初值锁定常数 2。",
     steps: buildSteps([
       {
@@ -1559,7 +1559,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道 (t−a)ⁿ 连续求导 n 次得到 n!",
     ],
     strategy: "iterated-cauchy-taylor-bridge",
-    solution: math`\begin{gathered}\frac{f(x)}{(x-a)^n}=\frac{f'(\xi_1)}{n(\xi_1-a)^{n-1}}=\cdots=\frac{f^{(n)}(\xi_n)}{n!}\\[4pt]\xi_n=a+\theta(x-a)\ (0<\theta<1)\end{gathered}`,
+    solution: math`\begin{gathered}\frac{f(x)}{(x-a)^n}=\frac{f'(\xi_1)}{n(\xi_1-a)^{n-1}}\\[4pt]=\cdots=\frac{f^{(n)}(\xi_n)}{n!}\\[4pt]\xi_n=a+\theta(x-a)\ (0<\theta<1)\end{gathered}`,
     solutionExplanation: "利用 f(a)=⋯=f⁽ⁿ⁻¹⁾(a)=0 连用 n 次柯西中值定理降到 n 阶导数，再用 θ 表示区间内点。",
     steps: buildSteps([
       {

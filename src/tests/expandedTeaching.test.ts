@@ -6,15 +6,20 @@ import { focusedPracticeLesson } from "../features/practice/focusedPracticeRollo
 
 const bank = new Map(problems.map((problem) => [problem.id, problem]));
 
-it("registers full teaching for all chapter-one and chapter-two exercises only", () => {
+it("registers chapters one and two and exactly the 22 section 3.1 exercises", () => {
   const scope = new Set(lessons.filter(({ chapter }) => chapter <= 2).map(({ id }) => id));
-  const expected = problems.filter(({ lessonId }) => scope.has(lessonId)).map(({ id }) => id);
+  const mvtCore = new Set(["p19", "p20", "p134", "p181", "p216", "p217"]);
+  const isSection31 = ({ id, lessonId }: (typeof problems)[number]) =>
+    lessonId === "mvt" && (mvtCore.has(id) || id.startsWith("jc935-3-1-"));
+  const expected = problems.filter((p) => scope.has(p.lessonId) || isSection31(p)).map(({ id }) => id);
 
-  expect(expected).toHaveLength(602);
+  expect(expected).toHaveLength(624);
+  expect(problems.filter(isSection31)).toHaveLength(22);
+  expect(problems.filter((p) => p.lessonId === "mvt" && !isSection31(p))).toHaveLength(29);
   expect(Object.keys(teachingByProblem).sort()).toEqual(expected.sort());
-  expect(Object.keys(expandedTeaching)).toHaveLength(561);
+  expect(Object.keys(expandedTeaching)).toHaveLength(583);
   for (const problem of problems) {
-    expect(Boolean(focusedPracticeLesson(problem)), problem.id).toBe(scope.has(problem.lessonId));
+    expect(Boolean(focusedPracticeLesson(problem)), problem.id).toBe(scope.has(problem.lessonId) || isSection31(problem));
   }
 });
 
