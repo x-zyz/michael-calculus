@@ -15,6 +15,7 @@ import { ch2Sec2bGuidedHints } from "./ch2Sec2b";
 import { ch2Sec3to4GuidedHints } from "./ch2Sec3to4";
 import { ch2Sec5GuidedHints } from "./ch2Sec5";
 import { ch2ReviewGuidedHints } from "./ch2Review";
+import { ch3Sec1GuidedHints } from "./ch3Sec1";
 
 export const guidedHintsById: Record<string, GuidedHint[]> = {
   ...ch1CoreGuidedHints,
@@ -33,4 +34,5 @@ export const guidedHintsById: Record<string, GuidedHint[]> = {
   ...ch2Sec3to4GuidedHints,
   ...ch2Sec5GuidedHints,
   ...ch2ReviewGuidedHints,
+  ...ch3Sec1GuidedHints,
 };
