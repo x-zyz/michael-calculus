@@ -2,10 +2,19 @@
 
 本文件是 `main` 的权威交接。旧工作树先读 [AGENTS.md](../AGENTS.md)，再查阅 [main 上的本文件](https://github.com/x-zyz/michael-calculus/blob/main/docs/AI_HANDOFF.md)。接手任务时核对远程提交、工作树和未提交改动，保留其他 Agent 的工作树与分支。分支状态、版本与验证结果以 Git、源码及实际回读为准。
 
-## 项目与发布基线
+## 当前发布基线 · v1.2.0
+
+- [v1.2.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.2.0) 发布提交为 `cb8bc4d730baa25c54031ae41f592eefe51c235e`，包含 Gemini 的 `bab6818006713eac2a2756997abb3d3a87e74b50`。P1.5 为 §3.1 的 22 题改写 44 个理解检查并补齐公式关联，恢复三题在 360px 下的解法换行。
+- 专注 ELI5、普通数值题与书面证明题均可在题内查看本题和本章公式。宽屏并排显示，窄屏使用 Sheet。公式表复用公式库与 KaTeX，关闭后恢复焦点，保留草稿、教学步骤和理解检查进度。
+- 本地通过 typecheck、lint、check:css、build、146 项 Vitest、5 项签名与备份验证，以及 §3.1 的 22 题和迁移题 SymPy 复核。Playwright 332 项通过、8 项按条件跳过，含 360px 布局、离线重开和旧 PWA 升级。另验证了从 v1.1.0 升级至 v1.2.0 后保留作答记录。
+- [签名发布工作流](https://github.com/x-zyz/michael-calculus/actions/runs/45510713963) 与 [主线回归](https://github.com/x-zyz/michael-calculus/actions/runs/45510713309) 成功。云端 Playwright 324 项通过、16 项按条件跳过，签名发布另通过 Android `assembleRelease lintRelease`。
+- 正式 APK 为 `com.michael.calculus` 1.2.0 / 47，共 6,861,085 字节，SHA-256 为 `dd1cc3bc26ad2a6854362936930de5a68e2c793a3ad31c063fd89eb724906238`，固定证书独立验包通过。[ByteVirt 公网清单](https://update.0979019203.top/calculus/stable/android/latest.json) 验签通过，版本 1.2.0 / 47、序列 47，下载的 APK 与 GitHub Release 逐字节一致。
+- [Pages](https://x-zyz.github.io/michael-calculus/) 的缓存为 `michael-calculus-v1.2.0`，HTML、`sw.js` 和入口 JS/CSS 与 Release 离线 ZIP 逐字节一致。Android 真机覆盖升级、学习数据保留和断网重开仍待验收。
+
+## 项目与 v1.1.0 发布记录
 
 - Michael Calculus 是离线优先的高数学习应用，使用 React、TypeScript、Vite、KaTeX 与 Capacitor，交付 Android 和 PWA。项目入口与运行方式见 [README](../README.md)。
-- 最新正式版为 [v1.1.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.1.0)。标签对象 `7d19eb55f3c858ca58c6bb8836327f835d0e359a` 指向主线发版提交 `16138ccb9f0841c1b37f6a729768a147dcb3b1fd`。Android 包名 `com.michael.calculus`，`versionName 1.1.0`，`versionCode 46`。
+- 上一正式版为 [v1.1.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.1.0)。标签对象 `7d19eb55f3c858ca58c6bb8836327f835d0e359a` 指向主线发版提交 `16138ccb9f0841c1b37f6a729768a147dcb3b1fd`。Android 包名 `com.michael.calculus`，`versionName 1.1.0`，`versionCode 46`。
 - 2026-11-23（太平洋时间）通过公网下载核验了 [正式 APK](https://github.com/x-zyz/michael-calculus/releases/download/v1.1.0/Michael-calculus-1.1.0.apk) 和 [离线 PWA ZIP](https://github.com/x-zyz/michael-calculus/releases/download/v1.1.0/Michael-calculus-1.1.0-pwa.zip)。两者均为 HTTP 200，SHA-256 与 Release 校验表一致。APK 6,864,881 字节，SHA-256 `2defe902b859b3aa00ae83eea8b26d68a114a3249eb10793d3db284358bf18a8`。ZIP 3,857,854 字节，SHA-256 `8b733bf10f43d9c2505837fcebb2cc423df1cdaf13cccbe8c5d1ebf61b59589b`。
 - 对下载的 APK 运行 `node scripts/verify-android-release.mjs <APK>`，核对了包名、版本、非调试属性、对齐与[固定签名](android-signing.md)。证书 SHA-256 为 `8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706`。[签名发布和 ByteVirt 同步](https://github.com/x-zyz/michael-calculus/actions/runs/45347513179) 均成功。
 - 发版前通过 `npm run typecheck`、`npm run lint`、`npm run check:css`、`npm test`（146 项）、`npm run test:signing`（5 项）和 `npm run build`。签名工作流另通过 Playwright（318 项通过，14 项跳过）与 Android `assembleRelease lintRelease`。
