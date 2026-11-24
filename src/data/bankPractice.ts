@@ -112,7 +112,7 @@ export const bankPractice = [
     "找同高区间里切线放平的位置",
     math`\begin{gathered}f(x)=\ln(\sin(2x))\\ x\in[\pi/12,5\pi/12],\quad f'(c)=0\\ c/\pi=?\end{gathered}`, 1/4, "mean_value_theorem",
     ["两端的正弦值一样。", "导数为 2cos(2x)/sin(2x)。", "余弦在这个范围内何时等于 0？"],
-    "两端同高，中间能找到切线放平的地方。在这个区间里 sin(2x) 大于零，只有 cos(2x)＝0 才会放平。2c＝π/2，所以 c/π＝1/4。"),
+    "两端同高，中间能找到切线放平的地方。在这个区间里 sin(2x) 大于零，只有 cos(2x)＝0 才会放平。2c＝π/2，所以 c/π＝1/4。", ["rolle", "chain", "diff-log", "diff-sin"]),
   // 3-2 第1(2)题·p96
   exercise("p182", "lhopital", "applied",
     "比较指数差和正弦缩小的速度",

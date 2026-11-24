@@ -187,6 +187,7 @@ export const bankWrittenPractice = [
   },
   // p92 · §3-1 4
   {
+    formulaIds: ["lagrange", "diff-power"],
     id: "p216", lessonId: "mvt", errorTag: "mean_value_theorem", kind: "证明题", difficulty: "challenge",
     title: "找出与割线平行的切线",
     formula: math`\begin{gathered}f(x)=3x^2-2x\\x\in[1,5]\end{gathered}`,
@@ -202,6 +203,7 @@ export const bankWrittenPractice = [
   },
   // p92 · §3-1 5
   {
+    formulaIds: ["rolle"],
     id: "p217", lessonId: "mvt", errorTag: "mean_value_theorem", kind: "证明题", difficulty: "challenge",
     title: "用四个零点数出三个驻点",
     formula: math`f(x)=(x+3)(x+1)(x-2)(x-4)`,

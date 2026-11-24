@@ -1,6 +1,7 @@
 import katex from "katex";
 import { describe, expect, it } from "vitest";
 import { parseAnswer, problems } from "../data/learning";
+import { formulaById } from "../data/formulas";
 import { guidedHintsById } from "../data/guidedHints";
 import { ch3Sec1GuidedHints } from "../data/guidedHints/ch3Sec1";
 import { chapterThreeSec1MvtTeaching } from "../data/eli5Drafts/ch03Sec1Mvt";
@@ -47,6 +48,8 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
       const problem = problemById.get(id);
       expect(problem, id).toBeDefined();
       expect(problem?.lessonId, id).toBe("mvt");
+      expect(problem?.formulaIds?.length ?? 0, id).toBeGreaterThan(0);
+      expect(problem?.formulaIds?.every((formulaId) => formulaById.has(formulaId)), id).toBe(true);
       expect(guidedHintsById[id]?.length ?? 0, `${id} guidedHints`).toBeGreaterThanOrEqual(3);
 
       for (const hint of ch3Sec1GuidedHints[id]) {

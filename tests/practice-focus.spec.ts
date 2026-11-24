@@ -229,7 +229,7 @@ test("P8 reveals formulas in reading order without moving the 360px viewport to 
   const transfer = guide.getByRole("form", { name: "迁移小题" });
   await transfer.getByRole("textbox").fill("-8");
   const submit = transfer.getByRole("button", { name: "检查迁移题" });
-  await submit.scrollIntoViewIfNeeded();
+  await submit.evaluate((button) => button.scrollIntoView({ block: "center", behavior: "instant" }));
   const before = await page.evaluate(() => window.scrollY);
   const button = (await submit.boundingBox())!;
   await page.mouse.click(button.x + button.width / 2, button.y + button.height / 2);

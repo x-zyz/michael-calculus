@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import PracticeFormulaReference from "./PracticeFormulaReference";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem, type NumericProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
@@ -61,12 +62,13 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
     }
   }
 
-  return (
+  const renderQuestion = (reference: ReactNode) => (
     <Card className="practice-question">
       <small className="learning-note">{practiceDifficultyLabels[p.difficulty ?? "basic"]}</small>
       <h2>{p.title}</h2>
       {teaching && <p className="learning-note">练习记录 · {teachingEvidence(state.attempts, p.id)}</p>}
       <Formula value={p.formula} />
+      {reference}
       <StuckButton key={p.id} problemId={p.id} />
       <form
         onSubmit={(e) => {
@@ -204,4 +206,6 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
       )}
     </Card>
   );
+
+  return <PracticeFormulaReference key={p.id} problem={p}>{renderQuestion}</PracticeFormulaReference>;
 }

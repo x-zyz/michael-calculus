@@ -5,9 +5,9 @@ const math = String.raw;
 export function exercise(
   id: string, lessonId: string, difficulty: NonNullable<NumericProblem["difficulty"]>,
   title: string, formula: string, answer: number, errorTag: string,
-  hints: [string, string, string], explanation: string,
+  hints: [string, string, string], explanation: string, formulaIds?: string[],
 ): Omit<NumericProblem, "errorLabel"> {
-  return { id, lessonId, difficulty, title, formula, answer, errorTag, hints, explanation, unit: "请输入数值或分数" };
+  return { id, lessonId, difficulty, title, formula, answer, errorTag, hints, explanation, ...(formulaIds && { formulaIds }), unit: "请输入数值或分数" };
 }
 
 // Original exercises in the order of the eight textbook chapters.
@@ -105,7 +105,7 @@ export const expandedPractice = [
     "找与割线平行的位置",
     math`\begin{gathered}f(x)=x^3,\quad c\in(0,3)\\f'(c)=\frac{f(3)-f(0)}3,\quad c^2=?\end{gathered}`, 3, "mean_value_theorem",
     ["先计算区间端点之间的平均斜率。", "割线斜率为 9，切线斜率为 3c²。", "令两条线的斜率相同。"],
-    "3c²＝9，所以 c²＝3，正根确实落在 (0,3)。"),
+    "3c²＝9，所以 c²＝3，正根确实落在 (0,3)。", ["lagrange", "diff-power"]),
   exercise("p135", "lhopital", "challenge",
     "需要两次洛必达的极限",
     math`\lim_{x\to0}\frac{e^{2x}-1-2x}{x^2}`, 2, "lhopital_rule",

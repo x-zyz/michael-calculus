@@ -1,7 +1,8 @@
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Compass } from "lucide-react";
 import { Link } from "react-router-dom";
+import PracticeFormulaReference from "./PracticeFormulaReference";
 import Formula from "../../components/Formula";
 import { Button, Card, InfoTip } from "../../components/ui";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem } from "../../data/learning";
@@ -117,7 +118,7 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
     result: correct ? teachingEvidence(state.attempts, problem.id) : "需要复习",
   }[view];
 
-  return (
+  const renderQuestion = (reference: ReactNode) => (
     <div className="practice-focus" data-original-wide={problem.formula.includes("\\quad") || undefined}>
       <header className={view === "guide" ? "practice-focus-nav practice-focus-nav-sticky" : "practice-focus-nav"}>
         {view === "question"
@@ -126,6 +127,7 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
             <ArrowLeft size={18} aria-hidden="true" /> {view !== "result" && correct !== undefined ? "返回结果" : "返回题目"}
           </Button>}
         <span>{view === "guide" ? "原题" : content.contextLabel}</span>
+        {reference}
         {view === "guide" && (
           <div className="practice-focus-original" role="region" aria-label="原题">
             <Formula value={problem.formula} />
@@ -256,4 +258,6 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
       </Card>
     </div>
   );
+
+  return <PracticeFormulaReference key={problem.id} problem={problem}>{renderQuestion}</PracticeFormulaReference>;
 }

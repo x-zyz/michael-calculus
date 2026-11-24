@@ -1,6 +1,7 @@
 import {
   type ReactNode,
   type ButtonHTMLAttributes,
+  type ComponentPropsWithRef,
   type HTMLAttributes,
   type InputHTMLAttributes,
 } from "react";
@@ -11,7 +12,7 @@ export function Button({
   variant = "secondary",
   className = "",
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & {
+}: ComponentPropsWithRef<"button"> & {
   variant?: "primary" | "secondary" | "ghost" | "danger";
 }) {
   return (

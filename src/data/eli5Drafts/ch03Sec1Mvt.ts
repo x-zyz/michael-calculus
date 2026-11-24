@@ -927,7 +927,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "理解连续两次使用罗尔定理可降到二阶导数",
     ],
     strategy: "double-rolle-second-deriv",
-    solution: math`\begin{gathered}G(-1)=G(2)=0\implies\exists\,\eta\in(-1,2),\;G'(\eta)=0\\[4pt]G'(-1)=0=G'(\eta)\implies\exists\,\xi\in(-1,\eta),\;G''(\xi)=0\end{gathered}`,
+    solution: math`\begin{gathered}G(-1)=G(2)=0\\[4pt]\implies\exists\,\eta\in(-1,2),\;G'(\eta)=0\\[4pt]G'(-1)=0=G'(\eta)\\[4pt]\implies\exists\,\xi\in(-1,\eta),\;G''(\xi)=0\end{gathered}`,
     solutionExplanation: "先对 G 在 [−1, 2] 用罗尔得 G′(η)=0，再展开 G′(x) 得 G′(−1)=0，在 [−1, η] 再用一次罗尔。",
     steps: buildSteps([
       {
@@ -1069,7 +1069,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "知道 0<a<b<c 取倒数得 1/c<1/b<1/a",
     ],
     strategy: "lagrange-log-bounds",
-    solution: math`\begin{gathered}\ln\frac{1+x}{1+y}=\ln(1+x)-\ln(1+y)\\[4pt]=\frac{x-y}{1+\xi},\quad 0<1+y<1+\xi<1+x\\[4pt]\frac{x-y}{1+x}<\ln\frac{1+x}{1+y}<\frac{x-y}{1+y}\end{gathered}`,
+    solution: math`\begin{gathered}\ln\frac{1+x}{1+y}=\ln(1+x)-\ln(1+y)\\[4pt]\ln\frac{1+x}{1+y}=\frac{x-y}{1+\xi}\\[4pt]0<1+y<1+\xi<1+x\\[4pt]\frac{x-y}{1+x}<\ln\frac{1+x}{1+y}<\frac{x-y}{1+y}\end{gathered}`,
     solutionExplanation: "把对数商拆差后对 ln(1+t) 用中值定理，再由 0<1+y<1+ξ<1+x 取倒数并乘 x−y。",
     steps: buildSteps([
       {
@@ -1270,7 +1270,7 @@ export const chapterThreeSec1MvtTeaching: Readonly<Record<string, TeachingLesson
       "会求三次多项式导数判断恒正",
     ],
     strategy: "ivt-plus-rolle-unique-root",
-    solution: math`\begin{gathered}f(0)=-2<0,\;f(1)=2>0\\[4pt]\implies\exists\,x_1\in(0,1),\;f(x_1)=0\\[4pt]f'(x)=3x^2+3\ge 3>0\xrightarrow{\text{罗尔反证}}\text{唯一正根}\end{gathered}`,
+    solution: math`\begin{gathered}f(0)=-2<0,\;f(1)=2>0\\[4pt]\implies\exists\,x_1\in(0,1),\;f(x_1)=0\\[4pt]f'(x)=3x^2+3\ge 3>0\\[4pt]\xrightarrow{\text{罗尔反证}}\text{唯一正根}\end{gathered}`,
     solutionExplanation: "f(0)<0<f(1) 证存在正根，f′(x)=3x²+3≥3>0 配合罗尔反证得唯一。",
     steps: buildSteps([
       {

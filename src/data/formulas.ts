@@ -305,6 +305,16 @@ export const formulas: FormulaDefinition[] = [
     ]),
   ),
   f(
+    "cauchy-mvt",
+    3,
+    "mvt",
+    "中值定理",
+    "柯西中值定理",
+    R`\begin{gathered}f'(\xi)[g(b)-g(a)]\\=g'(\xi)[f(b)-f(a)]\end{gathered}`,
+    R`g'(\xi)[f(b)-f(a)]`,
+    "a < b，f、g 在 [a,b] 连续且在 (a,b) 可导时，存在 ξ ∈ (a,b) 满足这个等式。",
+  ),
+  f(
     "lhopital",
     3,
     "lhopital",

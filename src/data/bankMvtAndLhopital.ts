@@ -6,6 +6,7 @@ const math = String.raw;
 export const bankMvtAndLhopital = [
   {
     id: "jc935-3-1-1",
+    formulaIds: ["rolle", "chain", "diff-log", "diff-cos"],
     source: "上册习题 3-1 第 1 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -30,6 +31,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-2",
+    formulaIds: ["lagrange", "diff-power"],
     source: "上册习题 3-1 第 2 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -54,6 +56,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-3",
+    formulaIds: ["cauchy-mvt", "diff-sin", "diff-cos"],
     source: "上册习题 3-1 第 3 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -78,6 +81,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-4",
+    formulaIds: ["lagrange", "diff-power"],
     source: "上册习题 3-1 第 4 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -102,6 +106,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-5",
+    formulaIds: ["rolle"],
     source: "上册习题 3-1 第 5 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -126,6 +131,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-6",
+    formulaIds: ["lagrange", "chain", "diff-arctan", "diff-power"],
     source: "上册习题 3-1 第 6 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -150,6 +156,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-7",
+    formulaIds: ["rolle", "diff-power"],
     source: "上册习题 3-1 第 7 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -174,6 +181,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-8",
+    formulaIds: ["rolle", "product"],
     source: "上册习题 3-1 第 8 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -198,6 +206,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-9",
+    formulaIds: ["lagrange", "diff-power"],
     source: "上册习题 3-1 第 9 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -222,6 +231,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-10",
+    formulaIds: ["lagrange", "chain", "diff-log"],
     source: "上册习题 3-1 第 10 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -246,6 +256,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-11-1",
+    formulaIds: ["lagrange", "chain", "diff-sin"],
     source: "上册习题 3-1 第 11 题（1）",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -270,6 +281,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-11-2",
+    formulaIds: ["lagrange", "diff-exp"],
     source: "上册习题 3-1 第 11 题（2）",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -294,6 +306,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-12",
+    formulaIds: ["rolle", "diff-power"],
     source: "上册习题 3-1 第 12 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -318,6 +331,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-13",
+    formulaIds: ["lagrange", "sum"],
     source: "上册习题 3-1 第 13 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -342,6 +356,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-14",
+    formulaIds: ["lagrange", "product", "chain", "diff-exp"],
     source: "上册习题 3-1 第 14 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
@@ -366,6 +381,7 @@ export const bankMvtAndLhopital = [
   },
   {
     id: "jc935-3-1-15",
+    formulaIds: ["cauchy-mvt", "diff-power"],
     source: "上册习题 3-1 第 15 题",
     lessonId: "mvt",
     errorTag: "mean_value_theorem",
