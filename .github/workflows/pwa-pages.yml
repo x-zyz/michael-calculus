@@ -37,27 +37,39 @@ jobs:
         with:
           name: github-pages-${{ github.run_attempt }}
           path: dist
-      - name: Wait for the uploaded Pages artifact to become visible
-        shell: bash
+      - name: Require an uploaded artifact ID
         env:
-          GH_TOKEN: ${{ github.token }}
           ARTIFACT_ID: ${{ steps.upload.outputs.artifact_id }}
-          ARTIFACT_NAME: github-pages-${{ github.run_attempt }}
-        run: |
-          set -euo pipefail
-          [[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]]
-          for attempt in {1..10}; do
-            if timeout 10s gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=$ARTIFACT_NAME" |
-              jq -e --arg id "$ARTIFACT_ID" --arg name "$ARTIFACT_NAME" \
-                'any(.artifacts[]; (.id | tostring) == $id and .name == $name and .expired == false)' >/dev/null; then
-              echo "Pages artifact $ARTIFACT_ID is visible on attempt $attempt."
-              exit 0
-            fi
-            echo "Waiting for Pages artifact visibility (attempt $attempt/10)."
-            if (( attempt < 10 )); then sleep 6; fi
-          done
-          echo "::error::Pages artifact $ARTIFACT_ID never became visible for this run."
-          exit 1
+        run: '[[ "$ARTIFACT_ID" =~ ^[0-9]+$ ]]'
+      # Without a GitHub token, download-artifact uses the same runner artifact
+      # service as deploy-pages. The REST listing can be visible earlier.
+      - name: Check the uploaded artifact in the runner artifact service
+        id: check-artifact
+        continue-on-error: true
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          artifact-ids: ${{ steps.upload.outputs.artifact_id }}
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Wait for the runner artifact index
+        if: steps.check-artifact.outcome == 'failure'
+        run: sleep 12
+      - name: Retry the artifact check
+        id: retry-artifact
+        if: steps.check-artifact.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          artifact-ids: ${{ steps.upload.outputs.artifact_id }}
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Wait once more for the runner artifact index
+        if: steps.retry-artifact.outcome == 'failure'
+        run: sleep 18
+      - name: Require the uploaded artifact before deployment
+        if: steps.retry-artifact.outcome == 'failure'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          artifact-ids: ${{ steps.upload.outputs.artifact_id }}
+          path: ${{ runner.temp }}/pages-artifact
       - id: deployment
         uses: actions/deploy-pages@v4
         with:
