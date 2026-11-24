@@ -5,9 +5,13 @@
 ## 项目与发布基线
 
 - Michael Calculus 是离线优先的高数学习应用，使用 React、TypeScript、Vite、KaTeX 与 Capacitor，交付 Android 和 PWA。项目入口与运行方式见 [README](../README.md)。
-- 最新正式版为 [v1.0.1](https://github.com/x-zyz/michael-calculus/releases/tag/v1.0.1)。发布标签指向 `fa074b82f5ad583ee9d99903c18231bd953fc44f`，该发布提交已纳入 `main`。Android 包名 `com.michael.calculus`，`versionCode 45`，沿用[固定签名](android-signing.md)。
-- Android 稳定更新使用 [ByteVirt 清单](https://update.0979019203.top/calculus/stable/android/latest.json)。2026-11-23 从公网验签并下载实测为 1.0.1 / 45、序列 45，APK SHA-256 为 `c46b8bdeecc5c7d198bdcee1350ab65cf09e9b5a22c147df7a24a17a0302f50a`，与 GitHub Release 附件一致。
-- [GitHub Pages PWA](https://x-zyz.github.io/michael-calculus/) 由 [pwa-pages.yml](../.github/workflows/pwa-pages.yml) 在 `main` 推送时部署。[PR #6](https://github.com/x-zyz/michael-calculus/pull/6) 加入制品可见性重试后，公网已确认同步至 v1.0.1。P1 沿用 `michael-calculus-v1.0.1` 缓存版本，每次部署用公网 `sw.js` 和 HTML 实际引用的 JS/CSS 核对构建。
+- 最新正式版为 [v1.1.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.1.0)。标签对象 `7d19eb55f3c858ca58c6bb8836327f835d0e359a` 指向主线发版提交 `16138ccb9f0841c1b37f6a729768a147dcb3b1fd`。Android 包名 `com.michael.calculus`，`versionName 1.1.0`，`versionCode 46`。
+- 2026-11-23（太平洋时间）通过公网下载核验了 [正式 APK](https://github.com/x-zyz/michael-calculus/releases/download/v1.1.0/Michael-calculus-1.1.0.apk) 和 [离线 PWA ZIP](https://github.com/x-zyz/michael-calculus/releases/download/v1.1.0/Michael-calculus-1.1.0-pwa.zip)。两者均为 HTTP 200，SHA-256 与 Release 校验表一致。APK 6,864,881 字节，SHA-256 `2defe902b859b3aa00ae83eea8b26d68a114a3249eb10793d3db284358bf18a8`。ZIP 3,857,854 字节，SHA-256 `8b733bf10f43d9c2505837fcebb2cc423df1cdaf13cccbe8c5d1ebf61b59589b`。
+- 对下载的 APK 运行 `node scripts/verify-android-release.mjs <APK>`，核对了包名、版本、非调试属性、对齐与[固定签名](android-signing.md)。证书 SHA-256 为 `8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706`。[签名发布和 ByteVirt 同步](https://github.com/x-zyz/michael-calculus/actions/runs/45347513179) 均成功。
+- 发版前通过 `npm run typecheck`、`npm run lint`、`npm run check:css`、`npm test`（146 项）、`npm run test:signing`（5 项）和 `npm run build`。签名工作流另通过 Playwright（318 项通过，14 项跳过）与 Android `assembleRelease lintRelease`。
+- [ByteVirt 公网清单](https://update.0979019203.top/calculus/stable/android/latest.json) 的内容签名通过验证，实测版本 1.1.0 / 46、序列 46。清单和 [公网 APK](https://update.0979019203.top/calculus/stable/android/releases/46/package.apk) 均返回 HTTP 200，公网 APK 与 GitHub Release APK 逐字节一致。
+- [GitHub Pages PWA](https://x-zyz.github.io/michael-calculus/) 由 [pwa-pages.yml](../.github/workflows/pwa-pages.yml) 在 `main` 推送时部署。[PR #10](https://github.com/x-zyz/michael-calculus/pull/10) 让制品检查与部署使用同一制品服务，解决了 v1.1.0 的制品索引延迟。[实测部署](https://github.com/x-zyz/michael-calculus/actions/runs/45348189352) 的 HTML、`sw.js` 与入口 JS/CSS 均返回 HTTP 200，SHA-256 与部署制品一致。
+- Pages 的 `sw.js` 缓存标识为 `michael-calculus-v1.1.0`（SHA-256 `fb9626feaca4eea150703517a6e8fb0298a729801872e9f7c40fe60cfae0bbd9`）。HTML 引用 `index-CfcZW3bR.js`（`437db6107dc454512f492c3ba93210840680b28ae35e240dd4449b091898b1d1`）与 `index-Dlh76GjU.css`（`8643338b6bb663a278c5fd4948d8f5253b596ea4a1490a2ad0ed6e72fc3b5e97`）。HTML、工作线程和两个入口资源的字节也与 Release 的离线 ZIP 一致。
 - 当前 ByteVirt 发布机接受受限 SSH，洛杉矶 Caddy 为高数稳定通道代理发布机。发布工作流已经加入 [公网回读](../scripts/verify-bytevirt-public.mjs)，将清单和 APK 与上传包逐字节对照。
 
 ## 题库与教学进度
