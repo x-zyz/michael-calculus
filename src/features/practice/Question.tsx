@@ -6,6 +6,7 @@ import Formula from "../../components/Formula";
 import { initialTeachingProgress, p8Diagnostic, teachingByProblem, teachingEvidence, type TeachingProgress } from "../../data/teaching";
 import TeachingSession from "./TeachingSession";
 import PracticeHints from "./PracticeHints";
+import { ObstacleRemediation } from "./RemediationEntry";
 import { StuckButton } from "../formulas/FormulaActions";
 import { Button, Card, InfoTip } from "../../components/ui";
 import WrittenQuestion from "./WrittenQuestion";
@@ -33,6 +34,7 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const [hints, setHints] = useState(0);
   const hintCount = (p.guidedHints ?? p.hints).length;
   const [result, setResult] = useState<boolean | null>(null);
+  const [wrongStreak, setWrongStreak] = useState(0);
   const [invalid, setInvalid] = useState(false);
   const submitted = result !== null;
   const teaching = teachingByProblem[p.id];
@@ -77,6 +79,7 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
           }
           setInvalid(false);
           setResult(ok);
+          setWrongStreak((previous) => ok ? 0 : previous + 1);
           if (teaching && !ok) setSolutionSeen(true);
           save({
             ...state,
@@ -145,7 +148,8 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
       )}
       {teaching && progress && (
         <div hidden={mode !== "eli5"}>
-          <TeachingSession lesson={teaching} onProgress={setProgress} locked={submitted} active={mode === "eli5"} />
+          <TeachingSession lesson={teaching} onProgress={setProgress} locked={submitted} active={mode === "eli5"}
+            remediationForStep={ObstacleRemediation} />
         </div>
       )}
       {mode === "standard" && hints > 0 && <PracticeHints problem={p} count={hints} />}
@@ -181,6 +185,7 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
           {(result || p.id !== "p8") && <p>{p.explanation}</p>}
           {!result && <p>复习方向：{p.errorLabel}。此题已加入待复习。</p>}
           <div className="learning-actions">
+            {!result && wrongStreak >= 2 && <ObstacleRemediation errorTag={p.errorTag} />}
             <Button
               onClick={() => {
                 setResult(null);

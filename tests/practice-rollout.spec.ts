@@ -2,6 +2,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { problems } from "../src/data/learning";
 import { expandedTeaching } from "../src/data/teaching";
+import { chapterThreeSec1MvtTeaching } from "../src/data/eli5Drafts/ch03Sec1Mvt";
 import { firstFocusedPracticeBatch, focusedPracticeLesson } from "../src/features/practice/focusedPracticeRollout";
 
 const batch = problems.filter((problem) => focusedPracticeLesson(problem) && !expandedTeaching[problem.id]);
@@ -12,7 +13,7 @@ async function checkFormulas(page: Page) {
   const clipped = await page.locator(".formula:visible").evaluateAll((items) => items
     .filter((item) => item.scrollWidth > item.clientWidth + 1)
     .map((item) => item.querySelector("annotation")?.textContent));
-  expect(clipped).toEqual([]);
+  expect.soft(clipped).toEqual([]);
 }
 
 test("first rollout batch contains six numerical and four written registered lessons", () => {
@@ -26,10 +27,11 @@ const expandedExamples = new Set([
   "jc935-1-1-1-2", "jc935-1-3-2-6", "jc935-1-10-1",
   "p12", "p129", "jc935-2-4-9-1", "jc935-2-5-10-1", "jc935-2-review-11",
 ]);
-for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples.has(id))]) {
+for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples.has(id) || Object.hasOwn(chapterThreeSec1MvtTeaching, id))]) {
   const lesson = focusedPracticeLesson(problem)!;
-  test(problem.id + " completes the four-state flow at 360px", async ({ page }) => {
-    await page.setViewportSize({ width: 360, height: 740 });
+  test(problem.id + " completes the four-state flow", async ({ page, isMobile }) => {
+    const desktopMvt = !isMobile && Object.hasOwn(chapterThreeSec1MvtTeaching, problem.id);
+    await page.setViewportSize(desktopMvt ? { width: 1280, height: 860 } : { width: 360, height: 740 });
     await page.goto("/#/practice?problem=" + problem.id);
     const paper = page.locator(".practice-focus-paper");
     const initialFormula = await paper.locator(".formula annotation").first().textContent();

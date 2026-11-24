@@ -9,6 +9,8 @@ import {
   lessonDerivativeApp,
 } from "../../data/learning";
 import { textbookSections } from "../../data/textbookSections";
+import { remediationModulesById } from "../../data/eli5Drafts/remediationModules";
+import { RemediationEntry } from "../practice/RemediationEntry";
 import { formulas } from "../../data/formulas";
 import { useLearning } from "../../db/learning";
 import ChapterPainting from "../../components/ChapterPainting";
@@ -156,6 +158,9 @@ function Lesson({
           <div>
             <span className="eyebrow">{chapter.title}{section && ` · §${section.number}`}{lesson.optional && " · 选学"}</span>
             <h2>{lesson.title}</h2>
+            {Object.values(remediationModulesById)
+              .filter(({ courseEntryLessonIds }) => courseEntryLessonIds.some((id) => id === lesson.id))
+              .map(({ id }) => <RemediationEntry key={id} remediationId={id} />)}
           </div>
           <ChapterPainting chapter={lesson.chapter} />
         </div>

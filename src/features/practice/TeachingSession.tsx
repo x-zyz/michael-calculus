@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ComponentType } from "react";
 import Formula from "../../components/Formula";
 import { parseAnswer } from "../../data/learning";
 import { Button } from "../../components/ui";
@@ -9,15 +9,18 @@ export interface TeachingStepPresentation {
   referenceFormula?: string;
 }
 
-export default function TeachingSession({ lesson, onProgress, locked, active, focused = false, presentation, onFinish, finishMessage = "教学步骤已结束。现在试着在答案框填入结果。" }: {
+export default function TeachingSession({ lesson, onProgress, locked, active, focused = false, presentation, onFinish, remediationForStep, focusFirstStep = true, finishLabel = "结束教学", finishMessage = "教学步骤已结束。现在试着在答案框填入结果。" }: {
   lesson: TeachingLesson;
-  onProgress: (progress: TeachingProgress) => void;
+  onProgress?: (progress: TeachingProgress) => void;
   locked: boolean;
   active: boolean;
   finishMessage?: string;
   focused?: boolean;
   presentation?: Readonly<Record<string, TeachingStepPresentation>>;
   onFinish?: () => void;
+  remediationForStep?: ComponentType<{ stepId: string }>;
+  focusFirstStep?: boolean;
+  finishLabel?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [progress, setProgress] = useState(initialTeachingProgress);
@@ -29,14 +32,14 @@ export default function TeachingSession({ lesson, onProgress, locked, active, fo
   const stepStart = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (!active) return;
+    if (!active || (!focusFirstStep && index === 0 && !finished)) return;
     stepStart.current?.focus({ preventScroll: true });
     stepStart.current?.scrollIntoView?.({ block: focused ? "nearest" : "center" });
-  }, [active, index, finished, focused]);
+  }, [active, index, finished, focused, focusFirstStep]);
 
   function record(next: TeachingProgress) {
     setProgress(next);
-    onProgress(next);
+    onProgress?.(next);
   }
 
   function advance() {
@@ -70,6 +73,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active, fo
           <p ref={stepStart} tabIndex={-1} className="learning-note" role="status">第 {index + 1} 步，共 {lesson.steps.length} 步</p>
           {focused && <progress aria-label="教学进度" value={index + 1} max={lesson.steps.length} />}
           <Step key={step.id} step={step} locked={locked} last={index === lesson.steps.length - 1} focused={focused}
+            remediationForStep={remediationForStep} finishLabel={finishLabel}
             presentation={presentation?.[step.id]}
             onAttempt={(correct) => record({
               ...progress,
@@ -106,7 +110,7 @@ export default function TeachingSession({ lesson, onProgress, locked, active, fo
   );
 }
 
-function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, focused, presentation }: {
+function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, focused, presentation, remediationForStep: RemediationForStep, finishLabel }: {
   step: TeachingStep;
   onAttempt: (correct: boolean) => void;
   onSkip: () => void;
@@ -116,6 +120,8 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
   last: boolean;
   focused: boolean;
   presentation?: TeachingStepPresentation;
+  remediationForStep?: ComponentType<{ stepId: string }>;
+  finishLabel: string;
 }) {
   const [detailOpen, setDetailOpen] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
@@ -157,6 +163,7 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
           </>}
           {selected !== null && (!focused || !skipped) && <p ref={checkFeedback} tabIndex={focused ? -1 : undefined} role="status">{check.feedback[selected]}</p>}
           {!checkFinished && mistakes >= 2 && <p>{check.prerequisite}</p>}
+          {!locked && !checkFinished && mistakes > 0 && RemediationForStep && <RemediationForStep stepId={step.id} />}
           {skipped && <p ref={checkFeedback} tabIndex={focused ? -1 : undefined} role="status">已跳过本步检查。</p>}
           {!locked && !checkFinished && <Button type="button" variant={focused ? "ghost" : undefined} onClick={() => {
             setSkipped(true);
@@ -179,7 +186,7 @@ function Step({ step, onAttempt, onSkip, onTransfer, onAdvance, locked, last, fo
           </Button>}
           {detailOpen && <p>{step.detail}</p>}
           {!locked && <div className="learning-actions">
-            <Button type="button" variant={focused ? "primary" : undefined} onClick={onAdvance}>{last ? "结束教学" : "下一步"}</Button>
+            <Button type="button" variant={focused ? "primary" : undefined} onClick={onAdvance}>{last ? finishLabel : "下一步"}</Button>
           </div>}
         </div>
       )}
@@ -197,6 +204,8 @@ function TransferCheck({ transfer, locked, finished, focused, onResult }: {
   const [answer, setAnswer] = useState("");
   const [feedback, setFeedback] = useState("");
   const [solved, setSolved] = useState(false);
+  const answerId = useId();
+  const formulaId = useId();
   const transferFeedback = useRef<HTMLParagraphElement>(null);
   useLayoutEffect(() => {
     if (focused && finished) transferFeedback.current?.focus({ preventScroll: true });
@@ -219,11 +228,11 @@ function TransferCheck({ transfer, locked, finished, focused, onResult }: {
     }}>
       <h4>迁移小题</h4>
       {(!focused || !finished) && <>
-        <label htmlFor="eli5-transfer-answer">{transfer.prompt}</label>
-        {transfer.promptFormula && <div id="eli5-transfer-formula" aria-label="迁移题题面">
+        <label htmlFor={answerId}>{transfer.prompt}</label>
+        {transfer.promptFormula && <div id={formulaId} aria-label="迁移题题面">
           <Formula value={transfer.promptFormula} />
         </div>}
-        <input id="eli5-transfer-answer" aria-describedby={transfer.promptFormula ? "eli5-transfer-formula" : undefined}
+        <input id={answerId} aria-describedby={transfer.promptFormula ? formulaId : undefined}
           value={answer} autoComplete="off" maxLength={64}
           disabled={locked || finished} onChange={(event) => setAnswer(event.target.value)} />
         <div className="learning-actions">

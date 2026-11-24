@@ -9,6 +9,7 @@ import { initialTeachingProgress, teachingEvidence, type TeachingLesson, type Te
 import { useLearning } from "../../db/learning";
 import { StuckButton } from "../formulas/FormulaActions";
 import ReferenceGraph from "./ReferenceGraph";
+import { ObstacleRemediation } from "./RemediationEntry";
 import TeachingSession, { type TeachingStepPresentation } from "./TeachingSession";
 
 type View = "question" | "guide" | "solution" | "result";
@@ -182,6 +183,7 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
         {progress && (
           <div hidden={view !== "guide"}>
             <TeachingSession lesson={lesson} active={view === "guide"} locked={false} onProgress={setProgress}
+              remediationForStep={ObstacleRemediation}
               focused presentation={content.stepPresentation}
               finishMessage={written ? "教学步骤已结束。试着在纸上从头写一遍，再核对参考解析。" : undefined} onFinish={() => { if (correct === false) retry(); else setView("question"); }} />
           </div>
@@ -239,6 +241,7 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
             <div className="practice-focus-actions">
               {correct && onNext && <Button variant="primary" onClick={onNext}>下一题 <ArrowRight size={18} aria-hidden="true" /></Button>}
               {guideFirst && <Button variant="primary" onClick={openGuide}>一步一步教我</Button>}
+              {guideFirst && <ObstacleRemediation errorTag={problem.errorTag} />}
               <Button variant={retryPrimary ? "primary" : "ghost"}
                 onClick={retry}>{correct ? "重新练习" : "我再试一次"}</Button>
               {!correct && !guideFirst && <Button variant="ghost" onClick={openGuide}>一步一步教我</Button>}
