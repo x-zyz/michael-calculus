@@ -5,6 +5,10 @@ import { guidedHintsById } from "../data/guidedHints";
 import { ch3Sec1GuidedHints } from "../data/guidedHints/ch3Sec1";
 import { chapterThreeSec1MvtTeaching } from "../data/eli5Drafts/ch03Sec1Mvt";
 import { chainRuleRemediationModule } from "../data/eli5Drafts/chainRuleRemediation";
+import {
+  remediationModulesById,
+  resolveRemediationForObstacle,
+} from "../data/eli5Drafts/remediationModules";
 
 const expectedSec1Ids = [
   "p19",
@@ -53,7 +57,20 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
     }
   });
 
-  it("enforces P0 choice balance, affirmative-feedback alignment, non-spoiler numeric checks, and valid transfers", () => {
+  it("reconciles exact runtime lessonId='mvt' partition (51 total = 22 Section 3.1 + 29 non-3.1)", () => {
+    const allMvtIds = problems.filter((p) => p.lessonId === "mvt").map((p) => p.id);
+    const sec1Set = new Set<string>(expectedSec1Ids);
+    const nonSec1Ids = allMvtIds.filter((id) => !sec1Set.has(id));
+
+    expect(allMvtIds).toHaveLength(51);
+    expect(expectedSec1Ids).toHaveLength(22);
+    expect(nonSec1Ids).toHaveLength(29);
+    for (const id of expectedSec1Ids) {
+      expect(allMvtIds).toContain(id);
+    }
+  });
+
+  it("enforces P0 choice balance (allowing natural consecutive repeats), affirmative-feedback alignment, non-spoiler numeric checks, and valid transfers", () => {
     const counts = [0, 0, 0];
     let totalChecks = 0;
     const affirmativePrefix = /^(对|找对了)/;
@@ -67,7 +84,6 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
       expect(lesson.steps.length, id).toBe(3);
       expect(new Set(lesson.steps.map((s) => s.id)).size, id).toBe(3);
 
-      let prevCorrect: number | null = null;
       for (const step of lesson.steps) {
         expect(() => katex.renderToString(step.formula, { throwOnError: true, strict: "error" }), `${id}/${step.id}`).not.toThrow();
         const check = step.check;
@@ -77,10 +93,6 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
           expect(check.correct).toBeGreaterThanOrEqual(0);
           expect(check.correct).toBeLessThan(3);
           counts[check.correct] += 1;
-          if (prevCorrect !== null) {
-            expect(check.correct, `${id}/${step.id} should not repeat previous slot`).not.toBe(prevCorrect);
-          }
-          prevCorrect = check.correct;
 
           const normChoices = check.choices.map(normalizeText);
           expect(normChoices.every(Boolean), `${id}/${step.id} blank choice`).toBe(true);
@@ -155,5 +167,15 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
     const transfer = chainRuleRemediationModule.steps[2].transfer!;
     expect(transfer.answer).toBe(-0.5);
     expect(() => katex.renderToString(transfer.solution!, { throwOnError: true, strict: "error" })).not.toThrow();
+
+    // Obstacle-specific triggering: triggers on chain-rule/implicit obstacles only, never misfires on Rolle/MVT conditions
+    expect(remediationModulesById["chain-rule"].lesson).toBe(chainRuleRemediationModule);
+    expect(resolveRemediationForObstacle({ stepId: "p181-2" })?.id).toBe("chain-rule");
+    expect(resolveRemediationForObstacle({ stepId: "jc935-3-1-6-1" })?.id).toBe("chain-rule");
+    expect(resolveRemediationForObstacle({ errorTag: "chain_rule" })?.id).toBe("chain-rule");
+    expect(resolveRemediationForObstacle({ errorTag: "implicit_derivative" })?.id).toBe("chain-rule");
+    expect(resolveRemediationForObstacle({ stepId: "p20-1" })).toBeUndefined();
+    expect(resolveRemediationForObstacle({ stepId: "p19-1" })).toBeUndefined();
+    expect(resolveRemediationForObstacle({ errorTag: "mean_value_theorem" })).toBeUndefined();
   });
 });

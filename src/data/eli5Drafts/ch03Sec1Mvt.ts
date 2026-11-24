@@ -26,16 +26,12 @@ const stableSlot = (stepId: string, choiceCount: number): number => {
 const toTeachingCheck = (
   stepId: string,
   input: ChoiceCheckInput,
-  forbiddenSlot?: number,
 ): TeachingCheck => {
   const originalIndex = input.choices.indexOf(input.answer);
   if (originalIndex < 0) {
     throw new Error(`Missing answer "${input.answer}" in choices for ${stepId}`);
   }
-  let targetSlot = stableSlot(stepId, input.choices.length);
-  if (forbiddenSlot !== undefined && targetSlot === forbiddenSlot) {
-    targetSlot = (targetSlot + 1) % input.choices.length;
-  }
+  const targetSlot = stableSlot(stepId, input.choices.length);
   const shift = (targetSlot - originalIndex + input.choices.length) % input.choices.length;
   const ordered = input.choices.map(
     (_, index) => input.choices[(index - shift + input.choices.length) % input.choices.length],
@@ -59,13 +55,11 @@ interface StepDraft {
   transfer?: TeachingTransfer;
 }
 
-const buildSteps = (drafts: readonly StepDraft[]): TeachingStep[] => {
-  let prevCorrect: number | undefined;
-  return drafts.map((draft) => {
+const buildSteps = (drafts: readonly StepDraft[]): TeachingStep[] =>
+  drafts.map((draft) => {
     const check = draft.check
-      ? toTeachingCheck(draft.id, draft.check, prevCorrect)
+      ? toTeachingCheck(draft.id, draft.check)
       : undefined;
-    if (check) prevCorrect = check.correct;
     return {
       id: draft.id,
       goal: draft.goal,
@@ -76,7 +70,6 @@ const buildSteps = (drafts: readonly StepDraft[]): TeachingStep[] => {
       ...(draft.transfer ? { transfer: draft.transfer } : {}),
     };
   });
-};
 
 /**
  * 第三章 3.1 微分中值定理（罗尔定理、拉格朗日中值定理、柯西中值定理）深度 ELI5 教学内容。
