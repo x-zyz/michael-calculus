@@ -169,13 +169,14 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
     expect(transfer.answer).toBe(-0.5);
     expect(() => katex.renderToString(transfer.solution!, { throwOnError: true, strict: "error" })).not.toThrow();
 
-    // Obstacle-specific triggering: triggers on chain-rule/implicit obstacles only, never misfires on Rolle/MVT conditions
+    // Obstacle-specific triggering: each module triggers only on its mapped obstacle steps, never misfires across topics
     expect(remediationModulesById["chain-rule"].lesson).toBe(chainRuleRemediationModule);
     expect(resolveRemediationForObstacle({ stepId: "p181-2" })?.id).toBe("chain-rule");
     expect(resolveRemediationForObstacle({ stepId: "jc935-3-1-6-1" })?.id).toBe("chain-rule");
     expect(resolveRemediationForObstacle({ errorTag: "chain_rule" })?.id).toBe("chain-rule");
     expect(resolveRemediationForObstacle({ errorTag: "implicit_derivative" })?.id).toBe("chain-rule");
-    expect(resolveRemediationForObstacle({ stepId: "p20-1" })).toBeUndefined();
+    expect(resolveRemediationForObstacle({ stepId: "p20-1" })?.id).toBe("rolle-conditions");
+    expect(resolveRemediationForObstacle({ stepId: "jc935-3-1-14-1" })?.id).toBe("lagrange-mvt");
     expect(resolveRemediationForObstacle({ stepId: "p19-1" })).toBeUndefined();
     expect(resolveRemediationForObstacle({ errorTag: "mean_value_theorem" })).toBeUndefined();
   });
