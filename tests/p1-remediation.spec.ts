@@ -1,6 +1,7 @@
+import { teachingByProblem } from "../src/tests/bankFixture";
 import { expect, test, type Locator } from "@playwright/test";
 import { chainRuleRemediationModule } from "../src/data/remediation/chainRuleRemediation";
-import { teachingByProblem } from "../src/data/teaching";
+
 
 const chapterThreeSec1MvtTeaching = {
   p181: teachingByProblem.p181!,

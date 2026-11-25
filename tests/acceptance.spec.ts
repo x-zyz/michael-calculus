@@ -1,7 +1,8 @@
+import { problems } from "../src/tests/bankFixture";
 import {chooseSelect} from './ui';
 import { test, expect, type Page } from '@playwright/test';
 
-import { lessons, problems } from "../src/data/learning";
+import { lessons } from "../src/data/learning";
 
 async function layoutProblems(page: Page) {
   return page.evaluate(() => {
@@ -53,8 +54,8 @@ test.describe('phone layout', () => {
       const issues: string[] = [];
       for (const problem of batch) {
         await page.goto(`/#/practice?ui=classic&problem=${problem.id}`);
-        const exercise = page.locator(".practice-question");
-        await exercise.getByRole("heading", { name: problem.title, exact: true }).waitFor();
+        const exercise = page.locator(`.practice-question[data-problem-id="${problem.id}"]`);
+        await expect(exercise.getByRole("heading", { name: problem.title, exact: true })).toBeVisible();
         if ("kind" in problem) {
           await exercise.getByRole("button", { name: "查看分步解析" }).dispatchEvent("click");
           await expect(exercise.locator(".answer-feedback")).toBeVisible();

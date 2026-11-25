@@ -1,8 +1,9 @@
+import { problems, teachingByProblem } from "./bankFixture";
 import katex from "katex";
 import { describe, expect, it } from "vitest";
 import { formulaById } from "../data/formulas";
-import { lessons, parseAnswer, problems } from "../data/learning";
-import { teachingByProblem } from "../data/teaching";
+import { lessons, parseAnswer } from "../data/learning";
+
 import { problemIndex } from "../data/bank";
 
 const expectedSec2Ids = [

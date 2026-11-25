@@ -1,8 +1,9 @@
+import { teachingByProblem, problems } from "../src/tests/bankFixture";
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { teachingByProblem } from "../src/data/teaching";
+
 
 const chapterThreeSec1MvtTeaching = { p181: teachingByProblem.p181! };
-import { chapters, lessons, problems } from "../src/data/learning";
+import { chapters, lessons } from "../src/data/learning";
 
 const focusedUrl = "/#/practice?problem=p181";
 

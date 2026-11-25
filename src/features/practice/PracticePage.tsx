@@ -1,21 +1,24 @@
 import { useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, List } from "lucide-react";
-import { chapters, lessons, problems, errorTags, practiceDifficultyLabels, writtenProblemKinds, type PracticeDifficulty, type WrittenProblem } from "../../data/learning";
+import { chapters, practiceDifficultyLabels, writtenProblemKinds, type PracticeDifficulty, type WrittenProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
-import { Button, Sheet, ChipRow, Chip, Tabs, EmptyState } from "../../components/ui";
+import { Button, Tabs, EmptyState, ActionLink } from "../../components/ui";
 import StudyHeading from "../../components/StudyHeading";
 import ReviewPage from "../review/ReviewPage";
 import Question from "./Question";
 import FocusedPractice from "./FocusedPractice";
 import { p8FocusContent } from "./p8FocusContent";
-import { focusedPracticeLesson } from "./focusedPracticeRollout";
+import { problemIndex, problemIndexById, searchProblemIndex, type ProblemSearchFilter } from "../../data/bank";
+import { useBankProblem } from "../../data/bank/useBankProblem";
+import BankProblemStatus from "../../components/BankProblemStatus";
+import PracticeProblemPicker from "./PracticeProblemPicker";
 export default function PracticePage() {
   const { pathname, search } = useLocation();
   const showMistakes = pathname === "/practice/mistakes";
   const query = new URLSearchParams(search);
-  const requested = problems.find((problem) => problem.id === query.get("problem"));
-  const compact = !showMistakes && query.get("ui") !== "classic" && requested && focusedPracticeLesson(requested);
+  const requested = problemIndexById.get(query.get("problem") ?? "");
+  const compact = !showMistakes && query.get("ui") !== "classic" && requested?.hasEli5;
   return compact ? <div className="page focus-layout"><PracticeQuestions key={search} compact /></div>
     : <PracticeOverview showMistakes={showMistakes} search={search} />;
 }
@@ -24,7 +27,7 @@ function PracticeOverview({ showMistakes, search }: { showMistakes: boolean; sea
   const navigate = useNavigate();
   const { state } = useLearning();
   const latest = new Map(state.attempts.map(({ problemId, correct }) => [problemId, correct]));
-  const wrong = problems.filter(({ id }) => latest.get(id) === false).length;
+  const wrong = problemIndex.filter(({ id }) => latest.get(id) === false).length;
 
   return (
     <div className="page focus-layout practice-study">
@@ -47,42 +50,48 @@ function PracticeQuestions({ compact = false }: { compact?: boolean }) {
   const navigate = useNavigate();
   const { state } = useLearning();
   const [query] = useSearchParams();
-  const [open, setOpen] = useState(false);
-  const [chapter, setChapter] = useState(Number(query.get("chapter")) || 0);
-  const [tag, setTag] = useState(query.get("tag") || "");
+  const [picker, setPicker] = useState<{ displayedId?: string }>();
+  const [filters, setFilters] = useState<ProblemSearchFilter>(() => {
+    const chapter = chapters.find(({ id }) => String(id) === query.get("chapter"))?.id;
+    return {
+      chapter,
+      lessonId: query.get("lesson") || undefined,
+      tag: query.get("tag") || undefined,
+      query: query.get("q") || undefined,
+      onlyEli5: query.get("eli5") === "1",
+      onlyHints: query.get("hints") === "1",
+    };
+  });
   const [difficulty, setDifficulty] = useState<PracticeDifficulty | "">(() =>
-    (Object.keys(practiceDifficultyLabels).find((key) => key === query.get("difficulty")) as PracticeDifficulty | undefined) ?? "");
+    Object.keys(practiceDifficultyLabels).find((key) => key === query.get("difficulty")) as PracticeDifficulty ?? "",
+  );
   const [kind, setKind] = useState<WrittenProblem["kind"] | "数值题" | "">(() =>
-    (["数值题", ...writtenProblemKinds] as const).find((value) => value === query.get("kind")) ?? "");
-  const lesson = query.get("lesson");
-  const list = problems.filter(
-    (p) =>
-      (!lesson || p.lessonId === lesson) &&
-      (!chapter ||
-        lessons.find((l) => l.id === p.lessonId)?.chapter === chapter) &&
-      (!tag || p.errorTag === tag) &&
-      (!kind || ("kind" in p ? p.kind : "数值题") === kind) &&
-      (!difficulty || (p.difficulty ?? "basic") === difficulty),
+    (["数值题", ...writtenProblemKinds] as const).find((value) => value === query.get("kind")) ?? "",
+  );
+  const list = searchProblemIndex(filters).filter(
+    (entry) => (!difficulty || entry.difficulty === difficulty) && (!kind || entry.kind === kind),
   );
   const [id, setId] = useState(query.get("problem"));
-  const index = Math.max(
-    0,
-    list.findIndex((p) => p.id === id),
-  );
-  const current = list[index];
-  const currentChapter = lessons.find((l) => l.id === current?.lessonId)?.chapter;
-  const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
+  const index = Math.max(0, list.findIndex((entry) => entry.id === id));
+  const selected = list[index];
+  const displayedId = picker ? picker.displayedId : selected?.id;
+  const { problem: current, failed, retry } = useBankProblem(displayedId);
+  const currentChapter = displayedId ? problemIndexById.get(displayedId)?.ch : undefined;
+  const latest = new Map(state.attempts.map(({ problemId, correct }) => [problemId, correct]));
   function openProblem(nextId: string) {
     const nextQuery = new URLSearchParams(query);
     nextQuery.set("problem", nextId);
-    for (const [name, value] of Object.entries({ chapter, tag, difficulty, kind })) {
+    for (const [name, value] of Object.entries({
+      chapter: filters.chapter, tag: filters.tag, q: filters.query, difficulty, kind,
+      eli5: filters.onlyEli5 ? "1" : "", hints: filters.onlyHints ? "1" : "",
+    })) {
       if (value) nextQuery.set(name, String(value));
       else nextQuery.delete(name);
     }
     navigate({ pathname: "/practice", search: nextQuery.toString() });
   }
 
-  const focusedLesson = query.get("ui") !== "classic" && current && focusedPracticeLesson(current);
+  const focusedLesson = query.get("ui") !== "classic" && current?.teaching;
   const next = list[index + 1];
   const focused = current && focusedLesson ? (
     <FocusedPractice key={current.id} problem={current} lesson={focusedLesson} embedded={!compact}
@@ -91,12 +100,16 @@ function PracticeQuestions({ compact = false }: { compact?: boolean }) {
       }}
       onNext={next ? () => openProblem(next.id) : undefined} />
   ) : null;
+  if (compact && !current) {
+    if (!selected) return <EmptyState title="没有匹配的题目" action={<ActionLink to="/practice">返回练习中心</ActionLink>} />;
+    return <BankProblemStatus failed={failed} retry={retry} />;
+  }
   if (compact && focused) return focused;
   return (
     <>
       <div className="practice-toolbar">
         <span>
-          {current ? `第 ${index + 1} / ${list.length} 题 · 第${currentChapter}章` : "0 道匹配题目"}
+          {selected ? `第 ${index + 1} / ${list.length} 题 · 第${selected.ch}章` : "0 道匹配题目"}
         </span>
         <div className="practice-nav">
           {!focused && <>
@@ -122,104 +135,27 @@ function PracticeQuestions({ compact = false }: { compact?: boolean }) {
           <Button
             className="icon-button"
             aria-label="题目列表"
-            onClick={() => setOpen(true)}
+            onClick={() => setPicker({ displayedId })}
           >
             <List size={20} />
           </Button>
         </div>
       </div>
-      {focused ?? (current ? <Question key={current.id} problem={current} /> : (
+      {focused ?? (current ? <Question key={current.id} problem={current} teaching={current.teaching} /> : displayedId ? <BankProblemStatus failed={failed} retry={retry} /> : (
         <EmptyState title="没有匹配的题目" description="可以在题目列表中调整筛选条件。" />
       ))}
-      <Sheet title="题目列表" open={open} onClose={() => setOpen(false)}>
-        <section data-testid="chapter-mastery">
-          <ChipRow label="按难度筛选">
-            <Chip selected={!difficulty} onClick={() => setDifficulty("")}>全部难度</Chip>
-            {(Object.keys(practiceDifficultyLabels) as PracticeDifficulty[]).map((level) => (
-              <Chip key={level} selected={difficulty === level} onClick={() => setDifficulty(level)}>
-                {practiceDifficultyLabels[level]}
-              </Chip>
-            ))}
-          </ChipRow>
-          <ChipRow label="按题型筛选">
-            <Chip selected={!kind} onClick={() => setKind("")}>全部题型</Chip>
-            {(["数值题", ...writtenProblemKinds] as const).map((value) => (
-              <Chip key={value} selected={kind === value} onClick={() => setKind(value)}>{value}</Chip>
-            ))}
-          </ChipRow>
-          <ChipRow label="按章节筛选">
-            <Chip selected={chapter === 0} onClick={() => setChapter(0)}>
-              全部章节
-            </Chip>
-            {chapters.map((c) => (
-              <Chip
-                key={c.id}
-                selected={chapter === c.id}
-                onClick={() => setChapter(c.id)}
-              >
-                {c.short}
-              </Chip>
-            ))}
-          </ChipRow>
-          <ChipRow label="按错因标签筛选">
-            <Chip selected={!tag} onClick={() => setTag("")}>
-              全部错因考点
-            </Chip>
-            {errorTags.map((t) => (
-              <Chip
-                key={t.tag}
-                selected={tag === t.tag}
-                onClick={() => setTag(t.tag)}
-              >
-                {t.label}
-              </Chip>
-            ))}
-          </ChipRow>
-        </section>
-        {chapters
-          .filter((c) => list.some((p) => lessons.find((l) => l.id === p.lessonId)?.chapter === c.id))
-          .map((c) => (
-            <section key={c.id}>
-              <h3>{c.title}</h3>
-              <div className="question-grid">
-                {list
-                  .filter(
-                    (p) =>
-                      lessons.find((l) => l.id === p.lessonId)?.chapter ===
-                      c.id,
-                  )
-                  .map((p) => (
-                    <Button
-                      key={p.id}
-                      aria-pressed={current?.id === p.id}
-                      className={
-                        latest.get(p.id) === true
-                          ? "status-done"
-                          : latest.get(p.id) === false
-                            ? "status-wrong"
-                            : ""
-                      }
-                      onClick={() => {
-                        setOpen(false);
-                        if (query.get("ui") !== "classic" && focusedPracticeLesson(p)) openProblem(p.id);
-                        else setId(p.id);
-                      }}
-                    >
-                      <strong>
-                        {latest.get(p.id) === true
-                          ? "✓"
-                          : latest.get(p.id) === false
-                            ? "✕"
-                            : "○"}{" "}
-                        第 {problems.indexOf(p) + 1} 题
-                      </strong>
-                      <small>{practiceDifficultyLabels[p.difficulty ?? "basic"]} · {p.title}</small>
-                    </Button>
-                  ))}
-              </div>
-            </section>
-          ))}
-      </Sheet>
+      <PracticeProblemPicker
+        open={Boolean(picker)} onClose={() => setPicker(undefined)}
+        filters={filters} onFilters={setFilters}
+        difficulty={difficulty} onDifficulty={setDifficulty}
+        kind={kind} onKind={setKind}
+        results={list} selectedId={displayedId} latest={latest}
+        onSelect={(entry) => {
+          setPicker(undefined);
+          if (query.get("ui") !== "classic" && entry.hasEli5) openProblem(entry.id);
+          else setId(entry.id);
+        }}
+      />
     </>
   );
 }

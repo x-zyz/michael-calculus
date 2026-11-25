@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useLearning } from "../../db/learning";
 import { useFormulas } from "../../db/formulas";
 import { formulaById } from "../../data/formulas";
-import { problems } from "../../data/learning";
+import { useBankProblem } from "../../data/bank/useBankProblem";
+import BankProblemStatus from "../../components/BankProblemStatus";
 import Formula from "../../components/Formula";
 import { Button, Card } from "../../components/ui";
 import {
@@ -41,6 +42,8 @@ export default function Session({
   const [results, setResults] = useState<Result[]>([]);
   const [repeated, setRepeated] = useState<string[]>([]);
   const [grade, setGrade] = useState<Result | null>(null);
+  const currentCard = items[index] && cardById.get(items[index].cardId);
+  const { problem, failed, retry } = useBankProblem(currentCard?.problemId);
   function next() {
     setIndex(index + 1);
     setTags([]);
@@ -113,7 +116,9 @@ export default function Session({
     card = cardById.get(item.cardId)!,
     f = formulaById.get(card.formulaId)!;
   const automatic = card.kind === "condition" || card.kind === "recognize";
-  const problem = problems.find((p) => p.id === card.problemId);
+  if (card.kind === "recognize" && !problem) {
+    return <Card><BankProblemStatus failed={failed} retry={retry} /><Button onClick={onExit}>结束本轮</Button></Card>;
+  }
   return (
     <Card className="fm-session">
       <div className="fm-session-head">

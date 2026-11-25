@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/ui";
-import { problems } from "../../data/learning";
+import { problemIndexById } from "../../data/bank";
 import { formulaById } from "../../data/formulas";
 import { useFormulas } from "../../db/formulas";
 import { markStuck } from "./engine";
@@ -9,8 +9,8 @@ export function StuckButton({ problemId }: { problemId: string }) {
   const { store, save } = useFormulas();
   const [open, setOpen] = useState(false);
   const [done, setDone] = useState(false);
-  const p = problems.find((p) => p.id === problemId)!;
-  return p.formulaIds?.length ? (
+  const p = problemIndexById.get(problemId);
+  return p?.formulaIds?.length ? (
     <div className="fm-stuck">
       <Button
         variant="ghost"

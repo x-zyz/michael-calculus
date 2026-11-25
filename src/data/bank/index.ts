@@ -1,7 +1,7 @@
 import type { ChapterId } from "../learning";
 import type { BankIndexFile, ProblemIndexEntry, UnifiedProblem } from "./schema";
 import { attachProblemGraphs } from "./graphs";
-import rawIndex from "./index.generated.json";
+import rawIndex from "./index.generated.json" with { type: "json" };
 
 export type { BankIndexFile, ProblemIndexEntry, UnifiedProblem, ProblemMeta } from "./schema";
 
@@ -13,7 +13,12 @@ export const problemIndexById: ReadonlyMap<string, ProblemIndexEntry> = new Map(
   problemIndex.map((entry) => [entry.id, entry]),
 );
 
-const chapterCache = new Map<ChapterId, UnifiedProblem[]>();
+export const problemNumberById: ReadonlyMap<string, number> = new Map(
+  problemIndex.map(({ id }, index) => [id, index + 1]),
+);
+
+const chapterCache = new Map<ChapterId, ReadonlyMap<string, UnifiedProblem>>();
+const pendingChapters = new Map<ChapterId, Promise<ReadonlyMap<string, UnifiedProblem>>>();
 
 const chapterImporters: Record<ChapterId, () => Promise<{ default: UnifiedProblem[] }>> = {
   1: () => import("./ch01.json") as unknown as Promise<{ default: UnifiedProblem[] }>,
@@ -26,22 +31,32 @@ const chapterImporters: Record<ChapterId, () => Promise<{ default: UnifiedProble
   8: () => import("./ch08.json") as unknown as Promise<{ default: UnifiedProblem[] }>,
 };
 
-/** 按章异步懒加载完整题面（供 Vite 代码分割与按需加载） */
-export async function loadChapter(chapter: ChapterId): Promise<readonly UnifiedProblem[]> {
+function getChapter(chapter: ChapterId): Promise<ReadonlyMap<string, UnifiedProblem>> {
   const cached = chapterCache.get(chapter);
-  if (cached) return cached;
-  const mod = await chapterImporters[chapter]();
-  const hydrated = mod.default.map(attachProblemGraphs);
-  chapterCache.set(chapter, hydrated);
-  return hydrated;
+  if (cached) return Promise.resolve(cached);
+  const pending = pendingChapters.get(chapter);
+  if (pending) return pending;
+  const request = chapterImporters[chapter]().then(({ default: problems }) => {
+    const hydrated = new Map(problems.map((problem) => [problem.id, attachProblemGraphs(problem)]));
+    chapterCache.set(chapter, hydrated);
+    return hydrated;
+  }).finally(() => pendingChapters.delete(chapter));
+  pendingChapters.set(chapter, request);
+  return request;
 }
 
-/** 按题号异步加载单题完整数据（自动定位所属章节并缓存） */
+export async function loadChapter(chapter: ChapterId): Promise<readonly UnifiedProblem[]> {
+  return [...(await getChapter(chapter)).values()];
+}
+
+export function getLoadedProblem(id: string): UnifiedProblem | undefined {
+  const entry = problemIndexById.get(id);
+  return entry && chapterCache.get(entry.ch)?.get(id);
+}
+
 export async function loadProblemById(id: string): Promise<UnifiedProblem | undefined> {
-  const meta = problemIndexById.get(id);
-  if (!meta) return undefined;
-  const list = await loadChapter(meta.ch);
-  return list.find((item) => item.id === id);
+  const entry = problemIndexById.get(id);
+  return entry && (await getChapter(entry.ch)).get(id);
 }
 
 export interface ProblemSearchFilter {

@@ -1,3 +1,4 @@
+import { problems } from "./bankFixture";
 import { matchesFormula } from "../features/formulas/formulaAnswer";
 import {formulaMode} from './ui';
 import { describe, it, expect, vi } from "vitest";
@@ -6,7 +7,7 @@ import { MemoryRouter } from "react-router-dom";
 import katex from "katex";
 import App from "../app/App";
 import { formulas } from "../data/formulas";
-import { problems } from "../data/learning";
+
 import { cards, emptyStore, recordReview, addDays, localDay, validateStore, level, queue, markStuck, counters, weak, choices } from "../features/formulas/engine";
 import { formulaKey } from "../db/formulas";
 const day = (n: number) => new Date(2026, 10, n, 12);

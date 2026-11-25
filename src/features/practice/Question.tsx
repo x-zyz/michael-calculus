@@ -4,7 +4,7 @@ import PracticeFormulaReference from "./PracticeFormulaReference";
 import { checkAnswer, parseAnswer, practiceDifficultyLabels, type Problem, type NumericProblem } from "../../data/learning";
 import { useLearning } from "../../db/learning";
 import Formula from "../../components/Formula";
-import { initialTeachingProgress, p8Diagnostic, teachingByProblem, teachingEvidence, type TeachingProgress } from "../../data/teaching";
+import { initialTeachingProgress, p8Diagnostic, teachingEvidence, type TeachingProgress, type TeachingLesson } from "../../data/teaching";
 import TeachingSession from "./TeachingSession";
 import PracticeHints from "./PracticeHints";
 import { ObstacleRemediation } from "./RemediationEntry";
@@ -12,10 +12,10 @@ import { StuckButton } from "../formulas/FormulaActions";
 import { Button, Card, InfoTip } from "../../components/ui";
 import WrittenQuestion from "./WrittenQuestion";
 
-export default function Question({ problem }: { problem: Problem }) {
+export default function Question({ problem, teaching }: { problem: Problem; teaching?: TeachingLesson }) {
   return "answer" in problem
-    ? <NumericQuestion problem={problem} />
-    : <WrittenQuestion problem={problem} />;
+    ? <NumericQuestion problem={problem} teaching={teaching} />
+    : <WrittenQuestion problem={problem} teaching={teaching} />;
 }
 
 type ExplanationMode = "standard" | "eli5";
@@ -29,7 +29,7 @@ function readExplanationMode(): ExplanationMode {
   }
 }
 
-function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
+function NumericQuestion({ problem: p, teaching }: { problem: NumericProblem; teaching?: TeachingLesson }) {
   const { state, save } = useLearning();
   const [answer, setAnswer] = useState("");
   const [hints, setHints] = useState(0);
@@ -38,7 +38,6 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   const [wrongStreak, setWrongStreak] = useState(0);
   const [invalid, setInvalid] = useState(false);
   const submitted = result !== null;
-  const teaching = teachingByProblem[p.id];
   const [defaultMode, setDefaultMode] = useState(readExplanationMode);
   const [mode, setMode] = useState<ExplanationMode>(() => teaching ? defaultMode : "standard");
   const [modeSaveError, setModeSaveError] = useState(false);
@@ -63,7 +62,7 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
   }
 
   const renderQuestion = (reference: ReactNode) => (
-    <Card className="practice-question">
+    <Card className="practice-question" data-problem-id={p.id}>
       <small className="learning-note">{practiceDifficultyLabels[p.difficulty ?? "basic"]}</small>
       <h2>{p.title}</h2>
       {reference}

@@ -1,4 +1,3 @@
-import { unifiedTeachingByProblem } from "./bank/loader";
 
 export interface TeachingProgress {
   stepsSeen: number;
@@ -49,16 +48,6 @@ export interface TeachingLesson {
   strategy?: string;
   referenceAnswer?: number;
 }
-
-/**
- * 统一从单一数据源（src/data/bank/ch01.json..ch08.json）导出的全量 ELI5 教学映射。
- * 严禁再新建平行 eli5Drafts 或 teaching* 文件。
- */
-export const teachingByProblem: Partial<Record<string, TeachingLesson>> = unifiedTeachingByProblem;
-
-/** 兼容旧测试导出：当前全量已注册教学集合 */
-export const expandedTeaching: Readonly<Record<string, TeachingLesson>> =
-  unifiedTeachingByProblem as Readonly<Record<string, TeachingLesson>>;
 
 export function p8Diagnostic(value: number) {
   if (value === 6) return "有可能是配分母时漏了负号。用下面的小题检查。";

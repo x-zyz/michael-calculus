@@ -1,9 +1,8 @@
+import { problemIndex, problemIndexById } from "../../data/bank";
 import { useState } from "react";
 
 import {
-  problems,
   chapters,
-  lessons,
   computeMastery,
 } from "../../data/learning";
 import { useLearning } from "../../db/learning";
@@ -23,7 +22,7 @@ export default function ReviewPage() {
   const [chapter, setChapter] = useState(0);
   const [tag, setTag] = useState("");
   const mastery = computeMastery(state.attempts);
-  const wrong = problems.filter(
+  const wrong = problemIndex.filter(
     (p) =>
       state.attempts.filter((a) => a.problemId === p.id).at(-1)?.correct ===
       false,
@@ -31,7 +30,7 @@ export default function ReviewPage() {
   const filtered = wrong.filter(
     (p) =>
       (!chapter ||
-        lessons.find((l) => l.id === p.lessonId)?.chapter === chapter) &&
+        p.ch === chapter) &&
       (!tag || p.errorTag === tag),
   );
   return (
@@ -112,7 +111,7 @@ export default function ReviewPage() {
             .map((a, i) => (
               <ListItem
                 key={a.at + i}
-                title={`${problems.find((p) => p.id === a.problemId)?.title} · ${a.correct ? "答对" : "待改进"}`}
+                title={`${problemIndexById.get(a.problemId)?.title} · ${a.correct ? "答对" : "待改进"}`}
                 description={`你的答案：${a.answer} · 使用提示 ${a.hints} 次 · ${new Date(a.at).toLocaleString("zh-CN")}`}
                 status={a.correct ? "done" : "wrong"}
                 to={`/practice?problem=${a.problemId}`}

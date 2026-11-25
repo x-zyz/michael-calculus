@@ -1,4 +1,4 @@
-import type { ChapterId, GuidedHint, PracticeDifficulty } from "../learning";
+import type { ChapterId, Problem, PracticeDifficulty, WrittenProblem } from "../learning";
 import type { TeachingLesson } from "../teaching";
 
 export interface ProblemMeta {
@@ -14,38 +14,12 @@ export interface ProblemMeta {
   trapNote?: string;
 }
 
-export interface UnifiedProblemBase {
-  id: string;
+export type UnifiedProblem = Problem & {
   chapter: ChapterId;
-  lessonId: string;
-  title: string;
-  formula: string;
-  hints: string[];
-  guidedHints?: GuidedHint[];
-  explanation: string;
-  errorTag: string;
-  errorLabel: string;
-  difficulty?: PracticeDifficulty;
-  formulaIds?: string[];
   source?: string;
-  commonMistake?: string;
   teaching?: TeachingLesson;
   meta?: ProblemMeta;
-}
-
-export interface UnifiedNumericProblem extends UnifiedProblemBase {
-  answer: number;
-  unit?: string;
-}
-
-export interface UnifiedWrittenProblem extends UnifiedProblemBase {
-  kind: "推导题" | "证明题" | "概念题" | "应用题";
-  prompt: string;
-  steps: string[];
-  solution: string;
-}
-
-export type UnifiedProblem = UnifiedNumericProblem | UnifiedWrittenProblem;
+};
 
 export interface ProblemIndexEntry {
   id: string;
@@ -53,9 +27,11 @@ export interface ProblemIndexEntry {
   lessonId: string;
   title: string;
   source?: string;
-  kind: "数值题" | "推导题" | "证明题" | "概念题" | "应用题";
+  kind: "数值题" | WrittenProblem["kind"];
   difficulty: PracticeDifficulty;
   errorTag: string;
+  errorLabel: string;
+  formulaIds?: string[];
   hasHints: boolean;
   hasEli5: boolean;
   formulaCount: number;

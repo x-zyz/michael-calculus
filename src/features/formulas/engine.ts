@@ -4,7 +4,7 @@ import {
   type FormulaCard,
   type CardKind,
 } from "../../data/formulas";
-import { problems } from "../../data/learning";
+import { problemIndex } from "../../data/bank";
 import type { Attempt } from "../../db/learning";
 export type Result = "good" | "fuzzy" | "forgot";
 export type ReviewMode = "learn" | "due" | "spot";
@@ -58,7 +58,7 @@ export const cards: FormulaCard[] = formulas.flatMap((f) => [
   ...(f.conditionQuiz
     ? [{ id: `${f.id}:condition`, formulaId: f.id, kind: "condition" as const }]
     : []),
-  ...problems
+  ...problemIndex
     .filter((p) => p.formulaIds?.[0] === f.id)
     .map((p) => ({
       id: `${f.id}:recognize:${p.id}`,
@@ -140,7 +140,7 @@ export function validateStore(raw: unknown): FormulaStore {
         typeof v.formulaId === "string" &&
         formulaById.has(v.formulaId) &&
         typeof v.problemId === "string" &&
-        problems.some(
+        problemIndex.some(
           (p) =>
             p.id === v.problemId &&
             p.formulaIds?.includes(v.formulaId as string),
@@ -203,7 +203,7 @@ export function markStuck(
   now = new Date(),
 ): FormulaStore {
   if (
-    !problems.some(
+    !problemIndex.some(
       (p) => p.id === problemId && p.formulaIds?.includes(formulaId),
     )
   )
@@ -269,7 +269,7 @@ export function level(
     )
   )
     return 4;
-  const related = problems.filter((p) => p.formulaIds?.includes(formulaId));
+  const related = problemIndex.filter((p) => p.formulaIds?.includes(formulaId));
   const latest = attempts
     .filter((a) => related.some((p) => p.id === a.problemId))
     .at(-1);
@@ -442,7 +442,7 @@ export function evidence(
       s.formulaId === formulaId &&
       localDay(new Date(s.at)) >= addDays(localDay(now), -13),
   );
-  const related = problems.filter((p) => p.formulaIds?.includes(formulaId));
+  const related = problemIndex.filter((p) => p.formulaIds?.includes(formulaId));
   const last = attempts
     .filter((a) => related.some((p) => p.id === a.problemId))
     .at(-1);

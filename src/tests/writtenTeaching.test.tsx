@@ -1,19 +1,22 @@
+import { getLoadedProblem } from "../data/bank";
 
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, expect, it } from "vitest";
 import App from "../app/App";
-import { teachingByProblem } from "../data/teaching";
+
 import { learningKey } from "../db/learning";
 
 const id = "jc935-1-5-1-1";
+const problem = getLoadedProblem(id)!;
+const originalTeaching = problem.teaching;
 
 afterEach(() => {
-  delete teachingByProblem[id];
+  problem.teaching = originalTeaching;
 });
 
 function openWrittenLesson() {
-  teachingByProblem[id] = {
+  problem.teaching = {
     solution: "1+1=2",
     steps: [{
       id: "fixture",

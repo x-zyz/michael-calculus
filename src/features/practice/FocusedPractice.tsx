@@ -52,7 +52,7 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
   useEffect(() => {
     if (view === "guide") return;
     heading.current?.focus({ preventScroll: true });
-    heading.current?.scrollIntoView?.({ block: "start" });
+    heading.current?.scrollIntoView?.({ block: view === "question" ? "nearest" : "start" });
   }, [view]);
 
   function openGuide() {

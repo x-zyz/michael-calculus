@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { lessons, problems } from "../data/learning";
+import { lessons } from "../data/learning";
+import { problemIndexById } from "../data/bank";
 import { firstLessonId } from "../data/textbookSections";
 import type { TeachingProgress } from "../data/teaching";
 export interface Attempt {
@@ -37,7 +38,7 @@ function read(): LearningState {
             .filter(
               (a: Attempt) =>
                 a &&
-                problems.some((p) => p.id === a.problemId) &&
+                problemIndexById.has(a.problemId) &&
                 typeof a.correct === "boolean" &&
                 typeof a.answer === "string" &&
                 typeof a.at === "string" &&

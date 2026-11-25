@@ -1,9 +1,9 @@
+import { problemIndex } from "../../data/bank";
 import { Link } from "react-router-dom";
 import {
   chapters,
   lessons,
   computeMastery,
-  problems,
 } from "../../data/learning";
 import { firstLessonId, textbookSections } from "../../data/textbookSections";
 import { useLearning } from "../../db/learning";
@@ -30,7 +30,7 @@ export default function Dashboard() {
   const mastery = computeMastery(state.attempts);
   const counts = counters(store);
   const latest = new Map(state.attempts.map((a) => [a.problemId, a.correct]));
-  const pending = problems.filter((p) => latest.get(p.id) === false).length;
+  const pending = problemIndex.filter((p) => latest.get(p.id) === false).length;
   return (
     <div className="home-scene" data-chapter={lesson.chapter}>
       <ChapterPainting key={lesson.chapter} chapter={lesson.chapter} background />

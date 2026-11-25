@@ -50,6 +50,7 @@ const checkKatex = (latex, ctx) => {
 
 const { formulaById } = loadTsModule("src/data/formulas.ts");
 const { lessons } = loadTsModule("src/data/learning.ts");
+const { attachProblemGraphs } = loadTsModule("src/data/bank/graphs.ts");
 const { remediationModulesById } = loadTsModule("src/data/remediation/remediationModules.ts");
 const lessonChapter = new Map(lessons.map((l) => [l.id, l.chapter]));
 
@@ -99,6 +100,18 @@ for (let ch = 1; ch <= 8; ch++) {
       if (!p.prompt?.trim()) fail(`${p.id}: missing written prompt`);
       if (!p.solution?.trim()) fail(`${p.id}: missing written solution`);
       if (!Array.isArray(p.steps) || p.steps.length === 0) fail(`${p.id}: missing written steps`);
+    }
+
+    const hydrated = attachProblemGraphs(p);
+    for (const field of ["graph", "questionGraph"]) {
+      const graph = hydrated[field];
+      if (!graph && !p[field]) continue;
+      if (JSON.stringify(graph) !== JSON.stringify(p[field])) {
+        fail(`${p.id}.${field}: hydrated graph metadata differs from JSON`);
+      }
+      if (!graph?.branches?.length || graph.branches.some((branch) => typeof branch[2] !== "function")) {
+        fail(`${p.id}.${field}: missing curve function`);
+      }
     }
 
     checkKatex(p.formula, `${p.id}.formula`);

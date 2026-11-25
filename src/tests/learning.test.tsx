@@ -1,3 +1,4 @@
+import { problems } from "./bankFixture";
 import { execFileSync } from "node:child_process";
 import katex from "katex";
 import { problemIndex, searchProblemIndex } from "../data/bank";
@@ -8,7 +9,7 @@ import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "../app/App";
 import { asciiMathToLatex } from "../components/MathText";
-import { checkAnswer, computeMastery, derivativeAppState, experimentValue, lessons, linearApprox, problems, secantSlope } from "../data/learning";
+import { checkAnswer, computeMastery, derivativeAppState, experimentValue, lessons, linearApprox, secantSlope } from "../data/learning";
 import { textbookSections } from "../data/textbookSections";
 import { formulas } from "../data/formulas";
 import { learningKey } from "../db/learning";
@@ -233,12 +234,8 @@ describe("limit and derivative learning", () => {
     fireEvent.click(
       screen.getByRole("button", { name: "第三章：微分中值定理与导数应用" }),
     );
-    expect(
-      screen.getByRole("heading", {
-        level: 2,
-        name: "拉格朗日中值定理求中值点",
-      }),
-    ).toBeVisible();
+    expect(screen.getByRole("status")).toHaveTextContent(/找到 \d+ 道题/);
+    expect(within(screen.getByRole("dialog")).getByText(/拉格朗日中值定理求中值点/)).toBeVisible();
     fireEvent.click(within(screen.getByRole("group",{name:"按错因标签筛选"})).getByRole("button",{name:"洛必达法则与未定式"}));
     fireEvent.click(screen.getByRole("button",{name:"关闭题目列表"}));
     expect(

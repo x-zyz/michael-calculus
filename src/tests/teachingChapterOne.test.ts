@@ -1,9 +1,10 @@
+import { problems, teachingByProblem } from "./bankFixture";
 import { readFileSync } from "node:fs";
 import katex from "katex";
 import { expect, it } from "vitest";
 import cases from "../../scripts/eli5-chapter-one-cases.json";
-import { lessons, parseAnswer, problems } from "../data/learning";
-import { teachingByProblem } from "../data/teaching";
+import { lessons, parseAnswer } from "../data/learning";
+
 
 const chapterOnePilotTeaching = Object.fromEntries(
   Object.keys(cases).map((id) => [id, teachingByProblem[id]!]),

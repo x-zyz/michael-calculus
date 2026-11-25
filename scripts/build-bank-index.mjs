@@ -57,6 +57,8 @@ export function computeBankIndex(bankDir = BANK_DIR) {
       kind,
       difficulty,
       errorTag: p.errorTag,
+      errorLabel: p.errorLabel,
+      ...(p.formulaIds?.length ? { formulaIds: p.formulaIds } : {}),
       hasHints: Boolean(p.guidedHints?.length),
       hasEli5: Boolean(p.teaching),
       formulaCount: p.formulaIds?.length ?? 0,

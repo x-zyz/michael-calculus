@@ -1,4 +1,5 @@
-import { lessons, problems } from "../data/learning";
+import { lessons } from "../data/learning";
+import { problemIndexById } from "../data/bank";
 import { validateStore } from "../features/formulas/engine";
 export const backupKeys = [
   "mc-learning-v1",
@@ -48,7 +49,8 @@ export function parseBackup(text: string): Backup {
           !data.attempts.every(
             (a) =>
               obj(a) &&
-              problems.some((p) => p.id === a.problemId) &&
+              typeof a.problemId === "string" &&
+              problemIndexById.has(a.problemId) &&
               typeof a.answer === "string" &&
               typeof a.correct === "boolean" &&
               typeof a.at === "string" &&

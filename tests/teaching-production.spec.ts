@@ -1,7 +1,8 @@
+import { teachingByProblem } from "../src/tests/bankFixture";
 
 import { expect, test, type Page } from "@playwright/test";
-import plan from "../docs/eli5-production/chapter-one.json";
-import { teachingByProblem } from "../src/data/teaching";
+import plan from "../docs/eli5-production/chapter-one.json" with { type: "json" };
+
 
 const chapterOneProductionTeaching = Object.fromEntries(
   plan.items

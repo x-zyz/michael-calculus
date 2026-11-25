@@ -4,7 +4,7 @@ import { textbookLessons } from "./textbookLessons";
 import { multivariableLessons } from "./multivariable";
 import { seriesLessons } from "./series";
 import { differentialEquationsLessons } from "./differentialEquations";
-import { unifiedProblems } from "./bank/loader";
+import { problemIndex, type ProblemIndexEntry } from "./bank";
 export type ChapterId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export interface Lesson {
@@ -314,7 +314,7 @@ export type PracticeGraph = {
 };
 export type Problem = NumericProblem | WrittenProblem;
 
-export const problems: Problem[] = unifiedProblems as Problem[];
+
 export const chapters = [
   {
     id: 1 as const,
@@ -339,8 +339,8 @@ export const chapters = [
 ];
 export const errorTags = Array.from(
   new Map(
-    problems.map((p) => {
-      const chapter = lessons.find((l) => l.id === p.lessonId)?.chapter ?? 1;
+    problemIndex.map((p) => {
+      const chapter = p.ch;
       return [p.errorTag, { tag: p.errorTag, label: p.errorLabel, chapter }];
     }),
   ).values(),
@@ -350,7 +350,7 @@ export function computeMastery(
 ) {
   const latest = new Map<string, boolean>();
   for (const a of attempts) latest.set(a.problemId, a.correct);
-  const summarize = (list: Problem[]) => {
+  const summarize = (list: readonly ProblemIndexEntry[]) => {
     const attempted = list.filter((p) => latest.has(p.id)).length;
     const mastered = list.filter((p) => latest.get(p.id) === true).length;
     const pending = list.filter((p) => latest.get(p.id) === false).length;
@@ -372,17 +372,14 @@ export function computeMastery(
   };
   return {
     chapters: chapters.map((c) => {
-      const lessonIds = new Set(
-        lessons.filter((l) => l.chapter === c.id).map((l) => l.id),
-      );
       return {
         ...c,
-        ...summarize(problems.filter((p) => lessonIds.has(p.lessonId))),
+        ...summarize(problemIndex.filter((p) => p.ch === c.id)),
       };
     }),
     tags: errorTags.map((t) => ({
       ...t,
-      ...summarize(problems.filter((p) => p.errorTag === t.tag)),
+      ...summarize(problemIndex.filter((p) => p.errorTag === t.tag)),
     })),
   };
 }

@@ -1,8 +1,9 @@
+import { problems, teachingByProblem } from "../src/tests/bankFixture";
 
 import { expect, test, type Page } from "@playwright/test";
-import plan from "../docs/eli5-production/chapter-one.json";
-import { problems } from "../src/data/learning";
-import { teachingByProblem } from "../src/data/teaching";
+import plan from "../docs/eli5-production/chapter-one.json" with { type: "json" };
+
+
 import { firstFocusedPracticeBatch, focusedPracticeLesson } from "../src/features/practice/focusedPracticeRollout";
 
 const integratedBatchIds = new Set(plan.items.filter((row) => row.eli5 === "integrated").map((row) => row.id));

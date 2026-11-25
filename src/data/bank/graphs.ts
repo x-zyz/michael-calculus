@@ -1,10 +1,51 @@
 import type { PracticeGraph } from "../learning";
 
 /**
- * 含函数曲线回调（JS 函数）的 13 道作图/读图题图形配置，
- * 因 JSON 无法序列化函数回调，统一集中存放于此并由 bank loader 按题号注入。
+ * 含函数曲线回调（JS 函数）的 30 道作图/读图题图形配置，
+ * 因 JSON 无法序列化函数回调，统一集中存放于此并由 ????? 按题号注入。
  */
+const functionGraph: PracticeGraph = {
+  bounds: [-5.2, 4.7, -3.3, 4.1],
+  branches: [[-5.2, -3, (x) => 2 * x + 8], [-3, -1, (x) => -2 * x - 4], [-1, 1, () => -2], [1, 4.7, () => 3]],
+  points: [[-3, 2, false], [1, -2, false], [1, 3, false], [1, 0, true]],
+  ticks: { x: [-3, -1, 1], y: [-2, 2, 3] },
+  description: "函数 f 的图像。负三处为高度二的空心点，两侧斜线接近它。负一处折到高度负二的水平线。横坐标一处左段高度负二、右段高度三，实心点在横轴上。",
+};
+
+const isolatedPointGraph: PracticeGraph = {
+  bounds: [-3, 5, -3.3, 4.1],
+  branches: [[-2, 0, (x) => x], [0, 2, (x) => -x], [2, 4, (x) => x - 2]],
+  points: [[-2, -2, false], [0, 0, false], [0, 3, true], [2, -2, false], [2, 0, true], [4, 2, false]],
+  ticks: { x: [-2, 2, 4], y: [-2, 2, 3] },
+  description: "函数 g 的图像。负二至零为上升直线，零至二为下降直线，都经过原点的空心点。零处另有高度三的实心点。二处从高度负二跳到零，然后右侧直线向上。",
+};
+
+const endpointGraph: PracticeGraph = {
+  bounds: [-3.2, 5.2, -1.4, 5],
+  branches: [[-2, 2, (x) => x ** 2 / 2 + 1], [2, 4, () => 0]],
+  points: [[-2, 3, false], [0, 1, false], [0, 4, true], [2, 3, false], [2, 0, true], [4, 0, true]],
+  ticks: { x: [-2, 2, 4], y: [1, 3, 4] },
+  description: "函数 h 的图像。负二至二之间为抛物线，两端的空心点高度三，中间的空心点高度一，零处另有高度四的实心点。横坐标二到四的水平线在横轴上，两端实心。图的外侧没有定义。",
+};
+
 export const problemQuestionGraphsById: Readonly<Record<string, PracticeGraph>> = {
+  "jc935-1-3-1-1": functionGraph,
+  "jc935-1-3-1-2": functionGraph,
+  "jc935-1-3-1-3": functionGraph,
+  "jc935-1-3-2-1": isolatedPointGraph,
+  "jc935-1-3-2-2": isolatedPointGraph,
+  "jc935-1-3-2-3": isolatedPointGraph,
+  "jc935-1-3-2-4": isolatedPointGraph,
+  "jc935-1-3-2-5": isolatedPointGraph,
+  "jc935-1-3-2-6": isolatedPointGraph,
+  "jc935-1-3-3-1": endpointGraph,
+  "jc935-1-3-3-2": endpointGraph,
+  "jc935-1-3-3-3": endpointGraph,
+  "jc935-1-3-3-4": endpointGraph,
+  "jc935-1-3-3-5": endpointGraph,
+  "jc935-1-3-3-6": endpointGraph,
+  "jc935-1-3-3-7": endpointGraph,
+  "jc935-1-3-3-8": endpointGraph,
   "jc935-1-8-1": {
     bounds: [-5, 5, -3.1, 4.8],
     branches: [
@@ -106,7 +147,7 @@ export const problemGraphsById: Readonly<Record<string, PracticeGraph>> = {
     description:
       "左侧水平线高度三，到负二为空心点。中段斜线从负二、负一的实心点向右上升，在二处与高度三的右侧横线相接。",
   },
-  "jc935-1-review-1-1": {
+  "jc935-1-review-6-1": {
     bounds: [-3.3, 3.3, -0.25, 1.25],
     branches: [[-Math.PI, Math.PI, (x) => Math.abs(Math.sin(2 * x))]],
     ticks: {

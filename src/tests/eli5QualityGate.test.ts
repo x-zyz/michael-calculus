@@ -1,9 +1,10 @@
+import { problems, teachingByProblem } from "./bankFixture";
 import katex from "katex";
 import { describe, expect, it } from "vitest";
 import plan from "../../docs/eli5-production/chapter-one.json";
 import cases from "../../scripts/eli5-chapter-one-cases.json";
-import { parseAnswer, problems } from "../data/learning";
-import { initialTeachingProgress, teachingByProblem, type TeachingLesson } from "../data/teaching";
+import { parseAnswer } from "../data/learning";
+import { initialTeachingProgress, type TeachingLesson } from "../data/teaching";
 
 const chapterOneBatch01Drafts: Record<string, TeachingLesson> = Object.fromEntries(
   plan.items

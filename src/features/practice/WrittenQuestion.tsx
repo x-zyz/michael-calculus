@@ -8,11 +8,11 @@ import ReferenceGraph from "./ReferenceGraph";
 import PracticeHints from "./PracticeHints";
 import { ObstacleRemediation } from "./RemediationEntry";
 import TeachingSession from "./TeachingSession";
-import { initialTeachingProgress, teachingByProblem, teachingEvidence, type TeachingProgress } from "../../data/teaching";
+import { initialTeachingProgress, teachingEvidence, type TeachingProgress, type TeachingLesson } from "../../data/teaching";
 import { Button, Card } from "../../components/ui";
 import { StuckButton } from "../formulas/FormulaActions";
 
-export default function WrittenQuestion({ problem }: { problem: WrittenProblem }) {
+export default function WrittenQuestion({ problem, teaching: lesson }: { problem: WrittenProblem; teaching?: TeachingLesson }) {
   const { state, save } = useLearning();
   const [hints, setHints] = useState(0);
   const hintCount = (problem.guidedHints ?? problem.hints).length;
@@ -20,7 +20,6 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
   const [result, setResult] = useState<boolean | null>(null);
   const [wrongStreak, setWrongStreak] = useState(0);
 
-  const lesson = teachingByProblem[problem.id];
   const [progress, setProgress] = useState<TeachingProgress>();
   const [teachingOpen, setTeachingOpen] = useState(false);
   const hintUsage = Math.max(hints, progress?.stepsSeen ?? 0, Number(Boolean(lesson && revealed)));
@@ -43,7 +42,7 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
   }
 
   const renderQuestion = (reference: ReactNode) => (
-    <Card className="practice-question">
+    <Card className="practice-question" data-problem-id={problem.id}>
       <small className="learning-note">{practiceDifficultyLabels[problem.difficulty ?? "basic"]} · {problem.kind}{problem.source && ` · ${problem.source}`}</small>
       <h2>{problem.title}</h2>
       {reference}

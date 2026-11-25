@@ -1,9 +1,9 @@
+import { problemIndex } from "../../data/bank";
 import { useState } from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import {
   chapters,
   lessons,
-  problems,
   lessonExperiment,
   lessonSecant,
   lessonDerivativeApp,
@@ -203,7 +203,7 @@ function Lesson({
           {currentStep === "练习" && (
             <>
               <p>
-                本节有 {problems.filter((p) => p.lessonId === lesson.id).length}{" "}
+                本节有 {problemIndex.filter((p) => p.lessonId === lesson.id).length}{" "}
                 道配套练习。完成阅读后可直接进入本节题目。
               </p>
               <p className="learning-note">支持数值、分数答案和分级提示。</p>

@@ -59,6 +59,7 @@ jobs:
         run: |
           node -e 'if (require("./package.json").version !== process.env.RELEASE_TAG.slice(1)) process.exit(1)'
           npm ci
+          npm run validate:bank
           npm run typecheck
           npm test
           npm run test:signing

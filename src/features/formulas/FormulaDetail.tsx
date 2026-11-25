@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { formulas } from "../../data/formulas";
-import { problems } from "../../data/learning";
+import { problemIndex } from "../../data/bank";
 import { useFormulas } from "../../db/formulas";
 import { useLearning } from "../../db/learning";
 import { cardById, evidence, level, errorTags } from "./engine";
@@ -54,7 +54,7 @@ export default function FormulaDetail({
       </Accordion>
       <div className="learning-actions">
         {f.lessonId && <Link to={`/curriculum/${f.lessonId}`}>关联课程 →</Link>}
-        {problems
+        {problemIndex
           .filter((p) => p.formulaIds?.includes(f.id))
           .map((p) => (
             <Link key={p.id} to={`/practice?problem=${p.id}`}>

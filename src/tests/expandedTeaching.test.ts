@@ -1,7 +1,8 @@
+import { problems, expandedTeaching, teachingByProblem } from "./bankFixture";
 import katex from "katex";
 import { expect, it } from "vitest";
-import { lessons, problems } from "../data/learning";
-import { expandedTeaching, teachingByProblem } from "../data/teaching";
+import { lessons } from "../data/learning";
+
 import { focusedPracticeLesson } from "../features/practice/focusedPracticeRollout";
 
 const bank = new Map(problems.map((problem) => [problem.id, problem]));

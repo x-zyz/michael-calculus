@@ -158,6 +158,8 @@
 .practice-question { overflow-wrap: anywhere; }
 .storage-alert { padding: var(--space-4); margin: var(--space-4); border-radius: var(--radius-sm); border: 1px solid var(--warning); background: var(--warning-soft); color: var(--warning); }
 .practice-question h2 { font-size: var(--text-lg); font-family: var(--painting-type); } .practice-question .formula { font-size: var(--text-lg); padding-block: var(--space-6); }
+.practice-search > label { display: block; font-weight: var(--weight-strong); }
+.practice-search > .text-input { width: 100%; min-height: var(--touch); margin-block: var(--space-2); }
 .question-grid .btn { justify-content: start; flex-direction: column; align-items: start; text-align: left; font-weight: var(--weight-regular); }
 .question-grid .btn small { color: inherit; } .question-grid [aria-pressed="true"] { outline: 2px solid var(--focus); }
 .question-grid .status-done { background: var(--success-soft); border-color: var(--success); } .question-grid .status-wrong { background: var(--danger-soft); border-color: var(--danger); }

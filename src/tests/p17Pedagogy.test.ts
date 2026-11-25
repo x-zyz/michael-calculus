@@ -1,7 +1,8 @@
+import { problems, teachingByProblem } from "./bankFixture";
 import katex from "katex";
 import { expect, it } from "vitest";
-import { problems } from "../data/learning";
-import { teachingByProblem } from "../data/teaching";
+
+
 
 it("p17 teaches condition-to-formula mapping (x0, Delta x -> dx) without leaking the transfer answer", () => {
   const problem = problems.find((item) => item.id === "p17");
