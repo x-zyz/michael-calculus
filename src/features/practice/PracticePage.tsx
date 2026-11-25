@@ -95,6 +95,7 @@ function PracticeQuestions({ compact = false }: { compact?: boolean }) {
   const next = list[index + 1];
   const focused = current && focusedLesson ? (
     <FocusedPractice key={current.id} problem={current} lesson={focusedLesson} embedded={!compact}
+      chapter={currentChapter}
       content={current.id === "p8" ? p8FocusContent : {
         contextLabel: chapters.find(({ id }) => id === currentChapter)?.title ?? "练习",
       }}

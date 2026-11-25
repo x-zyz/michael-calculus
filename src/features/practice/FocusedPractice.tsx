@@ -26,11 +26,12 @@ export interface FocusedPracticeContent {
   };
 }
 
-export default function FocusedPractice({ problem, lesson, content, embedded, onNext }: {
+export default function FocusedPractice({ problem, lesson, content, embedded, chapter, onNext }: {
   problem: Problem;
   lesson: TeachingLesson;
   content: FocusedPracticeContent;
   embedded: boolean;
+  chapter?: number;
   onNext?: () => void;
 }) {
   const { state, save } = useLearning();
@@ -119,7 +120,7 @@ export default function FocusedPractice({ problem, lesson, content, embedded, on
   }[view];
 
   const renderQuestion = (reference: ReactNode) => (
-    <div className="practice-focus" data-original-wide={problem.formula.includes("\\quad") || undefined}>
+    <div className="practice-focus" data-chapter={chapter} data-original-wide={problem.formula.includes("\\quad") || undefined}>
       <header className={view === "guide" ? "practice-focus-nav practice-focus-nav-sticky" : "practice-focus-nav"}>
         {view === "question"
           ? <Link to="/practice"><ArrowLeft size={18} aria-hidden="true" /> 练习中心</Link>

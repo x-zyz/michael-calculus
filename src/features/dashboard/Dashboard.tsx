@@ -87,6 +87,7 @@ export default function Dashboard() {
             return (
               <Link
                 className="chapter-progress"
+                data-chapter={c.id}
                 key={c.id}
                 to={`/curriculum/${textbookSections[c.id][0].lessons[0]}`}
               >
