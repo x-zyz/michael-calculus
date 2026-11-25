@@ -411,7 +411,7 @@ it("assigns each written exercise to a real lesson and error topic", () => {
 it("reconciles the derived bank index with the unified SSOT bank and KaTeX output", () => {
   expect(problemIndex).toHaveLength(problems.length);
   expect(problemIndex.map(({ id }) => id)).toEqual(problems.map(({ id }) => id));
-  expect(searchProblemIndex({ chapter: 3, onlyEli5: true })).toHaveLength(45);
+  expect(searchProblemIndex({ chapter: 3, onlyEli5: true })).toHaveLength(98);
   expect(searchProblemIndex({ query: "洛必达", onlyEli5: true }).length).toBeGreaterThan(0);
 
   const exercises = problems.filter(({ id }) => id.startsWith("jc935-"));
