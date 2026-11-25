@@ -2,7 +2,15 @@
 
 本文件是 `main` 的权威交接。旧工作树先读 [AGENTS.md](../AGENTS.md)，再查阅 [main 上的本文件](https://github.com/x-zyz/michael-calculus/blob/main/docs/AI_HANDOFF.md)。接手任务时核对远程提交、工作树和未提交改动，保留其他 Agent 的工作树与分支。分支状态、版本与验证结果以 Git、源码及实际回读为准。
 
-## 当前发布基线 · v1.2.0
+## 当前发布基线 · v1.2.1
+
+- [v1.2.1](https://github.com/x-zyz/michael-calculus/releases/tag/v1.2.1) 发布提交为 `5dd2198cad58da12aeb5238f584cd460622966c2`，集成 Gemini 的 `ab0f18bbd7cdc40d0ae0f07e5eb0ee3dd5f889d9`。第一、二章及 §3.2 共 625 道题补齐公式关联。§3.2 的 23 道题已启用逐步提示和 ELI5，另外 9 道同标签题沿用原练习流程。
+- 题头的「公式表」增加强调色、描边、展开状态和本题公式数量。桌面并排时为题面保留足够宽度，§3.2 的五道解法已调整为适合 360px 的换行。
+- 本地 typecheck、lint、check:css、build、149 项 Vitest 和 5 项签名与备份验证通过。§3.2 的 23 题及迁移题通过 SymPy 复算。Playwright 378 项通过、8 项按条件跳过，已回归全部 23 题的四状态流程和公式表，并验证了 v1.2.0 PWA 升级保留记录、断网重开可查公式。
+- [签名发布](https://github.com/x-zyz/michael-calculus/actions/runs/45520342033) 成功，云端 Playwright 370 项通过、16 项按条件跳过，Android `assembleRelease lintRelease` 通过。正式 APK 为 `com.michael.calculus` 1.2.1 / 48，共 6,885,609 字节，SHA-256 为 `c1b986b61756b77e531875725e75990464a6eee1aece16590723ce47f583a08b`，固定证书独立验包通过。
+- [ByteVirt 清单](https://update.0979019203.top/calculus/stable/android/latest.json) 验签通过，版本 1.2.1 / 48、序列 48，APK 与 GitHub Release 逐字节一致。[Pages](https://x-zyz.github.io/michael-calculus/) 的缓存为 `michael-calculus-v1.2.1`，HTML、`sw.js` 和入口 JS/CSS 与 Release 离线 ZIP 一致。Android 真机覆盖升级、学习数据保留与离线重开仍待验收。
+
+## v1.2.0 发布记录
 
 - [v1.2.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.2.0) 发布提交为 `cb8bc4d730baa25c54031ae41f592eefe51c235e`，包含 Gemini 的 `bab6818006713eac2a2756997abb3d3a87e74b50`。P1.5 为 §3.1 的 22 题改写 44 个理解检查并补齐公式关联，恢复三题在 360px 下的解法换行。
 - 专注 ELI5、普通数值题与书面证明题均可在题内查看本题和本章公式。宽屏并排显示，窄屏使用 Sheet。公式表复用公式库与 KaTeX，关闭后恢复焦点，保留草稿、教学步骤和理解检查进度。
@@ -14,7 +22,7 @@
 ## 项目与 v1.1.0 发布记录
 
 - Michael Calculus 是离线优先的高数学习应用，使用 React、TypeScript、Vite、KaTeX 与 Capacitor，交付 Android 和 PWA。项目入口与运行方式见 [README](../README.md)。
-- 上一正式版为 [v1.1.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.1.0)。标签对象 `7d19eb55f3c858ca58c6bb8836327f835d0e359a` 指向主线发版提交 `16138ccb9f0841c1b37f6a729768a147dcb3b1fd`。Android 包名 `com.michael.calculus`，`versionName 1.1.0`，`versionCode 46`。
+- [v1.1.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.1.0) 的标签对象 `7d19eb55f3c858ca58c6bb8836327f835d0e359a` 指向主线发版提交 `16138ccb9f0841c1b37f6a729768a147dcb3b1fd`。Android 包名 `com.michael.calculus`，`versionName 1.1.0`，`versionCode 46`。
 - 2026-11-23（太平洋时间）通过公网下载核验了 [正式 APK](https://github.com/x-zyz/michael-calculus/releases/download/v1.1.0/Michael-calculus-1.1.0.apk) 和 [离线 PWA ZIP](https://github.com/x-zyz/michael-calculus/releases/download/v1.1.0/Michael-calculus-1.1.0-pwa.zip)。两者均为 HTTP 200，SHA-256 与 Release 校验表一致。APK 6,864,881 字节，SHA-256 `2defe902b859b3aa00ae83eea8b26d68a114a3249eb10793d3db284358bf18a8`。ZIP 3,857,854 字节，SHA-256 `8b733bf10f43d9c2505837fcebb2cc423df1cdaf13cccbe8c5d1ebf61b59589b`。
 - 对下载的 APK 运行 `node scripts/verify-android-release.mjs <APK>`，核对了包名、版本、非调试属性、对齐与[固定签名](android-signing.md)。证书 SHA-256 为 `8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706`。[签名发布和 ByteVirt 同步](https://github.com/x-zyz/michael-calculus/actions/runs/45347513179) 均成功。
 - 发版前通过 `npm run typecheck`、`npm run lint`、`npm run check:css`、`npm test`（146 项）、`npm run test:signing`（5 项）和 `npm run build`。签名工作流另通过 Playwright（318 项通过，14 项跳过）与 Android `assembleRelease lintRelease`。
@@ -30,7 +38,8 @@
 | 第一章 函数、极限与连续 | 344 | 344 | 344 |
 | 第二章 导数与微分 | 258 | 258 | 258 |
 | 第三章 §3.1 微分中值定理 | 22 | 22 | 22 |
-| 整体题库 | 1,693 | 上述范围已全覆盖 | 624 |
+| 第三章 §3.2 洛必达法则 | 23 | 23 | 23 |
+| 整体题库 | 1,693 | 上述范围已全覆盖 | 647 |
 
 - 第二章覆盖教材 §2.1–§2.5 及章末总习题二。章节与课时归属见 [教材课程大纲](textbook-curriculum.md)。题库来源和分类见 [题库说明](bank/README.md)。
 - 四状态 ELI5 支持独立作答、引导、完整解法和结果。数值题按允许的数值或分数判分。书写推导、证明和作图保留纸笔作答与自评。看过引导或解法的正确作答记录为辅助完成。
@@ -51,7 +60,7 @@
 | Sol | 架构、UI、工程集成与回归，维护状态机、数据兼容性、构建发布及本交接 |
 
 1. 按注册表追加罗尔定理和拉格朗日中值定理的补救模块数据，复用现有 Sheet。覆盖定理适用条件、反例和辅助函数选择，并按具体障碍配置入口。
-2. 由产品负责人排定 §3.2 洛必达法则与剩余章节 ELI5 的优先级。后续工作从最新 `origin/main` 开独立分支，并将实测结果回写交接。
+2. 由产品负责人排定剩余章节 ELI5 的优先级。后续工作从最新 `origin/main` 开独立分支，并将实测结果回写交接。
 
 ## 验收边界与历史分支
 
