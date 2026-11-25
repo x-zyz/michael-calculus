@@ -321,7 +321,15 @@
 }
 .practice-focus-nav .btn { padding-inline: var(--space-1); }
 .practice-reference-question { min-width: 0; }
-.practice-reference-trigger { flex-shrink: 0; font-size: var(--text-sm); min-height: var(--touch); }
+.practice-reference-trigger {
+  flex-shrink: 0; font-size: var(--text-sm); font-weight: var(--weight-strong);
+  min-height: var(--touch); background: var(--nav); color: var(--nav-text); border-color: var(--nav-text);
+}
+.practice-reference-trigger:hover,
+.practice-reference-trigger[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--nav) 84%, var(--nav-text));
+}
+.practice-reference-trigger[aria-expanded="true"] { box-shadow: inset 0 0 0 1px var(--nav-text); }
 .practice-reference-panel {
   position: sticky; top: calc(var(--space-8) * 2); align-self: start;
   display: flex; flex-direction: column; min-width: 0;
@@ -336,6 +344,7 @@
 .practice-reference-list dd > p { margin: 0; font-size: var(--text-sm); color: var(--muted); }
 .practice-reference-list .formula { font-size: var(--text-sm); padding-block: var(--space-2); }
 @media (min-width: 1180px) {
+  .focus-layout:has(.practice-reference-layout[data-reference-open]) { max-width: var(--page-width); }
   .practice-reference-layout[data-reference-open] {
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--space-8) * 10));
     align-items: start; gap: var(--space-4);

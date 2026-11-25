@@ -66,9 +66,9 @@ function NumericQuestion({ problem: p }: { problem: NumericProblem }) {
     <Card className="practice-question">
       <small className="learning-note">{practiceDifficultyLabels[p.difficulty ?? "basic"]}</small>
       <h2>{p.title}</h2>
+      {reference}
       {teaching && <p className="learning-note">练习记录 · {teachingEvidence(state.attempts, p.id)}</p>}
       <Formula value={p.formula} />
-      {reference}
       <StuckButton key={p.id} problemId={p.id} />
       <form
         onSubmit={(e) => {

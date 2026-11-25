@@ -1,4 +1,5 @@
 import { chapterThreeSec1MvtTeaching } from "./eli5Drafts/ch03Sec1Mvt";
+import { chapterThreeSec2LhopitalTeaching } from "./eli5Drafts/ch03Sec2Lhopital";
 import { chapterOnePilotTeaching } from "./teachingChapterOne";
 import { chapterOneProductionTeaching } from "./teachingProduction";
 import { chapterOneFunctionsContinuityTeaching } from "./eli5Drafts/ch01FunctionsContinuity";
@@ -62,6 +63,7 @@ export interface TeachingLesson {
 
 export const expandedTeaching: Readonly<Record<string, TeachingLesson>> = {
   ...chapterThreeSec1MvtTeaching,
+  ...chapterThreeSec2LhopitalTeaching,
   ...chapterOneFunctionsContinuityTeaching,
   ...chapterOneLimitsTeaching,
   ...chapterTwoDerivativeDefinitionsTeaching,

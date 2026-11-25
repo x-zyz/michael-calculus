@@ -203,7 +203,7 @@ describe("limit and derivative learning", () => {
       target: { value: "1/2" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
-    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    expect(screen.getByRole("status")).toHaveTextContent("回答正确。");
     v3.unmount();
 
     const v4 = mount("/practice?problem=p23");

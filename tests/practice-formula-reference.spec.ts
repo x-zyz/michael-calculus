@@ -25,9 +25,12 @@ async function expectReadable(reference: Locator) {
 
 test("formula reference preserves the draft, the ELI5 step and its answered check", async ({ page, isMobile, context }) => {
   await page.goto(focusedUrl);
-  const trigger = page.getByRole("button", { name: "公式表", exact: true });
+  const trigger = page.getByRole("button", { name: /^公式表(?:（\d+）)?$/ });
   const reference = referenceOn(page, isMobile);
   await expect(trigger).toBeVisible();
+  await expect(trigger).toBeInViewport({ ratio: 1 });
+  await expect(trigger).toHaveText("公式表（4）");
+  await expect(trigger).toHaveClass(/btn-secondary/);
   expect((await trigger.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   const answer = page.locator("#answer");
   await answer.fill("7/9");
@@ -35,6 +38,7 @@ test("formula reference preserves the draft, the ELI5 step and its answered chec
   const before = await page.evaluate(() => [localStorage.getItem("mc-learning-v1"), localStorage.getItem("mc-theme")]);
 
   await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(reference.getByText("罗尔定理", { exact: true })).toBeVisible();
   await expect(reference.getByText("拉格朗日中值定理", { exact: true })).toHaveCount(0);
   await reference.getByRole("tab", { name: "本章常用公式" }).click();
@@ -54,6 +58,7 @@ test("formula reference preserves the draft, the ELI5 step and its answered chec
   await expect(answer).toHaveValue(isMobile ? "7/9" : "5/9");
 
   await page.getByRole("button", { name: "一步一步教我" }).click();
+  await expect(trigger).toBeInViewport({ ratio: 1 });
   const guide = page.getByRole("region", { name: "ELI5 教学步骤" });
   const steps = chapterThreeSec1MvtTeaching.p181.steps;
   for (const step of steps.slice(0, 2)) {
@@ -77,9 +82,10 @@ test("formula reference preserves the draft, the ELI5 step and its answered chec
 
 test("classic numeric and written practice use explicit formulas and lesson fallback", async ({ page, isMobile }) => {
   const reference = referenceOn(page, isMobile);
-  const trigger = page.getByRole("button", { name: "公式表", exact: true });
+  const trigger = page.getByRole("button", { name: /^公式表(?:（\d+）)?$/ });
   await page.goto("/#/practice?problem=p19&ui=classic");
   await expect(page.locator(".practice-question")).toBeVisible();
+  await expect(trigger).toBeInViewport({ ratio: 1 });
   await page.locator("#answer").fill("12");
   await trigger.click();
   await expect(reference.getByText("拉格朗日中值定理", { exact: true })).toBeVisible();
@@ -90,6 +96,7 @@ test("classic numeric and written practice use explicit formulas and lesson fall
   await page.goto("/#/practice?problem=jc935-3-3-1&ui=classic");
   await expect(page.locator(".practice-question")).toBeVisible();
   await expect(page.getByRole("button", { name: "查看分步解析" })).toBeVisible();
+  await expect(trigger).toBeInViewport({ ratio: 1 });
   await trigger.click();
   await expect(reference.getByText("罗尔定理", { exact: true })).toBeVisible();
   await expect(reference.getByText("拉格朗日中值定理", { exact: true })).toBeVisible();
@@ -106,7 +113,7 @@ test("every chapter's reference formulas fit the available width", async ({ page
     const lessonIds = new Set(lessons.filter((lesson) => lesson.chapter === chapter.id).map(({ id }) => id));
     const problem = problems.find(({ lessonId }) => lessonIds.has(lessonId))!;
     await page.goto("/#/practice?problem=" + problem.id);
-    await page.getByRole("button", { name: "公式表", exact: true }).click();
+    await page.getByRole("button", { name: /^公式表(?:（\d+）)?$/ }).click();
     await reference.getByRole("tab", { name: "本章常用公式" }).click();
     await expect(reference.locator(".katex").first()).toBeVisible();
     await expectReadable(reference);
@@ -122,7 +129,7 @@ test("the production PWA can reopen a problem and its reference offline", async 
   await offline.setViewportSize(page.viewportSize()!);
   const response = await offline.goto(focusedUrl);
   expect(response?.fromServiceWorker()).toBe(true);
-  await offline.getByRole("button", { name: "公式表", exact: true }).click();
+  await offline.getByRole("button", { name: /^公式表(?:（\d+）)?$/ }).click();
   const reference = referenceOn(offline, isMobile);
   await expect(reference.getByText("罗尔定理", { exact: true })).toBeVisible();
   await expectReadable(reference);

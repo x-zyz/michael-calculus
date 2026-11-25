@@ -46,10 +46,10 @@ export default function WrittenQuestion({ problem }: { problem: WrittenProblem }
     <Card className="practice-question">
       <small className="learning-note">{practiceDifficultyLabels[problem.difficulty ?? "basic"]} · {problem.kind}{problem.source && ` · ${problem.source}`}</small>
       <h2>{problem.title}</h2>
+      {reference}
       <p>{problem.prompt}</p>
       <Formula value={problem.formula} />
       {problem.questionGraph && <ReferenceGraph graph={problem.questionGraph} />}
-      {reference}
       <StuckButton key={problem.id} problemId={problem.id} />
       <p>{problem.kind === "作图题" ? "先在纸上画草图，再对照参考图。" : "先在纸上写出思路，再对照解析自评。"}</p>
       {lesson && <p className="learning-note">练习记录 · {teachingEvidence(state.attempts, problem.id)}</p>}

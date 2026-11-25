@@ -6,20 +6,27 @@ import { focusedPracticeLesson } from "../features/practice/focusedPracticeRollo
 
 const bank = new Map(problems.map((problem) => [problem.id, problem]));
 
-it("registers chapters one and two and exactly the 22 section 3.1 exercises", () => {
+it("registers chapters one and two and exactly the exercises from sections 3.1 and 3.2", () => {
   const scope = new Set(lessons.filter(({ chapter }) => chapter <= 2).map(({ id }) => id));
   const mvtCore = new Set(["p19", "p20", "p134", "p181", "p216", "p217"]);
   const isSection31 = ({ id, lessonId }: (typeof problems)[number]) =>
     lessonId === "mvt" && (mvtCore.has(id) || id.startsWith("jc935-3-1-"));
-  const expected = problems.filter((p) => scope.has(p.lessonId) || isSection31(p)).map(({ id }) => id);
+  const lhopitalCore = new Set(["p21", "p22", "p135", "p182"]);
+  const isSection32 = ({ id, lessonId }: (typeof problems)[number]) =>
+    lessonId === "lhopital" && (lhopitalCore.has(id) || id.startsWith("jc935-3-2-"));
+  const registered = problems.filter((p) => scope.has(p.lessonId) || isSection31(p) || isSection32(p));
+  const expected = registered.map(({ id }) => id);
 
-  expect(expected).toHaveLength(624);
+  expect(expected).toHaveLength(647);
   expect(problems.filter(isSection31)).toHaveLength(22);
   expect(problems.filter((p) => p.lessonId === "mvt" && !isSection31(p))).toHaveLength(29);
+  expect(problems.filter(isSection32)).toHaveLength(23);
+  expect(problems.filter((p) => p.lessonId === "lhopital" && !isSection32(p))).toHaveLength(9);
   expect(Object.keys(teachingByProblem).sort()).toEqual(expected.sort());
-  expect(Object.keys(expandedTeaching)).toHaveLength(583);
+  expect(Object.keys(expandedTeaching)).toHaveLength(606);
+  const registeredIds = new Set(expected);
   for (const problem of problems) {
-    expect(Boolean(focusedPracticeLesson(problem)), problem.id).toBe(scope.has(problem.lessonId) || isSection31(problem));
+    expect(Boolean(focusedPracticeLesson(problem)), problem.id).toBe(registeredIds.has(problem.id));
   }
 });
 

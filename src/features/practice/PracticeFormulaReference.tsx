@@ -76,7 +76,7 @@ export default function PracticeFormulaReference({ problem, children }: {
             aria-expanded={open} aria-controls={open && desktop ? panelId : undefined}
             aria-haspopup={desktop ? undefined : "dialog"}
             onClick={() => { setScope("problem"); setOpen(!open); }}>
-            <BookOpen size={16} aria-hidden="true" /> 公式表
+            <BookOpen size={18} aria-hidden="true" /> {problemFormulas.length ? `公式表（${problemFormulas.length}）` : "公式表"}
           </Button>,
         )}
       </div>

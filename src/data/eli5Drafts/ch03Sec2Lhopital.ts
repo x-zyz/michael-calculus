@@ -908,7 +908,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       "知道乘法中的非零极限因子可先代入求值",
     ],
     strategy: "lhopital-split-nonzero-factors",
-    solution: math`\begin{gathered}\lim_{x\to 0}\frac{6x/(1+3x^2)}{2\sec(2x)\tan(2x)+2\sin(2x)}\\[4pt]=\lim_{x\to 0}\frac{3}{1+3x^2}\cdot\frac{x}{\sin(2x)}\cdot\frac{\cos^2(2x)}{1+\cos^2(2x)}=\frac{3}{4}\end{gathered}`,
+    solution: math`\begin{gathered}\lim_{x\to 0}\frac{6x/(1+3x^2)}{2\sec(2x)\tan(2x)+2\sin(2x)}\\[4pt]=\lim_{x\to 0}\left(\frac{3}{1+3x^2}\cdot\frac{x}{\sin(2x)}\right.\\[4pt]\left.\vphantom{\frac{3}{1+3x^2}}\cdot\frac{\cos^2(2x)}{1+\cos^2(2x)}\right)=\frac34\end{gathered}`,
     solutionExplanation: "一次洛必达后把分母提公因子 2sin(2x)，拆成三段极限 3×(1/2)×(1/2)=3/4。",
     steps: buildSteps([
       {
@@ -1229,7 +1229,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       "知道 lim_{x→0⁺} (x/sin x)=1",
     ],
     strategy: "lhopital-zero-to-zero",
-    solution: math`\begin{gathered}L=\lim_{x\to 0^+}\frac{\ln(\sin x)}{1/x}\\[4pt]=-\lim_{x\to 0^+}\frac{x}{\sin x}\cdot x\cos x=0\implies e^0=1\end{gathered}`,
+    solution: math`\begin{gathered}L=\lim_{x\to 0^+}\frac{\ln(\sin x)}{1/x}\\[4pt]=-\lim_{x\to 0^+}\frac{x}{\sin x}\cdot x\cos x=0\\[4pt]\implies e^0=1\end{gathered}`,
     solutionExplanation: "取对数化成 ln(sin x)/(1/x) 求导得 −(x/sin x)·x cos x→0，故原极限 e⁰=1。",
     steps: buildSteps([
       {
@@ -1359,7 +1359,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       "会用无穷小乘有界函数求 (cos x)/x→0",
     ],
     strategy: "lhopital-failure-oscillation",
-    solution: math`\begin{gathered}\text{导数比 }2+\sin x\text{ 振荡无极限（洛必达失效）}\\[4pt]\lim_{x\to\infty}\left(2-\frac{\cos x}{x}\right)=2\end{gathered}`,
+    solution: math`\begin{gathered}\text{导数比 }2+\sin x\text{ 振荡无极限}\\[4pt]\text{洛必达法则不适用}\\[4pt]\lim_{x\to\infty}\left(2-\frac{\cos x}{x}\right)=2\end{gathered}`,
     solutionExplanation: "导数比 2+sin x 振荡故不能用洛必达；改拆成 2−(cos x)/x 直接得极限 2。",
     steps: buildSteps([
       {
@@ -1422,7 +1422,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       "熟记 lim_{x→0} (x/tan x)=1",
     ],
     strategy: "lhopital-failure-origin-oscillation",
-    solution: math`\begin{gathered}\text{导数比含 }\sin(1/x)\text{ 振荡无极限（洛必达失效）}\\[4pt]\lim_{x\to 0}\frac{x}{\tan x}\cdot x\cos\frac{1}{x}=1\cdot 0=0\end{gathered}`,
+    solution: math`\begin{gathered}\text{导数比含 }\sin(1/x)\text{，振荡无极限}\\[4pt]\text{洛必达法则不适用}\\[4pt]\lim_{x\to 0}\frac{x}{\tan x}\cdot x\cos\frac{1}{x}=1\cdot 0=0\end{gathered}`,
     solutionExplanation: "分子求导后冒出高频振荡项 sin(1/x) 使洛必达失效；改拆成 (x/tan x)·x cos(1/x) 得 0。",
     steps: buildSteps([
       {
@@ -1485,7 +1485,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       "知道连续需满足左极限=右极限=函数值",
     ],
     strategy: "lhopital-piecewise-continuity",
-    solution: math`\begin{gathered}L=\lim_{x\to 0^+}\frac{\ln(1+2x)-2x}{x^2}=-2\\[4pt]\lim_{x\to 0^+}f(x)=e^{-2}=\lim_{x\to 0^-}f(x)=f(0)\text{（连续）}\end{gathered}`,
+    solution: math`\begin{gathered}L=\lim_{x\to 0^+}\frac{\ln(1+2x)-2x}{x^2}=-2\\[4pt]\lim_{x\to 0^+}f(x)=e^{-2}\\[4pt]e^{-2}=\lim_{x\to 0^-}f(x)=f(0)\text{（连续）}\end{gathered}`,
     solutionExplanation: "右极限取对数得 [ln(1+2x)−2x]/x²，洛必达算得 −2，故右极限 e⁻²=左极限=f(0)，连续。",
     steps: buildSteps([
       {

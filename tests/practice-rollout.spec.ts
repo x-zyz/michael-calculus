@@ -3,6 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { problems } from "../src/data/learning";
 import { expandedTeaching } from "../src/data/teaching";
 import { chapterThreeSec1MvtTeaching } from "../src/data/eli5Drafts/ch03Sec1Mvt";
+import { chapterThreeSec2LhopitalTeaching } from "../src/data/eli5Drafts/ch03Sec2Lhopital";
 import { firstFocusedPracticeBatch, focusedPracticeLesson } from "../src/features/practice/focusedPracticeRollout";
 
 const batch = problems.filter((problem) => focusedPracticeLesson(problem) && !expandedTeaching[problem.id]);
@@ -27,16 +28,29 @@ const expandedExamples = new Set([
   "jc935-1-1-1-2", "jc935-1-3-2-6", "jc935-1-10-1",
   "p12", "p129", "jc935-2-4-9-1", "jc935-2-5-10-1", "jc935-2-review-11",
 ]);
-for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples.has(id) || Object.hasOwn(chapterThreeSec1MvtTeaching, id))]) {
+const chapterThree = { ...chapterThreeSec1MvtTeaching, ...chapterThreeSec2LhopitalTeaching };
+for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples.has(id) || Object.hasOwn(chapterThree, id))]) {
   const lesson = focusedPracticeLesson(problem)!;
   test(problem.id + " completes the four-state flow", async ({ page, isMobile }) => {
-    const desktopMvt = !isMobile && Object.hasOwn(chapterThreeSec1MvtTeaching, problem.id);
-    await page.setViewportSize(desktopMvt ? { width: 1280, height: 860 } : { width: 360, height: 740 });
+    const desktopChapterThree = !isMobile && Object.hasOwn(chapterThree, problem.id);
+    await page.setViewportSize(desktopChapterThree ? { width: 1280, height: 860 } : { width: 360, height: 740 });
     await page.goto("/#/practice?problem=" + problem.id);
     const paper = page.locator(".practice-focus-paper");
     const initialFormula = await paper.locator(".formula annotation").first().textContent();
     await checkFormulas(page);
+    const isSection32 = Object.hasOwn(chapterThreeSec2LhopitalTeaching, problem.id);
+    const formulaTrigger = page.getByRole("button", { name: `公式表（${new Set(problem.formulaIds).size}）`, exact: true });
+    if (isSection32) {
+      await expect(formulaTrigger).toBeInViewport({ ratio: 1 });
+      await formulaTrigger.click();
+      const reference = page.getByRole(isMobile ? "dialog" : "region", { name: "公式表", exact: true });
+      await expect(reference.locator(".formula")).toHaveCount(new Set(problem.formulaIds).size);
+      await checkFormulas(page);
+      await reference.getByRole("button", { name: "关闭公式表" }).click();
+      await expect(formulaTrigger).toBeFocused();
+    }
     await paper.getByRole("button", { name: "一步一步教我" }).click();
+    if (isSection32) await expect(formulaTrigger).toBeInViewport({ ratio: 1 });
     const original = page.getByRole("region", { name: "原题" });
     await expect(original.locator("annotation")).toHaveText(initialFormula!);
     const guide = page.getByRole("region", { name: "ELI5 教学步骤" });
