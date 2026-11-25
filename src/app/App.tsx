@@ -12,6 +12,7 @@ import ExperimentsPage from "../features/experiments/ExperimentsPage";
 import PracticePage from "../features/practice/PracticePage";
 import FormulaPages from "../features/formulas/FormulaPages";
 import AssistantStatus from "../components/AssistantStatus";
+import DanubeBackdrop from "../components/DanubeBackdrop";
 import MembershipBadge from "../components/MembershipBadge";
 import SettingsPage from "../features/settings/SettingsPage";
 export default function App() {
@@ -44,6 +45,7 @@ function Workspace() {
   }, [active, location.pathname]);
   return (
     <div className="app-shell">
+      <DanubeBackdrop theme={theme} />
       <a
         className="skip-link"
         href="#main-content"
