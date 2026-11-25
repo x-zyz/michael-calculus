@@ -89,7 +89,7 @@ test("a Rolle condition mistake and a non-3.1 MVT exercise stay outside remediat
   const check = chapterThreeSec1MvtTeaching.p20.steps[0].check!;
   await page.getByRole("button", { name: check.choices[(check.correct + 1) % check.choices.length], exact: true }).click();
   await expect(page.getByRole("button", { name: entryLabel })).toHaveCount(0);
-  await page.goto("/#/practice?problem=jc935-3-3-1");
+  await page.goto("/#/practice?problem=jc935-3-8-1");
   await expect(page.locator(".practice-question")).toBeVisible();
   await expect(page.getByRole("button", { name: "一步一步教我" })).toHaveCount(0);
 });

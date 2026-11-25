@@ -6661,7 +6661,7 @@
         "(1+x)^(1/2)=1+x/2−x²/8+x³/16+R₃(x)"
       ],
       "strategy": "taylor-approx-sqrt26",
-      "solution": "\\begin{gathered}\\sqrt{26}\\approx 5\\left(1+0.02-0.0002+0.000004\\right)\\\\[4pt]=5.09902,\\quad |R_3|<5\\times 10^{-7}\\end{gathered}",
+      "solution": "\\begin{gathered}\\sqrt{26}\\approx 5\\times 1.019804=5.09902\\\\[4pt]|R_3|<5\\times 10^{-7}\\end{gathered}",
       "solutionExplanation": "小量 x=0.04 让二次项缩到 10⁻⁴、三次项缩到 10⁻⁶，算到三阶就有 6 位有效数字精度。",
       "steps": [
         {
@@ -7363,7 +7363,7 @@
         "一阶带拉格朗日余项的泰勒公式"
       ],
       "strategy": "taylor-tangent-inequality-proof",
-      "solution": "\\begin{gathered}f(1)=2,\\quad f'(1)=3\\\\[4pt]f(x)=3x-1+\\frac{f''(\\xi)}{2}(x-1)^2\\le 3x-1\\end{gathered}",
+      "solution": "\\begin{gathered}f(1)=2,\\quad f'(1)=3\\\\[4pt]f(x)=3x-1+\\frac{f''(\\xi)}{2}(x-1)^2\\\\[4pt]\\le 3x-1\\end{gathered}",
       "solutionExplanation": "几何直觉极清晰：3x−1 正是曲线在 (1, 2) 处的切线；f″<0 曲线向下弯，自然整条曲线压在切线下方！",
       "steps": [
         {

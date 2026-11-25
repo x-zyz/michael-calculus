@@ -96,7 +96,7 @@ test("classic numeric and written practice use explicit formulas and lesson fall
   await reference.getByRole("button", { name: "关闭公式表" }).click();
   await expect(page.locator("#answer")).toHaveValue("12");
 
-  await page.goto("/#/practice?problem=jc935-3-3-1&ui=classic");
+  await page.goto("/#/practice?problem=jc935-3-8-1&ui=classic");
   await expect(page.locator(".practice-question")).toBeVisible();
   await expect(page.getByRole("button", { name: "查看分步解析" })).toBeVisible();
   await expect(trigger).toBeInViewport({ ratio: 1 });
