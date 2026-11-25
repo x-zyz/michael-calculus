@@ -93,7 +93,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{e^x-1}{2x}`,
         detail: "分子 (eˣ−1−x)′=eˣ−1，分母 (x²)′=2x，代入 x=0 仍是 0/0 型。",
         check: {
-          prompt: "注意对 (eˣ−1−x)/x² 第一次使用洛必达法则后，分式变成什么？",
+          prompt: "对 (eˣ−1−x)/x² 第一次使用洛必达法则后，分式变成什么？",
           choices: ["(eˣ − 1) / (2x)", "(eˣ − x) / (2x)", "eˣ / (2x)"],
           answer: "(eˣ − 1) / (2x)",
           feedback: {
@@ -111,7 +111,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{e^x}{2}`,
         detail: "分子求导得 eˣ，分母求导得 2，此时不再是未定式。",
         check: {
-          prompt: "注意对 (eˣ−1)/(2x) 第二次使用洛必达法则后，变成哪个分式？",
+          prompt: "对 (eˣ−1)/(2x) 第二次使用洛必达法则后，变成哪个分式？",
           choices: ["eˣ / 2", "(eˣ − 1) / 2", "eˣ / (2x)"],
           answer: "eˣ / 2",
           feedback: {
@@ -157,7 +157,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{1-\cos x}{3x^2}`,
         detail: "分子得 1−cos x，分母得 3x²，仍是 0/0 型。",
         check: {
-          prompt: "注意对 (x−sin x)/x³ 第一次使用洛必达法则，得到哪个分式？",
+          prompt: "对 (x−sin x)/x³ 第一次使用洛必达法则，得到哪个分式？",
           choices: ["(1 − cos x) / (3x²)", "(1 + cos x) / (3x²)", "(1 − cos x) / x²"],
           answer: "(1 − cos x) / (3x²)",
           feedback: {
@@ -175,7 +175,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{\sin x}{6x}`,
         detail: "(−cos x)′=−(−sin x)=+sin x，(3x²)′=6x。",
         check: {
-          prompt: "注意对 (1−cos x)/(3x²) 第二次求导，分子与分母分别变成什么？",
+          prompt: "对 (1−cos x)/(3x²) 第二次求导，分子与分母分别变成什么？",
           choices: ["sin x / (6x)", "−sin x / (6x)", "sin x / (3x)"],
           answer: "sin x / (6x)",
           feedback: {
@@ -221,7 +221,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{2e^{2x}-2}{2x}=\lim_{x\to 0}\frac{e^{2x}-1}{x}`,
         detail: "分子 (e²ˣ−1−2x)′=2e²ˣ−2，分母 2x，上下同除以 2 化简为 (e²ˣ−1)/x。",
         check: {
-          prompt: "注意对 (e²ˣ−1−2x)/x² 第一次求导并约分后，变成哪一个？",
+          prompt: "对 (e²ˣ−1−2x)/x² 第一次求导并约分后，变成哪一个？",
           choices: ["(e²ˣ − 1) / x", "(e²ˣ − 2) / (2x)", "(2e²ˣ − 1) / (2x)"],
           answer: "(e²ˣ − 1) / x",
           feedback: {
@@ -239,7 +239,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{2e^{2x}}{1}`,
         detail: "分子得 2e²ˣ，分母得 1。",
         check: {
-          prompt: "注意对 (e²ˣ−1)/x 第二次求导，得到什么？",
+          prompt: "对 (e²ˣ−1)/x 第二次求导，得到什么？",
           choices: ["2e²ˣ", "e²ˣ", "4e²ˣ"],
           answer: "2e²ˣ",
           feedback: {
@@ -299,7 +299,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       {
         id: "p182-2",
         goal: "第二步：对分母 sin(2x) 求导并写出导数比",
-        plain: "注意对分母 sin(2x) 用链式法则求导，组成新的分式，再看代入 x=0 时分母是否为零。",
+        plain: "对分母 sin(2x) 用链式法则求导，组成新的分式，再看代入 x=0 时分母是否为零。",
         formula: math`\lim_{x\to 0}\frac{3e^{3x}+3e^{-3x}}{2\cos(2x)}`,
         detail: "分母求导得 2cos(2x)，x=0 时为 2≠0，直接代入即可。",
         check: {
@@ -345,7 +345,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{4/(1+4x)}{2}`,
         detail: "[ln(1+4x)]′=4/(1+4x)，(2x)′=2。",
         check: {
-          prompt: "注意对 ln(1+4x)/(2x) 应用一次洛必达法则后，分子变成什么？",
+          prompt: "对 ln(1+4x)/(2x) 应用一次洛必达法则后，分子变成什么？",
           choices: ["4 / (1 + 4x)", "1 / (1 + 4x)", "4 / x"],
           answer: "4 / (1 + 4x)",
           feedback: {
@@ -405,7 +405,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{2e^{2x}+3e^{-3x}}{2\cos(2x)}`,
         detail: "分子得 2e²ˣ+3e⁻³ˣ，分母得 2cos(2x)。",
         check: {
-          prompt: "注意对 (e²ˣ−e⁻³ˣ)/sin(2x) 用一次洛必达法则，得到哪个分式？",
+          prompt: "对 (e²ˣ−e⁻³ˣ)/sin(2x) 用一次洛必达法则，得到哪个分式？",
           choices: [
             "(2e²ˣ + 3e⁻³ˣ) / [2cos(2x)]",
             "(2e²ˣ − 3e⁻³ˣ) / [2cos(2x)]",
@@ -535,7 +535,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to\pi}\frac{5\cos(5x)}{4\sec^2(4x)}`,
         detail: "分子 5cos(5x)，分母 4sec²(4x)。",
         check: {
-          prompt: "注意对 sin(5x)/tan(4x) 应用一次洛必达法则后，变成什么？",
+          prompt: "对 sin(5x)/tan(4x) 应用一次洛必达法则后，变成什么？",
           choices: [
             "5cos(5x) / [4sec²(4x)]",
             "5cos(5x) / [4cos²(4x)]",
@@ -602,7 +602,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to\pi}\frac{\sin x/(-\cos x)}{-2(\pi-x)}=\lim_{x\to\pi}\frac{\tan x}{2(\pi-x)}`,
         detail: "分子是 −tan x，分母是 −2(π−x)，上下负号抵消得 tan x/[2(π−x)]。",
         check: {
-          prompt: "注意对 ln(−cos x)/(π−x)² 第一次求导并消去公共负号后，得到什么？",
+          prompt: "对 ln(−cos x)/(π−x)² 第一次求导并消去公共负号后，得到什么？",
           choices: ["tan x / [2(π − x)]", "−tan x / [2(π − x)]", "cot x / [2(π − x)]"],
           answer: "tan x / [2(π − x)]",
           feedback: {
@@ -620,7 +620,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to\pi}\frac{\sec^2 x}{-2}=-\frac{1}{2}`,
         detail: "sec²π=1/(−1)²=1，故极限为 −1/2。",
         check: {
-          prompt: "注意对 tan x/[2(π−x)] 第二次求导并代入 x=π，结果是多少？",
+          prompt: "对 tan x/[2(π−x)] 第二次求导并代入 x=π，结果是多少？",
           choices: ["−1/2", "1/2", "−2"],
           answer: "−1/2",
           feedback: {
@@ -656,7 +656,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
     ],
     strategy: "lhopital-parametric-exp",
     solution: math`\begin{gathered}\lim_{x\to a}\frac{a^x-a^a}{x^m-a^m}=\lim_{x\to a}\frac{a^x\ln a}{mx^{m-1}}\\[4pt]=\frac{a^{a-m+1}\ln a}{m}\end{gathered}`,
-    solutionExplanation: "注意对 x 求导得 (aˣ ln a)/(mxᵐ⁻¹)，代 x=a 并合并同底数幂。",
+    solutionExplanation: "对 x 求导得 (aˣ ln a)/(mxᵐ⁻¹)，代 x=a 并合并同底数幂。",
     steps: buildSteps([
       {
         id: "jc935-3-2-1-6-1",
@@ -665,7 +665,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to a}\frac{a^x\ln a}{mx^{m-1}}`,
         detail: "(aˣ)′=aˣ ln a，(xᵐ)′=mxᵐ⁻¹。",
         check: {
-          prompt: "注意对 (aˣ−aᵃ)/(xᵐ−aᵐ) 关于变量 x 使用一次洛必达法则，结果是？",
+          prompt: "对 (aˣ−aᵃ)/(xᵐ−aᵐ) 关于变量 x 使用一次洛必达法则，结果是？",
           choices: [
             "(aˣ ln a) / (mxᵐ⁻¹)",
             "(xaˣ⁻¹) / (mxᵐ⁻¹)",
@@ -707,7 +707,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         transfer: {
           prompt: "迁移练习：取 a=e, m=2，求 [lim_{x→1} (eˣ−e)/(x²−1)] 除以 e 之后的数值（小数或分数）。",
           answer: 0.5,
-          signFeedback: "注意对 (eˣ−e)/(x²−1) 求导得 eˣ/(2x)，代 x=1 得 e/2。",
+          signFeedback: "对 (eˣ−e)/(x²−1) 求导得 eˣ/(2x)，代 x=1 得 e/2。",
           remediation: "lim (eˣ−e)/(x²−1)=lim eˣ/(2x)=e/2，除以 e 得 1/2=0.5。",
           solution: math`\lim_{x\to 1}\frac{e^x-e}{x^2-1}=\lim_{x\to 1}\frac{e^x}{2x}=\frac{e}{2}\implies\frac{1}{2}`,
         },
@@ -806,7 +806,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       {
         id: "jc935-3-2-1-8-2",
         goal: "第二步：求导并把 csc² 比翻成 sin² 比，代 x=π/2",
-        plain: "注意对 cot(5x)/cot(3x) 求导得 [−5csc²(5x)]/[−3csc²(3x)]，再用 csc=1/sin 翻回正弦平方并代入 x=π/2。",
+        plain: "对 cot(5x)/cot(3x) 求导得 [−5csc²(5x)]/[−3csc²(3x)]，再用 csc=1/sin 翻回正弦平方并代入 x=π/2。",
         formula: math`\frac{5}{3}\lim_{x\to\frac{\pi}{2}}\frac{\sin^2(3x)}{\sin^2(5x)}=\frac{5}{3}`,
         detail: "sin(3π/2)=−1、sin(5π/2)=1，平方都是 1，极限为 5/3。",
         check: {
@@ -855,7 +855,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to+\infty}\frac{-3/(x^2+3x)}{-2/(x^2+4)}=\lim_{x\to+\infty}\frac{3(x^2+4)}{2(x^2+3x)}`,
         detail: "[1/(1+3/x)]·(−3/x²)=−3/(x²+3x)；[1/(1+4/x²)]·(−2/x²)=−2/(x²+4)。",
         check: {
-          prompt: "注意对分母 arctan(2/x) 用链式法则求导并化简，结果等于什么？",
+          prompt: "对分母 arctan(2/x) 用链式法则求导并化简，结果等于什么？",
           choices: ["−2 / (x² + 4)", "2 / (x² + 4)", "−2 / (1 + 4x²)"],
           answer: "−2 / (x² + 4)",
           feedback: {
@@ -918,7 +918,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0}\frac{6x/(1+3x^2)}{2\sec(2x)\tan(2x)+2\sin(2x)}`,
         detail: "分子 6x/(1+3x²)，分母 2sec(2x)tan(2x)+2sin(2x)。",
         check: {
-          prompt: "注意对分母 sec(2x)−cos(2x) 用链式法则求导，结果是？",
+          prompt: "对分母 sec(2x)−cos(2x) 用链式法则求导，结果是？",
           choices: [
             "2sec(2x)tan(2x) + 2sin(2x)",
             "2sec(2x)tan(2x) − 2sin(2x)",
@@ -1000,11 +1000,11 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       {
         id: "jc935-3-2-1-11-2",
         goal: "第二步：一次洛必达求导并代入 x=0",
-        plain: "注意对 (e²ˣ−1)/tan(3x) 分子分母分别求导，再代入 x=0。",
+        plain: "对 (e²ˣ−1)/tan(3x) 分子分母分别求导，再代入 x=0。",
         formula: math`\lim_{x\to 0}\frac{2e^{2x}}{3\sec^2(3x)}=\frac{2}{3}`,
         detail: "e⁰=1、sec²0=1，得 2/3。",
         check: {
-          prompt: "注意对 (e²ˣ−1)/tan(3x) 求导并代入 x=0，结果是？",
+          prompt: "对 (e²ˣ−1)/tan(3x) 求导并代入 x=0，结果是？",
           choices: ["2/3", "3/2", "1"],
           answer: "2/3",
           feedback: {
@@ -1067,11 +1067,11 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
       {
         id: "jc935-3-2-1-12-2",
         goal: "第二步：第二次求导消光幂次，直接读出 +∞",
-        plain: "注意对 (1/2)·e^(1/x²)/x⁻² 再用一次洛必达法则，看看 (−2/x³) 会和谁抵消。",
+        plain: "对 (1/2)·e^(1/x²)/x⁻² 再用一次洛必达法则，看看 (−2/x³) 会和谁抵消。",
         formula: math`\frac{1}{2}\lim_{x\to 0}\frac{e^{1/x^2}\cdot(-2/x^3)}{-2/x^3}=\frac{1}{2}\lim_{x\to 0}e^{1/x^2}=+\infty`,
         detail: "上下 (−2/x³) 完全抵消，只剩 (1/2)e^(1/x²)→+∞。",
         check: {
-          prompt: "注意对 (1/2)·e^(1/x²)/x⁻² 第二次求导约分后，剩下什么表达式？",
+          prompt: "对 (1/2)·e^(1/x²)/x⁻² 第二次求导约分后，剩下什么表达式？",
           choices: ["(1/2)e^(1/x²)", "(1/4)e^(1/x²)", "0"],
           answer: "(1/2)e^(1/x²)",
           feedback: {
@@ -1131,7 +1131,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 2}\frac{-1}{2x}=-\frac{1}{4}`,
         detail: "分子 (2−x)′=−1，分母 (x²−4)′=2x，代 x=2 得 −1/4。",
         check: {
-          prompt: "注意对 (2−x)/(x²−4) 用洛必达法则并代入 x=2，结果是多少？",
+          prompt: "对 (2−x)/(x²−4) 用洛必达法则并代入 x=2，结果是多少？",
           choices: ["−1/4", "1/4", "−1/2"],
           answer: "−1/4",
           feedback: {
@@ -1176,7 +1176,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`L=\lim_{x\to 0}\frac{(2e^{2x}+3)/(e^{2x}+3x)}{1}=5`,
         detail: "分子求导得 (2e²ˣ+3)/(e²ˣ+3x)，分母求导为 1，代入 x=0 得 L=(2+3)/1=5。",
         check: {
-          prompt: "注意对指数上的 0/0 型极限 L=lim_{x→0} ln(e²ˣ+3x)/x 用洛必达法则，算出的 L 等于多少？",
+          prompt: "对指数上的 0/0 型极限 L=lim_{x→0} ln(e²ˣ+3x)/x 用洛必达法则，算出的 L 等于多少？",
           choices: ["5", "4", "3"],
           answer: "5",
           feedback: {
@@ -1214,7 +1214,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         transfer: {
           prompt: "迁移练习：若 lim_{x→0} (e³ˣ+4x)^(1/x) = e^L，求出指数 L 的值。",
           answer: 7,
-          signFeedback: "注意对 ln(e³ˣ+4x)/x 用洛必达，代 x=0 算 3+4。",
+          signFeedback: "对 ln(e³ˣ+4x)/x 用洛必达，代 x=0 算 3+4。",
           remediation: "L = lim (3e³ˣ+4)/(e³ˣ+4x)=3+4=7。",
           solution: math`L=\lim_{x\to 0}\frac{3e^{3x}+4}{e^{3x}+4x}=7`,
         },
@@ -1239,7 +1239,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\lim_{x\to 0^+}\frac{\cos x/\sin x}{-1/x^2}=-\lim_{x\to 0^+}\frac{x}{\sin x}\cdot x\cos x`,
         detail: "分母 −1/x² 翻到分子变成 −x²，拆一个 x 给 sin x 配对。",
         check: {
-          prompt: "注意对 ln(sin x)/(1/x) 使用洛必达法则并把 −1/x² 翻上去，化简后是？",
+          prompt: "对 ln(sin x)/(1/x) 使用洛必达法则并把 −1/x² 翻上去，化简后是？",
           choices: [
             "−(x / sin x) · x cos x",
             "(x / sin x) · x cos x",
@@ -1306,7 +1306,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`L=\lim_{x\to 0^+}\frac{\tan(3x)}{3x}\cdot 3\cdot\frac{\ln(2/x)}{1/x}`,
         detail: "tan(3x)/(3x)→1，问题立刻简化成求 ln(2/x)/(1/x)。",
         check: {
-          prompt: "注意对化简后的 ∞/∞ 型 ln(2/x)/(1/x) 使用一次洛必达法则，分子与分母求导之比等于什么？",
+          prompt: "对化简后的 ∞/∞ 型 ln(2/x)/(1/x) 使用一次洛必达法则，分子与分母求导之比等于什么？",
           choices: ["(−1/x) / (−1/x²) = x", "(1/x) / (−1/x²) = −x", "(2/x) / (−1/x²) = −2x"],
           answer: "(−1/x) / (−1/x²) = x",
           feedback: {
@@ -1369,7 +1369,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\frac{(2x-\cos x)'}{x'}=2+\sin x\quad(\text{振荡无极限})`,
         detail: "sin x 在 [−1, 1] 周期振荡，2+sin x 极限不存在，因此不能套用洛必达法则。",
         check: {
-          prompt: "注意对 (2x−cos x)/x 强行分子分母求导，得到的导数比是什么？",
+          prompt: "对 (2x−cos x)/x 强行分子分母求导，得到的导数比是什么？",
           choices: ["2 + sin x（x→∞ 时振荡无极限）", "2 − sin x（x→∞ 时趋于 2）", "2（直接得出极限 2）"],
           answer: "2 + sin x（x→∞ 时振荡无极限）",
           feedback: {
@@ -1432,7 +1432,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\left(x^2\cos\frac{1}{x}\right)'=2x\cos\frac{1}{x}+\sin\frac{1}{x}`,
         detail: "x²·[−sin(1/x)·(−1/x²)]=+sin(1/x)，它在 x→0 时振荡无极限，导致洛必达失效。",
         check: {
-          prompt: "注意对分子 x²cos(1/x) 求导后，哪一项在 x→0 时剧烈振荡导致洛必达法则失效？",
+          prompt: "对分子 x²cos(1/x) 求导后，哪一项在 x→0 时剧烈振荡导致洛必达法则失效？",
           choices: ["sin(1/x)", "2x cos(1/x)", "sec²x"],
           answer: "sin(1/x)",
           feedback: {
@@ -1495,7 +1495,7 @@ export const chapterThreeSec2LhopitalTeaching: Readonly<Record<string, TeachingL
         formula: math`\frac{1}{x}\left(\frac{1}{x}\ln(1+2x)-2\right)=\frac{\ln(1+2x)-2x}{x^2}`,
         detail: "ln(A/e²)=ln A−2，通分后正好变成 0/0 型 [ln(1+2x)−2x]/x²。",
         check: {
-          prompt: "注意对右分支 [(1+2x)^(1/x)/e²]^(1/x) 取对数并通分后，得到的 0/0 型分式是？",
+          prompt: "对右分支 [(1+2x)^(1/x)/e²]^(1/x) 取对数并通分后，得到的 0/0 型分式是？",
           choices: [
             "[ln(1+2x) − 2x] / x²",
             "[ln(1+2x) − 2] / x²",
