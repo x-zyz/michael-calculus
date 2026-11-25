@@ -2,7 +2,17 @@
 
 本文件是 `main` 的权威交接。旧工作树先读 [AGENTS.md](../AGENTS.md)，再查阅 [main 上的本文件](https://github.com/x-zyz/michael-calculus/blob/main/docs/AI_HANDOFF.md)。接手任务时核对远程提交、工作树和未提交改动，保留其他 Agent 的工作树与分支。分支状态、版本与验证结果以 Git、源码及实际回读为准。
 
-## 当前发布基线 · v1.2.1
+## 当前发布基线 · v1.3.0
+
+- [v1.3.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.3.0) 的发布提交为 `f9d3d90bd1eb63d72eac7ae08646d693f0f6211b`，包含 Phase 2A 的 `3e8249e33792b6dcebacfc8fd8b5c6982e9504a8`。1,693 道题、647 组逐步提示和 647 套 ELI5 统一存放于 `src/data/bank/ch01.json` 至 `ch08.json`。30 组图形在 `graphs.ts` 恢复曲线函数，渲染取样点逐支与 v1.2.1 比对一致。
+- 首页、课程、复习、备份校验和公式复习使用派生索引。练习打开指定题目时按章加载完整内容。Vite 生成 8 个独立章节包，入口 JS 由约 3.71 MB 降至 1.54 MB。PWA 预缓存全部章节，Android APK 内置相同的章节包。
+- 练习中心的「题目列表」支持即时关键词、题号和出处搜索，以及章节、考点、难度、题型、ELI5 和逐步提示筛选。昵称、独立定理和套路字段已接入索引，数据仍待教学方标注。本版可按已有考点标签筛选。
+- 编辑章节数据后运行 `npm run build:bank-index` 更新派生索引，再运行 `npm run validate:bank`。校验覆盖数据结构、ID、引用、KaTeX、ELI5、派生索引和图形配置，并已接入 [质量检查](https://github.com/x-zyz/michael-calculus/actions/runs/45540550221) 与 [发版工作流](https://github.com/x-zyz/michael-calculus/actions/runs/45540550399)。
+- 本地 typecheck、lint、check:css、118 项 Vitest、5 项签名与备份验证和 `android:sync` 通过。Playwright 384 项通过、8 项按条件跳过，覆盖 1,693 道题的 360px 检查、搜索筛选、断网切章和 PWA 升级。从 v1.2.1 升级后作答记录保留。签名工作流另通过云端 Playwright 372 项与 Android `assembleRelease lintRelease`。
+- 正式 APK 为 `com.michael.calculus` 1.3.0 / 49，共 7,021,677 字节，SHA-256 为 `260ea67630476d4a422eb072f3faac3103fdb5f5125a6b794d55e46b2d8c01a6`，固定签名独立验包通过。[ByteVirt 清单](https://update.0979019203.top/calculus/stable/android/latest.json) 验签通过，版本 1.3.0 / 49、序列 49，APK 与 GitHub Release 逐字节一致。
+- [Pages](https://x-zyz.github.io/michael-calculus/) 的缓存为 `michael-calculus-v1.3.0`，HTML、`sw.js`、入口 JS/CSS 和 8 个章节包均与 Release 离线 ZIP 一致。Android 真机覆盖升级、学习数据保留和离线重开仍待验收。
+
+## v1.2.1 发布记录
 
 - [v1.2.1](https://github.com/x-zyz/michael-calculus/releases/tag/v1.2.1) 发布提交为 `5dd2198cad58da12aeb5238f584cd460622966c2`，集成 Gemini 的 `ab0f18bbd7cdc40d0ae0f07e5eb0ee3dd5f889d9`。第一、二章及 §3.2 共 625 道题补齐公式关联。§3.2 的 23 道题已启用逐步提示和 ELI5，另外 9 道同标签题沿用原练习流程。
 - 题头的「公式表」增加强调色、描边、展开状态和本题公式数量。桌面并排时为题面保留足够宽度，§3.2 的五道解法已调整为适合 360px 的换行。
