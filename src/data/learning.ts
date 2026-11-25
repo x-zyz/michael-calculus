@@ -46,6 +46,7 @@ import { bankInfinitesimals } from "./bankInfinitesimals";
 import { bankFunctionLimits } from "./bankFunctionLimits";
 import { bankFunctionsAndSequences } from "./bankFunctionsAndSequences";
 import { guidedHintsById } from "./guidedHints";
+import { problemFormulaIdsById } from "./problemFormulaIds";
 
 export interface Lesson {
   definitionExplanation: string;
@@ -806,10 +807,12 @@ topicLabels.set("marginal_cost", "边际成本与实际增量");
 export const problems: Problem[] = [
   ...baseProblems.map((problem) => ({
     ...problem,
+    formulaIds: problemFormulaIdsById[problem.id] ?? ("formulaIds" in problem ? problem.formulaIds : undefined),
     guidedHints: ("guidedHints" in problem ? problem.guidedHints : undefined) ?? guidedHintsById[problem.id],
   })),
   ...[...expandedPractice, ...bankPractice, ...bankWrittenPractice, ...bankFunctionsAndSequences, ...bankFunctionLimits, ...bankInfinitesimals, ...bankLimitLaws, ...bankImportantLimits, ...bankDiscontinuities, ...bankContinuousOperations, ...bankClosedContinuity, ...bankChapterOneReview, ...bankDerivativeConcept, ...bankDerivativeRules, ...bankHigherDerivatives, ...bankImplicitParam, ...bankDifferentials, ...bankChapterTwoReview, ...bankMvtAndLhopital, ...bankTaylorFormula, ...bankMonotonicityConcavity, ...bankExtremaAndOpt, ...bankCurveCurvatureRoot, ...bankChapterThreeReview, ...bankAntiderivatives, ...bankIntegralSubstitution, ...bankIntegralPartsRational, ...bankChapterFourTail, ...bankDefiniteIntroFtc, ...bankDefiniteMethods, ...bankImproperAndCh5Review, ...bankIntegralGeometry, ...bankIntegralPhysicsReview, ...bankOdeFirstOrderBasics, ...bankOdeLinearAndReducible, ...bankOdeHigherHomog, ...bankOdeNonhomog, ...bankOdeEulerSystems, ...bankChapterSevenReview, ...bankExamLimits, ...bankExamOdes].map((problem) => ({
     ...problem,
+    formulaIds: problemFormulaIdsById[problem.id] ?? ("formulaIds" in problem ? problem.formulaIds : undefined),
     guidedHints: ("guidedHints" in problem ? problem.guidedHints : undefined) ?? guidedHintsById[problem.id],
     errorLabel: topicLabels.get(problem.errorTag)!,
   })),
