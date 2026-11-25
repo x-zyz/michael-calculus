@@ -21,7 +21,7 @@ export const lagrangeMvtRemediationModule: TeachingLesson = {
       id: "lagrange-rem-1",
       goal: "阶梯 1：盯住「同结构之差」，一眼定出 f(t) 与闭区间",
       plain: "看到不等式里出现 sin b − sin a、ln(1+x) − ln(1+y) 或 eˣ − e² 这类「同一个函数在两点相减」的结构，就立刻把括号里的字母换成动点 t 当作 f(t)，两个点就是闭区间端点。",
-      formula: math`\ln\frac{1+x}{1+y}=\ln(1+x)-\ln(1+y)\;\Longrightarrow\;f(t)=\ln(1+t),\;[y,x]`,
+      formula: math`\begin{gathered}\ln\frac{1+x}{1+y}=\ln(1+x)-\ln(1+y)\\[4pt]\Longrightarrow\;f(t)=\ln(1+t),\;[y,x]\end{gathered}`,
       detail: "有时函数差藏在商的对数或移项后的项里，先拆成 f(b)−f(a) 再套定理。",
       check: {
         prompt: "要证明当 x>0 时 arctan x < x，最直接的拉格朗日函数 f(t) 与闭区间应选哪一组？",
@@ -43,7 +43,7 @@ export const lagrangeMvtRemediationModule: TeachingLesson = {
       id: "lagrange-rem-2",
       goal: "阶梯 2：用端点范围放缩 f′(ξ)——注意正负与单调方向",
       plain: "拉格朗日把 f(b)−f(a) 换成了 f′(ξ)(b−a)。既然 ξ 严格夹在 a 和 b 之间，只要判断 f′(t) 在区间上是递增还是递减，就能用 f′(a) 和 f′(b) 夹住 f′(ξ) 消掉未知的 ξ。",
-      formula: math`0<\xi<x\;\Longrightarrow\;1+\xi^2>1\;\Longrightarrow\;\frac{1}{1+\xi^2}<1`,
+      formula: math`\begin{gathered}0<\xi<x\;\Longrightarrow\;1+\xi^2>1\\[4pt]\Longrightarrow\;\frac{1}{1+\xi^2}<1\end{gathered}`,
       detail: "关键易错点：对正数取倒数、或乘以负数时，不等号方向必须反转！",
       check: {
         prompt: "已知 0 < a < ξ < b 且导函数 f′(t)=1/t 在 (0, +∞) 严格递减，放缩 f′(ξ)=1/ξ 得到的正确双边不等式是？",

@@ -166,7 +166,7 @@
       ],
       "strategy": "definition-rationalize-numerator",
       "referenceAnswer": 0.5,
-      "solution": "\\begin{gathered}\\frac{\\sqrt{1+h}-1}{h}=\\frac{(1+h)-1}{h(\\sqrt{1+h}+1)}=\\frac{1}{\\sqrt{1+h}+1}\\\\[4pt]f'(1)=\\lim_{h\\to 0}\\frac{1}{\\sqrt{1+h}+1}=\\frac{1}{2}\\end{gathered}",
+      "solution": "\\begin{gathered}\\frac{\\sqrt{1+h}-1}{h}=\\frac{(1+h)-1}{h(\\sqrt{1+h}+1)}\\\\[4pt]=\\frac{1}{\\sqrt{1+h}+1}\\\\[4pt]f'(1)=\\lim_{h\\to 0}\\frac{1}{\\sqrt{1+h}+1}=\\frac{1}{2}\\end{gathered}",
       "solutionExplanation": "遇到根号相减的 0/0 差商，上下同乘共轭根式 √(1+h)+1 即可化出因子 h 约分。",
       "steps": [
         {
@@ -393,7 +393,7 @@
       ],
       "strategy": "product-rule-x-lnx",
       "referenceAnswer": 1,
-      "solution": "\\begin{gathered}f'(x)=(x)'\\ln x+x(\\ln x)'=\\ln x+x\\cdot\\frac{1}{x}=\\ln x+1\\\\[4pt]f'(1)=\\ln 1+1=0+1=1\\end{gathered}",
+      "solution": "\\begin{gathered}f'(x)=(x)'\\ln x+x(\\ln x)'\\\\[4pt]=\\ln x+x\\cdot\\frac{1}{x}=\\ln x+1\\\\[4pt]f'(1)=\\ln 1+1=1\\end{gathered}",
       "solutionExplanation": "乘积求导不是两导数直接相乘，而是「前导后不导 + 前不导后导」。",
       "steps": [
         {
@@ -875,7 +875,7 @@
       ],
       "strategy": "differential-sqrt-linear-approx",
       "referenceAnswer": 2.01,
-      "solution": "\\begin{gathered}f(4)=2,\\quad f'(4)=\\frac{1}{2\\sqrt{4}}=\\frac{1}{4}=0.25\\\\[4pt]f(4)+f'(4)\\Delta x=2+0.25\\times 0.04=2.01\\end{gathered}",
+      "solution": "\\begin{gathered}f(4)=2,\\quad f'(4)=\\frac{1}{2\\sqrt{4}}=0.25\\\\[4pt]f(4)+f'(4)\\Delta x\\\\[4pt]=2+0.25\\times 0.04=2.01\\end{gathered}",
       "solutionExplanation": "基准点选在好开方的 x₀=4，用该点切线斜率 1/4 乘步长 0.04 得到增量 0.01。",
       "steps": [
         {
@@ -987,14 +987,14 @@
       ],
       "strategy": "parametric-first-derivative",
       "referenceAnswer": 3,
-      "solution": "\\begin{gathered}\\frac{dx}{dt}=2t,\\quad\\frac{dy}{dt}=3t^2\\\\[4pt]\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3}{2}t\\;\\Longrightarrow\\;\\left.\\frac{dy}{dx}\\right|_{t=2}=3\\end{gathered}",
+      "solution": "\\begin{gathered}\\frac{dx}{dt}=2t,\\quad\\frac{dy}{dt}=3t^2\\\\[4pt]\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3}{2}t\\\\[4pt]\\left.\\frac{dy}{dx}\\right|_{t=2}=3\\end{gathered}",
       "solutionExplanation": "y 对 x 的变化率等于 y 对 t 的变化率除以 x 对 t 的变化率，切勿把分子分母写反。",
       "steps": [
         {
           "id": "p40-1",
           "goal": "第一步：分别求 dx/dt 与 dy/dt，并按正确顺序作商",
           "plain": "先算出 x′(t)=2t 和 y′(t)=3t²，再用 y′(t) 除以 x′(t) 得到 dy/dx。",
-          "formula": "\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}=\\frac{3t^2}{2t}=\\frac{3}{2}t",
+          "formula": "\\begin{gathered}\\frac{dy}{dx}=\\frac{dy/dt}{dx/dt}\\\\[4pt]=\\frac{3t^2}{2t}=\\frac{3}{2}t\\end{gathered}",
           "detail": "记忆窍门：把 dt 看作约掉的中间桥梁，y 在上面所以 y′(t) 在分子。",
           "check": {
             "prompt": "由 x=t²、y=t³ 算出的参数导数 dy/dx（化简后，t≠0）是哪一个？",
@@ -1213,7 +1213,7 @@
       ],
       "strategy": "chain-rule-poly-cube",
       "referenceAnswer": 135,
-      "solution": "\\begin{gathered}f'(x)=3(2x^2+x)^2(4x+1)\\\\[4pt]f'(1)=3(2+1)^2(4+1)=3\\cdot 9\\cdot 5=135\\end{gathered}",
+      "solution": "\\begin{gathered}f'(x)=3(2x^2+x)^2(4x+1)\\\\[4pt]f'(1)=3(2+1)^2(4+1)\\\\[4pt]=3\\cdot 9\\cdot 5=135\\end{gathered}",
       "solutionExplanation": "内层是二次式 2x²+x，其导数 4x+1 不是常数，千万别忘给它加括号整体相乘。",
       "steps": [
         {
@@ -1332,7 +1332,7 @@
       ],
       "strategy": "parametric-second-derivative",
       "referenceAnswer": 0.375,
-      "solution": "\\begin{gathered}\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3}{2}t\\\\[4pt]\\frac{d^2y}{dx^2}=\\frac{\\frac{d}{dt}\\!\\left(\\frac{3}{2}t\\right)}{\\frac{dx}{dt}}=\\frac{3/2}{2t}=\\frac{3}{4t}\\;\\Longrightarrow\\;\\left.\\frac{d^2y}{dx^2}\\right|_{t=2}=\\frac{3}{8}=0.375\\end{gathered}",
+      "solution": "\\begin{gathered}\\frac{dy}{dx}=\\frac{3t^2}{2t}=\\frac{3}{2}t\\\\[4pt]\\frac{d^2y}{dx^2}=\\frac{\\frac{d}{dt}\\!\\left(\\frac{3}{2}t\\right)}{dx/dt}=\\frac{3/2}{2t}=\\frac{3}{4t}\\\\[4pt]\\left.\\frac{d^2y}{dx^2}\\right|_{t=2}=\\frac{3}{8}=0.375\\end{gathered}",
       "solutionExplanation": "高数头号高频坑：算二阶导不是 y″(t)/x″(t)，也不是只算 d(y′)/dt，而是必须再除以一次 dx/dt。",
       "steps": [
         {
@@ -1383,7 +1383,7 @@
           "id": "p130-3",
           "goal": "第三步：代入 t=2 算出 d²y/dx²=3/8=0.375",
           "plain": "把 t=2 代入 3/(4t) 得 3/8=0.375。",
-          "formula": "\\left.\\frac{d^2y}{dx^2}\\right|_{t=2}=\\frac{3}{4\\cdot 2}=\\frac{3}{8}=0.375",
+          "formula": "\\begin{gathered}\\left.\\frac{d^2y}{dx^2}\\right|_{t=2}=\\frac{3}{4\\cdot 2}\\\\[4pt]=\\frac{3}{8}=0.375\\end{gathered}",
           "detail": "消参验证：y=x^(3/2) ⇒ y″=(3/4)x^(−1/2)，在 x=2²=4 处得 3/8。",
           "transfer": {
             "prompt": "迁移练习：同一条参数曲线 x=t², y=t³ (t>0)，求 t=1 处的二阶导数 d²y/dx²（小数或分数）。",
@@ -1452,7 +1452,7 @@
       ],
       "strategy": "quotient-and-product-rule",
       "referenceAnswer": 1,
-      "solution": "\\begin{gathered}(xe^x)'=(1+x)e^x\\\\[4pt]f'(x)=\\frac{(1+x)e^x(1+x)-xe^x\\cdot 1}{(1+x)^2}\\;\\Longrightarrow\\;f'(0)=\\frac{1\\cdot 1\\cdot 1-0}{1^2}=1\\end{gathered}",
+      "solution": "\\begin{gathered}(xe^x)'=(1+x)e^x\\\\[4pt]f'(x)=\\frac{(1+x)^2 e^x-xe^x}{(1+x)^2}\\\\[4pt]f'(0)=\\frac{1\\cdot 1-0}{1^2}=1\\end{gathered}",
       "solutionExplanation": "先单独算清分子的导数 (x eˣ)′=(1+x)eˣ，再套商法则；求定点导数时直接代 x=0 比通分展开更稳。",
       "steps": [
         {
@@ -1567,7 +1567,7 @@
       ],
       "strategy": "differential-sqrt-at-25",
       "referenceAnswer": 0.1,
-      "solution": "\\begin{gathered}f'(x)=\\frac{1}{2\\sqrt{x}}\\;\\Longrightarrow\\;f'(25)=\\frac{1}{2\\cdot 5}=\\frac{1}{10}=0.1\\\\[4pt]df=f'(25)\\,dx=0.1\\times 1=0.1\\end{gathered}",
+      "solution": "\\begin{gathered}f'(x)=\\frac{1}{2\\sqrt{x}}\\\\[4pt]f'(25)=\\frac{1}{2\\cdot 5}=0.1\\\\[4pt]df=f'(25)\\,dx=0.1\\end{gathered}",
       "solutionExplanation": "先算出 x₀=25 处的导数 1/(2√25)=1/10，再乘 dx=1 即得 df。",
       "steps": [
         {
@@ -1823,7 +1823,7 @@
           "id": "p175-2",
           "goal": "第二步：区分「2 秒时的角速度」与「前 2 秒的平均角速度」",
           "plain": "题干问的是 t=2 时的瞬时角速度 θ′(2)，只需把 t=2 代入 θ′(t)=4t+1，而不是算 θ(2)/2。",
-          "formula": "\\text{瞬时角速度}=\\theta'(2),\\quad\\text{平均角速度}=\\frac{\\theta(2)-\\theta(0)}{2}=5",
+          "formula": "\\begin{gathered}\\text{瞬时角速度}=\\theta'(2)\\\\[4pt]\\text{平均角速度}=\\frac{\\theta(2)-\\theta(0)}{2}=5\\end{gathered}",
           "detail": "平均角速度是 5，但转盘一直在加速，t=2 时刻的瞬时角速度更大。",
           "check": {
             "prompt": "要算 t=2 秒时的瞬时角速度，应该代入哪个式子计算？",
@@ -2139,7 +2139,7 @@
       ],
       "strategy": "second-derivative-poly-log",
       "referenceAnswer": 5.5,
-      "solution": "\\begin{gathered}f'(x)=6x+\\frac{2}{x}\\\\[4pt]f''(x)=6-\\frac{2}{x^2}\\;\\Longrightarrow\\;f''(2)=6-\\frac{2}{4}=5.5\\end{gathered}",
+      "solution": "\\begin{gathered}f'(x)=6x+\\frac{2}{x},\\quad f''(x)=6-\\frac{2}{x^2}\\\\[4pt]f''(2)=6-\\frac{2}{4}=5.5\\end{gathered}",
       "solutionExplanation": "最易错处是第二次求导：2/x=2x⁻¹ 求导后指数 −1 落下来变成 −2/x²，加号变减号！",
       "steps": [
         {
@@ -2258,7 +2258,7 @@
       ],
       "strategy": "implicit-differentiation-point",
       "referenceAnswer": -2,
-      "solution": "\\begin{gathered}2yy'-2(y+xy')=0\\\\[4pt]\\text{代入 }(3,2):\\;4y'-2(2+3y')=0\\;\\Longrightarrow\\;-2y'-4=0\\;\\Longrightarrow\\;y'=-2\\end{gathered}",
+      "solution": "\\begin{gathered}2yy'-2(y+xy')=0\\\\[4pt]\\text{代入 }(3,2):\\;4y'-2(2+3y')=0\\\\[4pt]-2y'-4=0\\;\\Longrightarrow\\;y'=-2\\end{gathered}",
       "solutionExplanation": "求定点隐函数斜率有个偷懒神技：两边求导后直接把 (3, 2) 代进去解一次方程，比先解出 y′ 的字母分式更省事！",
       "steps": [
         {
@@ -2378,14 +2378,14 @@
       ],
       "strategy": "delta-y-minus-dy-cubic",
       "referenceAnswer": 0.875,
-      "solution": "\\begin{gathered}\\Delta y=f(1.5)-f(1)=(3.375-3)-(-1)=1.375\\\\[4pt]dy=f'(1)\\cdot 0.5=(3\\cdot 1^2-2)\\cdot 0.5=0.5\\\\[4pt]\\Delta y-dy=1.375-0.5=0.875\\end{gathered}",
+      "solution": "\\begin{gathered}\\Delta y=f(1.5)-f(1)=1.375\\\\[4pt]dy=f'(1)\\cdot 0.5=0.5\\\\[4pt]\\Delta y-dy=1.375-0.5=0.875\\end{gathered}",
       "solutionExplanation": "Δy 是曲线真实抬升的高度，dy 是切线抬升的高度，两者之差就是高阶无穷小 o(Δx)。",
       "steps": [
         {
           "id": "p180-1",
           "goal": "第一步：算出切线预测的微分增量 dy=f′(1)·Δx",
           "plain": "先求导 f′(x)=3x²−2，代入 x=1 得 f′(1)=1，再乘步长 Δx=1/2 得 dy=0.5。",
-          "formula": "f'(x)=3x^2-2\\;\\Longrightarrow\\;dy=f'(1)\\cdot\\frac{1}{2}=1\\cdot\\frac{1}{2}=0.5",
+          "formula": "\\begin{gathered}f'(x)=3x^2-2\\\\[4pt]dy=f'(1)\\cdot\\frac{1}{2}=0.5\\end{gathered}",
           "detail": "注意 f(1)=1−2=−1 是函数值，不是导数值 f′(1)=1。",
           "check": {
             "prompt": "对 y=x³−2x，在 x=1、Δx=1/2 处的微分 dy 等于多少？",
@@ -2694,7 +2694,7 @@
         "(cos 2x)′=−2sin 2x，(sin 2x)′=2cos 2x"
       ],
       "strategy": "second-derivative-x-cos2x",
-      "solution": "\\begin{gathered}f'(x)=\\cos(2x)-2x\\sin(2x)\\\\[4pt]f''(x)=-2\\sin(2x)-2\\big(\\sin(2x)+2x\\cos(2x)\\big)=-4\\sin(2x)-4x\\cos(2x)\\end{gathered}",
+      "solution": "\\begin{gathered}f'(x)=\\cos(2x)-2x\\sin(2x)\\\\[4pt]f''(x)=-2\\sin(2x)-2\\big(\\sin 2x+2x\\cos 2x\\big)\\\\[4pt]=-4\\sin(2x)-4x\\cos(2x)\\end{gathered}",
       "solutionExplanation": "第二次求导时，第一项 cos(2x) 导成 −2sin(2x)，第二项 −2x sin(2x) 再用乘积法则又冒出一个 −2sin(2x)，合并得 −4sin(2x)。",
       "steps": [
         {
@@ -8846,7 +8846,7 @@
         "倍角公式：2sin θ cos θ = sin(2θ)"
       ],
       "strategy": "chain-rule-three-layer-sin2",
-      "solution": "y'=2\\sin(2x)\\cdot\\cos(2x)\\cdot 2=4\\sin(2x)\\cos(2x)=2\\sin(4x)",
+      "solution": "\\begin{gathered}y'=2\\sin(2x)\\cdot\\cos(2x)\\cdot 2\\\\[4pt]=4\\sin(2x)\\cos(2x)=2\\sin(4x)\\end{gathered}",
       "solutionExplanation": "先看清楚 sin²(2x) 表示 [sin(2x)]²：最外层是平方，中间是 sin，最里层是 2x，三层导数连乘。",
       "steps": [
         {
@@ -8875,7 +8875,7 @@
           "id": "jc935-2-2-6-5-2",
           "goal": "第二步：用正弦倍角公式把 4sin(2x)cos(2x) 化到最简",
           "plain": "记住 2sin θ cos θ = sin(2θ)，这里 θ=2x，所以 2sin(2x)cos(2x)=sin(4x)，再乘外面的 2。",
-          "formula": "4\\sin(2x)\\cos(2x)=2\\cdot\\big(2\\sin(2x)\\cos(2x)\\big)=2\\sin(4x)",
+          "formula": "\\begin{gathered}4\\sin(2x)\\cos(2x)\\\\[4pt]=2\\big(2\\sin(2x)\\cos(2x)\\big)=2\\sin(4x)\\end{gathered}",
           "detail": "也可以先用降幂公式 sin²(2x)=[1−cos(4x)]/2 再求导，一步直接得 2sin(4x)！",
           "check": {
             "prompt": "用倍角公式 2sin θ cos θ = sin(2θ) 化简 4sin(2x)cos(2x)，结果等于什么？",
@@ -9163,7 +9163,7 @@
         "(e^(2x))²=e^(4x)"
       ],
       "strategy": "chain-rule-arctan-exp",
-      "solution": "y'=\\frac{1}{1+(e^{2x})^2}\\cdot(e^{2x})'=\\frac{2e^{2x}}{1+e^{4x}}",
+      "solution": "\\begin{gathered}y'=\\frac{1}{1+(e^{2x})^2}\\cdot(e^{2x})'\\\\[4pt]=\\frac{2e^{2x}}{1+e^{4x}}\\end{gathered}",
       "solutionExplanation": "套 (arctan u)′=1/(1+u²) 后，分母里的 (e^(2x))² 指数相乘变成 e^(4x)，别忘分子还要乘内层导数 2e^(2x)。",
       "steps": [
         {
@@ -14423,7 +14423,7 @@
         "提公因式 e^(2t) 简化二阶导"
       ],
       "strategy": "second-derivative-damped-oscillation",
-      "solution": "\\begin{gathered}y'=2e^{2t}(\\cos 2t-\\sin 2t)\\\\[4pt]y''=2e^{2t}\\big[2(\\cos 2t-\\sin 2t)+(-2\\sin 2t-2\\cos 2t)\\big]=-8e^{2t}\\sin 2t\\end{gathered}",
+      "solution": "\\begin{gathered}y'=2e^{2t}(\\cos 2t-\\sin 2t)\\\\[4pt]y''=4e^{2t}\\big[(\\cos 2t-\\sin 2t)+(-\\sin 2t-\\cos 2t)\\big]\\\\[4pt]=-8e^{2t}\\sin 2t\\end{gathered}",
       "solutionExplanation": "先提取公因式 2e^(2t) 再求二阶导，余弦项正好一正一负完全抵消，只剩 −8e^(2t)sin(2t)。",
       "steps": [
         {
@@ -14452,7 +14452,7 @@
           "id": "jc935-2-3-1-4-2",
           "goal": "第二步：对 2e^(2t)(cos 2t − sin 2t) 再求导并抵消余弦项",
           "plain": "前导后不导得 4e^(2t)(cos 2t − sin 2t)；前不导后导得 2e^(2t)(−2sin 2t − 2cos 2t)=4e^(2t)(−sin 2t − cos 2t)。两块相加，cos 2t 正好抵消！",
-          "formula": "y''=4e^{2t}\\big[(\\cos 2t-\\sin 2t)+(-\\sin 2t-\\cos 2t)\\big]=-8e^{2t}\\sin 2t",
+          "formula": "\\begin{gathered}y''=4e^{2t}\\big[(\\cos 2t-\\sin 2t)\\\\[4pt]+(-\\sin 2t-\\cos 2t)\\big]=-8e^{2t}\\sin 2t\\end{gathered}",
           "detail": "合并时注意两个 −sin 2t 同号相加变成 −2sin 2t，再乘外面的 4 得 −8。",
           "check": {
             "prompt": "把 (cos 2t − sin 2t) 与 (−sin 2t − cos 2t) 相加后，剩下的式子是？",
@@ -14657,7 +14657,7 @@
         "商法则：(u/v)′=(u′v−uv′)/v²"
       ],
       "strategy": "second-derivative-log-quad",
-      "solution": "\\begin{gathered}y'=\\frac{2x}{x^2+3}\\\\[4pt]y''=\\frac{2(x^2+3)-2x\\cdot 2x}{(x^2+3)^2}=\\frac{6-2x^2}{(x^2+3)^2}=\\frac{2(3-x^2)}{(x^2+3)^2}\\end{gathered}",
+      "solution": "\\begin{gathered}y'=\\frac{2x}{x^2+3}\\\\[4pt]y''=\\frac{2(x^2+3)-4x^2}{(x^2+3)^2}=\\frac{2(3-x^2)}{(x^2+3)^2}\\end{gathered}",
       "solutionExplanation": "商法则分子 2(x²+3)−4x² 合并得 6−2x²=2(3−x²)，正好暴露出 x=±√3 是凹凸拐点。",
       "steps": [
         {
@@ -16473,14 +16473,14 @@
         "(sin x)⁽ᵏ⁾ 四周期循环"
       ],
       "strategy": "leibniz-formula-order-4",
-      "solution": "\\begin{gathered}y^{(4)}=\\sum_{k=0}^4\\binom{4}{k}(e^{2x})^{(4-k)}(\\sin x)^{(k)}\\\\[4pt]=e^{2x}\\big(16\\sin x+32\\cos x-24\\sin x-8\\cos x+\\sin x\\big)=e^{2x}(24\\cos x-7\\sin x)\\end{gathered}",
+      "solution": "\\begin{gathered}y^{(4)}=\\sum_{k=0}^4\\binom{4}{k}(e^{2x})^{(4-k)}(\\sin x)^{(k)}\\\\[4pt]=e^{2x}(16\\sin x+32\\cos x-24\\sin x-8\\cos x+\\sin x)\\\\[4pt]=e^{2x}(24\\cos x-7\\sin x)\\end{gathered}",
       "solutionExplanation": "用莱布尼茨公式展开 5 项，把 sin x 项与 cos x 项分别合并，比硬求四次导更清晰不易错。",
       "steps": [
         {
           "id": "jc935-2-3-9-1-1",
           "goal": "第一步：列出 e^(2x) 与 sin x 的 0 到 4 阶导数表",
           "plain": "(e^(2x))⁽ᵐ⁾=2ᵐe^(2x)；sin x 的 0~4 阶导数依次是 sin x, cos x, −sin x, −cos x, sin x。",
-          "formula": "(\\sin x)^{(0..4)}=(\\sin x,\\;\\cos x,\\;-\\sin x,\\;-\\cos x,\\;\\sin x)",
+          "formula": "\\begin{gathered}(\\sin x)^{(0..4)}=\\\\[4pt](\\sin x,\\;\\cos x,\\;-\\sin x,\\;-\\cos x,\\;\\sin x)\\end{gathered}",
           "detail": "二项式系数 C(4,0..4) 依次是 1, 4, 6, 4, 1。",
           "check": {
             "prompt": "在莱布尼茨展开中，k=2 这一项 C(4,2)·(e^(2x))″·(sin x)″ 等于多少？",
@@ -17237,7 +17237,7 @@
         "(4xy)′=4y+4xy′"
       ],
       "strategy": "implicit-quad-y2-4xy",
-      "solution": "\\begin{gathered}2yy'-4(y+xy')=0\\\\[4pt](2y-4x)y'=4y\\;\\Longrightarrow\\;\\frac{dy}{dx}=\\frac{2y}{y-2x}\\end{gathered}",
+      "solution": "\\begin{gathered}2yy'-4(y+xy')=0\\\\[4pt](2y-4x)y'=4y\\\\[4pt]\\frac{dy}{dx}=\\frac{2y}{y-2x}\\end{gathered}",
       "solutionExplanation": "两边对 x 求导得 2yy′−4y−4xy′=0，把含 y′ 项留在左边合并，再约去公因子 2。",
       "steps": [
         {
@@ -17354,7 +17354,7 @@
         "(6bxy)′=6b(y+xy′)"
       ],
       "strategy": "implicit-folium-descartes",
-      "solution": "\\begin{gathered}3x^2+3y^2y'-6b(y+xy')=0\\\\[4pt]3(y^2-2bx)y'=3(2by-x^2)\\;\\Longrightarrow\\;\\frac{dy}{dx}=\\frac{2by-x^2}{y^2-2bx}\\end{gathered}",
+      "solution": "\\begin{gathered}3x^2+3y^2y'-6b(y+xy')=0\\\\[4pt](y^2-2bx)y'=2by-x^2\\\\[4pt]\\frac{dy}{dx}=\\frac{2by-x^2}{y^2-2bx}\\end{gathered}",
       "solutionExplanation": "方程里的 b 是已知常数不是变量，三项正好都有公因子 3，两边先同除以 3 再解 y′ 最清爽。",
       "steps": [
         {
@@ -17383,7 +17383,7 @@
           "id": "jc935-2-4-1-2-2",
           "goal": "第二步：合并 y′ 项并移项解出 dy/dx",
           "plain": "含 y′ 的两项合并成 (y²−2bx)y′，不含 y′ 的两项移到右边变成 2by−x²。",
-          "formula": "(y^2-2bx)y'=2by-x^2\\;\\Longrightarrow\\;\\frac{dy}{dx}=\\frac{2by-x^2}{y^2-2bx}",
+          "formula": "\\begin{gathered}(y^2-2bx)y'=2by-x^2\\\\[4pt]\\frac{dy}{dx}=\\frac{2by-x^2}{y^2-2bx}\\end{gathered}",
           "detail": "移项时 −2by 变 +2by，+x² 变 −x²。",
           "check": {
             "prompt": "把不含 y′ 的项 x²−2by 移到等号右边后，分子应该是哪一个？",
@@ -17472,7 +17472,7 @@
         "(e^(2x+y))′=e^(2x+y)(2+y′)"
       ],
       "strategy": "implicit-exp-sum",
-      "solution": "\\begin{gathered}y+xy'=e^{2x+y}(2+y')\\\\[4pt](x-e^{2x+y})y'=2e^{2x+y}-y\\;\\Longrightarrow\\;\\frac{dy}{dx}=\\frac{2e^{2x+y}-y}{x-e^{2x+y}}\\end{gathered}",
+      "solution": "\\begin{gathered}y+xy'=e^{2x+y}(2+y')\\\\[4pt](x-e^{2x+y})y'=2e^{2x+y}-y\\\\[4pt]\\frac{dy}{dx}=\\frac{2e^{2x+y}-y}{x-e^{2x+y}}\\end{gathered}",
       "solutionExplanation": "两边分别用乘积法则和指数链式法则求导，把右边展开成 2e^(2x+y)+e^(2x+y)y′ 后移项合并 y′。",
       "steps": [
         {
@@ -17590,7 +17590,7 @@
         "(x e^(2y))′=e^(2y)+2x e^(2y)y′"
       ],
       "strategy": "implicit-x-exp-2y",
-      "solution": "\\begin{gathered}y'=-\\big(e^{2y}+x\\cdot 2e^{2y}y'\\big)\\\\[4pt](1+2xe^{2y})y'=-e^{2y}\\;\\Longrightarrow\\;\\frac{dy}{dx}=-\\frac{e^{2y}}{1+2xe^{2y}}\\end{gathered}",
+      "solution": "\\begin{gathered}y'=-\\big(e^{2y}+2xe^{2y}y'\\big)\\\\[4pt](1+2xe^{2y})y'=-e^{2y}\\\\[4pt]\\frac{dy}{dx}=-\\frac{e^{2y}}{1+2xe^{2y}}\\end{gathered}",
       "solutionExplanation": "先对乘积 x·e^(2y) 加括号求导再分配负号，把 −2xe^(2y)y′ 移到左边变成 +2xe^(2y)y′。",
       "steps": [
         {
@@ -18391,7 +18391,7 @@
         "(ln y)′=y′/y"
       ],
       "strategy": "logarithmic-diff-power-exp",
-      "solution": "\\begin{gathered}\\ln y=x\\big(\\ln x-\\ln(x+2)\\big)\\\\[4pt]\\frac{y'}{y}=\\ln\\frac{x}{x+2}+x\\left(\\frac{1}{x}-\\frac{1}{x+2}\\right)=\\ln\\frac{x}{x+2}+\\frac{2}{x+2}\\\\[4pt]y'=\\left(\\frac{x}{x+2}\\right)^x\\left(\\ln\\frac{x}{x+2}+\\frac{2}{x+2}\\right)\\end{gathered}",
+      "solution": "\\begin{gathered}\\ln y=x\\big(\\ln x-\\ln(x+2)\\big)\\\\[4pt]\\frac{y'}{y}=\\ln\\frac{x}{x+2}+\\frac{2}{x+2}\\\\[4pt]y'=\\left(\\frac{x}{x+2}\\right)^x\\left(\\ln\\frac{x}{x+2}+\\frac{2}{x+2}\\right)\\end{gathered}",
       "solutionExplanation": "遇到 u(x)^v(x) 绝不能套幂函数或指数函数公式，必须先取对数变成 v(x)ln u(x) 再求导，最后别忘乘回 y！",
       "steps": [
         {
@@ -18420,7 +18420,7 @@
           "id": "jc935-2-4-5-1-2",
           "goal": "第二步：两边对 x 求导，并化简 x[1/x − 1/(x+2)]",
           "plain": "左边 (ln y)′=y′/y；右边用乘积法则得 ln[x/(x+2)] + x[1/x − 1/(x+2)]。把后面括号通分：1/x−1/(x+2)=2/[x(x+2)]，乘以 x 约掉 x 得 2/(x+2)！",
-          "formula": "x\\left(\\frac{1}{x}-\\frac{1}{x+2}\\right)=1-\\frac{x}{x+2}=\\frac{2}{x+2}",
+          "formula": "\\begin{gathered}x\\left(\\frac{1}{x}-\\frac{1}{x+2}\\right)\\\\[4pt]=1-\\frac{x}{x+2}=\\frac{2}{x+2}\\end{gathered}",
           "detail": "最后一步千万别忘了两边同乘 y，把 y′/y 还原成 y′。",
           "check": {
             "prompt": "化简乘积法则的第二项 x[1/x − 1/(x+2)]，最简结果是哪一个？",
@@ -18442,7 +18442,7 @@
           "id": "jc935-2-4-5-1-3",
           "goal": "第三步：两边同乘回原函数 y，写出完整 y′",
           "plain": "把 y=[x/(x+2)]ˣ 乘到右边，即得完整导数。",
-          "formula": "y'=\\left(\\frac{x}{x+2}\\right)^x\\left(\\ln\\frac{x}{x+2}+\\frac{2}{x+2}\\right)",
+          "formula": "\\begin{gathered}y'=\\left(\\frac{x}{x+2}\\right)^x\\\\[4pt]\\cdot\\left(\\ln\\frac{x}{x+2}+\\frac{2}{x+2}\\right)\\end{gathered}",
           "detail": "对数求导法收尾必查：有没有把左边的 1/y 乘回右边？",
           "transfer": {
             "prompt": "迁移练习：用同样的方法对 y=xˣ (x>0) 求导得 y′=xˣ(ln x+1)，求 x=1 处的导数值 y′(1)。",
@@ -18665,7 +18665,7 @@
           "id": "jc935-2-4-5-3-3",
           "goal": "第三步：写出完整导数表达式",
           "plain": "把 y 的原式抄回前面即可。",
-          "formula": "y'=\\frac{\\sqrt{x+3}\\,(4-x)^3}{(x+2)^4}\\left[\\frac{1}{2(x+3)}-\\frac{3}{4-x}-\\frac{4}{x+2}\\right]",
+          "formula": "\\begin{gathered}y'=\\frac{\\sqrt{x+3}\\,(4-x)^3}{(x+2)^4}\\\\[4pt]\\cdot\\left[\\frac{1}{2(x+3)}-\\frac{3}{4-x}-\\frac{4}{x+2}\\right]\\end{gathered}",
           "detail": "与直接套商法则加乘积法则相比，计算量减少 80% 以上。",
           "transfer": {
             "prompt": "迁移练习：若 y=(x+1)²/(x+2)³，用对数求导法得 y′/y=2/(x+1)−3/(x+2)，求 x=0 处的比值 y′(0)/y(0)（小数或分数）。",
@@ -18836,7 +18836,7 @@
         "dy/dx = (dy/dt)/(dx/dt)"
       ],
       "strategy": "parametric-first-deriv-pq",
-      "solution": "\\begin{gathered}\\frac{dx}{dt}=3pt^2,\\quad\\frac{dy}{dt}=4qt^3\\\\[4pt]\\frac{dy}{dx}=\\frac{4qt^3}{3pt^2}=\\frac{4q}{3p}t\\quad(p\\neq 0,\\;t\\neq 0)\\end{gathered}",
+      "solution": "\\begin{gathered}\\frac{dx}{dt}=3pt^2,\\quad\\frac{dy}{dt}=4qt^3\\\\[4pt]\\frac{dy}{dx}=\\frac{4qt^3}{3pt^2}=\\frac{4q}{3p}t\\end{gathered}",
       "solutionExplanation": "p 和 q 是常数，分别对 t 求导后作商，约去 t² 即可。",
       "steps": [
         {
@@ -19387,7 +19387,7 @@
         "(3/t)′=−3/t²"
       ],
       "strategy": "parametric-second-deriv-t2-3",
-      "solution": "\\begin{gathered}\\frac{dx}{dt}=\\frac{2t}{3},\\quad\\frac{dy}{dt}=2\\;\\Longrightarrow\\;\\frac{dy}{dx}=\\frac{2}{2t/3}=\\frac{3}{t}\\\\[4pt]\\frac{d^2y}{dx^2}=\\frac{(-3/t^2)}{2t/3}=-\\frac{9}{2t^3}\\end{gathered}",
+      "solution": "\\begin{gathered}\\frac{dx}{dt}=\\frac{2t}{3},\\quad\\frac{dy}{dt}=2\\\\[4pt]\\frac{dy}{dx}=\\frac{2}{2t/3}=\\frac{3}{t}\\\\[4pt]\\frac{d^2y}{dx^2}=\\frac{-3/t^2}{2t/3}=-\\frac{9}{2t^3}\\end{gathered}",
       "solutionExplanation": "分子对 3/t 求导得 −3/t²，再除以 dx/dt=2t/3（即乘以 3/(2t)），得 −9/(2t³)。",
       "steps": [
         {
@@ -20463,7 +20463,7 @@
         "Δy=f(x+Δx)−f(x)"
       ],
       "strategy": "compare-delta-y-and-dy-01",
-      "solution": "\\begin{gathered}dy=(3\\cdot 1^2+2)\\times 0.1=0.5\\\\[4pt]\\Delta y=(1.1^3+2\\cdot 1.1)-(1^3+2\\cdot 1)=3.531-3=0.531\\end{gathered}",
+      "solution": "\\begin{gathered}dy=(3\\cdot 1^2+2)\\times 0.1=0.5\\\\[4pt]\\Delta y=(1.1^3+2.2)-3=0.531\\end{gathered}",
       "solutionExplanation": "微分 dy=0.5 只用一步乘法就能算出，与真实增量 Δy=0.531 仅差 0.031。",
       "steps": [
         {
@@ -23298,7 +23298,7 @@
         "1°=π/180 弧度"
       ],
       "strategy": "differential-approx-sin31deg",
-      "solution": "\\begin{gathered}x_0=30^\\circ=\\frac{\\pi}{6},\\quad\\Delta x=1^\\circ=\\frac{\\pi}{180}\\\\[4pt]\\sin 31^\\circ\\approx\\sin\\frac{\\pi}{6}+\\cos\\frac{\\pi}{6}\\cdot\\frac{\\pi}{180}=\\frac{1}{2}+\\frac{\\sqrt{3}\\pi}{360}\\approx 0.51512\\end{gathered}",
+      "solution": "\\begin{gathered}x_0=\\frac{\\pi}{6},\\quad\\Delta x=1^\\circ=\\frac{\\pi}{180}\\\\[4pt]\\sin 31^\\circ\\approx\\frac{1}{2}+\\frac{\\sqrt{3}}{2}\\cdot\\frac{\\pi}{180}\\\\[4pt]=\\frac{1}{2}+\\frac{\\sqrt{3}\\pi}{360}\\approx 0.51512\\end{gathered}",
       "solutionExplanation": "选基准点 30°=π/6，关键是把 Δx=1° 换算成弧度 π/180，绝不能直接乘 1！",
       "steps": [
         {
@@ -23327,7 +23327,7 @@
           "id": "jc935-2-5-7-1-2",
           "goal": "第二步：代入 sin(π/6)=1/2 与 cos(π/6)=√3/2 计算近似式",
           "plain": "f(π/6)=1/2，f′(π/6)=cos(π/6)=√3/2，乘以 π/180 得到增量 √3π/360。",
-          "formula": "\\sin 31^\\circ\\approx\\frac{1}{2}+\\frac{\\sqrt{3}}{2}\\cdot\\frac{\\pi}{180}=\\frac{1}{2}+\\frac{\\sqrt{3}\\pi}{360}",
+          "formula": "\\begin{gathered}\\sin 31^\\circ\\approx\\frac{1}{2}+\\frac{\\sqrt{3}}{2}\\cdot\\frac{\\pi}{180}\\\\[4pt]=\\frac{1}{2}+\\frac{\\sqrt{3}\\pi}{360}\\end{gathered}",
           "detail": "约算：√3≈1.732，π≈3.1416，1.732×3.1416÷360≈0.01512。",
           "check": {
             "prompt": "切线增量 cos(π/6)·(π/180) 化简后的精确分数式是哪一个？",
@@ -23525,7 +23525,7 @@
         "arcsin(1/2)=π/6"
       ],
       "strategy": "differential-approx-arcsin",
-      "solution": "\\begin{gathered}x_0=\\frac{1}{2},\\quad\\Delta x=-0.0003,\\quad f'\\!\\left(\\frac{1}{2}\\right)=\\frac{1}{\\sqrt{1-1/4}}=\\frac{2}{\\sqrt{3}}\\\\[4pt]\\arcsin 0.4997\\approx\\frac{\\pi}{6}-\\frac{2}{\\sqrt{3}}\\cdot 0.0003=\\frac{\\pi}{6}-\\frac{\\sqrt{3}}{5000}\\approx 0.52325\\end{gathered}",
+      "solution": "\\begin{gathered}x_0=\\frac{1}{2},\\quad\\Delta x=-0.0003,\\quad f'\\!\\left(\\frac{1}{2}\\right)=\\frac{2}{\\sqrt{3}}\\\\[4pt]\\arcsin 0.4997\\approx\\frac{\\pi}{6}-\\frac{2}{\\sqrt{3}}\\cdot 0.0003\\\\[4pt]=\\frac{\\pi}{6}-\\frac{\\sqrt{3}}{5000}\\approx 0.52325\\end{gathered}",
       "solutionExplanation": "0.4997 比基准点 0.5 小 0.0003，所以 Δx 是负的 −0.0003；切线斜率是 2/√3。",
       "steps": [
         {
@@ -23554,7 +23554,7 @@
           "id": "jc935-2-5-8-1-2",
           "goal": "第二步：把斜率 2/√3 与负增量 −0.0003 相乘并分母有理化",
           "plain": "−(2/√3)×(3/10000)=−6/(10000√3)=−2√3/10000=−√3/5000。",
-          "formula": "-\\frac{2}{\\sqrt{3}}\\cdot\\frac{3}{10000}=-\\frac{2\\sqrt{3}}{10000}=-\\frac{\\sqrt{3}}{5000}",
+          "formula": "\\begin{gathered}-\\frac{2}{\\sqrt{3}}\\cdot\\frac{3}{10000}\\\\[4pt]=-\\frac{2\\sqrt{3}}{10000}=-\\frac{\\sqrt{3}}{5000}\\end{gathered}",
           "detail": "利用 3/√3=√3 直接消去分母根号，化简特别漂亮。",
           "check": {
             "prompt": "计算 (2/√3)·(−0.0003) 并化简后，微分增量 dy 是哪一个？",
@@ -23755,7 +23755,7 @@
         "1°=60′，1°=π/180 弧度"
       ],
       "strategy": "small-angle-approx-sin2x-36min",
-      "solution": "\\begin{gathered}f(x)=\\sin(2x)\\;\\Longrightarrow\\;f(0)=0,\\;f'(0)=2\\;\\Longrightarrow\\;\\sin(2x)\\approx 2x\\\\[4pt]36'=\\frac{36}{60}^\\circ=0.6^\\circ=\\frac{\\pi}{300}\\text{ rad}\\;\\Longrightarrow\\;\\sin 36'\\approx\\frac{\\pi}{300}\\approx 0.01047\\end{gathered}",
+      "solution": "\\begin{gathered}f(0)=0,\\;f'(0)=2\\;\\Longrightarrow\\;\\sin(2x)\\approx 2x\\\\[4pt]36'=0.6^\\circ=\\frac{\\pi}{300}\\text{ rad}\\\\[4pt]\\sin 36'\\approx\\frac{\\pi}{300}\\approx 0.01047\\end{gathered}",
       "solutionExplanation": "先由 (sin 2x)′|_{x=0}=2 得小角近似 sin(2x)≈2x；再把 36′ 化成 0.6°=π/300 弧度代入（此时 2x=36′）。",
       "steps": [
         {
@@ -23784,7 +23784,7 @@
           "id": "jc935-2-5-9-1-2",
           "goal": "第二步：把角度 36′（36 分）准确换算成弧度",
           "plain": "1°=60′，所以 36′=(36/60)°=0.6°=3/5 度；再乘 π/180 转成弧度：(3/5)×(π/180)=π/300。",
-          "formula": "36'=\\frac{36}{60}^\\circ=\\frac{3}{5}\\cdot\\frac{\\pi}{180}=\\frac{\\pi}{300}\\text{ rad}",
+          "formula": "\\begin{gathered}36'=\\frac{36}{60}^\\circ=\\frac{3}{5}\\cdot\\frac{\\pi}{180}\\\\[4pt]=\\frac{\\pi}{300}\\text{ rad}\\end{gathered}",
           "detail": "注意：把 36′ 看作 2x（即 x=18′），套 sin(2x)≈2x 时直接等于 2x 的弧度值 π/300，不要多乘一次 2！",
           "check": {
             "prompt": "把 36′（36 角分）换算成弧度制，精确结果是哪一个？",
