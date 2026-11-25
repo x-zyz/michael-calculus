@@ -5,7 +5,7 @@ import {
   resolveRemediationForObstacle,
   type ObstacleContext,
   type RemediationId,
-} from "../../data/eli5Drafts/remediationModules";
+} from "../../data/remediation/remediationModules";
 import TeachingSession from "./TeachingSession";
 
 export function RemediationEntry({ remediationId }: { remediationId: RemediationId }) {

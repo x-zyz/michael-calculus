@@ -1,6 +1,13 @@
 
 import { expect, test, type Page } from "@playwright/test";
-import { chapterOneProductionTeaching } from "../src/data/teachingProduction";
+import plan from "../docs/eli5-production/chapter-one.json";
+import { teachingByProblem } from "../src/data/teaching";
+
+const chapterOneProductionTeaching = Object.fromEntries(
+  plan.items
+    .filter((row) => row.batch > 0 && row.eli5 === "integrated")
+    .map(({ id }) => [id, teachingByProblem[id]!]),
+);
 
 async function checkVisibleMath(page: Page) {
   await expect(page.locator(".katex-error:visible")).toHaveCount(0);

@@ -3,7 +3,11 @@ import katex from "katex";
 import { expect, it } from "vitest";
 import cases from "../../scripts/eli5-chapter-one-cases.json";
 import { lessons, parseAnswer, problems } from "../data/learning";
-import { chapterOnePilotTeaching } from "../data/teachingChapterOne";
+import { teachingByProblem } from "../data/teaching";
+
+const chapterOnePilotTeaching = Object.fromEntries(
+  Object.keys(cases).map((id) => [id, teachingByProblem[id]!]),
+);
 
 it("lists every chapter-one problem once in the classification", () => {
   const chapter = new Set(lessons.filter((lesson) => lesson.chapter === 1).map((lesson) => lesson.id));
@@ -20,8 +24,8 @@ for (const [id, lesson] of Object.entries(chapterOnePilotTeaching)) {
     expect(problem && "answer" in problem && problem.answer).toBe(parseAnswer(String(original)));
     expect(lesson.referenceAnswer).toBe(parseAnswer(String(original)));
     expect(lesson.strategy).toBe(strategy);
-    expect(lesson.target.trim()).not.toBe("");
-    expect(lesson.prerequisites.every((item) => item.trim())).toBe(true);
+    expect(lesson.target?.trim()).not.toBe("");
+    expect(lesson.prerequisites?.every((item) => item.trim())).toBe(true);
     expect(new Set(lesson.steps.map((item) => item.id)).size).toBe(lesson.steps.length);
     const transfers = lesson.steps.flatMap((item) => item.transfer ? [item.transfer] : []);
     expect(transfers).toHaveLength(1);

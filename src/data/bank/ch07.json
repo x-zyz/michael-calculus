@@ -1,0 +1,409 @@
+[
+  {
+    "id": "p82",
+    "lessonId": "series-basics",
+    "formulaIds": [
+      "geometric-series-sum"
+    ],
+    "title": "求等比级数的和",
+    "formula": "\\sum_{n=1}^{\\infty}\\left(\\tfrac12\\right)^n=?",
+    "answer": 1,
+    "unit": "",
+    "hints": [
+      "首项为 1/2，公比为 1/2。",
+      "用首项除以 1 减公比。",
+      "和值为 (1/2)/(1−1/2)=1。"
+    ],
+    "explanation": "和值为 (1/2)/(1−1/2)=1。",
+    "errorTag": "series_basics",
+    "errorLabel": "部分和与常数项级数",
+    "chapter": 7
+  },
+  {
+    "id": "p83",
+    "lessonId": "series-basics",
+    "title": "求望远镜级数的和",
+    "formula": "\\sum_{n=1}^{\\infty}\\frac{1}{n(n+1)}=?",
+    "answer": 1,
+    "unit": "",
+    "hints": [
+      "把通项写成 1/n−1/(n+1)。",
+      "把前 n 项重排，标出首尾保留下来的项。",
+      "前 n 项相消后剩 1−1/(n+1)，极限为 1。"
+    ],
+    "explanation": "前 n 项相消后剩 1−1/(n+1)，极限为 1。",
+    "errorTag": "series_basics",
+    "errorLabel": "部分和与常数项级数",
+    "chapter": 7
+  },
+  {
+    "id": "p84",
+    "lessonId": "positive-series-comparison",
+    "title": "求比较用的通项比极限",
+    "formula": "\\lim_{n\\to\\infty}\\frac{3/(n^2+2)}{1/n^2}=?",
+    "answer": 3,
+    "unit": "",
+    "hints": [
+      "分子分母同时乘 n²。",
+      "比较原通项和 1/n² 的衰减阶数。",
+      "比值趋于 3，原级数与 p=2 级数同为收敛。"
+    ],
+    "explanation": "比值趋于 3，原级数与 p=2 级数同为收敛。",
+    "errorTag": "positive_series_comparison",
+    "errorLabel": "正项级数的比较法与积分法",
+    "chapter": 7
+  },
+  {
+    "id": "p85",
+    "lessonId": "positive-series-comparison",
+    "title": "求积分法比较中的广义积分",
+    "formula": "\\int_1^\\infty\\frac{1}{x^3}\\,dx=?",
+    "answer": 0.5,
+    "unit": "",
+    "hints": [
+      "先算到有限上限 b，再取极限。",
+      "对 x⁻³ 使用幂函数积分公式。",
+      "原函数为 −1/(2x²)，上限趋于无穷时得到 1/2。"
+    ],
+    "explanation": "原函数为 −1/(2x²)，上限趋于无穷时得到 1/2。",
+    "errorTag": "positive_series_comparison",
+    "errorLabel": "正项级数的比较法与积分法",
+    "chapter": 7
+  },
+  {
+    "id": "p86",
+    "lessonId": "series-ratio-root",
+    "formulaIds": [
+      "series-ratio-limit"
+    ],
+    "title": "求比值判别的极限",
+    "formula": "a_n=\\frac{n}{3^n},\\quad \\lim_{n\\to\\infty}\\frac{a_{n+1}}{a_n}=?",
+    "answer": 0.3333333333333333,
+    "unit": "",
+    "hints": [
+      "比值为 (n+1)/(3n)。",
+      "分子分母同除 n。",
+      "极限为 1/3，小于 1，所以级数收敛。"
+    ],
+    "explanation": "极限为 1/3，小于 1，所以级数收敛。",
+    "errorTag": "series_ratio_root",
+    "errorLabel": "比值判别法与根值判别法",
+    "chapter": 7
+  },
+  {
+    "id": "p87",
+    "lessonId": "series-ratio-root",
+    "title": "求根值判别的极限",
+    "formula": "a_n=\\left(\\frac{2n+1}{n+2}\\right)^n",
+    "answer": 2,
+    "unit": "",
+    "hints": [
+      "开 n 次根，比较一次项的系数。",
+      "分子分母同除 n。",
+      "根值趋于 2，大于 1，所以级数发散。"
+    ],
+    "explanation": "根值趋于 2，大于 1，所以级数发散。",
+    "errorTag": "series_ratio_root",
+    "errorLabel": "比值判别法与根值判别法",
+    "chapter": 7
+  },
+  {
+    "id": "p88",
+    "lessonId": "alternating-series",
+    "formulaIds": [
+      "alternating-remainder"
+    ],
+    "title": "求交错调和级数前四项的余项上界",
+    "formula": "b_n=\\frac1n,\\quad N=4",
+    "answer": 0.2,
+    "unit": "",
+    "hints": [
+      "余项上界用第 N+1 项。",
+      "把 N=4 代入 bₙ₊₁。",
+      "第 5 项的绝对值是 1/5。"
+    ],
+    "explanation": "第 5 项的绝对值是 1/5。",
+    "errorTag": "alternating_series",
+    "errorLabel": "交错级数、绝对收敛与条件收敛",
+    "chapter": 7
+  },
+  {
+    "id": "p89",
+    "lessonId": "alternating-series",
+    "formulaIds": [
+      "alternating-remainder"
+    ],
+    "title": "求交错平方倒数级数的前三项和",
+    "formula": "S_3=1-\\frac14+\\frac19",
+    "answer": 0.8611111111111112,
+    "unit": "",
+    "hints": [
+      "取公分母 36。",
+      "将三项的分子分别改成 36、−9、4。",
+      "前三项和为 (36−9+4)/36=31/36；绝对值级数也收敛。"
+    ],
+    "explanation": "前三项和为 (36−9+4)/36=31/36；绝对值级数也收敛。",
+    "errorTag": "alternating_series",
+    "errorLabel": "交错级数、绝对收敛与条件收敛",
+    "chapter": 7
+  },
+  {
+    "id": "p90",
+    "lessonId": "power-series-convergence",
+    "formulaIds": [
+      "power-radius-ratio"
+    ],
+    "title": "求幂级数的收敛半径",
+    "formula": "\\sum_{n=0}^{\\infty}\\left(\\frac{x+1}{3}\\right)^n",
+    "answer": 3,
+    "unit": "",
+    "hints": [
+      "等比公比的绝对值必须小于 1。",
+      "将 3 乘到不等式另一边。",
+      "|x+1|<3，故 R=3。"
+    ],
+    "explanation": "|x+1|<3，故 R=3。",
+    "errorTag": "power_series_convergence",
+    "errorLabel": "函数项级数与幂级数的收敛域",
+    "chapter": 7
+  },
+  {
+    "id": "p91",
+    "lessonId": "power-series-convergence",
+    "formulaIds": [
+      "power-radius-ratio"
+    ],
+    "title": "求使右端点成为收敛边界的 x 值",
+    "formula": "\\sum_{n=1}^{\\infty}\\frac{(x-4)^n}{2^n n^2}",
+    "answer": 6,
+    "unit": "",
+    "hints": [
+      "先求 |x−4|<2。",
+      "右端点等于中心 4 加上半径 2。",
+      "右端点 x=6 代入得平方倒数级数，收敛。"
+    ],
+    "explanation": "右端点 x=6 代入得平方倒数级数，收敛。",
+    "errorTag": "power_series_convergence",
+    "errorLabel": "函数项级数与幂级数的收敛域",
+    "chapter": 7
+  },
+  {
+    "id": "p92",
+    "lessonId": "power-series-operations",
+    "formulaIds": [
+      "power-geometric-derivative"
+    ],
+    "title": "求几何级数逐项求导后的和",
+    "formula": "\\sum_{n=1}^{\\infty}\\frac{n}{2^{n-1}}=?",
+    "answer": 4,
+    "unit": "",
+    "hints": [
+      "求导后的和函数为 1/(1−x)²。",
+      "把 1/2 代入和函数的分母。",
+      "代入 x=1/2 得 4。"
+    ],
+    "explanation": "代入 x=1/2 得 4。",
+    "errorTag": "power_series_operations",
+    "errorLabel": "幂级数的运算与和函数",
+    "chapter": 7
+  },
+  {
+    "id": "p93",
+    "lessonId": "power-series-operations",
+    "title": "用级数乘法求 x² 的系数",
+    "formula": "(1+x+x^2+\\cdots)^2",
+    "answer": 3,
+    "unit": "",
+    "hints": [
+      "只收集次数之和等于 2 的乘积。",
+      "列出 0+2、1+1、2+0 三种配对。",
+      "次数配对为 (0,2)、(1,1)、(2,0)，共 3 项。"
+    ],
+    "explanation": "次数配对为 (0,2)、(1,1)、(2,0)，共 3 项。",
+    "errorTag": "power_series_operations",
+    "errorLabel": "幂级数的运算与和函数",
+    "chapter": 7
+  },
+  {
+    "id": "p94",
+    "lessonId": "taylor-series",
+    "formulaIds": [
+      "taylor-coefficient"
+    ],
+    "title": "求 sin x 的 x³ 项系数",
+    "formula": "\\sin x=x+c x^3+\\cdots",
+    "answer": -0.16666666666666666,
+    "unit": "",
+    "hints": [
+      "sin x 的三阶导数在 0 处为 −1。",
+      "三阶系数等于三阶导数除以 3!。",
+      "用 −1 除以 3!，得到 −1/6。"
+    ],
+    "explanation": "用 −1 除以 3!，得到 −1/6。",
+    "errorTag": "taylor_series",
+    "errorLabel": "泰勒公式与函数的幂级数展开",
+    "chapter": 7
+  },
+  {
+    "id": "p95",
+    "lessonId": "taylor-series",
+    "formulaIds": [
+      "taylor-coefficient"
+    ],
+    "title": "求 ln(1+x) 的 x² 项系数",
+    "formula": "\\ln(1+x)=x+c x^2+\\cdots",
+    "answer": -0.5,
+    "unit": "",
+    "hints": [
+      "二阶导数为 −1/(1+x)²。",
+      "二阶系数等于中心处的二阶导数除以 2!。",
+      "在 0 处为 −1，除以 2! 得 −1/2。"
+    ],
+    "explanation": "在 0 处为 −1，除以 2! 得 −1/2。",
+    "errorTag": "taylor_series",
+    "errorLabel": "泰勒公式与函数的幂级数展开",
+    "chapter": 7
+  },
+  {
+    "id": "p96",
+    "lessonId": "power-series-approximation",
+    "title": "用前三项近似 cos(1/2)",
+    "formula": "1-\\frac{(1/2)^2}{2!}+\\frac{(1/2)^4}{4!}",
+    "answer": 0.8776041666666666,
+    "unit": "",
+    "hints": [
+      "三项分别为 1、−1/8、1/384。",
+      "把三项通分到 384。",
+      "相加为 337/384。"
+    ],
+    "explanation": "相加为 337/384。",
+    "errorTag": "power_series_approximation",
+    "errorLabel": "用幂级数近似函数值和定积分",
+    "chapter": 7
+  },
+  {
+    "id": "p97",
+    "lessonId": "power-series-approximation",
+    "title": "用前两项近似积分",
+    "formula": "\\int_0^1 e^{-t^2}\\,dt\\approx1-\\frac13",
+    "answer": 0.6666666666666666,
+    "unit": "",
+    "hints": [
+      "先用 1−t² 近似被积函数。",
+      "积分 1 和 t²，再用前两项相减。",
+      "逐项积分得 2/3，下一积分项为 1/10。"
+    ],
+    "explanation": "逐项积分得 2/3，下一积分项为 1/10。",
+    "errorTag": "power_series_approximation",
+    "errorLabel": "用幂级数近似函数值和定积分",
+    "chapter": 7
+  },
+  {
+    "id": "p154",
+    "lessonId": "series-basics",
+    "difficulty": "applied",
+    "title": "求裂项级数的和",
+    "formula": "\\displaystyle \\sum_{n=1}^\\infty \\frac{3}{n(n+3)}",
+    "answer": 1.8333333333333333,
+    "errorTag": "series_basics",
+    "hints": [
+      "先拆成两个分数之差。",
+      "每项等于 1/n−1/(n+3)。",
+      "前 N 项相加只留下前三项和最后三项。"
+    ],
+    "explanation": "尾部三项趋零，级数和是 1+1/2+1/3＝11/6。",
+    "unit": "请输入数值或分数",
+    "errorLabel": "部分和与常数项级数",
+    "chapter": 7
+  },
+  {
+    "id": "p155",
+    "lessonId": "positive-series-comparison",
+    "difficulty": "applied",
+    "title": "比较正项级数的临界指数",
+    "formula": "\\begin{gathered}\\sum_{n=1}^{\\infty}\\frac{n^a}{n^3+1}\\\\\\text{求使级数发散的最小整数 }a\\end{gathered}",
+    "answer": 2,
+    "errorTag": "positive_series_comparison",
+    "hints": [
+      "比较 n³+1 与 n³ 的量级。",
+      "原项与 n^{a−3} 的比值趋 1。",
+      "p 级数在指数 1/n 的临界情形发散。"
+    ],
+    "explanation": "当 3−a≤1 时发散，即 a≥2，最小整数为 2。",
+    "unit": "请输入数值或分数",
+    "errorLabel": "正项级数的比较法与积分法",
+    "chapter": 7
+  },
+  {
+    "id": "p156",
+    "lessonId": "alternating-series",
+    "difficulty": "challenge",
+    "title": "求使余项上界严格小于 1/100 的项数",
+    "formula": "\\begin{gathered}S=\\sum_{n=1}^{\\infty}\\frac{(-1)^{n-1}}{n^2}\\\\\\frac{1}{(N+1)^2}<\\frac1{100},\\quad N_{\\min}=?\\end{gathered}",
+    "answer": 10,
+    "errorTag": "alternating_series",
+    "hints": [
+      "检查绝对值按 n 递减且趋零。",
+      "截取 N 项后，上界是下一项 1/(N+1)²。",
+      "要求这个上界严格小于 1/100。"
+    ],
+    "explanation": "由 N+1>10 得最小整数 N＝10；N＝9 的上界只能给出 ≤1/100。",
+    "unit": "请输入数值或分数",
+    "errorLabel": "交错级数、绝对收敛与条件收敛",
+    "chapter": 7
+  },
+  {
+    "id": "p157",
+    "lessonId": "power-series-convergence",
+    "difficulty": "applied",
+    "title": "求幂级数的收敛半径",
+    "formula": "\\displaystyle \\sum_{n=1}^\\infty n^2\\,3^n(x-2)^n",
+    "answer": 0.3333333333333333,
+    "errorTag": "power_series_convergence",
+    "hints": [
+      "比较相邻两项绝对值。",
+      "相邻系数之比趋 3。",
+      "令 3"
+    ],
+    "explanation": "x−2",
+    "unit": "请输入数值或分数",
+    "errorLabel": "函数项级数与幂级数的收敛域",
+    "chapter": 7
+  },
+  {
+    "id": "p158",
+    "lessonId": "taylor-series",
+    "difficulty": "challenge",
+    "title": "取两个级数乘积中的四次项",
+    "formula": "\\displaystyle f(x)=e^x\\cos x,\\quad [x^4]f(x)=?",
+    "answer": -0.16666666666666666,
+    "errorTag": "taylor_series",
+    "hints": [
+      "分别展开指数和余弦至四次。",
+      "四次只由次数对 (4,0)、(2,2)、(0,4) 贡献。",
+      "合并 1/24−1/4+1/24。"
+    ],
+    "explanation": "四次系数为 1/24−1/4+1/24＝−1/6。",
+    "unit": "请输入数值或分数",
+    "errorLabel": "泰勒公式与函数的幂级数展开",
+    "chapter": 7
+  },
+  {
+    "id": "p183",
+    "lessonId": "taylor-series",
+    "difficulty": "challenge",
+    "title": "求四次多项式按 x−2 展开后的平方项系数",
+    "formula": "\\begin{gathered}f(x)=x^4-3x^3+2x^2-5x+1\\\\\\text{求按 }(x-2)\\text{ 展开时的二次项系数}\\end{gathered}",
+    "answer": 8,
+    "errorTag": "taylor_series",
+    "hints": [
+      "展开点移到 2。",
+      "二次系数是 f″(2)/2。",
+      "f″(2)＝48−36+4。"
+    ],
+    "explanation": "把 x＝2 当作新起点。一次项管斜率，二次项管斜率怎么变。二阶导数在 2 的值是 16，除以 2 就得到二次项系数 8。",
+    "unit": "请输入数值或分数",
+    "errorLabel": "泰勒公式与函数的幂级数展开",
+    "chapter": 7
+  }
+]

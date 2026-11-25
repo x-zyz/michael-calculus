@@ -2,14 +2,12 @@ import katex from "katex";
 import { describe, expect, it } from "vitest";
 import { parseAnswer, problems } from "../data/learning";
 import { formulaById } from "../data/formulas";
-import { guidedHintsById } from "../data/guidedHints";
-import { ch3Sec1GuidedHints } from "../data/guidedHints/ch3Sec1";
-import { chapterThreeSec1MvtTeaching } from "../data/eli5Drafts/ch03Sec1Mvt";
-import { chainRuleRemediationModule } from "../data/eli5Drafts/chainRuleRemediation";
+import { teachingByProblem } from "../data/teaching";
+import { chainRuleRemediationModule } from "../data/remediation/chainRuleRemediation";
 import {
   remediationModulesById,
   resolveRemediationForObstacle,
-} from "../data/eli5Drafts/remediationModules";
+} from "../data/remediation/remediationModules";
 
 const expectedSec1Ids = [
   "p19",
@@ -41,18 +39,16 @@ const normalizeText = (value: string) => value.normalize("NFKC").replace(/\s+/g,
 
 describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
   it("covers all 22 Section 3.1 exercises in both guidedHints and ELI5 teaching", () => {
-    expect(Object.keys(ch3Sec1GuidedHints).sort()).toEqual([...expectedSec1Ids].sort());
-    expect(Object.keys(chapterThreeSec1MvtTeaching).sort()).toEqual([...expectedSec1Ids].sort());
-
     for (const id of expectedSec1Ids) {
       const problem = problemById.get(id);
       expect(problem, id).toBeDefined();
       expect(problem?.lessonId, id).toBe("mvt");
       expect(problem?.formulaIds?.length ?? 0, id).toBeGreaterThan(0);
       expect(problem?.formulaIds?.every((formulaId) => formulaById.has(formulaId)), id).toBe(true);
-      expect(guidedHintsById[id]?.length ?? 0, `${id} guidedHints`).toBeGreaterThanOrEqual(3);
+      expect(problem?.guidedHints?.length ?? 0, `${id} guidedHints`).toBeGreaterThanOrEqual(3);
+      expect(teachingByProblem[id], `${id} teaching`).toBeDefined();
 
-      for (const hint of ch3Sec1GuidedHints[id]) {
+      for (const hint of problem!.guidedHints!) {
         expect(hint.change.trim(), id).toBeTruthy();
         expect(hint.text.trim(), id).toBeTruthy();
         expect(() => katex.renderToString(hint.formula, { throwOnError: true, strict: "error" }), id).not.toThrow();
@@ -78,7 +74,8 @@ describe("Chapter 3 Section 3.1 (MVT) guidedHints & ELI5 pedagogy gate", () => {
     let totalChecks = 0;
     const affirmativePrefix = /^(对|找对了)/;
 
-    for (const [id, lesson] of Object.entries(chapterThreeSec1MvtTeaching)) {
+    for (const id of expectedSec1Ids) {
+      const lesson = teachingByProblem[id]!;
       const problem = problemById.get(id)!;
       if ("answer" in problem) {
         expect(lesson.referenceAnswer, id).toBe(problem.answer);

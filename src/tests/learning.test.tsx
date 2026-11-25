@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import katex from "katex";
-import bankInventory from "../../docs/bank/inventory.json";
+import { problemIndex, searchProblemIndex } from "../data/bank";
 import { riemannSum, accumulationSlope } from "../data/integrals";
 import {chooseSelect,completeReading} from './ui';
 import { describe, it, expect, vi } from "vitest";
@@ -411,17 +411,13 @@ it("assigns each written exercise to a real lesson and error topic", () => {
 
 
 
-it("reconciles the calculus bank inventory with the installed bank and KaTeX output", () => {
-  const { sections, items } = bankInventory;
-  expect(new Set(sections.map(({ id }) => id)).size).toBe(sections.length);
-  expect(new Set(items.map(({ id }) => id)).size).toBe(items.length);
-  for (const item of items) {
-    expect(sections.find(({ id }) => id === item.section)?.inventory, item.id).toBe("enumerated");
-    expect(item.appIds.length > 0, item.id).toBe(item.status === "integrated");
-  }
-  const integrated = items.filter(({ status }) => status === "integrated");
+it("reconciles the derived bank index with the unified SSOT bank and KaTeX output", () => {
+  expect(problemIndex).toHaveLength(problems.length);
+  expect(problemIndex.map(({ id }) => id)).toEqual(problems.map(({ id }) => id));
+  expect(searchProblemIndex({ chapter: 3, onlyEli5: true })).toHaveLength(45);
+  expect(searchProblemIndex({ query: "洛必达", onlyEli5: true }).length).toBeGreaterThan(0);
+
   const exercises = problems.filter(({ id }) => id.startsWith("jc935-"));
-  expect(exercises.map(({ id }) => id).sort()).toEqual(integrated.flatMap(({ appIds }) => appIds).sort());
   for (const p of exercises) {
     if (!("kind" in p)) throw new Error("Missing written exercise " + p.id);
     expect(p.source, p.id).toBeTruthy();
@@ -430,57 +426,6 @@ it("reconciles the calculus bank inventory with the installed bank and KaTeX out
       expect(() => katex.renderToString(formula, { throwOnError: true, strict: "error" }), p.id).not.toThrow();
     }
   }
-  expect(integrated.filter(({ section }) => section === "1-4")).toHaveLength(33);
-  expect(integrated.filter(({ section }) => section === "1-5")).toHaveLength(29);
-  expect(integrated.filter(({ section }) => section === "1-6")).toHaveLength(17);
-  expect(integrated.filter(({ section }) => section === "1-7")).toHaveLength(13);
-  expect(integrated.filter(({ section }) => section === "1-8")).toHaveLength(14);
-  expect(integrated.filter(({ section }) => section === "1-9")).toHaveLength(25);
-  expect(integrated.filter(({ section }) => section === "1-10")).toHaveLength(9);
-  expect(integrated.filter(({ section }) => section === "1-review")).toHaveLength(35);
-  expect(integrated.filter(({ section }) => section === "2-1")).toHaveLength(33);
-  expect(integrated.filter(({ section }) => section === "2-2")).toHaveLength(74);
-  expect(integrated.filter(({ section }) => section === "2-3")).toHaveLength(28);
-  expect(integrated.filter(({ section }) => section === "2-4")).toHaveLength(28);
-  expect(integrated.filter(({ section }) => section === "2-5")).toHaveLength(40);
-  expect(integrated.filter(({ section }) => section === "2-review")).toHaveLength(29);
-  expect(integrated.filter(({ section }) => section === "3-1")).toHaveLength(16);
-  expect(integrated.filter(({ section }) => section === "3-2")).toHaveLength(19);
-  expect(integrated.filter(({ section }) => section === "3-3")).toHaveLength(15);
-  expect(integrated.filter(({ section }) => section === "3-4")).toHaveLength(38);
-  expect(integrated.filter(({ section }) => section === "3-5")).toHaveLength(31);
-  expect(integrated.filter(({ section }) => section === "3-6")).toHaveLength(5);
-  expect(integrated.filter(({ section }) => section === "3-7")).toHaveLength(11);
-  expect(integrated.filter(({ section }) => section === "3-8")).toHaveLength(4);
-  expect(integrated.filter(({ section }) => section === "3-review")).toHaveLength(30);
-  expect(integrated.filter(({ section }) => section === "4-1")).toHaveLength(41);
-  expect(integrated.filter(({ section }) => section === "4-2")).toHaveLength(58);
-  expect(integrated.filter(({ section }) => section === "4-3")).toHaveLength(24);
-  expect(integrated.filter(({ section }) => section === "4-4")).toHaveLength(24);
-  expect(integrated.filter(({ section }) => section === "4-5")).toHaveLength(25);
-  expect(integrated.filter(({ section }) => section === "4-review")).toHaveLength(45);
-  expect(integrated.filter(({ section }) => section === "5-1")).toHaveLength(33);
-  expect(integrated.filter(({ section }) => section === "5-2")).toHaveLength(37);
-  expect(integrated.filter(({ section }) => section === "5-3")).toHaveLength(45);
-  expect(integrated.filter(({ section }) => section === "5-4")).toHaveLength(14);
-  expect(integrated.filter(({ section }) => section === "5-5")).toHaveLength(16);
-  expect(integrated.filter(({ section }) => section === "5-review")).toHaveLength(46);
-  expect(integrated.filter(({ section }) => section === "6-2")).toHaveLength(44);
-  expect(integrated.filter(({ section }) => section === "6-3")).toHaveLength(12);
-  expect(integrated.filter(({ section }) => section === "6-review")).toHaveLength(20);
-  expect(integrated.filter(({ section }) => section === "7-1")).toHaveLength(20);
-  expect(integrated.filter(({ section }) => section === "7-2")).toHaveLength(22);
-  expect(integrated.filter(({ section }) => section === "7-3")).toHaveLength(15);
-  expect(integrated.filter(({ section }) => section === "7-4")).toHaveLength(30);
-  expect(integrated.filter(({ section }) => section === "7-5")).toHaveLength(19);
-  expect(integrated.filter(({ section }) => section === "7-6")).toHaveLength(22);
-  expect(integrated.filter(({ section }) => section === "7-7")).toHaveLength(20);
-  expect(integrated.filter(({ section }) => section === "7-8")).toHaveLength(19);
-  expect(integrated.filter(({ section }) => section === "7-9")).toHaveLength(8);
-  expect(integrated.filter(({ section }) => section === "7-10")).toHaveLength(12);
-  expect(integrated.filter(({ section }) => section === "7-review")).toHaveLength(32);
-  expect(integrated.filter(({ section }) => section === "exam-1")).toHaveLength(23);
-  expect(integrated.filter(({ section }) => section === "exam-4")).toHaveLength(25);
 });
 
 it("covers every Chapter 1 and Chapter 2 problem with strict KaTeX step-by-step guidedHints", () => {

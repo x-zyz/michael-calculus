@@ -9,7 +9,7 @@ import {
   lessonDerivativeApp,
 } from "../../data/learning";
 import { textbookSections } from "../../data/textbookSections";
-import { remediationModulesById } from "../../data/eli5Drafts/remediationModules";
+import { remediationModulesById } from "../../data/remediation/remediationModules";
 import { RemediationEntry } from "../practice/RemediationEntry";
 import { formulas } from "../../data/formulas";
 import { useLearning } from "../../db/learning";

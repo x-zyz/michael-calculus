@@ -1,9 +1,18 @@
 import katex from "katex";
 import { describe, expect, it } from "vitest";
+import plan from "../../docs/eli5-production/chapter-one.json";
+import cases from "../../scripts/eli5-chapter-one-cases.json";
 import { parseAnswer, problems } from "../data/learning";
-import { chapterOneBatch01Drafts } from "../data/eli5Drafts/ch01Batch01";
-import { chapterOnePilotTeaching } from "../data/teachingChapterOne";
-import { initialTeachingProgress, teachingByProblem } from "../data/teaching";
+import { initialTeachingProgress, teachingByProblem, type TeachingLesson } from "../data/teaching";
+
+const chapterOneBatch01Drafts: Record<string, TeachingLesson> = Object.fromEntries(
+  plan.items
+    .filter((row) => row.batch === 1)
+    .map(({ id }) => [id, teachingByProblem[id]!]),
+);
+const chapterOnePilotTeaching: Record<string, TeachingLesson> = Object.fromEntries(
+  Object.keys(cases).map((id) => [id, teachingByProblem[id]!]),
+);
 
 const problemById = new Map(problems.map((problem) => [problem.id, problem]));
 

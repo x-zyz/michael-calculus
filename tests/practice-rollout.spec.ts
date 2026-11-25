@@ -1,12 +1,12 @@
 
 import { expect, test, type Page } from "@playwright/test";
+import plan from "../docs/eli5-production/chapter-one.json";
 import { problems } from "../src/data/learning";
-import { expandedTeaching } from "../src/data/teaching";
-import { chapterThreeSec1MvtTeaching } from "../src/data/eli5Drafts/ch03Sec1Mvt";
-import { chapterThreeSec2LhopitalTeaching } from "../src/data/eli5Drafts/ch03Sec2Lhopital";
+import { teachingByProblem } from "../src/data/teaching";
 import { firstFocusedPracticeBatch, focusedPracticeLesson } from "../src/features/practice/focusedPracticeRollout";
 
-const batch = problems.filter((problem) => focusedPracticeLesson(problem) && !expandedTeaching[problem.id]);
+const integratedBatchIds = new Set(plan.items.filter((row) => row.eli5 === "integrated").map((row) => row.id));
+const batch = problems.filter((problem) => focusedPracticeLesson(problem) && integratedBatchIds.has(problem.id));
 const firstBatch = batch.filter((problem) => firstFocusedPracticeBatch.has(problem.id));
 
 async function checkFormulas(page: Page) {
@@ -28,7 +28,11 @@ const expandedExamples = new Set([
   "jc935-1-1-1-2", "jc935-1-3-2-6", "jc935-1-10-1",
   "p12", "p129", "jc935-2-4-9-1", "jc935-2-5-10-1", "jc935-2-review-11",
 ]);
-const chapterThree = { ...chapterThreeSec1MvtTeaching, ...chapterThreeSec2LhopitalTeaching };
+const chapterThree = Object.fromEntries(
+  problems
+    .filter((p) => (p.lessonId === "mvt" || p.lessonId === "lhopital") && teachingByProblem[p.id])
+    .map((p) => [p.id, teachingByProblem[p.id]!]),
+);
 for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples.has(id) || Object.hasOwn(chapterThree, id))]) {
   const lesson = focusedPracticeLesson(problem)!;
   test(problem.id + " completes the four-state flow", async ({ page, isMobile }) => {
@@ -38,7 +42,7 @@ for (const problem of [...batch, ...problems.filter(({ id }) => expandedExamples
     const paper = page.locator(".practice-focus-paper");
     const initialFormula = await paper.locator(".formula annotation").first().textContent();
     await checkFormulas(page);
-    const isSection32 = Object.hasOwn(chapterThreeSec2LhopitalTeaching, problem.id);
+    const isSection32 = problem.lessonId === "lhopital" && Object.hasOwn(chapterThree, problem.id);
     const formulaTrigger = page.getByRole("button", { name: `公式表（${new Set(problem.formulaIds).size}）`, exact: true });
     if (isSection32) {
       await expect(formulaTrigger).toBeInViewport({ ratio: 1 });

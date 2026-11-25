@@ -1,5 +1,15 @@
 > **永久签名规则**：所有 agent 的正式更新必须使用 `android/signing-identity.json` 固定的同一证书，走 GitHub Actions 的签名 release 流程。禁止为每台机器或每个版本生成私钥、禁止分发普通 debug APK。调试包只能使用 `.dev` 包名。缺少密钥、指纹不同或权限不足就停止发布并说明原因，不能改指纹绕过。详见 `docs/android-signing.md`；用户只需一次配置仓库 Secrets。旧签名丢失时先做只读数据备份，不擅自卸载旧版。
 
+## 统一题库单一数据源（SSOT）与双 Agent 协作硬规则（Codex GPT-6.2 Sol + Gemini）
+
+- **唯一数据源路径**：全库 1,693 道题的原题、解析、`formulaIds`、`guidedHints`、`teaching`（ELI5）及语义标签槽位 `meta`（`nickname` / `theorems` / `techniques` / `isTrap` / `trapNote`）**统一收拢在 `src/data/bank/ch01.json` … `ch08.json`**（类型见 `src/data/bank/schema.ts`）。前置知识补救模块统一放在 `src/data/remediation/`。
+- **构建期派生索引**：`src/data/bank/index.generated.json` 由 `npm run build:bank-index` 自动派生，严禁手改；前端搜索、筛选与按章懒加载统一通过 `src/data/bank/index.ts`（`problemIndex`、`searchProblemIndex`、`loadChapter`、`loadProblemById`）。
+- **统一校验入口**：任何题库改动后**必须运行 `npm run build:bank-index && npm run validate:bank`**（覆盖 Schema、全局 ID 唯一性、跨表引用一致性、KaTeX 严格渲染、ELI5 P0 门禁与索引同步）。
+- **绝对禁令（严禁退化回平行文件）**：
+  1. **严禁新建平行题库/提示/ELI5/公式映射目录或文件**（禁止再建 `src/data/guidedHints/`、`src/data/eli5Drafts/`、`src/data/bank*.ts`、`src/data/problemFormulaIds.ts` 或手工清单 `docs/bank/inventory.json`）；
+  2. **严禁按小节复制粘贴单节校验脚本**（历史单节 SymPy 脚本已归档至 `scripts/legacy-sympy/`，后续统一扩展 `scripts/validate-bank.mjs`）。
+- **双 Agent 分工**：本项目由 **Codex（GPT-6.2 Sol）** 负责架构/UI/按需加载/工程集成与发布，**Gemini** 负责数学教学内容/ELI5/语义标引与数学验收；旧 `CLAUDE.md` 已移除，避免规则冲突。
+
 ## v0.7.0 界面结构规则（优先于下方历史基线）
 
 - 五项学习导航，AI 保留 `/assistant`，只从首页链接进入。永久签名规则继续生效。

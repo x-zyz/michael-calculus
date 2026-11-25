@@ -1,5 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
-import { chapterThreeSec1MvtTeaching } from "../src/data/eli5Drafts/ch03Sec1Mvt";
+import { teachingByProblem } from "../src/data/teaching";
+
+const chapterThreeSec1MvtTeaching = { p181: teachingByProblem.p181! };
 import { chapters, lessons, problems } from "../src/data/learning";
 
 const focusedUrl = "/#/practice?problem=p181";

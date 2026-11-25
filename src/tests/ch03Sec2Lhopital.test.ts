@@ -2,10 +2,8 @@ import katex from "katex";
 import { describe, expect, it } from "vitest";
 import { formulaById } from "../data/formulas";
 import { lessons, parseAnswer, problems } from "../data/learning";
-import { guidedHintsById } from "../data/guidedHints";
-import { ch3Sec2GuidedHints } from "../data/guidedHints/ch3Sec2";
-import { chapterThreeSec2LhopitalTeaching } from "../data/eli5Drafts/ch03Sec2Lhopital";
-import { problemFormulaIdsById } from "../data/problemFormulaIds";
+import { teachingByProblem } from "../data/teaching";
+import { problemIndex } from "../data/bank";
 
 const expectedSec2Ids = [
   "p21",
@@ -41,7 +39,7 @@ describe("Ch1-Ch2 formulaIds coverage & Chapter 3 Section 3.2 (L'Hopital) pedago
   it("provides valid, non-empty formulaIds for all 602 Ch1-Ch2 problems and all 23 Section 3.2 problems", () => {
     const ch12Ids = problems.filter((p) => (lessonChapter.get(p.lessonId) ?? 99) <= 2).map((p) => p.id);
     expect(ch12Ids).toHaveLength(602);
-    expect(Object.keys(problemFormulaIdsById)).toHaveLength(625);
+    expect(problemIndex).toHaveLength(1693);
 
     for (const id of [...ch12Ids, ...expectedSec2Ids]) {
       const problem = problemById.get(id);
@@ -67,23 +65,20 @@ describe("Ch1-Ch2 formulaIds coverage & Chapter 3 Section 3.2 (L'Hopital) pedago
   });
 
   it("covers all 23 Section 3.2 exercises in both guidedHints and ELI5 teaching with strict P0 gate", () => {
-    expect(Object.keys(ch3Sec2GuidedHints).sort()).toEqual([...expectedSec2Ids].sort());
-    expect(Object.keys(chapterThreeSec2LhopitalTeaching).sort()).toEqual([...expectedSec2Ids].sort());
-
     const counts = [0, 0, 0];
     let totalChecks = 0;
     const affirmativePrefix = /^(对|找对了)/;
 
     for (const id of expectedSec2Ids) {
       const problem = problemById.get(id)!;
-      expect(guidedHintsById[id]?.length ?? 0, `${id} guidedHints`).toBeGreaterThanOrEqual(3);
-      for (const hint of ch3Sec2GuidedHints[id]) {
+      expect(problem.guidedHints?.length ?? 0, `${id} guidedHints`).toBeGreaterThanOrEqual(3);
+      for (const hint of problem.guidedHints!) {
         expect(hint.change.trim(), id).toBeTruthy();
         expect(hint.text.trim(), id).toBeTruthy();
         expect(() => katex.renderToString(hint.formula, { throwOnError: true, strict: "error" }), id).not.toThrow();
       }
 
-      const lesson = chapterThreeSec2LhopitalTeaching[id];
+      const lesson = teachingByProblem[id]!;
       if ("answer" in problem) {
         expect(lesson.referenceAnswer, id).toBe(problem.answer);
       }

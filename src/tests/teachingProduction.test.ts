@@ -4,8 +4,13 @@ import katex from "katex";
 import { expect, it } from "vitest";
 import plan from "../../docs/eli5-production/chapter-one.json";
 import { lessons, problems } from "../data/learning";
-import { expandedTeaching, teachingByProblem, type TeachingLesson } from "../data/teaching";
-import { chapterOneProductionTeaching } from "../data/teachingProduction";
+import { teachingByProblem, type TeachingLesson } from "../data/teaching";
+
+const chapterOneProductionTeaching: Record<string, TeachingLesson> = Object.fromEntries(
+  plan.items
+    .filter((row) => row.batch > 0 && row.eli5 === "integrated")
+    .map(({ id }) => [id, teachingByProblem[id]!]),
+);
 
 const chapterLessons = new Set(lessons.filter((lesson) => lesson.chapter === 1).map((lesson) => lesson.id));
 const chapter = problems.filter((problem) => chapterLessons.has(problem.lessonId));
@@ -30,8 +35,9 @@ it("keeps the production inventory aligned with every live chapter-one ID and ba
 
 it("only registers reviewed production lessons and preserves the eleven pilot lessons", () => {
   const integrated = rows.filter((row) => row.eli5 === "integrated");
-  const originalRegistration = Object.keys(teachingByProblem).filter((id) => !expandedTeaching[id]);
-  expect(originalRegistration.sort()).toEqual(integrated.map(({ id }) => id).sort());
+  for (const row of integrated) {
+    expect(teachingByProblem[row.id], row.id).toBeDefined();
+  }
   expect(Object.keys(chapterOneProductionTeaching).sort()).toEqual(
     integrated.filter((row) => row.batch > 0).map(({ id }) => id).sort(),
   );

@@ -1,6 +1,11 @@
 import { expect, test, type Locator } from "@playwright/test";
-import { chainRuleRemediationModule } from "../src/data/eli5Drafts/chainRuleRemediation";
-import { chapterThreeSec1MvtTeaching } from "../src/data/eli5Drafts/ch03Sec1Mvt";
+import { chainRuleRemediationModule } from "../src/data/remediation/chainRuleRemediation";
+import { teachingByProblem } from "../src/data/teaching";
+
+const chapterThreeSec1MvtTeaching = {
+  p181: teachingByProblem.p181!,
+  p20: teachingByProblem.p20!,
+};
 
 const entryLabel = "先补 2 分钟链式法则前置";
 const sheetTitle = "链式法则前置速通";
