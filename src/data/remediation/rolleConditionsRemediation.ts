@@ -1,0 +1,93 @@
+import type { TeachingLesson } from "../teaching";
+
+const math = String.raw;
+
+/**
+ * 罗尔定理三大前提补救微课：
+ * 面向在 §3.1 验证端点同高、排查尖角/无定义点或切分相邻零点区间卡壳的学生，
+ * 3 步速通「闭区间连续 → 开区间可导 → 两端点同高 f(a)=f(b)」。
+ */
+export const rolleConditionsRemediationModule: TeachingLesson = {
+  target: "用 2 分钟吃透罗尔定理三大前提，学会一眼排除尖角、断点与不等高陷阱。",
+  prerequisites: [
+    "罗尔定理：若 f(x) 在 [a, b] 连续、在 (a, b) 可导且 f(a)=f(b)，则存在 ξ∈(a, b) 使 f′(ξ)=0",
+  ],
+  strategy: "rolle-conditions-prerequisite-remediation",
+  solution: math`\begin{gathered}\text{闭区间 }[a,b]\text{ 连续}\;\wedge\;\text{开区间 }(a,b)\text{ 可导}\\[4pt]\wedge\;f(a)=f(b)\;\Longrightarrow\;\exists\,\xi\in(a,b),\;f'(\xi)=0\end{gathered}`,
+  solutionExplanation: "三个条件缺一不可：少连续会断崖跳过去，少可导会在尖角处掉头，少两端同高就没有被迫放平的理由。",
+  steps: [
+    {
+      id: "rolle-rem-1",
+      goal: "阶梯 1：先查闭区间 [a, b] 连续——不能有空洞或无定义点",
+      plain: "在套用罗尔定理前，先扫描整个闭区间 [a, b]：分母不能为 0，偶次根号下不能为负，对数真数必须严格大于 0。哪怕只在中间坏掉一个点，结论都可能失效。",
+      formula: math`\begin{gathered}f(x)=\ln(\cos x)\text{ 在 }[-\tfrac{\pi}{3},\tfrac{\pi}{3}]\\[4pt]\text{满足 }\cos x\ge\tfrac{1}{2}>0\end{gathered}`,
+      detail: "做题时最容易漏掉对数真数和分母的检查，养成习惯先扫一眼定义域。",
+      check: {
+        prompt: "函数 f(x)=1/x² 在闭区间 [−1, 1] 上满足 f(−1)=f(1)=1，却不存在 ξ∈(−1, 1) 使 f′(ξ)=0，原因是破坏了哪一条前提？",
+        choices: [
+          "在闭区间 [−1, 1] 上不连续（x=0 处无定义）",
+          "两端点函数值 f(−1) 与 f(1) 不相等",
+          "区间长度 1−(−1)=2 太大",
+        ],
+        correct: 0,
+        feedback: [
+          "对，x=0 位于区间内部且分母为 0，破坏了闭区间连续性，所以罗尔定理不适用。",
+          "代入可知 f(−1)=1 且 f(1)=1，两端点函数值是相等的。",
+          "罗尔定理对区间长度没有限制，只要是有限闭区间 [a, b] 即可。",
+        ],
+        prerequisite: "闭区间连续意味着 [a, b] 内每一点（含端点）都必须有定义且不断裂。",
+      },
+    },
+    {
+      id: "rolle-rem-2",
+      goal: "阶梯 2：再查开区间 (a, b) 可导——不能在内部出现尖角",
+      plain: "山峰如果是一个尖锐的 V 字形折点（如 |x| 在 x=0），虽然连续且两端同高，但最高点处切线不存在，左右斜率突然跳变，于是整段区间里找不到 f′(ξ)=0 的点。",
+      formula: math`\begin{gathered}f(x)=|x|\text{ 在 }[-1,1]\text{ 连续且 }f(-1)=f(1)\\[4pt]\text{但在 }x=0\text{ 处不可导}\end{gathered}`,
+      detail: "常见不可导点：绝对值内部为 0 的点、x^(2/3) 在 x=0 处的尖点、分段函数左右导数不等的拼接点。",
+      check: {
+        prompt: "函数 f(x)=1−|x| 在 [−2, 2] 上连续且 f(−2)=f(2)=−1，为什么依然不能用罗尔定理推出存在 f′(ξ)=0？",
+        choices: [
+          "因为函数在端点 x=±2 处不可导",
+          "因为它在开区间内点 x=0 处有尖角、不可导",
+          "因为两端点函数值 −1 是负数",
+        ],
+        correct: 1,
+        feedback: [
+          "罗尔定理只要求开区间 (a, b) 可导，不要求端点可导。",
+          "对，x=0 处左导数为 +1、右导数为 −1，不可导，恰好在尖角掉头避开了水平切线。",
+          "两端点函数值只要相等即可，正负或是否为 0 都不影响。",
+        ],
+        prerequisite: "开区间 (a, b) 内任何一点都不能出现尖角或竖直切线。",
+      },
+    },
+    {
+      id: "rolle-rem-3",
+      goal: "阶梯 3：核对两端同高 f(a)=f(b)——并学会数相邻零点切区间",
+      plain: "一旦前两条通过，就亲手代入端点算 f(a) 和 f(b)。若题目给了一串零点（如多项式因式分解），把零点按升序排好，每两个相邻零点 [x_i, x_{i+1}] 都是天然的 f(x_i)=f(x_{i+1})=0 罗尔区间！",
+      formula: math`\begin{gathered}f(x_1)=f(x_2)=f(x_3)=0\\[4pt]\Longrightarrow\;(x_1,x_2),(x_2,x_3)\text{ 各有驻点}\end{gathered}`,
+      detail: "别忘了检查有没有像 x=0 这样藏在公因式里的免费零点。",
+      check: {
+        prompt: "多项式 f(x)=x(x−2)(x−5) 的三个零点按升序排好后，能直接切出几段相邻闭区间来套用罗尔定理？",
+        choices: [
+          "1 段，只有 [0, 5]",
+          "3 段，[0, 2]、[2, 5] 与 [0, 5] 三个互相独立的驻点",
+          "2 段相邻区间 [0, 2] 和 [2, 5]，保证至少 2 个不同驻点",
+        ],
+        correct: 2,
+        feedback: [
+          "只看大区间 [0, 5] 会漏掉中间零点 x=2 切出的两段独立区间。",
+          "[0, 5] 与前两段重叠，不能保证给出第 3 个不同的驻点。",
+          "对，3 个有序零点切出 2 段互不重叠的相邻区间 (0, 2) 和 (2, 5)，各保证至少 1 个驻点。",
+        ],
+        prerequisite: "k 个互异零点按升序排列，可切出 k−1 段互不重叠的相邻罗尔区间。",
+      },
+      transfer: {
+        prompt: "速通检验：对 f(x)=x²−6x+5，已知 f(1)=f(5)=0，用罗尔定理求唯一驻点 ξ∈(1, 5) 的值。",
+        answer: 3,
+        signFeedback: "f′(x)=2x−6，令 2ξ−6=0 解得 ξ=3。",
+        remediation: "f(x) 在 [1, 5] 连续、(1, 5) 可导且 f(1)=f(5)=0；求导得 f′(ξ)=2ξ−6=0，解得 ξ=3。",
+        solution: math`\begin{gathered}f(1)=f(5)=0,\quad f'(\xi)=2\xi-6=0\\[4pt]\xi=3\in(1,5)\end{gathered}`,
+      },
+    },
+  ],
+};
