@@ -95,7 +95,6 @@ jobs:
             离线 PWA 网页版：支持添加到 iOS / Android / 桌面主屏幕并完整离线使用（亦可下载 `Michael-calculus-*-pwa.zip` 自建静态托管）。
             固定签名正式包：已核对仓库中锁定的唯一证书、包名和版本，后续正式版本使用同一签名覆盖更新。
             历史 v0.5/v0.6 随机调试签名与此证书不同，不能直接覆盖；请先保留旧版，按 docs/android-signing.md 只读备份并导入数据，不要在备份验证前卸载。
-            本次不包含 Android 真机迁移验收；自动化检查通过不等于已经操作过用户手机。
           files: |
             Michael-calculus-*.apk
             Michael-calculus-*-pwa.zip
