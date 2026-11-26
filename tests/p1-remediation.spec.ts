@@ -6,6 +6,7 @@ import { chainRuleRemediationModule } from "../src/data/remediation/chainRuleRem
 const chapterThreeSec1MvtTeaching = {
   p181: teachingByProblem.p181!,
   p20: teachingByProblem.p20!,
+  "jc935-3-8-1": teachingByProblem["jc935-3-8-1"]!,
 };
 
 const entryLabel = "先补 2 分钟链式法则前置";
@@ -83,13 +84,18 @@ test("a registered wrong understanding check offers remediation and returns to t
   await expect(page.getByRole("textbox")).toHaveValue("7");
 });
 
-test("a Rolle condition mistake and a non-3.1 MVT exercise stay outside remediation", async ({ page }) => {
+test("a Rolle condition mistake, a non-3.1 MVT check, and an untaught Ch4 exercise stay outside chain-rule remediation", async ({ page }) => {
   await page.goto("/#/practice?problem=p20");
   await page.getByRole("button", { name: "一步一步教我" }).click();
   const check = chapterThreeSec1MvtTeaching.p20.steps[0].check!;
   await page.getByRole("button", { name: check.choices[(check.correct + 1) % check.choices.length], exact: true }).click();
   await expect(page.getByRole("button", { name: entryLabel })).toHaveCount(0);
   await page.goto("/#/practice?problem=jc935-3-8-1");
+  await page.getByRole("button", { name: "一步一步教我" }).click();
+  const sec8Check = chapterThreeSec1MvtTeaching["jc935-3-8-1"].steps[0].check!;
+  await page.getByRole("button", { name: sec8Check.choices[(sec8Check.correct + 1) % sec8Check.choices.length], exact: true }).click();
+  await expect(page.getByRole("button", { name: entryLabel })).toHaveCount(0);
+  await page.goto("/#/practice?problem=p224");
   await expect(page.locator(".practice-question")).toBeVisible();
   await expect(page.getByRole("button", { name: "一步一步教我" })).toHaveCount(0);
 });

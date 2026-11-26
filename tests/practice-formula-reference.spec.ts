@@ -96,14 +96,13 @@ test("classic numeric and written practice use explicit formulas and lesson fall
   await reference.getByRole("button", { name: "关闭公式表" }).click();
   await expect(page.locator("#answer")).toHaveValue("12");
 
-  await page.goto("/#/practice?problem=jc935-3-8-1&ui=classic");
+  await page.goto("/#/practice?problem=p224&ui=classic");
   await expect(page.locator(".practice-question")).toBeVisible();
   await expect(page.getByRole("button", { name: "查看分步解析" })).toBeVisible();
   await expect(trigger).toBeInViewport({ ratio: 1 });
   await trigger.click();
-  await expect(reference.getByText("罗尔定理", { exact: true })).toBeVisible();
-  await expect(reference.getByText("拉格朗日中值定理", { exact: true })).toBeVisible();
-  await expect(reference.getByText("柯西中值定理", { exact: true })).toBeVisible();
+  await expect(reference.getByText("原函数族", { exact: true })).toBeVisible();
+  await expect(reference.getByText("幂函数积分", { exact: true })).toBeVisible();
   await expectReadable(reference);
   await reference.getByRole("button", { name: "关闭公式表" }).click();
   await expect(trigger).toBeFocused();
