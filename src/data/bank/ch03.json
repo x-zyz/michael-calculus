@@ -816,7 +816,7 @@
       ],
       "strategy": "profit-quadratic-interior-optimum",
       "referenceAnswer": 10,
-      "solution": "\\begin{gathered}\\Pi'(q)=20-2q=0\\Rightarrow q=10\\in[0,12]\\\\[4pt]\\Pi''(q)=-2<0\\\\[4pt]\\Pi(10)=100\\text{ 最大，最优产量 }q=10\\end{gathered}",
+      "solution": "\\begin{gathered}\\Pi'(q)=20-2q=0\\\\[4pt]\\Rightarrow q=10\\in[0,12]\\\\[4pt]\\Pi''(q)=-2<0,\\;\\Pi(10)=100\\\\[4pt]\\text{最优产量 }q=10\\end{gathered}",
       "solutionExplanation": "边际利润 20-2q=0 解得驻点 q=10 落在 [0,12] 内，二阶导数 -2<0 且 Π(10)=100 高于两端点，故最优产量为 10。",
       "steps": [
         {
@@ -1236,7 +1236,7 @@
       {
         "change": "求斜渐近线的斜率 m",
         "text": "用 lim_{x→∞} f(x)/x 或直接做多项式长除法确定一次项斜率 m。",
-        "formula": "m=\\lim_{x\\to\\infty}\\frac{f(x)}{x}=\\lim_{x\\to\\infty}\\frac{2x^2+7x+3}{x(x+2)}"
+        "formula": "\\begin{gathered}m=\\lim_{x\\to\\infty}\\frac{f(x)}{x}\\\\[4pt]=\\lim_{x\\to\\infty}\\frac{2x^2+7x+3}{x(x+2)}\\end{gathered}"
       },
       {
         "change": "求截距 b=lim_{x→∞}(f(x)-mx)",
@@ -1351,12 +1351,12 @@
       {
         "change": "核对驻点是否落在允许区间 [0,5] 内",
         "text": "q=7 超过了产量上限 5，说明在 [0,5] 内不存在驻点。",
-        "formula": "0\\le q\\le 5\\;\\Longrightarrow\\;\\Pi'(q)=28-4q\\ge 8>0"
+        "formula": "\\begin{gathered}0\\le q\\le 5\\\\[4pt]\\Longrightarrow\\;\\Pi'(q)=28-4q\\ge 8>0\\end{gathered}"
       },
       {
         "change": "由区间严格递增直接取右端点",
         "text": "利润在 [0,5] 上一路上升，最大利润必然在上限 q=5 处取得。",
-        "formula": "\\Pi_{\\max}=\\Pi(5)=-2\\times 25+28\\times 5-24"
+        "formula": "\\begin{gathered}\\Pi_{\\max}=\\Pi(5)\\\\[4pt]=-2\\times 25+28\\times 5-24\\end{gathered}"
       }
     ],
     "teaching": {
@@ -1701,7 +1701,7 @@
       ],
       "strategy": "quartic-biquadratic-global-max",
       "referenceAnswer": 16,
-      "solution": "\\begin{gathered}f'(x)=-4x(x^2-4)=0\\Rightarrow x=0,\\pm 2\\\\[4pt]f(x)=16-(x^2-4)^2\\le 16\\\\[4pt]x=\\pm 2\\text{ 时取最大值 }16\\end{gathered}",
+      "solution": "\\begin{gathered}f'(x)=-4x(x^2-4)=0\\\\[4pt]\\Rightarrow x=0,\\;\\pm 2\\\\[4pt]f(x)=16-(x^2-4)^2\\le 16\\\\[4pt]x=\\pm 2\\text{ 时取最大值 }16\\end{gathered}",
       "solutionExplanation": "求导得三个驻点 0、±2，其中 f''(±2)=-32<0 为峰顶；配成 16-(x^2-4)^2 也直接表明全局最大值为 16。",
       "steps": [
         {
@@ -2141,7 +2141,7 @@
       {
         "change": "解驻点并划定两个单调区间",
         "text": "因为定义域限定 x>0，只保留正驻点 x=2，检查两侧 f' 符号。",
-        "formula": "0<x<2\\Rightarrow f'<0,\\quad x>2\\Rightarrow f'>0"
+        "formula": "\\begin{gathered}0<x<2\\Rightarrow f'<0\\\\[4pt]x>2\\Rightarrow f'>0\\end{gathered}"
       },
       {
         "change": "先降后升定出最小值 f(2)",
@@ -2402,7 +2402,7 @@
         "能由多项式因式分解求零点与驻点"
       ],
       "strategy": "sketch-even-quartic-w-curve",
-      "solution": "\\begin{gathered}\\text{偶函数，零点 }0,\\;\\pm 2\\sqrt{2}\\\\[4pt]y'=4x(x^2-4)\\text{ 给出谷底 }(\\pm 2,-16)\\text{ 与局部峰 }(0,0)\\end{gathered}",
+      "solution": "\\begin{gathered}\\text{偶函数，零点 }0,\\;\\pm 2\\sqrt{2}\\\\[4pt]y'=4x(x^2-4)\\text{ 给谷底 }(\\pm 2,-16)\\\\[4pt]\\text{与局部峰 }(0,0)\\end{gathered}",
       "solutionExplanation": "图像关于 y 轴对称，与横轴交于 0 与 ±2√2；导数在 -2, 0, 2 依次变号，形成左右谷底 (±2,-16) 与中间峰顶 (0,0) 的 W 形草图。",
       "steps": [
         {
@@ -2786,7 +2786,7 @@
       {
         "change": "求导并通分找正半轴唯一驻点",
         "text": "对 x^2+2/x 求导并通分写成 2(x^3-1)/x^2，分别在左、右两支判号。",
-        "formula": "y'=2-\\frac{2}{x^2}=\\frac{2(x^3-1)}{x^2}"
+        "formula": "y'=2x-\\frac{2}{x^2}=\\frac{2(x^3-1)}{x^2}"
       },
       {
         "change": "看无穷远处的抛物线渐近趋势",
@@ -13401,7 +13401,7 @@
         "能对一元二次式 x^2-2x-3 十字相乘因式分解"
       ],
       "strategy": "cubic-two-extrema-standard",
-      "solution": "\\begin{gathered}y'=3(x+1)(x-3)=0\\Rightarrow x=-1,\\;3\\\\[4pt]\\text{极大值 }y(-1)=10,\\;\\text{极小值 }y(3)=-22\\end{gathered}",
+      "solution": "\\begin{gathered}y'=3(x+1)(x-3)=0\\\\[4pt]\\Rightarrow x=-1,3\\\\[4pt]\\text{极大值 }y(-1)=10\\\\[4pt]\\text{极小值 }y(3)=-22\\end{gathered}",
       "solutionExplanation": "求导解得驻点 -1 和 3；二阶导数在 -1 处为负、在 3 处为正，分别代入原函数得极大值 10 与极小值 -22。",
       "steps": [
         {
@@ -13850,7 +13850,7 @@
       {
         "change": "确认分母恒正后用商法则求导",
         "text": "先求 [√(1+2x^2)]'=2x/√(1+2x^2)，再带入商法则公式。",
-        "formula": "y'=\\frac{\\sqrt{1+2x^2}-(2+x)\\cdot\\frac{2x}{\\sqrt{1+2x^2}}}{1+2x^2}"
+        "formula": "\\begin{gathered}y'=\\frac{\\sqrt{1+2x^2}-(2+x)\\cdot\\frac{2x}{\\sqrt{1+2x^2}}}{1+2x^2}\\end{gathered}"
       },
       {
         "change": "分子分母同乘 √(1+2x^2) 化简",
@@ -13986,7 +13986,7 @@
         "能配方法确认二次式 x^2-2x+4 恒大于零"
       ],
       "strategy": "rational-split-constant-before-diff",
-      "solution": "\\begin{gathered}y=2+\\frac{x}{x^2-2x+4},\\;y'=\\frac{4-x^2}{(x^2-2x+4)^2}\\\\[4pt]\\text{极小值 }y(-2)=\\frac{11}{6},\\;\\text{极大值 }y(2)=\\frac{5}{2}\\end{gathered}",
+      "solution": "\\begin{gathered}y=2+\\frac{x}{x^2-2x+4}\\\\[4pt]y'=\\frac{4-x^2}{(x^2-2x+4)^2}\\\\[4pt]\\text{极小 }y(-2)=\\frac{11}{6},\\;\\text{极大 }y(2)=\\frac{5}{2}\\end{gathered}",
       "solutionExplanation": "拆成 2+x/(x^2-2x+4) 后求导立即得 y'=(4-x^2)/(x^2-2x+4)^2；分母恒正，导数在 (-2,2) 为正、两侧为负，得极小值 11/6 与极大值 5/2。",
       "steps": [
         {
@@ -14084,7 +14084,7 @@
       {
         "change": "用乘积法则连续求一阶、二阶导数",
         "text": "提取正因子 e^{-x}，并用 cos^2-sin^2 或求导化出二阶导数的简式。",
-        "formula": "y'=e^{-x}(\\cos x-\\sin x),\\quad y''=-2e^{-x}\\cos x"
+        "formula": "\\begin{gathered}y'=e^{-x}(\\cos x-\\sin x)\\\\[4pt]y''=-2e^{-x}\\cos x\\end{gathered}"
       },
       {
         "change": "按周期 2π 把 tan x=1 的根分成两族",
@@ -14132,7 +14132,7 @@
           "id": "jc935-3-5-1-7-2",
           "goal": "第二步：用二阶导数 y''=-2e^{-x}cos x 判定两族极值",
           "plain": "再求一次导数恰好消掉 sin x 得到 y''=-2e^{-x}cos x，直接看余弦的符号就行。",
-          "formula": "y''=-e^{-x}(\\cos x-\\sin x)+e^{-x}(-\\sin x-\\cos x)=-2e^{-x}\\cos x",
+          "formula": "\\begin{gathered}y''=-e^{-x}(\\cos x-\\sin x)\\\\[4pt]+e^{-x}(-\\sin x-\\cos x)=-2e^{-x}\\cos x\\end{gathered}",
           "detail": "2kπ+π/4 处 cos>0 得 y''<0 为极大值点，2kπ+5π/4 处 cos<0 得 y''>0 为极小值点。",
           "check": {
             "prompt": "根据 y''=-2e^{-x}cos x 的符号，关于这两族驻点的极值归属正确的是？",
@@ -14456,7 +14456,7 @@
         "熟记 (cot x)'=-csc^2 x，且 csc^2 x=1/sin^2 x≥1"
       ],
       "strategy": "cotangent-strictly-positive-derivative",
-      "solution": "\\begin{gathered}y'=2+\\csc^2 x\\ge 3>0\\;(x\\neq k\\pi)\\\\[4pt]\\text{在每个 }(k\\pi,(k+1)\\pi)\\text{ 上递增，无极值}\\end{gathered}",
+      "solution": "\\begin{gathered}y'=2+\\csc^2 x\\ge 3>0\\;(x\\neq k\\pi)\\\\[4pt]\\text{每段 }(k\\pi,(k+1)\\pi)\\text{ 递增}\\\\[4pt]\\text{定义域内无极值}\\end{gathered}",
       "solutionExplanation": "由 (cot x)'=-csc^2 x 得 y'=2+csc^2 x≥3>0，在每一连续支线上严格递增，整个定义域内无极值。",
       "steps": [
         {
@@ -14554,12 +14554,12 @@
       {
         "change": "先利用不等式排除退化情形 p=0",
         "text": "如果 p=0，则 q^2-pr=q^2≥0 与条件矛盾，故 p≠0，导数必为真正二次式。",
-        "formula": "q^2-pr<0\\;\\Longrightarrow\\;pr>q^2\\ge 0\\;\\Longrightarrow\\;p\\neq 0"
+        "formula": "\\begin{gathered}q^2-pr<0\\\\[4pt]\\Longrightarrow\\;pr>q^2\\ge 0\\;\\Longrightarrow\\;p\\neq 0\\end{gathered}"
       },
       {
         "change": "计算一阶导数及其二次判别式 Δ",
         "text": "对 f(x) 求导得 px^2+2qx+r，代回二次函数判别式 Δ=b^2-4ac。",
-        "formula": "f'(x)=px^2+2qx+r,\\quad \\Delta=4(q^2-pr)<0"
+        "formula": "\\begin{gathered}f'(x)=px^2+2qx+r\\\\[4pt]\\Delta=4(q^2-pr)<0\\end{gathered}"
       },
       {
         "change": "由开口抛物线无实根推出 f'(x) 恒同号",
@@ -14672,7 +14672,7 @@
       {
         "change": "先利用必要条件 f'(π/3)=0 求出参数 a",
         "text": "分别求 cos x 和 cos 2x 的导数（别漏乘 2），代入 x=π/3 解出 a。",
-        "formula": "f'(x)=-a\\sin x-\\sin 2x,\\quad f'\\!\\left(\\frac{\\pi}{3}\\right)=0"
+        "formula": "\\begin{gathered}f'(x)=-a\\sin x-\\sin 2x\\\\[4pt]f'\\!\\left(\\frac{\\pi}{3}\\right)=0\\end{gathered}"
       },
       {
         "change": "用二阶导数确认 x=π/3 确为极值点",
@@ -14788,12 +14788,12 @@
       {
         "change": "写出在 c 点带佩亚诺余项的 m 阶泰勒展开",
         "text": "题目只保证在 x=c 一点存在 m 阶导数，所以用佩亚诺余项展开最恰当。",
-        "formula": "g(x)-g(c)=\\frac{g^{(m)}(c)}{m!}(x-c)^m+o((x-c)^m)"
+        "formula": "\\begin{gathered}g(x)-g(c)=\\frac{g^{(m)}(c)}{m!}(x-c)^m\\\\[4pt]+o((x-c)^m)\\end{gathered}"
       },
       {
         "change": "提取主项并借助局部保号性控住括号符号",
         "text": "把 (x-c)^m 主项提出来后，剩余因子 1+α(x) 当 x→c 时趋近 1。",
-        "formula": "g(x)-g(c)=\\frac{g^{(m)}(c)}{m!}(x-c)^m[1+\\alpha(x)]"
+        "formula": "\\begin{gathered}g(x)-g(c)\\\\[4pt]=\\frac{g^{(m)}(c)}{m!}(x-c)^m[1+\\alpha(x)]\\end{gathered}"
       },
       {
         "change": "利用 m 为奇数时 (x-c)^m 两侧异号",
@@ -14807,7 +14807,7 @@
         "理解佩亚诺余项泰勒公式只需在展开点 c 处具有 m 阶导数即可"
       ],
       "strategy": "higher-deriv-extrema-odd-order-proof",
-      "solution": "\\begin{gathered}g(x)-g(c)=\\frac{g^{(m)}(c)}{m!}(x-c)^m[1+\\alpha(x)]\\\\[4pt]\\alpha(x)\\to 0,\\;m\\text{ 为奇数}\\Rightarrow\\text{两侧异号，无极值}\\end{gathered}",
+      "solution": "\\begin{gathered}g(x)-g(c)\\\\[4pt]=\\frac{g^{(m)}(c)}{m!}(x-c)^m[1+\\alpha(x)]\\\\[4pt]\\alpha(x)\\to 0,\\;m\\text{ 为奇数}\\\\[4pt]\\Rightarrow\\text{两侧异号，无极值}\\end{gathered}",
       "solutionExplanation": "由带佩亚诺余项的泰勒公式，差值 g(x)-g(c) 在去心邻域内与 g^(m)(c)(x-c)^m 同号；因 m 为奇数，在 x=c 两侧异号，故无极值。",
       "steps": [
         {
@@ -14904,7 +14904,7 @@
       {
         "change": "写出相同形式的佩亚诺余项展开主项",
         "text": "与前题相同，写出前 m-1 项为零的 m 阶展开式。",
-        "formula": "g(x)-g(c)=\\frac{g^{(m)}(c)}{m!}(x-c)^m[1+\\alpha(x)]"
+        "formula": "\\begin{gathered}g(x)-g(c)\\\\[4pt]=\\frac{g^{(m)}(c)}{m!}(x-c)^m[1+\\alpha(x)]\\end{gathered}"
       },
       {
         "change": "利用 m 为偶数时 (x-c)^m 两侧同正",
@@ -14923,7 +14923,7 @@
         "理解偶数次幂 (x-c)^{2k}>0 在 x≠c 时恒正"
       ],
       "strategy": "higher-deriv-extrema-even-order-proof",
-      "solution": "\\begin{gathered}0<|x-c|<\\delta\\text{ 内 }(x-c)^m>0,\\;1+\\alpha(x)>0\\\\[4pt]g^{(m)}(c)<0\\Rightarrow\\text{极大值},\\;g^{(m)}(c)>0\\Rightarrow\\text{极小值}\\end{gathered}",
+      "solution": "\\begin{gathered}0<|x-c|<\\delta\\text{ 内}\\\\[4pt](x-c)^m>0,\\;1+\\alpha(x)>0\\\\[4pt]g^{(m)}(c)<0\\Rightarrow\\text{极大值}\\\\[4pt]g^{(m)}(c)>0\\Rightarrow\\text{极小值}\\end{gathered}",
       "solutionExplanation": "m 为偶数时在去心邻域内 (x-c)^m 恒正且 1+α(x)>0，故 g(x)-g(c) 恒与 g^(m)(c) 同号：负则极大、正则极小。",
       "steps": [
         {
@@ -15040,7 +15040,7 @@
         "知道当 f''(x₀)=0 时“无法下结论”，需看高阶非零导数的阶数奇偶与正负"
       ],
       "strategy": "fourth-deriv-nonzero-max-zero-cancellation",
-      "solution": "\\begin{gathered}f'(0)=f''(0)=f'''(0)=0\\\\[4pt]f^{(4)}(0)=-64<0\\Rightarrow\\text{极大值 }f(0)=2\\end{gathered}",
+      "solution": "\\begin{gathered}f'(0)=f''(0)=f'''(0)=0\\\\[4pt]f^{(4)}(0)=-64<0\\\\[4pt]\\Rightarrow\\text{极大值 }f(0)=2\\end{gathered}",
       "solutionExplanation": "唯一驻点为 x=0，但二、三阶导数在此处皆为 0；继续求得四阶导数 f^(4)(0)=-64<0（偶数阶），故取极大值 f(0)=2。",
       "steps": [
         {
@@ -15148,7 +15148,7 @@
       {
         "change": "逐一算出函数值挑出全局最大与最小",
         "text": "对比四点的 y 值，注意端点 y(4) 超过了内部极大值 y(-1)。",
-        "formula": "y(-2)=1,\\;y(-1)=12,\\;y(2)=-15,\\;y(4)=37"
+        "formula": "\\begin{gathered}y(-2)=1,\\;y(-1)=12\\\\[4pt]y(2)=-15,\\;y(4)=37\\end{gathered}"
       }
     ],
     "teaching": {
@@ -15157,7 +15157,7 @@
         "知道闭区间连续函数最值只需在内部驻点、不可导点和两个端点中比较数值"
       ],
       "strategy": "closed-cubic-endpoint-beats-interior",
-      "solution": "\\begin{gathered}y(-2)=1,\\;y(-1)=12,\\;y(2)=-15,\\;y(4)=37\\\\[4pt]\\text{最大值 }y(4)=37,\\;\\text{最小值 }y(2)=-15\\end{gathered}",
+      "solution": "\\begin{gathered}y(-2)=1,\\;y(-1)=12\\\\[4pt]y(2)=-15,\\;y(4)=37\\\\[4pt]\\text{最大 }y(4)=37,\\;\\text{最小 }y(2)=-15\\end{gathered}",
       "solutionExplanation": "驻点 x=-1、2 均在 [-2,4] 内；比较 y(-2)=1、y(-1)=12、y(2)=-15 与 y(4)=37，得最大值 37、最小值 -15。",
       "steps": [
         {
@@ -15537,7 +15537,7 @@
           "id": "jc935-3-5-7-2",
           "goal": "第二步：计算 y(0), y(3), y(4) 挑出最大值",
           "plain": "算出三个值 2, -25, -18，一眼看出起点 y(0)=2 最高。",
-          "formula": "y(0)=2,\\quad y(3)=-25,\\quad y(4)=64-48-36+2=-18",
+          "formula": "\\begin{gathered}y(0)=2,\\quad y(3)=-25\\\\[4pt]y(4)=64-48-36+2=-18\\end{gathered}",
           "detail": "y(0)=2 > y(4)=-18 > y(3)=-25。",
           "check": {
             "prompt": "计算完毕 y(0)=2、y(3)=-25、y(4)=-18，最大值在何处取得，最大值是多少？",
@@ -15611,7 +15611,7 @@
       {
         "change": "解 x^3+8=0 找出 (-∞,0) 内唯一驻点",
         "text": "唯一实根 x=-2 恰好在开区间 (-∞,0) 内，用二阶导或变号检验极小。",
-        "formula": "x^3=-8\\Rightarrow x=-2,\\quad y''(-2)=6>0"
+        "formula": "\\begin{gathered}x^3=-8\\Rightarrow x=-2\\\\[4pt]y''(-2)=6>0\\end{gathered}"
       },
       {
         "change": "用“开区间唯一极小值点即为全局最小”得出最小值",
@@ -15625,7 +15625,7 @@
         "知道开区间内连续可导函数若只有唯一驻点且为极小值点，则它就是全局最小值点"
       ],
       "strategy": "negative-half-axis-unique-critical-min",
-      "solution": "\\begin{gathered}y'=\\frac{2(x^3+8)}{x^2}=0\\Rightarrow x=-2<0\\\\[4pt]y''(-2)=6>0\\Rightarrow y_{\\min}=y(-2)=12\\end{gathered}",
+      "solution": "\\begin{gathered}y'=\\frac{2(x^3+8)}{x^2}=0\\Rightarrow x=-2<0\\\\[4pt]y''(-2)=6>0\\\\[4pt]\\Rightarrow y_{\\min}=y(-2)=12\\end{gathered}",
       "solutionExplanation": "在 (-∞,0) 上导数 y'=2(x^3+8)/x^2 仅在 x=-2 处为零，且左负右正（y''(-2)=6>0），故在 x=-2 处取全局最小值 12。",
       "steps": [
         {
@@ -15728,7 +15728,7 @@
       {
         "change": "检验 0≤x<2 与 x>2 时导数的正负",
         "text": "左增右减且在 x=0 连续，说明 x=2 处比所有 x≥0 的点都高。",
-        "formula": "0\\le x<2\\Rightarrow y'>0,\\quad x>2\\Rightarrow y'<0"
+        "formula": "\\begin{gathered}0\\le x<2\\Rightarrow y'>0\\\\[4pt]x>2\\Rightarrow y'<0\\end{gathered}"
       },
       {
         "change": "代回原函数求出最大值 y(2)",
@@ -15860,7 +15860,7 @@
         "熟记第二个重要极限 lim_{n→∞}(1+a/n)^n=e^a"
       ],
       "strategy": "parametric-family-max-then-euler-limit",
-      "solution": "\\begin{gathered}x_n=\\frac{2}{n+2},\\;M(n)=\\frac{4n^2}{(n+2)^2}\\left(1-\\frac{2}{n+2}\\right)^n\\\\[4pt]\\lim_{n\\to\\infty}M(n)=\\frac{4}{e^2}\\end{gathered}",
+      "solution": "\\begin{gathered}x_n=\\frac{2}{n+2}\\\\[4pt]M(n)=\\frac{4n^2}{(n+2)^2}\\left(1-\\frac{2}{n+2}\\right)^n\\\\[4pt]\\lim_{n\\to\\infty}M(n)=\\frac{4}{e^2}\\end{gathered}",
       "solutionExplanation": "对 x 求导得唯一内部极大点 x_n=2/(n+2)，由此写出 M(n) 并拆成两因子取极限，结合 (1-2/(n+2))^n→e^{-2} 得极限 4/e^2。",
       "steps": [
         {
@@ -15968,7 +15968,7 @@
       {
         "change": "求导定唯一极大点并回代算出 y 与最大面积",
         "text": "解 S'(x)=0 并核对 S''(x)=-4<0。",
-        "formula": "S'(x)=36-4x=0\\Rightarrow x=9,\\;y=18"
+        "formula": "\\begin{gathered}S'(x)=36-4x=0\\\\[4pt]\\Rightarrow x=9,\\;y=18\\end{gathered}"
       }
     ],
     "teaching": {
@@ -16190,7 +16190,7 @@
       {
         "change": "由半圆直径 x 正确写出半径 x/2 与面积周长约束",
         "text": "半圆面积为 π(x/2)^2/2=πx^2/8，弧长为 π(x/2)=πx/2。",
-        "formula": "xy+\\frac{\\pi}{8}x^2=8,\\quad L(x)=x+2y+\\frac{\\pi}{2}x"
+        "formula": "\\begin{gathered}xy+\\frac{\\pi}{8}x^2=8\\\\[4pt]L(x)=x+2y+\\frac{\\pi}{2}x\\end{gathered}"
       },
       {
         "change": "从面积等式解出 y 并代入周长 L(x)",
@@ -16307,7 +16307,7 @@
       {
         "change": "化简目标：分子为正常数时，使 F 最小等价于使分母最大",
         "text": "不要直接对分式 F(α) 套商法则，只需最大化分母 D(α)=cos α+μ sin α。",
-        "formula": "F(\\alpha)=\\frac{\\mu G}{D(\\alpha)},\\quad D(\\alpha)=\\cos\\alpha+\\frac{\\sqrt{3}}{3}\\sin\\alpha"
+        "formula": "\\begin{gathered}F(\\alpha)=\\frac{\\mu G}{D(\\alpha)}\\\\[4pt]D(\\alpha)=\\cos\\alpha+\\frac{\\sqrt{3}}{3}\\sin\\alpha\\end{gathered}"
       },
       {
         "change": "对分母求导解出唯一驻点 α",
@@ -16539,7 +16539,7 @@
       {
         "change": "用中间变量底半径 r 表示容积 V，先对 V^2 最大化去根号",
         "text": "弧长相等给出 2πr=L(2π-θ)；与其直接对 r^2√(L^2-r^2) 求导，不如令 u=r^2 最大化 u^2(L^2-u)。",
-        "formula": "V=\\frac{1}{3}\\pi r^2\\sqrt{L^2-r^2},\\quad g(u)=u^2(L^2-u)"
+        "formula": "\\begin{gathered}V=\\frac{1}{3}\\pi r^2\\sqrt{L^2-r^2}\\\\[4pt]g(u)=u^2(L^2-u)\\end{gathered}"
       },
       {
         "change": "求 g'(u)=0 算出最佳底半径 r",
@@ -16549,7 +16549,7 @@
       {
         "change": "分清“留下的角”和“裁去的角 θ”",
         "text": "剩下的圆心角为 2πr/L=(2√6/3)π，题目问的是裁去的角 θ。",
-        "formula": "\\theta=2\\pi\\left(1-\\frac{r}{L}\\right)=2\\pi\\left(1-\\frac{\\sqrt{6}}{3}\\right)"
+        "formula": "\\begin{gathered}\\theta=2\\pi\\left(1-\\frac{r}{L}\\right)\\\\[4pt]=2\\pi\\left(1-\\frac{\\sqrt{6}}{3}\\right)\\end{gathered}"
       }
     ],
     "teaching": {
@@ -16657,7 +16657,7 @@
       {
         "change": "求 h(φ) 的一阶导数并统一用 cos φ 表示",
         "text": "记住 (tan φ)'=sec^2 φ=1/cos^2 φ，通分合并分子。",
-        "formula": "h'(\\varphi)=16\\cos\\varphi-\\frac{2}{\\cos^2\\varphi}=\\frac{16\\cos^3\\varphi-2}{\\cos^2\\varphi}"
+        "formula": "\\begin{gathered}h'(\\varphi)=16\\cos\\varphi-\\frac{2}{\\cos^2\\varphi}\\\\[4pt]=\\frac{16\\cos^3\\varphi-2}{\\cos^2\\varphi}\\end{gathered}"
       },
       {
         "change": "解出唯一仰角 φ=π/3 并检验二阶导数为负",
@@ -16823,7 +16823,7 @@
           "id": "jc935-3-5-17-2",
           "goal": "第二步：求得最佳房价与最大净收益",
           "plain": "令 -x/10+78=0 解得 x=780（而且恰好能让 (780-300)/20=24 是整数间房），验证 P''=-1/10<0 后算出净收益。",
-          "formula": "P'(x)=0\\;\\Longrightarrow\\;x=780\\ \\text{元},\\quad P(780)=36\\times 720=25920",
+          "formula": "\\begin{gathered}P'(x)=0\\;\\Longrightarrow\\;x=780\\ \\text{元}\\\\[4pt]P(780)=36\\times 720=25920\\end{gathered}",
           "detail": "此时住满 60-24=36 间房，每间净赚 720 元。",
           "check": {
             "prompt": "令 P'(x)=-x/10+78=0 后，最优房价 x 与最大净收益 P_max 分别是？",
@@ -16917,7 +16917,7 @@
           "id": "jc935-3-5-18-1",
           "goal": "第一步：先把利润乘开消掉分母 x-50",
           "plain": "把单件毛利 (x-50) 乘到销量 q(x)=c/(x-50)+d(110-x) 上，第一项里的分母 (x-50) 立刻消成常数 c！",
-          "formula": "L(x)=(x-50)\\left[\\frac{c}{x-50}+d(110-x)\\right]=c+d(x-50)(110-x)",
+          "formula": "\\begin{gathered}L(x)=(x-50)\\left[\\frac{c}{x-50}+d(110-x)\\right]\\\\[4pt]=c+d(x-50)(110-x)\\end{gathered}",
           "detail": "原本看似复杂的反比例加一次函数瞬间变成纯粹的二次函数。",
           "check": {
             "prompt": "化简总利润 L(x)=(x-50)q(x) 后，参数 c 对最优售价 x 的影响是什么？",
@@ -16939,7 +16939,7 @@
           "id": "jc935-3-5-18-2",
           "goal": "第二步：求导得出与参数无关的最优售价 x=80",
           "plain": "展开得 L(x)=c+d(-x^2+160x-5500)，对 x 求导令零，利用 d>0 两边约去 d。",
-          "formula": "L'(x)=d(160-2x)=0\\;\\Longrightarrow\\;x=80,\\quad L''(x)=-2d<0",
+          "formula": "\\begin{gathered}L'(x)=d(160-2x)=0\\;\\Longrightarrow\\;x=80\\\\[4pt]L''(x)=-2d<0\\end{gathered}",
           "detail": "x=80∈(50,110) 恰好位于 50 和 110 正中间，最大利润 L(80)=c+900d。",
           "check": {
             "prompt": "解方程 L'(x)=d(160-2x)=0（已知 c,d>0），最优售价 x 与二阶导数 L''(80) 的符号是？",
@@ -17252,7 +17252,7 @@
       {
         "change": "用乘积法则求二阶导数定位两个拐点",
         "text": "别漏掉第二项乘积展开，合并出 x(x+2)e^{-(x+1)^2/2}。",
-        "formula": "y''=[(x+1)^2-1]e^{-(x+1)^2/2}=x(x+2)e^{-(x+1)^2/2}"
+        "formula": "\\begin{gathered}y''=[(x+1)^2-1]e^{-(x+1)^2/2}\\\\[4pt]=x(x+2)e^{-(x+1)^2/2}\\end{gathered}"
       }
     ],
     "teaching": {
@@ -17496,7 +17496,7 @@
         "能利用 cos 2x = 2cos^2 x - 1 与 sin 2x = 2sin x cos x 化简导数分子"
       ],
       "strategy": "sketch-periodic-odd-trig-rational",
-      "solution": "\\begin{gathered}\\text{奇函数，周期 }2\\pi\\text{，渐近线 }x=\\frac{\\pi}{4}+\\frac{k\\pi}{2}\\\\[4pt][0,\\pi]\\text{ 极大点 }(\\tfrac{\\pi}{2},-1)\\text{，拐点 }(0,0),(\\pi,0)\\end{gathered}",
+      "solution": "\\begin{gathered}\\text{奇函数，周期 }2\\pi\\\\[4pt]\\text{渐近线 }x=\\frac{\\pi}{4}+\\frac{k\\pi}{2}\\\\[4pt][0,\\pi]\\text{ 极大点 }(\\tfrac{\\pi}{2},-1)\\\\[4pt]\\text{拐点 }(0,0),(\\pi,0)\\end{gathered}",
       "solutionExplanation": "周期为 2π 的奇函数，在 [0,π] 内有两条竖直渐近线 π/4 和 3π/4；化简 y' 得 cos x(3-2cos^2 x)/cos^2 2x，确定极大点 (π/2,-1)，y'' 确定拐点 (0,0) 与 (π,0)。",
       "steps": [
         {
@@ -17587,7 +17587,8 @@
     "chapter": 3,
     "formulaIds": [
       "chain",
-      "higher-sin"
+      "product",
+      "diff-power"
     ],
     "guidedHints": [
       {
@@ -17598,7 +17599,7 @@
       {
         "change": "再次对 x 求导算二阶导数 y''(0)",
         "text": "把 (4y y')' 用乘积法则求导得 4(y')^2+4yy''，切勿丢掉 (y')^2。",
-        "formula": "9+4(y')^2+4yy''=0\\;\\Longrightarrow\\;y''(0)=-\\frac{3}{4}"
+        "formula": "\\begin{gathered}9+4(y')^2+4yy''=0\\\\[4pt]\\Longrightarrow\\;y''(0)=-\\frac{3}{4}\\end{gathered}"
       },
       {
         "change": "代入直角坐标曲率公式求 K",
@@ -17716,7 +17717,7 @@
       {
         "change": "用三角恒等式化简曲率分母中的 1+y'^2",
         "text": "1+cot^2 x=csc^2 x，开 3/2 次方时注意符号条件 0<x<π。",
-        "formula": "1+y'^2=\\csc^2 x\\;\\Longrightarrow\\;(1+y'^2)^{3/2}=\\csc^3 x"
+        "formula": "\\begin{gathered}1+y'^2=\\csc^2 x\\\\[4pt]\\Longrightarrow\\;(1+y'^2)^{3/2}=\\csc^3 x\\end{gathered}"
       },
       {
         "change": "约分求出 K 并取倒数得曲率半径 ρ",
@@ -17949,7 +17950,7 @@
       {
         "change": "别忘了参数二阶导数也要除以 x'(t)",
         "text": "对 dy/dx 关于 t 求导后，一定要再除以 x'(t)=2a sin^2(t/2)！",
-        "formula": "\\frac{d^2y}{dx^2}=\\frac{\\frac{d}{dt}(\\cot\\frac{t}{2})}{x'(t)}=-\\frac{1}{4a\\sin^4\\frac{t}{2}}"
+        "formula": "\\begin{gathered}\\frac{d^2y}{dx^2}=\\frac{\\frac{d}{dt}(\\cot\\frac{t}{2})}{x'(t)}\\\\[4pt]=-\\frac{1}{4a\\sin^4\\frac{t}{2}}\\end{gathered}"
       },
       {
         "change": "代入曲率公式并利用 0<t₀<2π 去掉绝对值",
@@ -18062,7 +18063,7 @@
       {
         "change": "先写出曲率半径 ρ(x) 关于 x 的表达式",
         "text": "对 y=2e^{x/2} 求两阶导数，代入曲率半径公式 ρ=(1+y'^2)^{3/2}/|y''|。",
-        "formula": "y'=e^{x/2},\\;y''=\\frac{1}{2}e^{x/2},\\;\\rho(x)=2e^{-x/2}(1+e^x)^{3/2}"
+        "formula": "\\begin{gathered}y'=e^{x/2},\\;y''=\\frac{1}{2}e^{x/2}\\\\[4pt]\\rho(x)=2e^{-x/2}(1+e^x)^{3/2}\\end{gathered}"
       },
       {
         "change": "求 ρ'(x) 找出唯一驻点（也可对 u=e^x>0 化简）",
@@ -18293,7 +18294,7 @@
       {
         "change": "先算抛物线在最低点 O(0,0) 处的曲率半径 ρ",
         "text": "求导 y'=x/100、y''=1/100，在原点 y'=0 故 ρ=1/|y''|。",
-        "formula": "y'(0)=0,\\;y''(0)=\\frac{1}{100}\\;\\Longrightarrow\\;\\rho=100\\ \\mathrm{m}"
+        "formula": "\\begin{gathered}y'(0)=0,\\;y''(0)=\\frac{1}{100}\\\\[4pt]\\Longrightarrow\\;\\rho=100\\ \\mathrm{m}\\end{gathered}"
       },
       {
         "change": "用圆周运动公式算谷底所需向心力 F₁",
@@ -18408,7 +18409,7 @@
       {
         "change": "建立抛物线方程并记住“半跨度”是 12 m",
         "text": "以桥顶为原点、y 轴向下建 y=ax^2，桥墩端点坐标是 (12,0.9)，不是 (24,0.9)！",
-        "formula": "y=ax^2,\\quad 0.9=a\\cdot 12^2\\;\\Longrightarrow\\;a=\\frac{1}{160}"
+        "formula": "\\begin{gathered}y=ax^2,\\quad 0.9=a\\cdot 12^2\\\\[4pt]\\Longrightarrow\\;a=\\frac{1}{160}\\end{gathered}"
       },
       {
         "change": "统一单位（kg 与 m/s）并求桥顶曲率半径 ρ",
@@ -18525,7 +18526,7 @@
       {
         "change": "写出 ρ(x) 与弧微分导数 ds/dx",
         "text": "由 y'=ax, y''=a 代入曲率半径公式，并与 ds/dx=√(1+y'^2) 对照。",
-        "formula": "\\rho=\\frac{(1+a^2x^2)^{3/2}}{a},\\quad \\frac{ds}{dx}=(1+a^2x^2)^{1/2}"
+        "formula": "\\begin{gathered}\\rho=\\frac{(1+a^2x^2)^{3/2}}{a}\\\\[4pt]\\frac{ds}{dx}=(1+a^2x^2)^{1/2}\\end{gathered}"
       },
       {
         "change": "用链式法则把 dρ/ds 化成 (dρ/dx)/(ds/dx)",
@@ -18645,12 +18646,12 @@
       {
         "change": "代入曲率中心坐标公式（注意 α 减，β 加）",
         "text": "几何上曲线在 (0,1) 向上凹且向右上方走，所以圆心一定在点 (0,1) 的左上方。",
-        "formula": "\\alpha=x-\\frac{y'(1+y'^2)}{y''},\\quad \\beta=y+\\frac{1+y'^2}{y''}"
+        "formula": "\\begin{gathered}\\alpha=x-\\frac{y'(1+y'^2)}{y''}\\\\[4pt]\\beta=y+\\frac{1+y'^2}{y''}\\end{gathered}"
       },
       {
         "change": "计算曲率半径平方 ρ^2 写出曲率圆方程",
         "text": "圆的标准方程右边是 ρ^2=(1+y'^2)^3/(y'')^2。",
-        "formula": "\\rho=2\\sqrt{2}\\;\\Longrightarrow\\;(x-\\alpha)^2+(y-\\beta)^2=\\rho^2"
+        "formula": "\\begin{gathered}\\rho=2\\sqrt{2}\\\\[4pt]\\Longrightarrow\\;(x-\\alpha)^2+(y-\\beta)^2=\\rho^2\\end{gathered}"
       }
     ],
     "teaching": {
@@ -18872,7 +18873,7 @@
       {
         "change": "先用零点定理和导数恒正证明唯一实根",
         "text": "算 f(0), f(1) 异号确认至少一根，再配方 f'(x) 说明在 (0,1) 严格递增只有一根。",
-        "formula": "f(0)=-3<0,\\;f(1)=5>0,\\;f'(x)=3x^2+4x+5>0"
+        "formula": "\\begin{gathered}f(0)=-3<0,\\;f(1)=5>0\\\\[4pt]f'(x)=3x^2+4x+5>0\\end{gathered}"
       },
       {
         "change": "确定达到精度 0.01 所需的二分次数",
@@ -18920,7 +18921,7 @@
           "id": "jc935-3-8-1-2",
           "goal": "第二步：定步数并做完二分迭代逼近",
           "plain": "初始区间 [0,1] 长度为 1，每次对半砍去同号一侧：0.5→f(0.5)=0.125>0 缩到 [0,0.5]；连缩 7 次得宽度 1/128≈0.0078<0.01。",
-          "formula": "[0,1]\\to[0,0.5]\\to[0.25,0.5]\\to\\cdots\\to[0.4765625,0.484375]",
+          "formula": "\\begin{gathered}[0,1]\\to[0,0.5]\\to[0.25,0.5]\\\\[4pt]\\to\\cdots\\to[0.4765625,0.484375]\\end{gathered}",
           "detail": "事实上若取区间中点作为近似值，第 6 次（区间宽 1/64≈0.0156，半宽约 0.0078<0.01）已经满足中点误差 <0.01；做满 7 次则整个区间里任意点误差都 <0.01。",
           "check": {
             "prompt": "在 [0,1] 上首次取中点 x=0.5 算得 f(0.5)=0.5^3+2(0.5)^2+5(0.5)-3=+0.125>0 后，应当保留哪个子区间？",
@@ -18988,12 +18989,12 @@
       {
         "change": "先证明存在唯一实根并求二阶导判凹凸",
         "text": "f(0)=-2, f(1)=3 异号，f'(x)=5x^4+4≥4>0；且 f''(x)=20x^3>0。",
-        "formula": "f'(x)=5x^4+4\\ge 4>0,\\quad f''(x)=20x^3>0"
+        "formula": "\\begin{gathered}f'(x)=5x^4+4\\ge 4>0\\\\[4pt]f''(x)=20x^3>0\\end{gathered}"
       },
       {
         "change": "利用“同号端点”法则选出绝对收敛的初值 x₀",
         "text": "在 [0,1] 中，使 f(x₀)·f''(x₀)>0 的端点才是牛顿法单调收敛的起点。",
-        "formula": "f(1)\\cdot f''(1)=3\\times 20>0\\;\\Longrightarrow\\;x_0=1"
+        "formula": "\\begin{gathered}f(1)\\cdot f''(1)=3\\times 20>0\\\\[4pt]\\Longrightarrow\\;x_0=1\\end{gathered}"
       },
       {
         "change": "用切线递推公式迭代至误差界 |f(xₙ)|/m₁ ≤ 0.01",
@@ -19014,7 +19015,7 @@
           "id": "jc935-3-8-2-1",
           "goal": "第一步：证唯一性并用同号准则选定初值 x₀=1",
           "plain": "算 f(0)=-2<0, f(1)=3>0 且 f'(x)=5x^4+4≥4>0 证得唯一实根；再看 f''(x)=20x^3>0（在 (0,1] 不变号），必须选 f(x₀) 与 f''(x₀) 同号的端点作起点！",
-          "formula": "f(1)=3>0,\\;f''(1)=20>0\\;\\Longrightarrow\\;f(1)f''(1)>0\\;\\Longrightarrow\\;x_0=1",
+          "formula": "\\begin{gathered}f(1)=3>0,\\quad f''(1)=20>0\\\\[4pt]\\Longrightarrow\\;f(1)f''(1)>0\\;\\Longrightarrow\\;x_0=1\\end{gathered}",
           "detail": "如果误选 x₀=0，f'(0)=4 处切线 x₁=0.5 仍在区间内，但教材通用安全判据要求同号端点 x₀=1 保证单调逼近。",
           "check": {
             "prompt": "已知在 [0,1] 上 f''(x)=20x^3>0，按切线法安全收敛准则应当从哪个端点起步，第一步迭代公式是什么？",
@@ -19104,7 +19105,7 @@
       {
         "change": "先确认唯一实根所在区间 [0,1] 与最小斜率 m₁",
         "text": "f(0)=-2<0, f(1)=3>0 且 f'(x)=3x^2+4≥4>0，给出唯一实根且 m₁=4。",
-        "formula": "f'(x)=3x^2+4\\ge 4>0\\;\\Longrightarrow\\;\\xi\\in(0,1)"
+        "formula": "\\begin{gathered}f'(x)=3x^2+4\\ge 4>0\\\\[4pt]\\Longrightarrow\\;\\xi\\in(0,1)\\end{gathered}"
       },
       {
         "change": "取两初值（或定端点法）代入割线递推公式",
@@ -19114,7 +19115,7 @@
       {
         "change": "迭代至 |f(xₙ)|/4<0.01 并验证近似根",
         "text": "取 x₀=1, x₁=0.7 连续算到 x₃, x₄ 即可满足精确度。",
-        "formula": "x_2\\approx 0.5153,\\;x_3\\approx 0.4766,\\;x_4\\approx 0.4735"
+        "formula": "\\begin{gathered}x_2\\approx 0.5153,\\;x_3\\approx 0.4766\\\\[4pt]x_4\\approx 0.4735\\end{gathered}"
       }
     ],
     "teaching": {
@@ -19221,17 +19222,17 @@
       {
         "change": "分段排除 (0,1] 并证明在 (1,+∞) 上唯一正根",
         "text": "千万不能漏说明为什么 0<x≤1 内没有根：当 0<x≤1 时 ln x≤0 从而 x ln x≤0<2。",
-        "formula": "0<x\\le 1\\Rightarrow x\\ln x\\le 0<2;\\quad x\\ge 1\\Rightarrow f'(x)=\\ln x+1\\ge 1>0"
+        "formula": "\\begin{gathered}0<x\\le 1\\Rightarrow x\\ln x\\le 0<2\\\\[4pt]x\\ge 1\\Rightarrow f'(x)=\\ln x+1\\ge 1>0\\end{gathered}"
       },
       {
         "change": "隔离根到单位长度区间 [2,3]",
         "text": "算 f(2)=2ln 2-2<0（因为 ln 2<1）和 f(3)=3ln 3-2>0（因为 ln 3>1）。",
-        "formula": "f(2)\\approx -0.614<0,\\quad f(3)\\approx 1.296>0"
+        "formula": "\\begin{gathered}f(2)\\approx -0.614<0\\\\[4pt]f(3)\\approx 1.296>0\\end{gathered}"
       },
       {
         "change": "在 [2,3] 上连续二分 7 次压缩宽度至 1/128<0.01",
         "text": "依次缩区间直到宽度小于 0.01，取 ξ≈2.35。",
-        "formula": "[2,3]\\to\\cdots\\to[2.34375,2.3515625]\\;\\Longrightarrow\\;\\xi\\approx 2.35"
+        "formula": "\\begin{gathered}[2,3]\\to\\cdots\\\\[4pt]\\to[2.34375,2.3515625]\\\\[4pt]\\Longrightarrow\\;\\xi\\approx 2.35\\end{gathered}"
       }
     ],
     "teaching": {
@@ -19269,7 +19270,7 @@
           "id": "jc935-3-8-4-2",
           "goal": "第二步：完成从 [2,3] 出发的二分逼近",
           "plain": "利用 ln 2≈0.6931、ln 3≈1.0986、ln 2.5≈0.9163 逐次检验中点，经 7 次对半缩窄至 [2.34375, 2.3515625]。",
-          "formula": "[2,3]\\to[2,2.5]\\to[2.25,2.5]\\to\\cdots\\to[2.34375,2.3515625]",
+          "formula": "\\begin{gathered}[2,3]\\to[2,2.5]\\to[2.25,2.5]\\\\[4pt]\\to\\cdots\\to[2.34375,2.3515625]\\end{gathered}",
           "detail": "取 ξ≈2.35，与真根 2.3458 的实际误差仅约 0.0042<0.01。",
           "check": {
             "prompt": "在 [2,3] 上做第一步二分，算得中点 x=2.5 处 f(2.5)=2.5 ln(2.5)-2≈0.2907>0，下一步应该把区间缩为哪一半？",
@@ -19459,7 +19460,7 @@
       {
         "change": "利用二阶导数符号判别一阶导函数 g'(x) 的增减性",
         "text": "二阶导数正是“一阶导数的一阶导数”，g''<0 意味着 g' 严格递减！",
-        "formula": "g''(x)<0\\;\\Longrightarrow\\;g'(x)\\text{ 在 }[1,3]\\text{ 严格递减}"
+        "formula": "\\begin{gathered}g''(x)<0\\\\[4pt]\\Longrightarrow\\;g'(x)\\text{ 在 }[1,3]\\text{ 严格递减}\\end{gathered}"
       },
       {
         "change": "按 1<ξ<3 排定递减函数值的顺序",
@@ -19571,17 +19572,17 @@
       {
         "change": "不要假设三阶导数在邻域存在！用导数定义和极限保号性判别 g''(x) 在 x₀ 两侧的符号",
         "text": "题目只说在 x₀ 一点存在三阶导数 g'''(x₀)<0（二阶可导在邻域存在），直接套 g'''(x₀)=lim_{x→x₀} g''(x)/(x-x₀)<0。",
-        "formula": "g'''(x_0)=\\lim_{x\\to x_0}\\frac{g''(x)-g''(x_0)}{x-x_0}=\\lim_{x\\to x_0}\\frac{g''(x)}{x-x_0}<0"
+        "formula": "\\begin{gathered}g'''(x_0)=\\lim_{x\\to x_0}\\frac{g''(x)-g''(x_0)}{x-x_0}\\\\[4pt]=\\lim_{x\\to x_0}\\frac{g''(x)}{x-x_0}<0\\end{gathered}"
       },
       {
         "change": "由 g''(x) 在 x₀ 两侧反号定出拐点与导函数 g'(x) 的极值",
         "text": "x<x₀ 时 g''>0、x>x₀ 时 g''<0，立刻说明 (x₀,g(x₀)) 是拐点，且 g' 左增右减在 x₀ 取极大值。",
-        "formula": "x<x_0\\Rightarrow g''(x)>0,\\quad x>x_0\\Rightarrow g''(x)<0"
+        "formula": "\\begin{gathered}x<x_0\\Rightarrow g''(x)>0\\\\[4pt]x>x_0\\Rightarrow g''(x)<0\\end{gathered}"
       },
       {
         "change": "再从 g'(x₀)=0 且 g'(x)<0（去心邻域）判断 x₀ 不是 g(x) 的极值点",
         "text": "g'(x₀) 是导函数的极大值 0，说明附近导数全小于 0，即 g(x) 一路递减！",
-        "formula": "g'(x)<g'(x_0)=0\\;\\Longrightarrow\\;x_0\\text{ 不是 }g\\text{ 的极值点}"
+        "formula": "\\begin{gathered}g'(x)<g'(x_0)=0\\\\[4pt]\\Longrightarrow\\;x_0\\text{ 不是 }g\\text{ 的极值点}\\end{gathered}"
       }
     ],
     "teaching": {
@@ -19692,7 +19693,7 @@
       {
         "change": "构造左右对称且斜率恒非零的“屋顶”函数",
         "text": "使两端等高 g(2)=g(-2)（割线斜率为 0），而左右两坡的斜率都保持 ±1≠0。",
-        "formula": "\\frac{g(2)-g(-2)}{4}=0,\\quad g'(x)=\\pm 1\\neq 0\\;(x\\neq 0)"
+        "formula": "\\begin{gathered}\\frac{g(2)-g(-2)}{4}=0\\\\[4pt]g'(x)=\\pm 1\\neq 0\\;(x\\neq 0)\\end{gathered}"
       },
       {
         "change": "逐条核对题目的全部四个要求",
@@ -19802,7 +19803,7 @@
       {
         "change": "把两点函数差 g(x+c)-g(x-c) 套入拉格朗日中值定理",
         "text": "当 x 充分大时 x-|c|>0，区间落在可导域 (0,+∞) 内。",
-        "formula": "g(x+c)-g(x-c)=2c\\,g'(\\xi)\\quad(\\xi\\text{ 介于 }x-c\\text{ 与 }x+c\\text{ 之间})"
+        "formula": "\\begin{gathered}g(x+c)-g(x-c)=2c\\,g'(\\xi)\\\\[4pt](\\xi\\text{ 介于 }x-c\\text{ 与 }x+c\\text{ 之间})\\end{gathered}"
       },
       {
         "change": "注意区间的宽度是 2c 而不是 c",
@@ -19850,7 +19851,7 @@
           "id": "jc935-3-review-4-2",
           "goal": "第二步：用 ξ→+∞ 传递出导数极限并检验 c=0",
           "plain": "因为 ξ 夹在 x-|c| 和 x+|c| 之间，当 x 奔向正无穷时，ξ 被一起夹推向正无穷，所以 g'(ξ)→L。",
-          "formula": "x-|c|<\\xi<x+|c|\\;\\xrightarrow{x\\to+\\infty}\\;\\xi\\to+\\infty\\;\\Longrightarrow\\;\\lim_{x\\to+\\infty}2c\\,g'(\\xi)=2cL",
+          "formula": "\\begin{gathered}x-|c|<\\xi<x+|c|\\xrightarrow{x\\to+\\infty}\\xi\\to+\\infty\\\\[4pt]\\Longrightarrow\\;\\lim_{x\\to+\\infty}2c\\,g'(\\xi)=2cL\\end{gathered}",
           "detail": "顺手写一句 c=0 时 g(x)-g(x)≡0=2·0·L，避免“区间退化成一点”的漏洞。",
           "check": {
             "prompt": "为何 g'(ξ) 在 x→+∞ 时的极限可以直接取成题目给的 L？",
@@ -19937,7 +19938,7 @@
         "理解罗尔定理与单调性在“证明唯一零点/至多一零点”上的等价应用"
       ],
       "strategy": "rolle-contradiction-at-most-one-root",
-      "solution": "\\begin{gathered}\\text{反设 }0\\le x_1<x_2\\le 2,\\;p(x_1)=p(x_2)=0\\\\[4pt]\\Rightarrow p'(\\xi)=3(\\xi^2-4)=0,\\;\\xi\\in(0,2)\\text{ 矛盾}\\end{gathered}",
+      "solution": "\\begin{gathered}\\text{反设 }0\\le x_1<x_2\\le 2\\\\[4pt]p(x_1)=p(x_2)=0\\\\[4pt]\\Rightarrow p'(\\xi)=3(\\xi^2-4)=0\\\\[4pt]\\xi\\in(0,2)\\text{ 矛盾}\\end{gathered}",
       "solutionExplanation": "反设存在两个不同零点 x₁<x₂∈[0,2]，由罗尔定理必有 ξ∈(x₁,x₂)⊂(0,2) 满足 p'(ξ)=0；但 p'(x)=3(x^2-4) 在 (0,2) 恒负，矛盾，故至多一个零点。",
       "steps": [
         {
@@ -20034,12 +20035,12 @@
       {
         "change": "观察系数和的分母 1, 3, 5, ..., 2n+1",
         "text": "每个分母恰比多项式 q(x) 中对应 x 的指数大 1——这正是积分（构造原函数）后多出来的指数！",
-        "formula": "Q(x)=c_0x+\\frac{c_1}{3}x^3+\\frac{c_2}{5}x^5+\\cdots+\\frac{c_n}{2n+1}x^{2n+1}"
+        "formula": "\\begin{gathered}Q(x)=c_0x+\\frac{c_1}{3}x^3+\\frac{c_2}{5}x^5\\\\[4pt]+\\cdots+\\frac{c_n}{2n+1}x^{2n+1}\\end{gathered}"
       },
       {
         "change": "检验原函数 Q(x) 在闭区间 [0,1] 两端的值",
         "text": "Q(0) 显然为 0，而 Q(1) 正好拼出题目所给的系数和条件。",
-        "formula": "Q(0)=0,\\quad Q(1)=c_0+\\frac{c_1}{3}+\\cdots+\\frac{c_n}{2n+1}=0"
+        "formula": "\\begin{gathered}Q(0)=0\\\\[4pt]Q(1)=c_0+\\frac{c_1}{3}+\\cdots+\\frac{c_n}{2n+1}=0\\end{gathered}"
       },
       {
         "change": "在 [0,1] 上对 Q(x) 应用罗尔定理",
@@ -20053,7 +20054,7 @@
         "知道 (x^{2k+1}/(2k+1))' = x^{2k}"
       ],
       "strategy": "rolle-antiderivative-even-polynomial-zero",
-      "solution": "\\begin{gathered}Q(x)=c_0x+\\frac{c_1}{3}x^3+\\cdots+\\frac{c_n}{2n+1}x^{2n+1}\\\\[4pt]Q(0)=Q(1)=0\\Rightarrow\\exists\\xi\\in(0,1),\\;q(\\xi)=Q'(\\xi)=0\\end{gathered}",
+      "solution": "\\begin{gathered}Q(x)=c_0x+\\frac{c_1}{3}x^3+\\cdots\\\\[4pt]+\\frac{c_n}{2n+1}x^{2n+1}\\\\[4pt]Q(0)=Q(1)=0\\\\[4pt]\\Rightarrow\\exists\\xi\\in(0,1),\\;q(\\xi)=Q'(\\xi)=0\\end{gathered}",
       "solutionExplanation": "构造原函数 Q(x)=c₀x+(c₁/3)x^3+⋯+[cₙ/(2n+1)]x^{2n+1}，则 Q(0)=0 且由题设 Q(1)=0；在 [0,1] 上用罗尔定理即得 ξ∈(0,1) 使 q(ξ)=Q'(ξ)=0。",
       "steps": [
         {
@@ -20082,7 +20083,7 @@
           "id": "jc935-3-review-6-2",
           "goal": "第二步：核对端点等高条件并套用罗尔定理",
           "plain": "因为每一项都含有正次幂 x，所以 Q(0)=0；把 x=1 代入恰好拼出题设 c₀+c₁/3+⋯+cₙ/(2n+1)=0。",
-          "formula": "Q(0)=0,\\quad Q(1)=0\\;\\xrightarrow{\\text{罗尔}}\\exists\\xi\\in(0,1):\\;Q'(\\xi)=q(\\xi)=0",
+          "formula": "\\begin{gathered}Q(0)=0,\\quad Q(1)=0\\\\[4pt]\\xrightarrow{\\text{罗尔}}\\exists\\xi\\in(0,1):\\;Q'(\\xi)=q(\\xi)=0\\end{gathered}",
           "detail": "多说一句：多项式 Q 在 [0,1] 连续且在 (0,1) 可导，保证书写满分严密。",
           "check": {
             "prompt": "检验出 Q(0)=0 且 Q(1)=0 后，在 [0,1] 上套用罗尔定理直接得出的结论是？",
@@ -20161,7 +20162,7 @@
       {
         "change": "用罗尔定理得 H'(ξ)=0 后约去非零因子 ξ",
         "text": "因为 ξ∈(0,b) 严格大于 0，可以安全除以 ξ。",
-        "formula": "\\xi[2g(\\xi)+\\xi g'(\\xi)]=0\\xrightarrow{\\xi>0}2g(\\xi)+\\xi g'(\\xi)=0"
+        "formula": "\\begin{gathered}\\xi[2g(\\xi)+\\xi g'(\\xi)]=0\\\\[4pt]\\xrightarrow{\\xi>0}2g(\\xi)+\\xi g'(\\xi)=0\\end{gathered}"
       }
     ],
     "teaching": {
@@ -20170,14 +20171,14 @@
         "熟记乘积求导公式 [x^m g(x)]' = m x^{m-1} g(x) + x^m g'(x)"
       ],
       "strategy": "rolle-auxiliary-x-squared-times-g",
-      "solution": "\\begin{gathered}H(x)=x^2 g(x),\\;H(0)=H(b)=0\\\\[4pt]H'(\\xi)=\\xi[2g(\\xi)+\\xi g'(\\xi)]=0\\xrightarrow{\\xi>0}2g(\\xi)+\\xi g'(\\xi)=0\\end{gathered}",
+      "solution": "\\begin{gathered}H(x)=x^2 g(x),\\;H(0)=H(b)=0\\\\[4pt]H'(\\xi)=\\xi[2g(\\xi)+\\xi g'(\\xi)]=0\\\\[4pt]\\xrightarrow{\\xi>0}2g(\\xi)+\\xi g'(\\xi)=0\\end{gathered}",
       "solutionExplanation": "构造 H(x)=x^2 g(x)，在 [0,b] 连续、(0,b) 可导且 H(0)=H(b)=0；由罗尔定理存在 ξ∈(0,b) 使 ξ[2g(ξ)+ξg'(ξ)]=0，因 ξ>0 约去即得证。",
       "steps": [
         {
           "id": "jc935-3-review-7-1",
           "goal": "第一步：由系数 2 倒推出辅助函数 H(x)=x^2 g(x)",
           "plain": "看到 ag(ξ)+ξg'(ξ)=0 的结构，给它配出乘积求导的幂次 x^a！本题系数是 2，所以直接构造 H(x)=x^2 g(x)。",
-          "formula": "H(x)=x^2 g(x)\\;\\Longrightarrow\\;H'(x)=2x g(x)+x^2 g'(x)=x[2g(x)+x g'(x)]",
+          "formula": "\\begin{gathered}H(x)=x^2 g(x)\\\\[4pt]\\Longrightarrow\\;H'(x)=2x g(x)+x^2 g'(x)\\\\[4pt]=x[2g(x)+x g'(x)]\\end{gathered}",
           "detail": "同时也注意到 x^2 在 x=0 处天然等于 0，不需要知道 g(0) 是多少！",
           "check": {
             "prompt": "要通过罗尔定理证明 2g(ξ)+ξg'(ξ)=0，应当构造哪一个辅助函数 H(x)？",
@@ -20199,7 +20200,7 @@
           "id": "jc935-3-review-7-2",
           "goal": "第二步：检查端点等零并由 ξ∈(0,b) 约去 ξ",
           "plain": "H(0)=0^2·g(0)=0，H(b)=b^2·g(b)=0；套罗尔定理得 ξ[2g(ξ)+ξg'(ξ)]=0 后，务必写清楚“因为 ξ∈(0,b) 所以 ξ≠0”才约去。",
-          "formula": "\\begin{gathered}H(0)=0,\\;H(b)=b^2 g(b)=0\\\\[4pt]\\exists\\xi\\in(0,b),\\;\\xi[2g(\\xi)+\\xi g'(\\xi)]=0\\;\\Longrightarrow\\;2g(\\xi)+\\xi g'(\\xi)=0\\end{gathered}",
+          "formula": "\\begin{gathered}H(0)=0,\\;H(b)=b^2 g(b)=0\\\\[4pt]\\exists\\xi\\in(0,b),\\;\\xi[2g(\\xi)+\\xi g'(\\xi)]=0\\\\[4pt]\\Longrightarrow\\;2g(\\xi)+\\xi g'(\\xi)=0\\end{gathered}",
           "detail": "如果题目给的区间包含 0 在闭端点上，罗尔定理的 ξ 严格在开区间 (0,b) 内保证 ξ>0。",
           "check": {
             "prompt": "求得 H'(ξ)=ξ[2g(ξ)+ξg'(ξ)]=0 后，能直接约去前面的因子 ξ 得出 2g(ξ)+ξg'(ξ)=0 的依据是什么？",
@@ -20277,7 +20278,7 @@
       {
         "change": "套入柯西中值公式并移项整理符号",
         "text": "负负抵消正好变出 +ξ^2 g'(ξ)。",
-        "formula": "\\frac{g(b)-g(a)}{\\frac{1}{b}-\\frac{1}{a}}=\\frac{g'(\\xi)}{-1/\\xi^2}=-\\xi^2 g'(\\xi)"
+        "formula": "\\begin{gathered}\\frac{g(b)-g(a)}{\\frac{1}{b}-\\frac{1}{a}}=\\frac{g'(\\xi)}{-1/\\xi^2}\\\\[4pt]=-\\xi^2 g'(\\xi)\\end{gathered}"
       }
     ],
     "teaching": {
@@ -20286,7 +20287,7 @@
         "熟记柯西中值定理 [g(b)-g(a)]/[F(b)-F(a)] = g'(ξ)/F'(ξ) 及其分母 F'(x)≠0 检验要求"
       ],
       "strategy": "cauchy-mvt-reciprocal-auxiliary-proof",
-      "solution": "\\begin{gathered}F(x)=\\frac{1}{x},\\;F'(x)=-\\frac{1}{x^2}\\neq 0\\\\[4pt]\\frac{g(b)-g(a)}{1/b-1/a}=\\frac{g'(\\xi)}{-1/\\xi^2}\\Rightarrow g(b)-g(a)=\\frac{b-a}{ab}\\xi^2 g'(\\xi)\\end{gathered}",
+      "solution": "\\begin{gathered}F(x)=\\frac{1}{x},\\;F'(x)=-\\frac{1}{x^2}\\neq 0\\\\[4pt]\\frac{g(b)-g(a)}{1/b-1/a}=\\frac{g'(\\xi)}{-1/\\xi^2}\\\\[4pt]\\Rightarrow g(b)-g(a)=\\frac{b-a}{ab}\\xi^2 g'(\\xi)\\end{gathered}",
       "solutionExplanation": "将 (b-a)/(ab) 识别为 1/a-1/b，取辅助函数 F(x)=1/x（在 [a,b]⊂(0,+∞) 连续可导且 F'≠0）；由柯西中值定理立即得出结论。",
       "steps": [
         {
@@ -20315,7 +20316,7 @@
           "id": "jc935-3-review-8-2",
           "goal": "第二步：套用柯西公式完成负号化简",
           "plain": "写出柯西公式两边分别化简：左边分母是 -(b-a)/(ab)，右边分母是 -1/ξ^2，两边的负号刚好完全消掉！",
-          "formula": "\\frac{g(b)-g(a)}{-\\frac{b-a}{ab}}=\\frac{g'(\\xi)}{-\\frac{1}{\\xi^2}}=-\\xi^2 g'(\\xi)\\;\\Longrightarrow\\;g(b)-g(a)=\\frac{b-a}{ab}\\xi^2 g'(\\xi)",
+          "formula": "\\begin{gathered}\\frac{g(b)-g(a)}{-\\frac{b-a}{ab}}=\\frac{g'(\\xi)}{-\\frac{1}{\\xi^2}}=-\\xi^2 g'(\\xi)\\\\[4pt]\\Longrightarrow\\;g(b)-g(a)=\\frac{b-a}{ab}\\xi^2 g'(\\xi)\\end{gathered}",
           "detail": "不要忘记说明 F'(x)=-1/x^2≠0 以及因此 F(b)-F(a)≠0（避免分母为零）。",
           "check": {
             "prompt": "为何题设特别限定“0<a<b”对本证明不可或缺？",
@@ -20383,17 +20384,17 @@
       {
         "change": "先拆开绝对值不等式，避免直接对绝对值求导",
         "text": "|u(x)-u(c)|<2[v(x)-v(c)] 等价于夹在 ±2[v(x)-v(c)] 之间。",
-        "formula": "-2[v(x)-v(c)]<u(x)-u(c)<2[v(x)-v(c)]"
+        "formula": "\\begin{gathered}-2[v(x)-v(c)]\\\\[4pt]<u(x)-u(c)<2[v(x)-v(c)]\\end{gathered}"
       },
       {
         "change": "把两个边界分别移项构造成两个辅助函数 P(x) 与 Q(x)",
         "text": "分别令 P(x)=u(x)-2v(x) 与 Q(x)=u(x)+2v(x) 考察单调性。",
-        "formula": "P(x)=u(x)-2v(x),\\quad Q(x)=u(x)+2v(x)"
+        "formula": "\\begin{gathered}P(x)=u(x)-2v(x)\\\\[4pt]Q(x)=u(x)+2v(x)\\end{gathered}"
       },
       {
         "change": "由 |u'|<2v' 推出 P'<0 与 Q'>0 并比较 x 与 c 处的值",
         "text": "P 严格递减给出 P(x)<P(c)，Q 严格递增给出 Q(x)>Q(c)。",
-        "formula": "P(x)<P(c),\\;Q(x)>Q(c)\\;\\Longrightarrow\\;|u(x)-u(c)|<2[v(x)-v(c)]"
+        "formula": "\\begin{gathered}P(x)<P(c),\\;Q(x)>Q(c)\\\\[4pt]\\Longrightarrow\\;|u(x)-u(c)|\\\\[4pt]<2[v(x)-v(c)]\\end{gathered}"
       }
     ],
     "teaching": {
@@ -20402,7 +20403,7 @@
         "知道 |A|<B（B>0）等价于 -B<A<B；导数严格正/负推出严格增/减"
       ],
       "strategy": "abs-derivative-bound-double-monotone-aux",
-      "solution": "\\begin{gathered}P(x)=u(x)-2v(x)\\text{ 递减},\\;Q(x)=u(x)+2v(x)\\text{ 递增}\\\\[4pt]P(x)<P(c),\\;Q(x)>Q(c)\\Rightarrow |u(x)-u(c)|<2[v(x)-v(c)]\\end{gathered}",
+      "solution": "\\begin{gathered}P(x)=u(x)-2v(x)\\text{ 递减}\\\\[4pt]Q(x)=u(x)+2v(x)\\text{ 递增}\\\\[4pt]P(x)<P(c),\\;Q(x)>Q(c)\\\\[4pt]\\Rightarrow |u(x)-u(c)|<2[v(x)-v(c)]\\end{gathered}",
       "solutionExplanation": "将绝对值拆成双边不等式，构造 P=u-2v 与 Q=u+2v；由 -2v'<u'<2v' 得 P'<0 严格递减、Q'>0 严格递增，比较 x>c 与 c 处值即合并证出绝对值界。",
       "steps": [
         {
@@ -20511,7 +20512,7 @@
       {
         "change": "对余下的 0/0 型再用一次洛必达法则",
         "text": "用乘积法则对 x^{2x-1}(ln x+1) 求导，代入 x=1 算出最后结果。",
-        "formula": "2\\times(2\\cdot 1+1)=\\;?"
+        "formula": "2\\times(1\\cdot 1+1)=\\;?"
       }
     ],
     "teaching": {
@@ -20623,7 +20624,7 @@
       {
         "change": "在分母乘积结构里安全使用等价无穷小",
         "text": "化成一个整体分式后，分母乘积因子 e^{2x}-1~2x（x→0）可直接替换！",
-        "formula": "\\lim_{x\\to 0}\\frac{e^{2x}-1-2x}{x\\cdot 2x}=\\lim_{x\\to 0}\\frac{e^{2x}-1-2x}{2x^2}"
+        "formula": "\\begin{gathered}\\lim_{x\\to 0}\\frac{e^{2x}-1-2x}{x\\cdot 2x}\\\\[4pt]=\\lim_{x\\to 0}\\frac{e^{2x}-1-2x}{2x^2}\\end{gathered}"
       },
       {
         "change": "对简化的 0/0 型使用两次洛必达法则",
@@ -20735,7 +20736,7 @@
       {
         "change": "判别未定式类型并取自然对数 exp(L)",
         "text": "当 x→+∞ 时 arctan(2x)→π/2，故底数趋向 1，属于 1^∞ 型未定式。",
-        "formula": "\\text{原式}=\\exp(L),\\quad L=\\lim_{x\\to+\\infty}3x\\ln\\left(\\frac{2}{\\pi}\\arctan 2x\\right)"
+        "formula": "\\begin{gathered}\\text{原式}=\\exp(L)\\\\[4pt]L=\\lim_{x\\to+\\infty}3x\\ln\\left(\\frac{2}{\\pi}\\arctan 2x\\right)\\end{gathered}"
       },
       {
         "change": "把 ∞·0 改写成 0/0 分式后用洛必达法则",
@@ -20902,7 +20903,7 @@
           "goal": "第二步：用对数运算法则合并并还原 e^L",
           "plain": "把系数 2 放回 b 的幂上：ln a + 2ln b + ln c = ln(ab^2c)，再把 L 放回 e 的指数上就消去了 e 和 ln！",
           "formula": "L=\\ln(ab^2c)\\;\\Longrightarrow\\;\\text{原极限}=e^{\\ln(ab^2c)}=ab^2c",
-          "detail": "当 a=b=c 时显然底数恒为 a，a^{4x}？不对，此时是 (4a^{1/x}/4)^{4x}=a^4=a·a^2·a，特例完全吻合！",
+          "detail": "当 a=b=c 时，原式化为 (a^{1/x})^{4x}=a^4=a·a^2·a，特例完全吻合！",
           "check": {
             "prompt": "把对数极限 L=ln a+2ln b+ln c 合并并还原成 e^L 后，正确的最终极限值是？",
             "choices": [
@@ -20971,17 +20972,17 @@
       {
         "change": "依次求出直到四阶的导数（前 3 阶代 x=1，第 4 阶代 ξ）",
         "text": "乘积求导得 f'(x)=2x ln x+x，以后每阶导数越来越简单！",
-        "formula": "f'(x)=2x\\ln x+x,\\;f''(x)=2\\ln x+3,\\;f'''(x)=\\frac{2}{x}"
+        "formula": "\\begin{gathered}f'(x)=2x\\ln x+x\\\\[4pt]f''(x)=2\\ln x+3,\\;f'''(x)=\\frac{2}{x}\\end{gathered}"
       },
       {
         "change": "算各阶泰勒系数 f^{(k)}(1)/k!",
         "text": "注意把 f''(1)=3 除以 2!、把 f'''(1)=2 除以 3!。",
-        "formula": "f(1)=0,\\;f'(1)=1,\\;\\frac{f''(1)}{2!}=\\frac{3}{2},\\;\\frac{f'''(1)}{3!}=\\frac{1}{3}"
+        "formula": "\\begin{gathered}f(1)=0,\\;f'(1)=1\\\\[4pt]\\frac{f''(1)}{2!}=\\frac{3}{2},\\;\\frac{f'''(1)}{3!}=\\frac{1}{3}\\end{gathered}"
       },
       {
         "change": "写出 4 阶拉格朗日余项并标明 ξ 所在范围",
         "text": "四阶导 f^{(4)}(ξ)=-2/ξ^2 再除以 4!=24，得 -(x-1)^4/(12ξ^2)。",
-        "formula": "R_3(x)=\\frac{f^{(4)}(\\xi)}{4!}(x-1)^4=-\\frac{(x-1)^4}{12\\xi^2}"
+        "formula": "\\begin{gathered}R_3(x)=\\frac{f^{(4)}(\\xi)}{4!}(x-1)^4\\\\[4pt]=-\\frac{(x-1)^4}{12\\xi^2}\\end{gathered}"
       }
     ],
     "teaching": {
@@ -20990,7 +20991,7 @@
         "熟记带拉格朗日余项的 3 阶泰勒公式 R₃(x)=[f^{(4)}(ξ)/4!](x-x₀)^4"
       ],
       "strategy": "taylor-x2lnx-at-1-lagrange-rem",
-      "solution": "\\begin{gathered}x^2\\ln x=(x-1)+\\frac{3}{2}(x-1)^2+\\frac{1}{3}(x-1)^3\\\\[4pt]-\\frac{(x-1)^4}{12\\xi^2}\\;(\\xi\\text{ 介于 }1\\text{ 与 }x\\text{ 之间})\\end{gathered}",
+      "solution": "\\begin{gathered}x^2\\ln x=(x-1)+\\frac{3}{2}(x-1)^2\\\\[4pt]+\\frac{1}{3}(x-1)^3-\\frac{(x-1)^4}{12\\xi^2}\\\\[4pt](\\xi\\text{ 介于 }1\\text{ 与 }x\\text{ 之间})\\end{gathered}",
       "solutionExplanation": "在 x=1 处逐阶算出 f=0, f'=1, f''=3, f'''=2 并各自除以 0!,1!,2!,3!；四阶导 f^{(4)}(ξ)=-2/ξ^2 除以 4!=24 得拉格朗日余项 -(x-1)^4/(12ξ^2)。",
       "steps": [
         {
@@ -21088,12 +21089,12 @@
       {
         "change": "求 arcsin x 的一阶导数与二阶导数",
         "text": "先把 1/√(1-x^2) 写成幂函数 (1-x^2)^{-1/2} 再继续求导更顺手。",
-        "formula": "f'(x)=(1-x^2)^{-1/2},\\quad f''(x)=x(1-x^2)^{-3/2}"
+        "formula": "\\begin{gathered}f'(x)=(1-x^2)^{-1/2}\\\\[4pt]f''(x)=x(1-x^2)^{-3/2}\\end{gathered}"
       },
       {
         "change": "用乘积法则算三阶导数在 x=0 处的值",
         "text": "由于前面是 x 乘以 (1-x^2)^{-3/2}，求导后第二项仍带因子 x^2（在 x=0 为 0），只需算第一项。",
-        "formula": "f'''(x)=(1-x^2)^{-3/2}+3x^2(1-x^2)^{-5/2}\\Rightarrow f'''(0)=1"
+        "formula": "\\begin{gathered}f'''(x)=(1-x^2)^{-3/2}\\\\[4pt]+3x^2(1-x^2)^{-5/2}\\\\[4pt]\\Rightarrow f'''(0)=1\\end{gathered}"
       },
       {
         "change": "代入麦克劳林公式并注意符号是加号 +1/6",
@@ -21205,12 +21206,12 @@
       {
         "change": "写出外层 e^u 与内层 tan x 的已知麦克劳林展开",
         "text": "只需保留到 3 次项即可，更高阶全丢进 o(x^3)。",
-        "formula": "\\tan x=x+\\frac{1}{3}x^3+o(x^3),\\quad e^u=1+u+\\frac{u^2}{2}+\\frac{u^3}{6}+o(u^3)"
+        "formula": "\\begin{gathered}\\tan x=x+\\frac{1}{3}x^3+o(x^3)\\\\[4pt]e^u=1+u+\\frac{u^2}{2}+\\frac{u^3}{6}+o(u^3)\\end{gathered}"
       },
       {
         "change": "令 u=tan x 逐项代换并小心保留 u 中的 +x^3/3",
         "text": "u^2 只需 x^2 即可（交叉项已到 x^4），u^3 也只需 x^3，但一次项 u 本身自带了 +x^3/3！",
-        "formula": "u=x+\\frac{1}{3}x^3+o(x^3),\\;u^2=x^2+o(x^3),\\;u^3=x^3+o(x^3)"
+        "formula": "\\begin{gathered}u=x+\\frac{1}{3}x^3+o(x^3)\\\\[4pt]u^2=x^2+o(x^3),\\;u^3=x^3+o(x^3)\\end{gathered}"
       },
       {
         "change": "合并所有 x^3 同类项得 1/3 + 1/6 = 1/2",
@@ -21274,7 +21275,7 @@
         {
           "id": "jc935-3-review-11-3-3",
           "goal": "第三步：做一道小量计算确认",
-          "plain": "由此顺带记住 e^{tan x}-e^x = x^3/2 + o(x^3)（因为 e^x=1+x+x^2/2+x^3/6+o(x^3)，相减恰好剩 1/2-1/6=1/3... 等等 x^3/3！）。",
+          "plain": "顺带可得高频等价结论：e^{tan x}-e^x = (1/2-1/6)x^3+o(x^3) = x^3/3 + o(x^3)！",
           "formula": "e^{\\tan x}=1+x+\\frac{1}{2}x^2+\\frac{1}{2}x^3+o(x^3)",
           "detail": "1/2-1/6=1/3 也是极高频的等价无穷小考题 (e^{tan x}-e^x ~ x^3/3)！",
           "transfer": {
@@ -21321,17 +21322,17 @@
       {
         "change": "先写 cosh x 的 6 阶偶次幂展开，令 u=cosh x-1",
         "text": "双曲余弦只保留 e^x 展开中的偶次项，因此 u 是 x^2 阶无穷小！",
-        "formula": "u=\\cosh x-1=\\frac{x^2}{2}+\\frac{x^4}{24}+\\frac{x^6}{720}+o(x^6)"
+        "formula": "\\begin{gathered}u=\\cosh x-1\\\\[4pt]=\\frac{x^2}{2}+\\frac{x^4}{24}+\\frac{x^6}{720}+o(x^6)\\end{gathered}"
       },
       {
         "change": "计算 u^2 与 u^3 并截断到 x^6（留心交叉项！）",
         "text": "u^2 里不仅有 (x^2/2)^2=x^4/4，还有交叉项 2·(x^2/2)·(x^4/24)=x^6/24！",
-        "formula": "u^2=\\frac{x^4}{4}+\\frac{x^6}{24}+o(x^6),\\quad u^3=\\frac{x^6}{8}+o(x^6)"
+        "formula": "\\begin{gathered}u^2=\\frac{x^4}{4}+\\frac{x^6}{24}+o(x^6)\\\\[4pt]u^3=\\frac{x^6}{8}+o(x^6)\\end{gathered}"
       },
       {
         "change": "代入 ln(1+u)=u-u^2/2+u^3/3+o(u^3) 合并至 x^6",
         "text": "分别合拢 x^2, x^4, x^6 三档系数，注意正负交替。",
-        "formula": "\\ln(\\cosh x)=\\frac{1}{2}x^2-\\frac{1}{12}x^4+\\frac{1}{45}x^6+o(x^6)"
+        "formula": "\\begin{gathered}\\ln(\\cosh x)=\\frac{1}{2}x^2-\\frac{1}{12}x^4\\\\[4pt]+\\frac{1}{45}x^6+o(x^6)\\end{gathered}"
       }
     ],
     "teaching": {
@@ -21340,7 +21341,7 @@
         "熟记 cosh x=1+x^2/2!+x^4/4!+x^6/6!+... 与 ln(1+u)=u-u^2/2+u^3/3+o(u^3)"
       ],
       "strategy": "composite-maclaurin-ln-cosh-6th-order",
-      "solution": "\\ln(\\cosh x)=\\frac{1}{2}x^2-\\frac{1}{12}x^4+\\frac{1}{45}x^6+o(x^6)",
+      "solution": "\\begin{gathered}\\ln(\\cosh x)=\\frac{1}{2}x^2-\\frac{1}{12}x^4\\\\[4pt]+\\frac{1}{45}x^6+o(x^6)\\end{gathered}",
       "solutionExplanation": "将 u=cosh x-1=x^2/2+x^4/24+x^6/720+o(x^6) 代入 ln(1+u)=u-u^2/2+u^3/3+o(x^6)；仔细算准 u^2 的交叉项 x^6/24，合并即得 x^2/2 - x^4/12 + x^6/45 + o(x^6)。",
       "steps": [
         {
@@ -21369,7 +21370,7 @@
           "id": "jc935-3-review-11-4-2",
           "goal": "第二步：合并 x^4 与 x^6 同类项完成 6 阶展开",
           "plain": "代入 ln(1+u)=u - (1/2)u^2 + (1/3)u^3 + o(x^6)，仔细通分合算 x^4 和 x^6 的分数系数。",
-          "formula": "\\begin{gathered}x^4\\text{ 系数：}\\frac{1}{24}-\\frac{1}{2}\\cdot\\frac{1}{4}=\\frac{1}{24}-\\frac{3}{24}=-\\frac{1}{12}\\\\[4pt]x^6\\text{ 系数：}\\frac{1}{720}-\\frac{1}{2}\\cdot\\frac{1}{24}+\\frac{1}{3}\\cdot\\frac{1}{8}=\\frac{1-15+30}{720}=\\frac{16}{720}=\\frac{1}{45}\\end{gathered}",
+          "formula": "\\begin{gathered}x^4\\text{ 系数：}\\frac{1}{24}-\\frac{1}{2}\\cdot\\frac{1}{4}=-\\frac{1}{12}\\\\[4pt]x^6\\text{ 系数：}\\frac{1}{720}-\\frac{1}{48}+\\frac{1}{24}\\\\[4pt]=\\frac{1-15+30}{720}=\\frac{16}{720}=\\frac{1}{45}\\end{gathered}",
           "detail": "16/720 上下除以 16 刚好约成 1/45！（720=16×45）。",
           "check": {
             "prompt": "将 u、u^2、u^3 代入 ln(1+u)=u-u^2/2+u^3/3 合并同类项后，x^4 与 x^6 项前面的系数分别是？",
@@ -21439,7 +21440,7 @@
       {
         "change": "先分离变量把双变量不等式改写为同一个函数在两点处的比较",
         "text": "因为 0<x₁<x₂<π/2 时 x₁,x₂,sin x₁,sin x₂ 全正，两边把 x 移回各自那一侧。",
-        "formula": "\\frac{\\sin x_2}{\\sin x_1}<\\frac{x_2}{x_1}\\;\\Longleftrightarrow\\;\\frac{\\sin x_2}{x_2}<\\frac{\\sin x_1}{x_1}"
+        "formula": "\\begin{gathered}\\frac{\\sin x_2}{\\sin x_1}<\\frac{x_2}{x_1}\\\\[4pt]\\Longleftrightarrow\\;\\frac{\\sin x_2}{x_2}<\\frac{\\sin x_1}{x_1}\\end{gathered}"
       },
       {
         "change": "构造单变量辅助函数 h(x)=(sin x)/x 并求导",
@@ -21449,7 +21450,7 @@
       {
         "change": "对分子 r(x)=x cos x-sin x 二次求导判断符号",
         "text": "算 r(0)=0 且在 (0,π/2) 内 r'(x)=-x sin x<0。",
-        "formula": "r'(x)=-x\\sin x<0\\;\\Longrightarrow\\;r(x)<0\\;\\Longrightarrow\\;h'(x)<0"
+        "formula": "\\begin{gathered}r'(x)=-x\\sin x<0\\\\[4pt]\\Longrightarrow\\;r(x)<0\\;\\Longrightarrow\\;h'(x)<0\\end{gathered}"
       }
     ],
     "teaching": {
@@ -21458,7 +21459,7 @@
         "知道只要证明 h(x)=(sin x)/x 在 (0,π/2) 严格递减，由 x₁<x₂ 立得 h(x₂)<h(x₁)"
       ],
       "strategy": "monotone-sinc-x-ratio-inequality",
-      "solution": "\\begin{gathered}h(x)=\\frac{\\sin x}{x},\\;h'(x)=\\frac{x\\cos x-\\sin x}{x^2}<0\\\\[4pt]x_1<x_2\\Rightarrow\\frac{\\sin x_2}{x_2}<\\frac{\\sin x_1}{x_1}\\Rightarrow\\frac{\\sin x_2}{\\sin x_1}<\\frac{x_2}{x_1}\\end{gathered}",
+      "solution": "\\begin{gathered}h(x)=\\frac{\\sin x}{x}\\\\[4pt]h'(x)=\\frac{x\\cos x-\\sin x}{x^2}<0\\\\[4pt]x_1<x_2\\Rightarrow\\frac{\\sin x_2}{x_2}<\\frac{\\sin x_1}{x_1}\\\\[4pt]\\Rightarrow\\frac{\\sin x_2}{\\sin x_1}<\\frac{x_2}{x_1}\\end{gathered}",
       "solutionExplanation": "将原不等式同乘 (sin x₁)/x₂ 整理为 (sin x₂)/x₂ < (sin x₁)/x₁，构造 h(x)=(sin x)/x；对分子 r(x)=x cos x-sin x 求导得 r'(x)=-x sin x<0，从而 h'(x)<0 严格递减得证。",
       "steps": [
         {
@@ -21487,7 +21488,7 @@
           "id": "jc935-3-review-12-1-2",
           "goal": "第二步：用二次构造判定分子 r(x)=x cos x-sin x 的正负",
           "plain": "算出 h'(x)=(x cos x-sin x)/x^2；在 (0,π/2) 上单凭肉眼可能不敢直接断定 x cos x<sin x，那就把分子再单独取出来求导！",
-          "formula": "\\begin{gathered}r(x)=x\\cos x-\\sin x,\\quad r(0)=0\\\\[4pt]r'(x)=\\cos x-x\\sin x-\\cos x=-x\\sin x<0\\;\\Longrightarrow\\;r(x)<0\\end{gathered}",
+          "formula": "\\begin{gathered}r(x)=x\\cos x-\\sin x,\\quad r(0)=0\\\\[4pt]r'(x)=\\cos x-x\\sin x-\\cos x\\\\[4pt]=-x\\sin x<0\\;\\Longrightarrow\\;r(x)<0\\end{gathered}",
           "detail": "或者写成 x cos x - sin x = cos x(x - tan x) < 0 也一眼看穿！",
           "check": {
             "prompt": "求导检验分子 r(x)=x cos x - sin x 在区间 (0,π/2) 上的符号时，正确的导数 r'(x) 与结论是？",
@@ -21561,12 +21562,12 @@
       {
         "change": "求导并通分，观察分子奇妙化为完全平方式 x^2",
         "text": "对 2x/(2+x) 用商法则（或写成 2-4/(2+x) 再求导），通分展开合并。",
-        "formula": "h'(x)=\\frac{1}{1+x}-\\frac{4}{(2+x)^2}=\\frac{x^2}{(1+x)(2+x)^2}"
+        "formula": "\\begin{gathered}h'(x)=\\frac{1}{1+x}-\\frac{4}{(2+x)^2}\\\\[4pt]=\\frac{x^2}{(1+x)(2+x)^2}\\end{gathered}"
       },
       {
         "change": "由 x>0 时 h'(x)>0 与单调性完成证明",
         "text": "因 h(x) 在 [0,+∞) 连续且导数恒正，故 x>0 时 h(x)>h(0)=0。",
-        "formula": "h'(x)>0\\;(x>0)\\;\\Longrightarrow\\;h(x)>h(0)=0"
+        "formula": "\\begin{gathered}h'(x)>0\\;(x>0)\\\\[4pt]\\Longrightarrow\\;h(x)>h(0)=0\\end{gathered}"
       }
     ],
     "teaching": {
@@ -21575,7 +21576,7 @@
         "能将 2x/(2+x) 快速拆成 2-4/(2+x) 求导，并能展开 (2+x)^2-4(1+x)=x^2"
       ],
       "strategy": "diff-monotone-log-gt-rational",
-      "solution": "\\begin{gathered}h(x)=\\ln(1+x)-\\frac{2x}{2+x},\\;h(0)=0\\\\[4pt]h'(x)=\\frac{x^2}{(1+x)(2+x)^2}>0\\Rightarrow h(x)>0\\;(x>0)\\end{gathered}",
+      "solution": "\\begin{gathered}h(x)=\\ln(1+x)-\\frac{2x}{2+x},\\;h(0)=0\\\\[4pt]h'(x)=\\frac{x^2}{(1+x)(2+x)^2}>0\\\\[4pt]\\Rightarrow h(x)>0\\;(x>0)\\end{gathered}",
       "solutionExplanation": "作差令 h(x)=ln(1+x)-2x/(2+x)，有 h(0)=0；求导并通分分子为 (2+x)^2-4(1+x)=x^2>0，故在 [0,+∞) 严格递增，当 x>0 时恒有 h(x)>h(0)=0。",
       "steps": [
         {
@@ -21604,7 +21605,7 @@
           "id": "jc935-3-review-12-2-2",
           "goal": "第二步：由 h(0)=0 与 h'(x)>0 严谨写出结论",
           "plain": "当 x>0 时，分子 x^2>0 且分母 1+x>0、(2+x)^2>0，故 h'(x)>0；别忘交代 h(x) 在闭端点 x=0 连续且 h(0)=0，这样才能把区间递增性推进到 x=0。",
-          "formula": "h(x)\\in C[0,+\\infty),\\;h'(x)>0\\;(x>0)\\;\\Longrightarrow\\;h(x)>h(0)=0",
+          "formula": "\\begin{gathered}h(x)\\in C[0,+\\infty),\\;h'(x)>0\\;(x>0)\\\\[4pt]\\Longrightarrow\\;h(x)>h(0)=0\\end{gathered}",
           "detail": "其实甚至有界比 2x/(2+x) < ln(1+x) < x（对所有 x>0）。",
           "check": {
             "prompt": "在求得 h'(x)>0（x>0）后，最终能得出对一切 x>0 都有 ln(1+x)>2x/(2+x)，必须补上的端点验证是？",
@@ -21674,7 +21675,7 @@
       {
         "change": "识别左端差值结构，先对 f(x)=ln^3 x 用拉格朗日中值定理",
         "text": "右边出现 (b-a) 且左边是同一函数在 b 与 a 处相减，直接用拉格朗日中值定理把差值写成 f'(ξ)(b-a)。",
-        "formula": "\\ln^3 b-\\ln^3 a=\\frac{3\\ln^2\\xi}{\\xi}(b-a)\\quad(\\xi\\in(a,b))"
+        "formula": "\\begin{gathered}\\ln^3 b-\\ln^3 a=\\frac{3\\ln^2\\xi}{\\xi}(b-a)\\\\[4pt](\\xi\\in(a,b))\\end{gathered}"
       },
       {
         "change": "构造比例函数 φ(t)=(ln^2 t)/t 并考察在 [e^2,+∞) 上的单调性",
@@ -21693,7 +21694,7 @@
         "知道 (ln^3 x)' = 3(ln^2 x)/x，以及当 t>e^2 时 ln t>2"
       ],
       "strategy": "mvt-plus-monotonicity-log-cube-bound",
-      "solution": "\\begin{gathered}\\ln^3 b-\\ln^3 a=\\frac{3\\ln^2\\xi}{\\xi}(b-a)\\\\[4pt]\\varphi(t)=\\frac{\\ln^2 t}{t}\\text{ 在 }[e^2,+\\infty)\\text{ 递减}\\Rightarrow 3\\varphi(\\xi)>3\\varphi(e^3)=\\frac{27}{e^3}\\end{gathered}",
+      "solution": "\\begin{gathered}\\ln^3 b-\\ln^3 a=\\frac{3\\ln^2\\xi}{\\xi}(b-a)\\\\[4pt]\\varphi(t)=\\frac{\\ln^2 t}{t}\\text{ 在 }[e^2,+\\infty)\\text{ 递减}\\\\[4pt]\\Rightarrow 3\\varphi(\\xi)>3\\varphi(e^3)=\\frac{27}{e^3}\\end{gathered}",
       "solutionExplanation": "对 f(x)=ln^3 x 在 [a,b] 上用拉格朗日中值定理得 (3ln^2 ξ/ξ)(b-a)；求导得 φ(t)=(ln^2 t)/t 在 [e^2,+∞) 严格递减，因 e^2<ξ<e^3 故 φ(ξ)>φ(e^3)=9/e^3，即证。",
       "steps": [
         {
@@ -21722,7 +21723,7 @@
           "id": "jc935-3-review-12-3-2",
           "goal": "第二步：用 φ(t) 在 [e^2,e^3] 严格递减完成放缩",
           "plain": "特别留意题设给出的是 e^2<a<b<e^3——正好避开了 φ(t) 的极值点 t=e^2！在 [e^2,+∞) 上 φ 一路下降，所以左边的 φ(ξ) 严格大于最右边界值 φ(e^3)。",
-          "formula": "\\xi<e^3\\;\\Longrightarrow\\;\\frac{\\ln^2\\xi}{\\xi}>\\frac{\\ln^2(e^3)}{e^3}=\\frac{9}{e^3}\\;\\Longrightarrow\\;\\frac{3\\ln^2\\xi}{\\xi}(b-a)>\\frac{27}{e^3}(b-a)",
+          "formula": "\\begin{gathered}\\xi<e^3\\;\\Longrightarrow\\;\\frac{\\ln^2\\xi}{\\xi}>\\frac{\\ln^2(e^3)}{e^3}=\\frac{9}{e^3}\\\\[4pt]\\Longrightarrow\\;\\frac{3\\ln^2\\xi}{\\xi}(b-a)>\\frac{27}{e^3}(b-a)\\end{gathered}",
           "detail": "因为 b-a>0 且 ξ<b<e^3 严格成立，不等号是严格大于 >。",
           "check": {
             "prompt": "既然已经证得 φ(t)=(ln^2 t)/t 在 [e^2, e^3] 上严格递减，接下来为什么能写出 φ(ξ) > 9/e^3？",
@@ -21743,7 +21744,7 @@
         {
           "id": "jc935-3-review-12-3-3",
           "goal": "第三步：做一道推广函数 (ln^3 t)/t 驻点幂次迁移题",
-          "plain": "发现规侓了没有？(ln^n t)/t 的单调转折点永远发生在 ln t = n 即 t = e^n 处！验证一下 n=3。",
+          "plain": "发现规律了没有？(ln^n t)/t 的单调转折点永远发生在 ln t = n 即 t = e^n 处！验证一下 n=3。",
           "formula": "\\ln^3 b-\\ln^3 a>\\frac{27}{e^3}(b-a)\\quad(e^2<a<b<e^3)",
           "detail": "若反过来求上界，则是 < (12/e^2)(b-a)（因为 3φ(e^2)=12/e^2）。",
           "transfer": {
@@ -21792,7 +21793,7 @@
       {
         "change": "先对 x 求导解出驻点 x(a) 的显式函数",
         "text": "记住 (a^{2x})'=2 a^{2x} ln a，因为 a>1 保证 ln a>0。",
-        "formula": "f'(x)=2a^{2x}\\ln a-a^4=0\\;\\Longrightarrow\\;a^{2x}=\\frac{a^4}{2\\ln a}"
+        "formula": "\\begin{gathered}f'(x)=2a^{2x}\\ln a-a^4=0\\\\[4pt]\\Longrightarrow\\;a^{2x}=\\frac{a^4}{2\\ln a}\\end{gathered}"
       },
       {
         "change": "两边取自然对数解出 x(a)，并用换元 u=2ln a 化简",
@@ -21802,7 +21803,7 @@
       {
         "change": "求关于 u 的极小值（即求 (ln u)/u 的极大值）",
         "text": "求导得 dx/du=(ln u-1)/u^2=0，得 u=e 再回代解出 a。",
-        "formula": "u=e\\;\\Longrightarrow\\;\\ln a=\\frac{e}{2}\\;\\Longrightarrow\\;a=e^{e/2},\\;x_{\\min}=2-\\frac{1}{e}"
+        "formula": "\\begin{gathered}u=e\\;\\Longrightarrow\\;\\ln a=\\frac{e}{2}\\\\[4pt]\\Longrightarrow\\;a=e^{e/2},\\;x_{\\min}=2-\\frac{1}{e}\\end{gathered}"
       }
     ],
     "teaching": {
@@ -21840,7 +21841,7 @@
           "id": "jc935-3-review-13-2",
           "goal": "第二步：对 u=2ln a 求最小值并回代解出 a",
           "plain": "要使 x=2-(ln u)/u 最小，只需看 dx/du=-(1-ln u)/u^2=(ln u-1)/u^2；当 0<u<e 时为负、u>e 时为正，全局唯一最小值在 u=e！",
-          "formula": "u=2\\ln a=e\\;\\Longrightarrow\\;\\ln a=\\frac{e}{2}\\;\\Longrightarrow\\;a=e^{e/2},\\quad x_{\\min}=2-\\frac{1}{e}",
+          "formula": "\\begin{gathered}u=2\\ln a=e\\;\\Longrightarrow\\;\\ln a=\\frac{e}{2}\\\\[4pt]\\Longrightarrow\\;a=e^{e/2},\\quad x_{\\min}=2-\\frac{1}{e}\\end{gathered}",
           "detail": "回代时看清 2ln a=e 给出 ln a=e/2，因此 a=e^{e/2}（不是 e^e）。",
           "check": {
             "prompt": "求得令 x=2-(ln u)/u 最小的中间变量 u=e 后，对应的参数 a 与最小驻点 x_min 分别是？",
@@ -21909,7 +21910,7 @@
       {
         "change": "将椭圆方程看作隐函数 y=y(x)，两边对 x 求导",
         "text": "对 2xy 求导必须用乘积法则展开成 2y+2xy'。",
-        "formula": "2x+2y+2xy'+8yy'=0\\;\\Longrightarrow\\;y'=-\\frac{x+y}{x+4y}"
+        "formula": "\\begin{gathered}2x+2y+2xy'+8yy'=0\\\\[4pt]\\Longrightarrow\\;y'=-\\frac{x+y}{x+4y}\\end{gathered}"
       },
       {
         "change": "在最高与最低点处切线水平，令 y'=0 得直线关系",
@@ -22026,7 +22027,7 @@
       {
         "change": "用椭圆参数角 t∈(0,π/2) 设第一象限顶点",
         "text": "长半轴 a=6、短半轴 b=4（开平方！不要把 36 和 16 直接当半轴），用三角参数比带根号好算得多。",
-        "formula": "x=6\\cos t,\\quad y=4\\sin t\\quad\\left(0<t<\\frac{\\pi}{2}\\right)"
+        "formula": "\\begin{gathered}x=6\\cos t,\\quad y=4\\sin t\\\\[4pt]\\left(0<t<\\frac{\\pi}{2}\\right)\\end{gathered}"
       },
       {
         "change": "别忘把第一象限小面积 xy 乘以 4 得到总矩形面积",
@@ -22052,7 +22053,7 @@
           "id": "jc935-3-review-15-1",
           "goal": "第一步：用参数角化简矩形总面积 S(t)=48sin 2t",
           "plain": "椭圆半轴分别为 √36=6 与 √16=4；设第一象限角点 (6cos t, 4sin t)，整个矩形横跨四个象限宽 2x、高 2y，面积 S=4xy。",
-          "formula": "S(t)=4(6\\cos t)(4\\sin t)=96\\sin t\\cos t=48\\sin 2t\\quad\\left(0<t<\\frac{\\pi}{2}\\right)",
+          "formula": "\\begin{gathered}S(t)=4(6\\cos t)(4\\sin t)\\\\[4pt]=96\\sin t\\cos t=48\\sin 2t\\;\\left(0<t<\\frac{\\pi}{2}\\right)\\end{gathered}",
           "detail": "如果设直角坐标代入 y=4√(1-x^2/36) 求导也可以，但参数角化简后连导数都一眼看穿！",
           "check": {
             "prompt": "用椭圆参数 x=6cos t, y=4sin t（0<t<π/2）表示整个内接矩形的面积 S(t)，正确的化简式是？",
@@ -22144,7 +22145,7 @@
       {
         "change": "构造函数 f(x)=x^2/2^x（x>0）并用导数找出唯一峰值",
         "text": "离散数列不能直接求导，先连续化后再比较峰值两侧的整数项。",
-        "formula": "f'(x)=x\\cdot 2^{-x}(2-x\\ln 2)=0\\Rightarrow x_0=\\frac{2}{\\ln 2}"
+        "formula": "\\begin{gathered}f'(x)=x\\cdot 2^{-x}(2-x\\ln 2)=0\\\\[4pt]\\Rightarrow x_0=\\frac{2}{\\ln 2}\\end{gathered}"
       },
       {
         "change": "用已知估算 2/3<ln 2<1 夹出 x₀ 所在的两个相邻整数之间",
@@ -22272,7 +22273,7 @@
       {
         "change": "算回最大曲率后务必取倒数得最小曲率半径 ρ_min",
         "text": "别把最大曲率 2/(3√3) 误当最小曲率半径，题目问的是点坐标和 ρ_min=1/K_max！",
-        "formula": "\\left(\\frac{\\sqrt{2}}{2},-\\frac{1}{2}\\ln 2\\right),\\quad \\rho_{\\min}=\\frac{3\\sqrt{3}}{2}"
+        "formula": "\\begin{gathered}\\left(\\frac{\\sqrt{2}}{2},-\\frac{1}{2}\\ln 2\\right)\\\\[4pt]\\rho_{\\min}=\\frac{3\\sqrt{3}}{2}\\end{gathered}"
       }
     ],
     "teaching": {
@@ -22288,7 +22289,7 @@
           "id": "jc935-3-review-17-1",
           "goal": "第一步：化简 K(x) 并求导找到最弯横坐标",
           "plain": "算出 y'=1/x、y''=-1/x^2 后，在 x>0 内把 (1+1/x^2)^{3/2} 写成 (x^2+1)^{3/2}/x^3，倒上分子消掉 x^2 就得清爽的 K(x)=x/(x^2+1)^{3/2}。",
-          "formula": "\\begin{gathered}K(x)=\\frac{x}{(x^2+1)^{3/2}}\\\\[4pt]K'(x)=\\frac{(x^2+1)^{3/2}-x\\cdot\\frac{3}{2}(x^2+1)^{1/2}(2x)}{(x^2+1)^3}=\\frac{1-2x^2}{(x^2+1)^{5/2}}\\end{gathered}",
+          "formula": "\\begin{gathered}K(x)=\\frac{x}{(x^2+1)^{3/2}}\\\\[4pt]K'(x)=\\frac{(x^2+1)^{3/2}-3x^2(x^2+1)^{1/2}}{(x^2+1)^3}\\\\[4pt]=\\frac{1-2x^2}{(x^2+1)^{5/2}}\\end{gathered}",
           "detail": "令 K'(x)=0 在 x>0 得唯一驻点 x=1/√2=√2/2，左正右负为最大曲率点。",
           "check": {
             "prompt": "将 K'(x) 分子提公因式化简为 1-2x^2 后，x>0 上曲线最弯的点（ρ 最小）的横坐标与纵坐标分别是？",
@@ -22379,17 +22380,17 @@
       {
         "change": "按驻点 x=1 把正半轴 (0,+∞) 分为 (0,1] 与 (1,+∞) 两段",
         "text": "不要直接说导数恒正！因为 f'(x)=3(x^2-1) 在 (0,1) 上是负的，要先证明 (0,1] 上函数全为负无正根。",
-        "formula": "f'(x)=3(x^2-1)\\;\\Longrightarrow\\;[0,1]\\text{ 上 }f(x)\\le f(0)=-4<0"
+        "formula": "\\begin{gathered}f'(x)=3(x^2-1)\\\\[4pt]\\Longrightarrow\\;[0,1]\\text{ 上 }f(x)\\le f(0)=-4<0\\end{gathered}"
       },
       {
         "change": "在 [1,+∞) 上严格单调递增，隔离唯一正根到 (2,3)",
         "text": "算 f(2)=-2<0、f(3)=14>0，甚至试算 f(2.2)=0.048 可直接把初值靠得很近！",
-        "formula": "f(2)=-2<0,\\;f(3)=14>0,\\;f''(x)=6x>0"
+        "formula": "\\begin{gathered}f(2)=-2<0,\\;f(3)=14>0\\\\[4pt]f''(x)=6x>0\\end{gathered}"
       },
       {
         "change": "取同号初值 x₀=2.2（或 3）用切线法算到精度 10^{-3}",
         "text": "因为 f(2.2)=0.048 与 f''(2.2)>0 同正，仅迭代 1 步 x₁=2.2-0.048/11.52≈2.19583 就直接进万分之一！",
-        "formula": "x_1=2.2-\\frac{0.048}{11.52}\\approx 2.19583\\;\\Longrightarrow\\;\\xi\\approx 2.196"
+        "formula": "\\begin{gathered}x_1=2.2-\\frac{0.048}{11.52}\\approx 2.19583\\\\[4pt]\\Longrightarrow\\;\\xi\\approx 2.196\\end{gathered}"
       }
     ],
     "teaching": {
@@ -22500,7 +22501,7 @@
       {
         "change": "对一阶导数之差拆项凑加减 g'(x₀)",
         "text": "把 [g'(x₀+2h)-g'(x₀+h)]/h 拆成两个标准导数定义极限。",
-        "formula": "2\\cdot\\frac{g'(x_0+2h)-g'(x_0)}{2h}-\\frac{g'(x_0+h)-g'(x_0)}{h}"
+        "formula": "\\begin{gathered}2\\cdot\\frac{g'(x_0+2h)-g'(x_0)}{2h}\\\\[4pt]-\\frac{g'(x_0+h)-g'(x_0)}{h}\\end{gathered}"
       },
       {
         "change": "利用 g''(x₀) 的定义分别取极限合拢",
@@ -22521,7 +22522,7 @@
           "id": "jc935-3-review-19-1",
           "goal": "第一步：识别洛必达次数的上限，只用一次求导降阶",
           "plain": "这是一道极易失分的经典理论题！题设只给“g''(x₀) 存在”（单点），意味着一阶导 g' 在 x₀ 邻域内一定存在并可对分子求一次导，但二阶导 g'' 未必在邻域存在！",
-          "formula": "\\lim_{h\\to 0}\\frac{g(x_0+2h)-2g(x_0+h)+g(x_0)}{h^2}=\\lim_{h\\to 0}\\frac{2g'(x_0+2h)-2g'(x_0+h)}{2h}",
+          "formula": "\\begin{gathered}\\lim_{h\\to 0}\\frac{g(x_0+2h)-2g(x_0+h)+g(x_0)}{h^2}\\\\[4pt]=\\lim_{h\\to 0}\\frac{2g'(x_0+2h)-2g'(x_0+h)}{2h}\\end{gathered}",
           "detail": "关于变量 h 求导别漏掉 (x₀+2h)'=2，约去公因子 2 后得到 [g'(x₀+2h)-g'(x₀+h)]/h。",
           "check": {
             "prompt": "为何证明 lim_{h→0}[g(x₀+2h)-2g(x₀+h)+g(x₀)]/h^2 = g''(x₀) 时，不能连续使用两次洛必达法则？",
@@ -22543,7 +22544,7 @@
           "id": "jc935-3-review-19-2",
           "goal": "第二步：添减 g'(x₀) 用导数定义完成最后一步",
           "plain": "降到一阶导数差商后，用高数最基本一招：在分子中间塞进 “-g'(x₀) + g'(x₀)”，拆成两个各自收敛的标准二阶导数定义式！",
-          "formula": "\\begin{gathered}\\frac{g'(x_0+2h)-g'(x_0+h)}{h}=2\\cdot\\frac{g'(x_0+2h)-g'(x_0)}{2h}-\\frac{g'(x_0+h)-g'(x_0)}{h}\\\\[4pt]\\xrightarrow{h\\to 0}2g''(x_0)-g''(x_0)=g''(x_0)\\end{gathered}",
+          "formula": "\\begin{gathered}\\frac{g'(x_0+2h)-g'(x_0+h)}{h}\\\\[4pt]=2\\cdot\\frac{g'(x_0+2h)-g'(x_0)}{2h}\\\\[4pt]-\\frac{g'(x_0+h)-g'(x_0)}{h}\\\\[4pt]\\xrightarrow{h\\to 0}2g''(x_0)-g''(x_0)=g''(x_0)\\end{gathered}",
           "detail": "也可直接利用带佩亚诺余项的二阶泰勒展开 g(x₀+kh)=g(x₀)+kg'(x₀)h+(1/2)k^2 g''(x₀)h^2+o(h^2) 同样严格且只需单点二阶可导！",
           "check": {
             "prompt": "将降阶后的 [g'(x₀+2h)-g'(x₀+h)]/h 拆分成两个标准极限凑定义，下列拆项正确的是？",
@@ -22616,7 +22617,7 @@
       {
         "change": "分别把 g(x₁) 与 g(x₂) 在 x₀ 处写成带拉格朗日余项的一阶泰勒公式",
         "text": "因 g''(x)≤0，两式的二次余项 (1/2)g''(ξᵢ)(xᵢ-x₀)^2 全部非正！",
-        "formula": "g(x_i)\\le g(x_0)+g'(x_0)(x_i-x_0)\\quad(i=1,2)"
+        "formula": "\\begin{gathered}g(x_i)\\le g(x_0)+g'(x_0)(x_i-x_0)\\\\[4pt](i=1,2)\\end{gathered}"
       },
       {
         "change": "加权 (1-λ) 与 λ 相加，看一次项如何完美抵消成 0",
@@ -22630,7 +22631,7 @@
         "理解 g''≤0 几何含义：曲线处处落在任一点切线下方，即 g(x)≤g(x₀)+g'(x₀)(x-x₀)"
       ],
       "strategy": "taylor-jensen-inequality-concave-midpoint",
-      "solution": "\\begin{gathered}x_0=(1-\\lambda)x_1+\\lambda x_2\\\\[4pt]g(x_i)\\le g(x_0)+g'(x_0)(x_i-x_0)\\;\\Longrightarrow\\;(1-\\lambda)g(x_1)+\\lambda g(x_2)\\le g(x_0)\\end{gathered}",
+      "solution": "\\begin{gathered}x_0=(1-\\lambda)x_1+\\lambda x_2\\\\[4pt]g(x_i)\\le g(x_0)+g'(x_0)(x_i-x_0)\\\\[4pt]\\Longrightarrow\\;(1-\\lambda)g(x_1)+\\lambda g(x_2)\\le g(x_0)\\end{gathered}",
       "solutionExplanation": "在加权中点 x₀=(1-λ)x₁+λx₂ 处对 g(x₁), g(x₂) 作带拉格朗日余项的 1 阶泰勒展开，利用 g''≤0 舍去非正二次余项，再按 (1-λ) 与 λ 加权相加消去一阶切线项即证。",
       "steps": [
         {
@@ -22659,7 +22660,7 @@
           "id": "jc935-3-review-20-2",
           "goal": "第二步：用 1-λ≥0 与 λ≥0 保号加权合并得证",
           "plain": "分别给两不等式乘以非负数 (1-λ)≥0 与 λ≥0（不等号方向不变），两边相加看到左边就是 (1-λ)g(x₁)+λg(x₂)，右边系数汇总刚好等于 1·g(x₀) + g'(x₀)·0！",
-          "formula": "\\begin{gathered}(1-\\lambda)g(x_1)+\\lambda g(x_2)\\le[(1-\\lambda)+\\lambda]g(x_0)+g'(x_0)[(1-\\lambda)(x_1-x_0)+\\lambda(x_2-x_0)]\\\\[4pt]=g(x_0)=g[(1-\\lambda)x_1+\\lambda x_2]\\end{gathered}",
+          "formula": "\\begin{gathered}(1-\\lambda)g(x_1)+\\lambda g(x_2)\\\\[4pt]\\le[(1-\\lambda)+\\lambda]g(x_0)+g'(x_0)[0]\\\\[4pt]=g(x_0)=g[(1-\\lambda)x_1+\\lambda x_2]\\end{gathered}",
           "detail": "若条件变成 g''≥0（下凸/凹函数），不等号全部反过来即可！",
           "check": {
             "prompt": "把两式乘以 1-λ 与 λ 相加后，为何右边的一阶导数项 g'(x₀)[(1-λ)(x₁-x₀)+λ(x₂-x₀)] 必定恒等于 0？",
@@ -22733,12 +22734,12 @@
       {
         "change": "写出 tan x 与 sin x 到 x^5 阶的麦克劳林展开并合并同类项",
         "text": "熟记 tan x = x + x^3/3 + (2/15)x^5 + o(x^5) 与 sin x = x - x^3/6 + x^5/120 + o(x^5)。",
-        "formula": "f(x)=(1-a-b)x-\\left(\\frac{a}{3}-\\frac{b}{6}\\right)x^3-\\left(\\frac{2a}{15}+\\frac{b}{120}\\right)x^5+o(x^5)"
+        "formula": "\\begin{gathered}f(x)=(1-a-b)x\\\\[4pt]-\\left(\\frac{a}{3}-\\frac{b}{6}\\right)x^3\\\\[4pt]-\\left(\\frac{2a}{15}+\\frac{b}{120}\\right)x^5+o(x^5)\\end{gathered}"
       },
       {
         "change": "令前两项系数为零解出 a, b，并务必检验 x^5 系数确实非零",
         "text": "5 阶无穷小要求 cx^5+o(x^5) 中 c≠0，算一算 -(2a/15+b/120) 是否不为零！",
-        "formula": "a=\\frac{1}{3},\\;b=\\frac{2}{3},\\quad f(x)=-\\frac{1}{20}x^5+o(x^5)"
+        "formula": "\\begin{gathered}a=\\frac{1}{3},\\;b=\\frac{2}{3}\\\\[4pt]f(x)=-\\frac{1}{20}x^5+o(x^5)\\end{gathered}"
       }
     ],
     "teaching": {
@@ -22754,7 +22755,7 @@
           "id": "jc935-3-review-21-1",
           "goal": "第一步：化简三角式并按幂次合并出方程组",
           "plain": "乘开括号利用 cos x·tan x=sin x，瞬间消除了最麻烦的级数乘法！随后展开 tan x 与 sin x 到 x^5 并合并。",
-          "formula": "\\begin{gathered}f(x)=x-a\\tan x-b\\sin x\\\\[4pt]=(1-a-b)x-\\left(\\frac{a}{3}-\\frac{b}{6}\\right)x^3-\\left(\\frac{2a}{15}+\\frac{b}{120}\\right)x^5+o(x^5)\\end{gathered}",
+          "formula": "\\begin{gathered}f(x)=x-a\\tan x-b\\sin x\\\\[4pt]=(1-a-b)x-\\left(\\frac{a}{3}-\\frac{b}{6}\\right)x^3\\\\[4pt]-\\left(\\frac{2a}{15}+\\frac{b}{120}\\right)x^5+o(x^5)\\end{gathered}",
           "detail": "sin x 展开里三次项带负号，前有 -b 所以合并后变成 -(-b/6)=+b/6，即 -[(a/3)-(b/6)]。",
           "check": {
             "prompt": "化简 f(x)=x-a tan x-b sin x 并展开到 3 阶后，x 项和 x^3 项系数同时为零给出的方程组是？",
@@ -22776,7 +22777,7 @@
           "id": "jc935-3-review-21-2",
           "goal": "第二步：解出 a,b 并验证 5 次项系数非零",
           "plain": "由 b=2a 与 a+b=1 得 a=1/3, b=2/3；因为只有一正一反，必须再把 a, b 代回 x^5 项的系数，证实它不等于 0（否则就变成了 7 阶无穷小而不是 5 阶）！",
-          "formula": "-\\left(\\frac{2}{15}\\cdot\\frac{1}{3}+\\frac{1}{120}\\cdot\\frac{2}{3}\\right)=-\\left(\\frac{2}{45}+\\frac{1}{180}\\right)=-\\frac{9}{180}=-\\frac{1}{20}\\neq 0",
+          "formula": "\\begin{gathered}-\\left(\\frac{2}{15}\\cdot\\frac{1}{3}+\\frac{1}{120}\\cdot\\frac{2}{3}\\right)\\\\[4pt]=-\\left(\\frac{2}{45}+\\frac{1}{180}\\right)=-\\frac{9}{180}=-\\frac{1}{20}\\neq 0\\end{gathered}",
           "detail": "同时记住一个超级经典的三阶近似公式：(1+2cos x)/3 · tan x 与 x 的误差直到 5 阶才出现 (-x^5/20)！",
           "check": {
             "prompt": "解出 a=1/3, b=2/3 后，为何必须额外代回检验 -(2a/15+b/120)=-1/20≠0？",

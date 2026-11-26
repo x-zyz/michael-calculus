@@ -212,7 +212,7 @@ describe("limit and derivative learning", () => {
       target: { value: "2" },
     });
     fireEvent.click(screen.getByRole("button", { name: "检查答案" }));
-    expect(screen.getByRole("status")).toHaveTextContent("✓ 回答正确");
+    expect(screen.getByRole("status")).toHaveTextContent("回答正确。");
     v4.unmount();
   });
   it("filters practice and review by chapter and errorTag and computes mastery stats with weakTags", () => {
@@ -385,7 +385,7 @@ it("links the fifth chapter to its own volume experiment and chapter practice", 
 });
 
 it("reveals a reference plot and records only an explicit written self-assessment", () => {
-  mount("/practice?problem=p220");
+  mount("/practice?problem=p220&ui=classic");
   expect(screen.queryByRole("textbox", { name: /数值/ })).toBeNull();
   fireEvent.click(screen.getByRole("button", { name: "查看分步解析" }));
   expect(screen.getByRole("img", { name: /四次函数参考图/ })).toBeVisible();
@@ -411,7 +411,7 @@ it("assigns each written exercise to a real lesson and error topic", () => {
 it("reconciles the derived bank index with the unified SSOT bank and KaTeX output", () => {
   expect(problemIndex).toHaveLength(problems.length);
   expect(problemIndex.map(({ id }) => id)).toEqual(problems.map(({ id }) => id));
-  expect(searchProblemIndex({ chapter: 3, onlyEli5: true })).toHaveLength(98);
+  expect(searchProblemIndex({ chapter: 3, onlyEli5: true })).toHaveLength(195);
   expect(searchProblemIndex({ query: "洛必达", onlyEli5: true }).length).toBeGreaterThan(0);
 
   const exercises = problems.filter(({ id }) => id.startsWith("jc935-"));
