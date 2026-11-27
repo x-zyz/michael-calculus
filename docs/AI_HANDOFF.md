@@ -2,21 +2,20 @@
 
 本文件是 `main` 的权威交接。旧工作树先读 [AGENTS.md](../AGENTS.md)，再查阅 [main 上的本文件](https://github.com/x-zyz/michael-calculus/blob/main/docs/AI_HANDOFF.md)。接手任务时核对远程提交、工作树和未提交改动，保留其他 Agent 的工作树与分支。分支状态、版本与验证结果以 Git、源码及实际回读为准。
 
-## 当前发布基线 · v1.5.0
+## 当前发布基线 · v1.6.0
 
-- [v1.5.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.5.0) 的合并提交为 `9fffda7b64f43d92120eaadde96860dfad6916b0`（[PR #17](https://github.com/x-zyz/michael-calculus/pull/17)，发版提交 `0164f92baaa09c8f013ee8f36d6332afa4571e76`）。实装印象派 "Giverny Atelier" 双主题（明/暗配色 tokens 与布局组件重构），新增全幅背景组件 [DanubeBackdrop.tsx](../src/components/DanubeBackdrop.tsx) 及 `public/art/danube-day.webp`、`danube-night.webp`（74,212 / 128,576 字节）。
-- 主线已合入截至 §3.4 的 700 道 ELI5 课程、700 组 `guidedHints` 与 3 套前置知识补救微课（`chain-rule`、`rolle-conditions`、`lagrange-mvt`）。主线 [UI 回归](https://github.com/x-zyz/michael-calculus/actions/runs/45615942211)、[Pages 部署](https://github.com/x-zyz/michael-calculus/actions/runs/45615942364) 与 [签名发布](https://github.com/x-zyz/michael-calculus/actions/runs/45616033252) 均成功。
-- 正式 APK 为 `com.michael.calculus` 1.5.0 / 52，共 7,302,781 字节，SHA-256 为 `2719bd2533a0524888ef17c03e9fa11f57c828ad10a840e73a9169cef2d5581c`；PWA 离线 ZIP 为 4,296,252 字节。[ByteVirt 清单](https://update.0979019203.top/calculus/stable/android/latest.json) 实测版本 `1.5.0` / `build 52`、序列 `52`，固定签名指纹为 `8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706`，APK SHA-256 与 Release 一致。
-- [Pages](https://x-zyz.github.io/michael-calculus/) 实测 `sw.js` 缓存为 `michael-calculus-v1.5.0`。Android 真机覆盖升级、学习数据保留和离线重开仍待验收。
+- [v1.6.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.6.0) 的合并提交为 `2b1a6baa8a89a1214341c8bd63f1c9bf3d9da548`（[PR #19](https://github.com/x-zyz/michael-calculus/pull/19)，含 510 题去模板 ELI5 升级 `a472c7ed935a74641782e05ff2eb9ad1b40ef21f` 与发版提交 `307dd751ab3fe1ac3eeef6769963feec453346f6`；前置 [PR #18](https://github.com/x-zyz/michael-calculus/pull/18) 合并提交 `7f0e7207b8236fd78aba55ecea5229a43d450879` 已合入第三章剩余 97 题与 68 节课程重写 `21827ddd7bc463a438fa6a40a56af7b8bdb4c9f5`）。
+- **教学与题库里程碑（第 1–3 章 797/797 题 100% 定制 ELI5 覆盖）**：
+  - 补齐第三章剩余 97 题并完成全书第 1–8 章 68 节课程正文自然口语化重写与 `MathText` 渲染校验；
+  - 将第一、二章全部 510 道模板题（第 1 章 303 + 第 2 章 207）重构为 3 步定制 ELI5 教学（1,020 道理解检查、平衡槽位分布），并将全部 37 道六位近似/无理迁移题替换为 SymPy 验证的整数或简洁有理数变体；510 题在 `360×740` 下逐题实测零裁切；新增永久门禁单测 [ch03RemainingEli5.test.ts](../src/tests/ch03RemainingEli5.test.ts) 与 [ch01Ch02DetemplateEli5.test.ts](../src/tests/ch01Ch02DetemplateEli5.test.ts)。
+- 本地终验（`validate:bank` 1,693 题 / 797 提示 / 797 ELI5 / 0 错、`typecheck`、`lint`、`check:css`、`vitest` 20 文件 132 项、`test:signing` 5 项、`android:sync`、510 题 `360×740` 巡检 0 错、Playwright 448 通过 / 20 跳过）与云端流水线均已通过：主线 [UI 回归](https://github.com/x-zyz/michael-calculus/actions/runs/45935821236)、[Pages 部署](https://github.com/x-zyz/michael-calculus/actions/runs/45935821278) 与 [签名发布](https://github.com/x-zyz/michael-calculus/actions/runs/45935830814)（含 `publish-bytevirt`）均成功。
+- 正式 APK 为 `com.michael.calculus` 1.6.0 / `versionCode 53`，共 `7,871,269` 字节，SHA-256 为 `185caadc9635267e0d86570a3c28ae4daa70fc316f2554df422483b4ffe8d92c`；PWA 离线 ZIP 为 `4,862,818` 字节，SHA-256 为 `a071e92e21b9e70196ec63b2de1795df8bbc555f9bb2fda28d1bc77d2dbb020d`。独立跑通 `scripts/verify-android-release.mjs`（固定签名指纹 `8d7d3a0c3cccb6130ce83dc1d71c7c9721d4266c085f5a68f4b9df8027751706`，非调试包，对齐通过）。
+- [ByteVirt 清单](https://update.0979019203.top/calculus/stable/android/latest.json) 实测版本 `1.6.0` / `build 53`、序列 `53`，APK 返回 HTTP 200 且 SHA-256 与 Release 一致；[Pages](https://x-zyz.github.io/michael-calculus/) 实测 `sw.js` 缓存为 `michael-calculus-v1.6.0`。Android 真机覆盖升级、学习数据保留和离线重开仍待验收。
 
-## 待合入内容增量 · 第三章 100% 覆盖（分支 `content/ch3-complete-eli5`）
+## v1.5.0 与前期基线发布记录
 
-- 从 `main`（`9fffda7`）切出独立内容分支 `content/ch3-complete-eli5`，不更改应用版本号（保持 `1.5.0` / `versionCode 52`），补齐第三章全部剩余 **97 道题** 的 `formulaIds`、三级 `guidedHints` 与四状态 ELI5 教学，统一写入单一数据源 [ch03.json](../src/data/bank/ch03.json) 并由 `npm run build:bank-index` 重建 [index.generated.json](../src/data/bank/index.generated.json)：
-  - 提交 `a8bf415`：§3.5 极值与最值（31 题）、§3.6 函数作图（5 题）、第三章核心与综合题（16 题：`p23, p24, p42, p43, p136–p138, p184, p185, p218–p223, jc935-1-4-8`），共 52 题、104 道理解检查与 52 道迁移题。
-  - 提交 `643abdc`：§3.7 曲率（11 题）、§3.8 方程的近似解（4 题）、第三章总习题三（30 题），共 45 题、90 道理解检查与 45 道迁移题。
-  - 360px 窄屏实测与测试门禁（本分支末次提交）：逐题检查 97 题在 `360×740` 下的 ELI5 引导/解析及经典分步提示后，补齐 73 处长公式 `gathered` 换行（复检 `0` 裁切）并完成 7 处表述与公式标签修订；新增 [ch03RemainingEli5.test.ts](../src/tests/ch03RemainingEli5.test.ts)（4 项质量与覆盖率门禁），同步更新 [expandedTeaching.test.ts](../src/tests/expandedTeaching.test.ts)、[learning.test.tsx](../src/tests/learning.test.tsx)、[p1-remediation.spec.ts](../tests/p1-remediation.spec.ts) 与 [practice-formula-reference.spec.ts](../tests/practice-formula-reference.spec.ts)。
-- 至此 **第一至三章 797 道题实现 100% 覆盖**（第一章 344 + 第二章 258 + 第三章 195），派生索引 [index.generated.json](../src/data/bank/index.generated.json) 已同步重建；未改动版本号（仍为 `1.5.0` / `versionCode 52`）。
-- 分支本地终验全部通过：`npm run validate:bank`（1,693 题 / 797 提示 / 797 ELI5 / 0 错误）、`npm run typecheck`、`npm run lint`、`npm run check:css`、`npm run build`、`npm test`（19 个文件 126 项全过）、`npm run test:signing`（5 项全过）、97 题 `360×740` 复检 0 裁切、`npx playwright test`（448 项通过，20 项按条件跳过，共 468 项）。待整合评审并合并主线；之后第四章（不定积分）起的所有普通未教学夹具需指向 `ch04.json` 题目。
+- [v1.5.0](https://github.com/x-zyz/michael-calculus/releases/tag/v1.5.0) 的合并提交为 `9fffda7b64f43d92120eaadde96860dfad6916b0`（[PR #17](https://github.com/x-zyz/michael-calculus/pull/17)，发版提交 `0164f92baaa09c8f013ee8f36d6332afa4571e76`）。实装印象派 "Giverny Atelier" 双主题，新增 [DanubeBackdrop.tsx](../src/components/DanubeBackdrop.tsx) 及 `public/art/danube-day.webp`、`danube-night.webp`；截至 §3.4 的 700 题 ELI5 与 3 套补救微课已入主线。主线 [UI 回归](https://github.com/x-zyz/michael-calculus/actions/runs/45615942211)、[Pages 部署](https://github.com/x-zyz/michael-calculus/actions/runs/45615942364) 与 [签名发布](https://github.com/x-zyz/michael-calculus/actions/runs/45616033252) 均成功，APK 为 `1.5.0` / `52`（7,302,781 字节，SHA-256 `2719bd2533a0524888ef17c03e9fa11f57c828ad10a840e73a9169cef2d5581c`）。
+- 随后 [PR #18](https://github.com/x-zyz/michael-calculus/pull/18)（`7f0e7207`）合入 `content/ch3-complete-eli5`（第三章剩余 97 题 ELI5 `a8bf415`、`643abdc`、`1f52d5d` 及 68 节课程自然表达重写 `21827dd`）。
 
 ## v1.4.0 发布记录
 
@@ -69,23 +68,23 @@
 
 ## 题库与教学进度
 
-下表为单一数据源 `src/data/bank/ch01.json` … `ch08.json` 的覆盖统计（注：截至 `v1.5.0` 的 `main` 主线在第三章已合入 §3.1–§3.4 共 98 题，全库 700 题；分支 `content/ch3-complete-eli5` 补齐第三章剩余 97 题，使第三章达到 195/195 = 100%，全库达到 797 题）：
+下表为 `main`（`v1.6.0`）单一数据源 `src/data/bank/ch01.json` … `ch08.json` 的实时覆盖统计（**第 1–3 章全部 797 题已实现 100% 定制三步 ELI5 覆盖**，全库占比 `797/1,693 = 47.08%`）：
 
-| 范围 | 题量 | 已关联 `formulaIds` | 有逐步提示 `guidedHints` | 四状态 ELI5（分支 / main） |
+| 范围 | 题量 | 已关联 `formulaIds` | 有逐步提示 `guidedHints` | 定制四状态 ELI5（`main`） |
 | --- | ---: | ---: | ---: | ---: |
-| 第一章 函数、极限与连续 | 344 | 344 | 344 | 344 / 344 |
-| 第二章 导数与微分 | 258 | 258 | 258 | 258 / 258 |
-| 第三章 微分中值定理与导数应用 | 195 | 195 / 100 | 195 / 98 | 195 / 98 |
-| 第四章 不定积分 | 241 | 2 | 0 | 0 / 0 |
-| 第五章 定积分及其应用 | 301 | 9 | 0 | 0 / 0 |
-| 第六章 多元函数微积分 | 37 | 22 | 0 | 0 / 0 |
-| 第七章 无穷级数 | 22 | 9 | 0 | 0 / 0 |
-| 第八章 常微分方程及差分方程 | 295 | 18 | 0 | 0 / 0 |
-| 整体题库合计 | 1,693 | 857 / 762 | 797 / 700 | 797 / 700 |
+| 第一章 函数、极限与连续 | 344 | 344 | 344 | 344（100%） |
+| 第二章 导数与微分 | 258 | 258 | 258 | 258（100%） |
+| 第三章 微分中值定理与导数应用 | 195 | 195 | 195 | 195（100%） |
+| 第四章 不定积分 | 241 | 2 | 0 | 0 |
+| 第五章 定积分及其应用 | 301 | 9 | 0 | 0 |
+| 第六章 多元函数微积分 | 37 | 22 | 0 | 0 |
+| 第七章 无穷级数 | 22 | 9 | 0 | 0 |
+| 第八章 常微分方程及差分方程 | 295 | 18 | 0 | 0 |
+| 整体题库合计 | 1,693 | 857 | 797 | 797（47.08%） |
 
-- 第三章分节明细（195 题，`content/ch3-complete-eli5` 全覆盖）：§3.1 16 题、§3.2 19 题、§3.3 15 题、§3.4 38 题、§3.5 31 题、§3.6 5 题、§3.7 11 题、§3.8 4 题、总习题三 30 题、核心与综合 26 题；全库 `meta`（`nickname` / `theorems` / `techniques` / `isTrap` / `trapNote`）目前为 `0` 题，待后续语义标引。章节与课时归属见 [教材课程大纲](textbook-curriculum.md)，题库结构与字段规范见 [题库说明](bank/README.md)。
+- 第三章分节明细（195 题）：§3.1 16 题、§3.2 19 题、§3.3 15 题、§3.4 38 题、§3.5 31 题、§3.6 5 题、§3.7 11 题、§3.8 4 题、总习题三 30 题、核心与综合 26 题；全库 `meta`（`nickname` / `theorems` / `techniques` / `isTrap` / `trapNote`）目前为 `0` 题，待后续语义标引。章节与课时归属见 [教材课程大纲](textbook-curriculum.md)，题库结构与字段规范见 [题库说明](bank/README.md)。
 - 四状态 ELI5 支持独立作答、引导、完整解法和结果。数值题按允许的数值或分数判分。书写推导、证明和作图保留纸笔作答与自评。看过引导或解法的正确作答记录为辅助完成。
-- 运行时覆盖由 [expandedTeaching.test.ts](../src/tests/expandedTeaching.test.ts)、[ch03RemainingEli5.test.ts](../src/tests/ch03RemainingEli5.test.ts) 与 `npm run validate:bank` 核对；历史 [首批生产清单](eli5-production/README.md) 的排期状态仅作早期批次参考。
+- 运行时覆盖由 [expandedTeaching.test.ts](../src/tests/expandedTeaching.test.ts)、[ch01Ch02DetemplateEli5.test.ts](../src/tests/ch01Ch02DetemplateEli5.test.ts)、[ch03RemainingEli5.test.ts](../src/tests/ch03RemainingEli5.test.ts) 与 `npm run validate:bank` 核对；历史 [首批生产清单](eli5-production/README.md) 的排期状态仅作早期批次参考。
 - [41 题教学审计](eli5-pedagogy-audit-ch1-41.md) 与 [P0 整改记录](eli5-p0-remediation-report.md) 记录了 Batch 1 的选项位置、提前揭示和迁移题问题，以及第二章 `p17` 的条件到公式映射。覆盖测试、已审计范围和学生体验是三个独立的验收项。
 
 ## P1 已合入主线
@@ -101,9 +100,9 @@
 | Gemini | 教学内容、ELI5 微课（`guidedHints`/`teaching`）、`formulaIds`、`meta` 语义标引与数学验收 |
 | Sol | 架构、UI、工程集成与回归，维护状态机、数据兼容性、构建发布及本交接 |
 
-1. **整合评审 `content/ch3-complete-eli5`**：合并第三章 100% 覆盖增量及 97 题门禁单测；需正式发版时按 `AGENTS.md` 走固定签名发布流程。
-2. **推进第四章《不定积分》（`ch04.json`，241 题）**：优先补齐 `formulaIds`、三级 `guidedHints` 与四状态 ELI5 教学，并视需要补充凑微分/换元/分部积分前置补救微课；同步保留 `ch04`–`ch08` 章节大纲 ID 与持久化的向后兼容。
-3. **推进语义标引 `meta` 与真机验收**：按 `src/data/bank/schema.ts` 为已教学题目补充 `nickname` / `theorems` / `techniques` / `isTrap` / `trapNote` 语义标签，强化题目检索体验；完成 Android 真机覆盖升级、学习数据保留及离线重开验收。
+1. **推进第四章《不定积分》（`ch04.json`，241 题）**：优先补齐 `formulaIds`、三级 `guidedHints` 与定制 3 步四状态 ELI5 教学，并视需要补充凑微分 / 第一、二类换元 / 分部积分前置补救微课；同步保留 `ch04`–`ch08` 章节大纲 ID 与持久化的向后兼容（之后普通未教学练习夹具需继续指向 `ch05.json` 及以后）。
+2. **继续扩展第 5–8 章 ELI5 教学（第 5 章 301 题、第 6 章 37 题、第 7 章 22 题、第 8 章 295 题）**：在 `v1.6.0` 第 1–3 章 797 题 100% 手工 ELI5 基线上，分章推进其余 896 道练习。
+3. **推进语义标引 `meta` 与真机验收**：按 `src/data/bank/schema.ts` 为已教学题目补充 `nickname` / `theorems` / `techniques` / `isTrap` / `trapNote` 语义标签，强化题目检索体验；完成 Android 真机覆盖升级（v1.5.0 → v1.6.0）、学习数据保留及离线重开验收。
 
 ## 验收边界与历史分支
 
